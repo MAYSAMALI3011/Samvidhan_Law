@@ -32,6 +32,7 @@ import {
 import { searchAll } from '../api/services/searchService.ts'
 import { completeLessonEvent, submitQuizEvent } from '../api/services/progressService.ts'
 import { toggleBookmarkApi, toggleSavedApi } from '../api/services/bookmarksService.ts'
+import { evaluateQuizAnswer } from '../components/learning/quizScoring.ts'
 import { removeKey, readJson, writeJson } from '../utils/storage.ts'
 import type { ProgressState, QuizQuestion } from '../types/index.ts'
 
@@ -251,33 +252,6 @@ test('progress characterization: toggleBookmarkApi and toggleSavedApi toggle pre
 // 3. QUIZ ENGINE SCORING CHARACTERIZATION TESTS (ALL 6 QUESTION TYPES)
 // ============================================================================
 
-function scoreQuestion(
-  q: QuizQuestion,
-  answers: {
-    selectedOptionId?: string | null
-    matchedPairs?: Record<string, string>
-    orderedSteps?: { id: string; label: string; order: number }[]
-    filledWord?: string | null
-    spottedSentenceId?: string | null
-  },
-): boolean {
-  if (q.type === 'match_pairs' && q.pairs) {
-    const pairs = answers.matchedPairs || {}
-    return q.pairs.every((pair) => pairs[pair.left] === pair.right)
-  }
-  if (q.type === 'order_steps' && answers.orderedSteps) {
-    return answers.orderedSteps.every((step, idx) => step.order === idx + 1)
-  }
-  if (q.type === 'fill_blank') {
-    return answers.filledWord?.toLowerCase() === q.blankCorrectWord?.toLowerCase()
-  }
-  if (q.type === 'spot_violation' && q.spotSentences) {
-    const chosen = q.spotSentences.find((s) => s.id === answers.spottedSentenceId)
-    return chosen?.isViolation === true
-  }
-  return answers.selectedOptionId === q.correctOptionId
-}
-
 test('quiz engine characterization: multiple_choice evaluation', () => {
   const mcq: QuizQuestion = {
     id: 'q-mcq-1',
@@ -292,9 +266,9 @@ test('quiz engine characterization: multiple_choice evaluation', () => {
     explanation: 'The Preamble begins with We, The People of India.',
   }
 
-  assert.strictEqual(scoreQuestion(mcq, { selectedOptionId: 'opt-2' }), true)
-  assert.strictEqual(scoreQuestion(mcq, { selectedOptionId: 'opt-1' }), false)
-  assert.strictEqual(scoreQuestion(mcq, { selectedOptionId: null }), false)
+  assert.strictEqual(evaluateQuizAnswer(mcq, { selectedOptionId: 'opt-2' }), true)
+  assert.strictEqual(evaluateQuizAnswer(mcq, { selectedOptionId: 'opt-1' }), false)
+  assert.strictEqual(evaluateQuizAnswer(mcq, { selectedOptionId: null }), false)
 })
 
 test('quiz engine characterization: true_false evaluation', () => {
@@ -310,8 +284,8 @@ test('quiz engine characterization: true_false evaluation', () => {
     explanation: 'Kesavananda Bharati (1973) held that the basic structure cannot be destroyed.',
   }
 
-  assert.strictEqual(scoreQuestion(tf, { selectedOptionId: 'false' }), true)
-  assert.strictEqual(scoreQuestion(tf, { selectedOptionId: 'true' }), false)
+  assert.strictEqual(evaluateQuizAnswer(tf, { selectedOptionId: 'false' }), true)
+  assert.strictEqual(evaluateQuizAnswer(tf, { selectedOptionId: 'true' }), false)
 })
 
 test('quiz engine characterization: match_pairs evaluation', () => {
@@ -329,7 +303,7 @@ test('quiz engine characterization: match_pairs evaluation', () => {
 
   // All pairs matched correctly
   assert.strictEqual(
-    scoreQuestion(matchQ, {
+    evaluateQuizAnswer(matchQ, {
       matchedPairs: {
         'Article 14': 'Equality Before Law',
         'Article 19': 'Six Democratic Freedoms',
@@ -341,7 +315,7 @@ test('quiz engine characterization: match_pairs evaluation', () => {
 
   // One pair mismatched
   assert.strictEqual(
-    scoreQuestion(matchQ, {
+    evaluateQuizAnswer(matchQ, {
       matchedPairs: {
         'Article 14': 'Six Democratic Freedoms',
         'Article 19': 'Equality Before Law',
@@ -353,7 +327,7 @@ test('quiz engine characterization: match_pairs evaluation', () => {
 
   // Incomplete pairs
   assert.strictEqual(
-    scoreQuestion(matchQ, {
+    evaluateQuizAnswer(matchQ, {
       matchedPairs: {
         'Article 14': 'Equality Before Law',
       },
@@ -378,7 +352,7 @@ test('quiz engine characterization: order_steps evaluation', () => {
 
   // Correct 1, 2, 3, 4 order
   assert.strictEqual(
-    scoreQuestion(orderQ, {
+    evaluateQuizAnswer(orderQ, {
       orderedSteps: [
         { id: 's1', label: 'Step 1', order: 1 },
         { id: 's2', label: 'Step 2', order: 2 },
@@ -391,7 +365,7 @@ test('quiz engine characterization: order_steps evaluation', () => {
 
   // Swapped order
   assert.strictEqual(
-    scoreQuestion(orderQ, {
+    evaluateQuizAnswer(orderQ, {
       orderedSteps: [
         { id: 's2', label: 'Step 2', order: 2 },
         { id: 's1', label: 'Step 1', order: 1 },
@@ -414,11 +388,11 @@ test('quiz engine characterization: fill_blank evaluation (case-insensitive)', (
     explanation: 'Article 21 guarantees life and personal liberty.',
   }
 
-  assert.strictEqual(scoreQuestion(fillQ, { filledWord: 'liberty' }), true)
-  assert.strictEqual(scoreQuestion(fillQ, { filledWord: 'LIBERTY' }), true)
-  assert.strictEqual(scoreQuestion(fillQ, { filledWord: 'Liberty' }), true)
-  assert.strictEqual(scoreQuestion(fillQ, { filledWord: 'property' }), false)
-  assert.strictEqual(scoreQuestion(fillQ, { filledWord: null }), false)
+  assert.strictEqual(evaluateQuizAnswer(fillQ, { filledWord: 'liberty' }), true)
+  assert.strictEqual(evaluateQuizAnswer(fillQ, { filledWord: 'LIBERTY' }), true)
+  assert.strictEqual(evaluateQuizAnswer(fillQ, { filledWord: 'Liberty' }), true)
+  assert.strictEqual(evaluateQuizAnswer(fillQ, { filledWord: 'property' }), false)
+  assert.strictEqual(evaluateQuizAnswer(fillQ, { filledWord: null }), false)
 })
 
 test('quiz engine characterization: spot_violation evaluation', () => {
@@ -434,8 +408,8 @@ test('quiz engine characterization: spot_violation evaluation', () => {
     explanation: 'Article 22(2) requires production before nearest magistrate within 24 hours of arrest.',
   }
 
-  assert.strictEqual(scoreQuestion(spotQ, { spottedSentenceId: 'sent-2' }), true)
-  assert.strictEqual(scoreQuestion(spotQ, { spottedSentenceId: 'sent-1' }), false)
-  assert.strictEqual(scoreQuestion(spotQ, { spottedSentenceId: 'sent-3' }), false)
-  assert.strictEqual(scoreQuestion(spotQ, { spottedSentenceId: null }), false)
+  assert.strictEqual(evaluateQuizAnswer(spotQ, { spottedSentenceId: 'sent-2' }), true)
+  assert.strictEqual(evaluateQuizAnswer(spotQ, { spottedSentenceId: 'sent-1' }), false)
+  assert.strictEqual(evaluateQuizAnswer(spotQ, { spottedSentenceId: 'sent-3' }), false)
+  assert.strictEqual(evaluateQuizAnswer(spotQ, { spottedSentenceId: null }), false)
 })

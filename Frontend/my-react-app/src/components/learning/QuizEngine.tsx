@@ -12,7 +12,8 @@ import {
 import { useAppState } from '../../context/useAppState'
 import { FeedbackBar } from './FeedbackBar'
 import { CompletionScreen } from './CompletionScreen'
-import type { QuizQuestion, } from '../../types'
+import { evaluateQuizAnswer } from './quizScoring.ts'
+import type { QuizQuestion } from '../../types/index.ts'
 
 interface QuizEngineProps {
   quizTitle: string
@@ -96,20 +97,13 @@ export function QuizEngine({
   const checkAnswer = () => {
     if (!currentQ) return
 
-    let isCorrect: boolean
-
-    if (currentQ.type === 'match_pairs' && currentQ.pairs) {
-      isCorrect = currentQ.pairs.every((pair) => matchedPairs[pair.left] === pair.right)
-    } else if (currentQ.type === 'order_steps') {
-      isCorrect = orderedSteps.every((step, idx) => step.order === idx + 1)
-    } else if (currentQ.type === 'fill_blank') {
-      isCorrect = filledWord?.toLowerCase() === currentQ.blankCorrectWord?.toLowerCase()
-    } else if (currentQ.type === 'spot_violation' && currentQ.spotSentences) {
-      const chosen = currentQ.spotSentences.find((s) => s.id === spottedSentenceId)
-      isCorrect = chosen?.isViolation === true
-    } else {
-      isCorrect = selectedOptionId === currentQ.correctOptionId
-    }
+    const isCorrect = evaluateQuizAnswer(currentQ, {
+      selectedOptionId,
+      matchedPairs,
+      orderedSteps,
+      filledWord,
+      spottedSentenceId,
+    })
 
     if (isCorrect) {
       setFeedback('correct')
