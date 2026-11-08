@@ -298,6 +298,44 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
 - **Headers:** `Idempotency-Key: <UUID>`
 - **Response (`200 OK`):** `{ "success": true, "progress": { ... } }`
 
+### 4.6 Import Anonymous Local Progress (First Sign-In Sync)
+- **Method & Path:** `POST /api/progress/import-local`
+- **Auth Required:** Yes
+- **Headers:** `Idempotency-Key: <UUID>`
+- **Request Body:**
+  ```json
+  {
+    "completedLessonIds": ["preamble-we-the-people", "article-14-equality"],
+    "quizScores": {
+      "preamble-we-the-people": 100,
+      "article-14-equality": 80
+    },
+    "bookmarks": ["preamble-we-the-people"],
+    "savedLessonIds": [],
+    "history": [
+      {
+        "lessonId": "preamble-we-the-people",
+        "title": "We, The People",
+        "href": "/learn/constitution-foundations/preamble-we-the-people",
+        "timestamp": "2026-11-08T10:00:00Z"
+      }
+    ],
+    "xp": 30
+  }
+  ```
+- **Response (`200 OK`):**
+  ```json
+  {
+    "success": true,
+    "imported": true,
+    "progress": { ... }
+  }
+  ```
+- **Error Codes:**
+  - `400 Bad Request`: Payload validation failed (`INVALID_PROGRESS_PAYLOAD`).
+  - `401 Unauthorized`: User not signed in.
+  - `409 Conflict`: Idempotency collision (returns previous result safely).
+
 ---
 
 ## 5. Ask Samvidhan: Real-Time SSE Assistant
