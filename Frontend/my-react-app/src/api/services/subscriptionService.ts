@@ -18,7 +18,7 @@ export async function getCurrentPlan(): Promise<SubscriptionPlan> {
       status: 'active',
       validUntil: '2027-12-31',
       aiUsageToday: user?.aiUsageToday || 0,
-      aiDailyLimit: tier === 'free' ? 5 : tier === 'pro' ? 50 : 9999,
+      aiDailyLimit: tier === 'free' ? 5 : 9999,
     }
   }
 

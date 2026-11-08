@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { BrandMark } from '../brand/BrandMark'
 import { ShieldAlert, CheckCircle2, ArrowUp, Send, Loader2 } from 'lucide-react'
 import { SocialIcons } from '../common/SocialIcons'
-import { Tooltip } from '../common/Tooltip'
+import { Tooltip } from '../animations/Tooltip'
 import { useAppState } from '../../context/useAppState'
 import { GhostComplete } from '../ui/TextFields.jsx'
 

@@ -349,7 +349,7 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
     "status": "active",
     "validUntil": "2027-12-31T23:59:59Z",
     "aiUsageToday": 3,
-    "aiDailyLimit": 50
+    "aiDailyLimit": 9999
   }
   ```
 
@@ -454,6 +454,6 @@ Please review each assumption and confirm or adjust:
 - [ ] **Assumption 5: Server-Sent Events (SSE) with 30s Idle Timeout**
   - `POST /api/assistant/chat` emits `token`, `citation`, `followUps`, and `done` events. The client keeps the connection open until `done` or a 30s idle gap occurs.
 - [ ] **Assumption 6: AI Quota Enforcement (429)**
-  - Free tier allows 5 AI questions/day; Pro allows 50 questions/day; Patron is unlimited. The server returns `429 Too Many Requests` with `Retry-After` header and JSON error payload when exceeded.
+  - Free tier allows 5 AI questions/day; Pro and Patron tiers both have unlimited AI queries (`dailyAiLimit: 9999`). The server returns `429 Too Many Requests` with `Retry-After` header and JSON error payload when the Free tier daily quota is exceeded.
 - [ ] **Assumption 7: Standard Role Enum**
   - User roles are `['learner', 'editor', 'reviewer', 'admin', 'superadmin']`. Legacy `'user'` is migrated to `'learner'`.

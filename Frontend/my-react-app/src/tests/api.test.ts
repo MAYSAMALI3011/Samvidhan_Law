@@ -144,10 +144,10 @@ test('subscriptionPlanSchema: validates subscription plan and usage quota', () =
     status: 'active',
     validUntil: '2027-12-31',
     aiUsageToday: 4,
-    aiDailyLimit: 50,
+    aiDailyLimit: 9999,
   }
   const validated = safeValidate(subscriptionPlanSchema, raw, 'subscriptionService.getCurrentPlan')
   assert.equal(validated.tier, 'pro')
-  assert.equal(validated.aiDailyLimit, 50)
+  assert.equal(validated.aiDailyLimit, 9999)
   assert.equal(validated.aiUsageToday, 4)
 })
