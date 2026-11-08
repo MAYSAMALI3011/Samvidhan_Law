@@ -1,0 +1,152 @@
+/* ==========================================================================
+   UIVERSE-STYLE SOCIAL ICONS WITH UPWARD SLIDING COLOR FILL & TOOLTIP
+   ========================================================================== */
+
+.uiverse-social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.uiverse-social-icons .icon-content {
+  margin: 0;
+  position: relative;
+  display: inline-flex;
+}
+
+.uiverse-social-icons .icon-content .tooltip {
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  background: #0f172a;
+  border: 1px solid rgba(176, 141, 87, 0.35);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.uiverse-social-icons .icon-content .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px;
+  border-style: solid;
+  border-color: #0f172a transparent transparent transparent;
+}
+
+.uiverse-social-icons .icon-content:hover .tooltip,
+.uiverse-social-icons .icon-content:focus-within .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.uiverse-social-icons .icon-content a {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #cbd5e1;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(176, 141, 87, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.uiverse-social-icons.size-sm .icon-content a {
+  width: 40px;
+  height: 40px;
+}
+
+/* Glass Variant (For Site Footer) */
+.uiverse-social-icons.glass .icon-content a {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+}
+
+[data-theme='light'] .uiverse-social-icons.glass .icon-content a {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #334155;
+}
+
+.uiverse-social-icons .icon-content a:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+  border-color: transparent;
+}
+
+.uiverse-social-icons .icon-content a .social-svg-icon {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.uiverse-social-icons .icon-content a:hover .social-svg-icon {
+  color: #ffffff !important;
+  transform: scale(1.1);
+}
+
+/* Upward sliding color fill container */
+.uiverse-social-icons .icon-content a .filled {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.uiverse-social-icons .icon-content a:hover .filled {
+  transform: scaleY(1);
+}
+
+/* Accessibility Keyboard Focus */
+.uiverse-social-icons .icon-content a:focus-visible {
+  outline: 2px solid #dfba73;
+  outline-offset: 3px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .uiverse-social-icons .icon-content a,
+  .uiverse-social-icons .icon-content a .filled,
+  .uiverse-social-icons .icon-content .tooltip {
+    transition: none !important;
+    transform: none !important;
+  }
+}

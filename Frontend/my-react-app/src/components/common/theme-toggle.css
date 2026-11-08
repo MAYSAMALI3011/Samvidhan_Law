@@ -1,0 +1,174 @@
+/* ==========================================================================
+   THEME TOGGLE SWITCH
+   Adapted from Uiverse.io by gharsh11032000 with Samvidhan Brand Gold (#B08D57)
+   ========================================================================== */
+
+.samvidhan-theme-switch-group {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.theme-switch-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.theme-icon {
+  transition: color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-icon.sun-icon {
+  color: #94a3b8;
+}
+
+.theme-icon.sun-icon.is-active {
+  color: #f59e0b;
+  transform: scale(1.15) rotate(15deg);
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5));
+}
+
+.theme-icon.moon-icon {
+  color: #94a3b8;
+}
+
+.theme-icon.moon-icon.is-active {
+  color: #dfba73;
+  transform: scale(1.15) rotate(-10deg);
+  filter: drop-shadow(0 0 6px rgba(223, 186, 115, 0.5));
+}
+
+/* From Uiverse.io by gharsh11032000 */
+.switch {
+  font-size: 15px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 2px solid #414141;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[data-theme='light'] .slider {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  left: 0.2em;
+  bottom: 0.16em;
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  border-radius: inherit;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+/* Checked (Dark Mode) - Swapped #0974f1 for Brand Gold #B08D57 */
+.switch input:checked + .slider {
+  background-color: rgba(176, 141, 87, 0.15);
+  box-shadow: 0 0 16px rgba(176, 141, 87, 0.6);
+  border: 2px solid #B08D57;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.5em);
+  background: linear-gradient(135deg, #dfba73 0%, #b08d57 100%);
+  box-shadow: 0 2px 8px rgba(176, 141, 87, 0.5);
+}
+
+/* Focus styles for keyboard navigation */
+.switch input:focus-visible + .slider {
+  outline: 2px solid var(--gold, #dfba73);
+  outline-offset: 3px;
+}
+
+/* System Controlled State */
+.switch.is-system-controlled {
+  opacity: 0.85;
+}
+
+.follow-system-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  cursor: pointer;
+  user-select: none;
+}
+
+[data-theme='light'] .follow-system-label {
+  color: #475569;
+}
+
+.follow-system-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid #414141;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+[data-theme='light'] .follow-system-checkbox {
+  border-color: #cbd5e1;
+  background: #ffffff;
+}
+
+.follow-system-checkbox:checked {
+  background: #B08D57;
+  border-color: #B08D57;
+}
+
+.follow-system-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #0b1526;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.follow-system-hint {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .slider,
+  .slider:before,
+  .theme-icon {
+    transition: none !important;
+  }
+}

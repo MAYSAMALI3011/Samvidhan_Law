@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 160" role="img" aria-labelledby="title">
+  <title id="title">Samvidhan monochrome Concept A mark (reconstructed approximation)</title>
+  <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 12 v70"/>
+    <circle cx="70" cy="12" r="6" fill="currentColor" stroke="none"/>
+    <path d="M32 30 h76"/>
+    <path d="M32 30 v16"/>
+    <path d="M108 30 v16"/>
+    <path d="M18 58 a20 13 0 1 0 40 0 a20 13 0 1 0 -40 0"/>
+    <path d="M82 58 a20 13 0 1 0 40 0 a20 13 0 1 0 -40 0"/>
+    <rect x="60" y="80" width="20" height="22" rx="2" fill="currentColor" stroke="none"/>
+    <path d="M16 118 c26 -16 44 -16 54 2 10 -18 28 -18 54 -2 v26 c-26 -12 -44 -10 -54 6 -10 -16 -28 -18 -54 -6z"/>
+  </g>
+</svg>

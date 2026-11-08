@@ -1,0 +1,50 @@
+/* ==========================================================================
+   SAMVIDHAN MASTER CSS ARCHITECTURE
+   Quiet Luxury Meets Legal Authority
+   ========================================================================== */
+
+@import './styles/tokens.css';
+@import './styles/base.css';
+@import './styles/layout.css';
+@import './styles/components.css';
+@import './styles/animations.css';
+@import './styles/reference-patterns.css';
+@import './styles/deluxe-patterns.css';
+@import './styles/duolingo.css';
+@import './styles/admin.css';
+@import './styles/auth.css';
+@import './styles/pages/home.css';
+@import './styles/pages/dashboard.css';
+@import './styles/pages/learning.css';
+@import './styles/pages/other.css';
+
+/* Subtle entrance fade-up on scroll (opacity + 14px translate, 500ms ease-out) */
+.home-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.home-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Strict Reduced Motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .home-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-codex-card {
+    animation: none !important;
+  }
+}

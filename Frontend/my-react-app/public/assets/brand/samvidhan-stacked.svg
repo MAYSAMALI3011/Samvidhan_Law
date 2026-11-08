@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 320" role="img" aria-labelledby="title">
+  <title id="title">Samvidhan stacked logo (reconstructed approximation)</title>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D4B483"/>
+      <stop offset="100%" stop-color="#B08D57"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="#B08D57" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M140 24 v112"/>
+    <circle cx="140" cy="24" r="7" fill="#B08D57" stroke="none"/>
+    <path d="M88 48 h104"/>
+    <path d="M88 48 v20"/>
+    <path d="M192 48 v20"/>
+    <path d="M64 88 a24 16 0 1 0 48 0 a24 16 0 1 0 -48 0"/>
+    <path d="M168 88 a24 16 0 1 0 48 0 a24 16 0 1 0 -48 0"/>
+  </g>
+  <rect x="126" y="124" width="28" height="34" rx="3" fill="#B08D57"/>
+  <path d="M36 208 c54 -28 94 -28 104 4 10 -32 50 -32 104 -4 v44 c-54 -22 -94 -18 -104 10 -10 -28 -50 -32 -104 -10z" fill="#DCE3EF" stroke="#B08D57" stroke-width="5"/>
+  <path d="M140 212 v48" stroke="#B08D57" stroke-width="4"/>
+  <text x="140" y="286" text-anchor="middle" font-family="Georgia, serif" font-size="32" fill="#111522">Samvidhan</text>
+  <text x="140" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" letter-spacing="2.2" fill="#536684">INDIAN LAW, MADE SIMPLE</text>
+</svg>

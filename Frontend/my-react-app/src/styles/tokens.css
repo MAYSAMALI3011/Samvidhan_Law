@@ -1,0 +1,163 @@
+:root,
+html[data-theme='light'] {
+  /* Sovereign Navy Palette */
+  --navy-950: #070d18;
+  --navy-900: #0a1628;
+  --navy-850: #0f1f38;
+  --navy-800: #15294a;
+  --navy-750: #1c355e;
+  --navy-700: #254477;
+  --navy-600: #335999;
+  --steel: #475569;
+  --dusty: #64748b;
+  --ice: #e2e8f0;
+
+  /* Imperial Warm Gold */
+  --gold: #b08d57;
+  --gold-hover: #9c7b46;
+  --gold-soft: #c5a059;
+  --gold-light: #faf5eb;
+  --gold-hairline: rgba(176, 141, 87, 0.35);
+  --gold-border: rgba(176, 141, 87, 0.45);
+  --gold-glow: rgba(176, 141, 87, 0.18);
+  --gold-gradient: linear-gradient(135deg, #c5a059 0%, #b08d57 100%);
+  --gold-gradient-hover: linear-gradient(135deg, #d4af66 0%, #a07d47 100%);
+
+  /* Ivory & Parchment Surfaces */
+  --canvas: #faf8f5;
+  --bg: #faf8f5;
+  --card-bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f5f2eb;
+  --surface-3: #ece7dc;
+  --surface-sunken: #f2ede2;
+  --parchment: #faf7f0;
+  --parchment-border: #e8e2d2;
+  --parchment-gold: #f4ecdc;
+  --parchment-sand: #f5f1e8;
+
+  /* High-Contrast Soft Slate Typography */
+  --text: #0f172a;
+  --text-muted: #334155;
+  --text-tertiary: #64748b;
+  --text-inverse: #f8fafc;
+
+  /* Borders & Hairlines */
+  --border: #e2dcd0;
+  --border-subtle: #ede8dc;
+  --border-focus: #b08d57;
+  --hairline-navy: rgba(10, 22, 40, 0.12);
+  --hairline-gold: rgba(176, 141, 87, 0.3);
+
+  /* Status Colors */
+  --danger: #b91c1c;
+  --danger-bg: #fef2f2;
+  --danger-border: #fecaca;
+  --success: #0f766e;
+  --success-bg: #f0fdfa;
+  --success-border: #99f6e4;
+  --warn: #c2410c;
+  --warn-bg: #fff7ed;
+  --warn-border: #fed7aa;
+  --info: #1d4ed8;
+  --info-bg: #eff6ff;
+  --info-border: #bfdbfe;
+
+  /* Layered Soft Luxury Shadows */
+  --shadow-xs: 0 1px 2px rgba(10, 22, 40, 0.04);
+  --shadow-sm: 0 4px 14px rgba(10, 22, 40, 0.05);
+  --shadow: 0 8px 24px rgba(10, 22, 40, 0.07);
+  --shadow-md: 0 14px 34px rgba(10, 22, 40, 0.09);
+  --shadow-lg: 0 24px 56px rgba(10, 22, 40, 0.12);
+  --shadow-gold: 0 8px 24px rgba(176, 141, 87, 0.25);
+
+  /* Chrome Tokens */
+  --nav-bg: rgba(10, 22, 40, 0.96);
+  --nav-border: rgba(176, 141, 87, 0.22);
+  --nav-fg: #f8fafc;
+  --hero-bg: radial-gradient(circle at 85% 15%, #15294a 0%, #0a1628 55%, #070d18 100%);
+  --hero-fg: #f8fafc;
+
+  color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  --canvas: #080e1a;
+  --bg: #080e1a;
+  --card-bg: #0f1626;
+  --surface: #0f1626;
+  --surface-2: #152238;
+  --surface-3: #1c2c47;
+  --surface-sunken: #0b111e;
+  --parchment: #121c2e;
+  --parchment-border: #233552;
+  --parchment-gold: #1b263b;
+  --parchment-sand: #0d1524;
+
+  --text: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --text-inverse: #0f172a;
+
+  --border: #22344f;
+  --border-subtle: #18263c;
+  --border-focus: #c5a059;
+  --hairline-navy: rgba(255, 255, 255, 0.08);
+  --hairline-gold: rgba(197, 160, 89, 0.35);
+
+  --gold-light: #262016;
+  --gold-border: rgba(197, 160, 89, 0.45);
+  --gold-glow: rgba(197, 160, 89, 0.22);
+
+  --danger: #f87171;
+  --danger-bg: rgba(239, 68, 68, 0.12);
+  --danger-border: rgba(239, 68, 68, 0.32);
+  --success: #34d399;
+  --success-bg: rgba(16, 185, 129, 0.12);
+  --success-border: rgba(16, 185, 129, 0.32);
+  --warn: #fb923c;
+  --warn-bg: rgba(249, 115, 22, 0.12);
+  --warn-border: rgba(249, 115, 22, 0.32);
+  --info: #60a5fa;
+  --info-bg: rgba(59, 130, 246, 0.12);
+  --info-border: rgba(59, 130, 246, 0.32);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.4);
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 14px 38px rgba(0, 0, 0, 0.52);
+  --shadow-lg: 0 24px 58px rgba(0, 0, 0, 0.62);
+
+  --nav-bg: rgba(8, 14, 26, 0.96);
+  --nav-border: rgba(197, 160, 89, 0.28);
+  --nav-fg: #f8fafc;
+  --hero-bg: radial-gradient(circle at 85% 15%, #132238 0%, #080e1a 60%, #050912 100%);
+  --hero-fg: #f8fafc;
+
+  color-scheme: dark;
+}
+
+:root {
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Refined Radii: 14-18px for cards, pill for chips */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-card: 16px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  /* 12-Column Container */
+  --container: 1200px;
+  --container-narrow: 860px;
+  --reading-max: 68ch;
+  --nav-h: 74px;
+
+  /* Physics-based Transitions */
+  --transition-fast: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base: 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 380ms cubic-bezier(0.16, 1, 0.3, 1);
+}

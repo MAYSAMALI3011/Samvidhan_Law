@@ -1,0 +1,477 @@
+/* ==========================================================================
+   ANIMATIONS & INTERACTIVE CONTROLS
+   ========================================================================== */
+
+/* Dr. Ambedkar Quote Card */
+.quote-section-band {
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3.5rem, 6vw, 5rem);
+  background: var(--background);
+  position: relative;
+  z-index: 2;
+}
+
+.quote-card-container {
+  margin: 0 auto;
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-card);
+  padding: clamp(2rem, 4vw, 3rem);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+@media (hover: hover) {
+  .quote-card-container:hover {
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+.quote-card-prominent {
+  max-width: 980px;
+}
+
+.quote-card-compact {
+  max-width: 720px;
+  padding: 1.75rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(176, 141, 87, 0.3);
+}
+
+.quote-watermark-symbol {
+  position: absolute;
+  top: -15px;
+  right: 25px;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 12vw, 10rem);
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.12;
+  pointer-events: none;
+  user-select: none;
+}
+
+.quote-header-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.quote-source-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.quote-date-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.quote-accent-rule {
+  height: 2px;
+  width: 48px;
+  background: var(--gold-gradient);
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+}
+
+.quote-blockquote {
+  margin: 0 0 1.75rem;
+}
+
+.quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  line-height: 1.45;
+  color: var(--text);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.quote-card-compact .quote-text {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: #f8fafc;
+}
+
+.quote-attribution-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.25rem;
+}
+
+.quote-author-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.quote-monogram-seal {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--navy-900);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(176, 141, 87, 0.25);
+}
+
+.quote-author-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+}
+
+.quote-card-compact .quote-author-name {
+  color: #ffffff;
+}
+
+.quote-author-role {
+  font-size: 0.82rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.quote-source-detail {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+.quote-nav-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.quote-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quote-nav-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.quote-dots {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.quote-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--border);
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--transition-fast);
+}
+
+.quote-dot.active {
+  width: 22px;
+  background: var(--gold);
+}
+
+/* Toggle Switch */
+.toggle-switch-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.toggle-switch-label {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.toggle-switch-desc {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  margin-top: 0.2rem;
+  line-height: 1.5;
+}
+
+.toggle-switch-track {
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--border);
+  border: 2px solid transparent;
+  padding: 2px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.toggle-switch-track.is-checked {
+  background: var(--gold);
+}
+
+.toggle-switch-thumb {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform var(--transition-spring);
+}
+
+.toggle-switch-track.is-checked .toggle-switch-thumb {
+  transform: translateX(22px);
+}
+
+/* Animated Checkbox */
+.animated-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.animated-checkbox-container {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.animated-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.animated-checkbox-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.animated-checkbox-box.is-checked {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy-950);
+}
+
+.animated-checkbox-checkmark {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.22s var(--ease);
+}
+
+.animated-checkbox-box.is-checked .animated-checkbox-checkmark {
+  stroke-dashoffset: 0;
+}
+
+/* Animated Back Button */
+.animated-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: all var(--transition-fast);
+}
+
+.animated-back-btn:hover {
+  color: var(--gold);
+  border-color: var(--gold-border);
+  background: var(--surface);
+}
+
+.animated-back-arrow {
+  transition: transform var(--transition-fast);
+}
+
+.animated-back-btn:hover .animated-back-arrow {
+  transform: translateX(-4px);
+}
+
+/* Tooltip Popover */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-popover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.92);
+  background: var(--navy-950);
+  color: #ffffff;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all var(--transition-fast);
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+}
+
+.tooltip-popover.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* Expanding Hover Button Group */
+.expanding-btn-group {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.expanding-btn-trigger {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.expanding-btn-fan {
+  position: absolute;
+  right: 0;
+  display: flex;
+  gap: 0.4rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(10px);
+  transition: all var(--transition-fast);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  box-shadow: var(--shadow-sm);
+  z-index: 50;
+}
+
+.expanding-btn-group:hover .expanding-btn-fan,
+.expanding-btn-group:focus-within .expanding-btn-fan {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.expanding-btn-item {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.expanding-btn-item:hover {
+  background: var(--surface-2);
+  color: var(--gold);
+}
+
+/* Curriculum Sliding Pill Tabs */
+.curriculum-pill-tabs {
+  display: inline-flex;
+  gap: 0.35rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 0.35rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.curriculum-tab-pill {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.curriculum-tab-pill:hover {
+  color: var(--text);
+}
+
+.curriculum-tab-pill.is-active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--gold-border);
+}
+
+html[data-theme='dark'] .curriculum-tab-pill.is-active {
+  background: var(--gold);
+  color: var(--navy-950);
+}

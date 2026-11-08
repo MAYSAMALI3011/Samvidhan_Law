@@ -1,0 +1,92 @@
+/* Samvidhan animated text fields. Uses app theme tokens with fallbacks. */
+.tf {
+  --tf-surface: var(--surface, #0f1a33);
+  --tf-border: var(--border, rgba(255,255,255,.16));
+  --tf-text: var(--text, #f3f1ea);
+  --tf-muted: var(--text-muted, #98a2b8);
+  --tf-accent: var(--gold, #d4a73a);
+  --tf-ok: #3ddc97;
+  --tf-warn: #ff7a59;
+  --tf-ease: cubic-bezier(.34, 1.56, .64, 1); /* soft spring */
+  display: grid; gap: .5rem; width: 100%; max-width: 28rem;
+  color: var(--tf-text); font-family: inherit;
+}
+:root[data-theme="light"] .tf { --tf-surface: #fffdf8; --tf-border: rgba(15,26,51,.2); --tf-text: #14213d; --tf-muted: #5b6577; }
+.tf__label { font-size: .85rem; color: var(--tf-muted); font-weight: 500; }
+.tf__label:empty { display: none; }
+.tf__box {
+  background: var(--tf-surface); border: 1.5px solid var(--tf-border); border-radius: .8rem;
+  padding: .7rem .9rem; color: inherit; font: inherit; width: 100%; box-sizing: border-box;
+  transition: border-color .25s, box-shadow .25s;
+}
+.tf__box:focus-within, .tf__box:focus {
+  outline: none; border-color: var(--tf-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tf-accent) 25%, transparent), 0 0 18px color-mix(in srgb, var(--tf-accent) 35%, transparent);
+}
+.tf__hint { font-size: .8rem; color: var(--tf-muted); min-height: 1.2em; }
+.tf__hint[data-tone="ok"] { color: var(--tf-ok); } .tf__hint[data-tone="error"] { color: var(--tf-warn); }
+.tf__input { all: unset; width: 100%; }
+
+/* 1 · OTP */
+.otp { display: flex; gap: .5rem; }
+.otp__cell {
+  width: 2.8rem; height: 3.2rem; text-align: center; font-size: 1.3rem; font-weight: 600; padding: 0;
+  transition: transform .25s var(--tf-ease), border-color .25s, color .25s, box-shadow .25s;
+}
+.otp__cell:not(:placeholder-shown) { transform: scale(1.06); border-color: var(--tf-accent); }
+.otp[data-state="verified"] .otp__cell {
+  border-color: var(--tf-ok); color: var(--tf-ok); box-shadow: 0 0 14px color-mix(in srgb, var(--tf-ok) 40%, transparent);
+  animation: otp-wave .5s var(--tf-ease) both; animation-delay: calc(var(--i) * 70ms);
+}
+.otp[data-state="error"] .otp__cell { border-color: var(--tf-warn); animation: otp-shake .35s both; }
+@keyframes otp-wave { 0% { transform: translateY(0) } 40% { transform: translateY(-8px) } 100% { transform: translateY(0) } }
+@keyframes otp-shake { 25% { transform: translateX(-4px) } 75% { transform: translateX(4px) } }
+
+/* 2 · Card number */
+.card { display: flex; align-items: center; gap: .6rem; }
+.card__chip { width: 1.6rem; height: 1.1rem; border-radius: .25rem; background: linear-gradient(135deg,#6fb1ff,#f6a96b); flex: none; }
+.card__num { flex: 1 1 auto; min-width: 0; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.card__extra { display: flex; gap: .6rem; overflow: hidden; max-width: 0; opacity: 0; transform: translateX(14px);
+  transition: max-width .45s var(--tf-ease), opacity .3s, transform .45s var(--tf-ease); }
+.card[data-complete="true"] .card__extra { max-width: 11rem; opacity: 1; transform: none; }
+.card__extra .tf__input { border-left: 1px solid var(--tf-border); padding-left: .6rem; width: 4.2rem; }
+
+/* 3 · Strength meter */
+.meter { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; }
+.meter__seg { height: .28rem; border-radius: 99px; background: var(--tf-border); transition: background .3s, transform .3s var(--tf-ease); transform-origin: left; }
+.meter[data-score="1"] .meter__seg:nth-child(-n+1) { background: var(--tf-warn); }
+.meter[data-score="2"] .meter__seg:nth-child(-n+2) { background: #ffb347; }
+.meter[data-score="3"] .meter__seg:nth-child(-n+3) { background: var(--tf-accent); }
+.meter[data-score="4"] .meter__seg:nth-child(-n+4) { background: var(--tf-ok); }
+.meter__seg[data-on="true"] { animation: seg-pop .35s var(--tf-ease); }
+@keyframes seg-pop { from { transform: scaleX(.2) } to { transform: scaleX(1) } }
+.meter__label { justify-self: end; font-size: .8rem; font-weight: 600; }
+
+/* 4 · Auto grow */
+.grow { resize: none; overflow: hidden; line-height: 1.5; min-height: 3.2rem; transition: height .28s var(--tf-ease), border-color .25s, box-shadow .25s; }
+
+/* 5 · Tags */
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; cursor: text; }
+.tags__chip { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .35rem .2rem .65rem; border-radius: 99px; font-size: .85rem;
+  background: color-mix(in srgb, var(--tf-accent) 18%, transparent); border: 1px solid color-mix(in srgb, var(--tf-accent) 45%, transparent);
+  animation: chip-in .3s var(--tf-ease); }
+.tags__x { all: unset; cursor: pointer; width: 1.2rem; height: 1.2rem; display: grid; place-items: center; border-radius: 50%; line-height: 1; }
+.tags__x:hover, .tags__x:focus-visible { background: color-mix(in srgb, var(--tf-warn) 35%, transparent); }
+.tags__input { all: unset; flex: 1 0 6rem; min-width: 6rem; padding: .2rem; }
+@keyframes chip-in { from { transform: scale(.6); opacity: 0 } to { transform: none; opacity: 1 } }
+
+/* 6 · Ghost complete */
+.ghost { position: relative; }
+.ghost__layer { position: absolute; inset: 0; padding: .7rem .9rem; pointer-events: none; white-space: pre; overflow: hidden; color: transparent; }
+.ghost__layer span { color: var(--tf-muted); opacity: .75; }
+.ghost__input { position: relative; background: transparent !important; }
+.ghost__check { position: absolute; right: .8rem; top: 50%; translate: 0 -50%; color: var(--tf-ok); animation: chip-in .3s var(--tf-ease); }
+.ghost__tab { position: absolute; right: .7rem; top: 50%; translate: 0 -50%; font-size: .7rem; padding: .1rem .4rem; border: 1px solid var(--tf-border); border-radius: .3rem; color: var(--tf-muted); background: var(--tf-surface); cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tf *, .tf *::before { animation: none !important; transition-duration: .01ms !important; }
+}
+[data-reduced-motion="true"] .tf *, [data-reduced-motion="true"] .tf *::before {
+  animation: none !important; transition-duration: .01ms !important;
+}
+@media (max-width: 380px) { .otp__cell { width: 2.4rem; height: 2.9rem; } .otp { gap: .35rem; } }

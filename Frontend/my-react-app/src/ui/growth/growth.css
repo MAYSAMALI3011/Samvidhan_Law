@@ -1,0 +1,244 @@
+/* Growth & Monetization Styles (Pattern 14, 15, 16) */
+
+/* 1. Tier Badges */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: inherit;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tier-badge.size-sm {
+  padding: 0.15rem 0.55rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.tier-badge.size-md {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+}
+
+.tier-badge.is-free {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #94A3B8;
+}
+
+.tier-badge.is-pro {
+  background: linear-gradient(135deg, rgba(176, 141, 87, 0.25), rgba(223, 186, 115, 0.35));
+  border-color: var(--gold, #DFBA73);
+  color: var(--gold, #DFBA73);
+  box-shadow: 0 0 12px rgba(176, 141, 87, 0.3);
+}
+
+.tier-crown-icon {
+  color: var(--gold, #DFBA73);
+}
+
+.pro-gated-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(176, 141, 87, 0.18);
+  border: 1px solid rgba(176, 141, 87, 0.4);
+  color: var(--gold, #DFBA73);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+
+/* 2. Pro Gate Modal */
+.pro-gate-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(8, 14, 26, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pro-gate-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface, #0B1526);
+  border: 1.5px solid var(--gold, #B08D57);
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65), 0 0 40px rgba(176, 141, 87, 0.25);
+  color: var(--text, #F7F3E8);
+}
+
+[data-theme='light'] .pro-gate-modal-panel {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.pro-gate-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro-gate-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.pro-gate-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.pro-crown-badge-glow {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(176, 141, 87, 0.15);
+  border: 1px solid var(--gold, #DFBA73);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.85rem auto;
+  box-shadow: 0 0 25px rgba(176, 141, 87, 0.35);
+}
+
+.crown-svg {
+  color: var(--gold, #DFBA73);
+}
+
+.pro-kicker {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold, #DFBA73);
+  text-transform: uppercase;
+}
+
+.pro-gate-title {
+  font-family: var(--font-serif, 'DM Serif Display', Georgia, serif);
+  font-size: 1.85rem;
+  margin: 0.25rem 0 0.5rem 0;
+  color: var(--gold, #DFBA73);
+}
+
+.pro-gate-desc {
+  font-size: 0.92rem;
+  color: #94A3B8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pro-pricing-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background: rgba(176, 141, 87, 0.1);
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  margin-bottom: 1.25rem;
+}
+
+.plan-name {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.plan-billing {
+  display: block;
+  font-size: 0.78rem;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+.pricing-right {
+  text-align: right;
+}
+
+.price-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--gold, #DFBA73);
+}
+
+.price-sub {
+  font-size: 0.78rem;
+  color: #94A3B8;
+}
+
+.pro-perks-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.pro-perk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.88rem;
+}
+
+.perk-check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.18);
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pro-upgrade-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+.pro-guarantee-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0.75rem 0 0 0;
+}

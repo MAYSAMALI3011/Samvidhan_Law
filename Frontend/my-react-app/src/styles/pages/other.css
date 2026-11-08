@@ -1,0 +1,311 @@
+/* ==========================================================================
+   OTHER PAGES — CONSTITUTION, LIBRARY, SEARCH, PROFILE, SIMPLE PAGES
+   ========================================================================== */
+
+/* Constitution Index */
+.constitution-preamble-banner {
+  background: var(--surface);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-card);
+  padding: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 3.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.constitution-parts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .constitution-parts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.constitution-part-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.75rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+@media (hover: hover) {
+  .constitution-part-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold-border);
+  }
+}
+
+/* Legal Library */
+.library-search-wrap {
+  margin-bottom: 2.5rem;
+}
+
+.library-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 960px) {
+  .library-docs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .library-docs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.library-doc-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+@media (hover: hover) {
+  .library-doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold-border);
+  }
+}
+
+/* Universal Search */
+.search-bar-form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  flex: 1;
+  min-height: 48px;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.search-input:focus-visible {
+  border-color: var(--gold);
+}
+
+/* Personal & Settings */
+.learn-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2.5rem;
+}
+
+@media (max-width: 860px) {
+  .learn-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accordion */
+.accordion {
+  border-bottom: 1px solid var(--border);
+}
+
+.accordion button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .accordion button:hover {
+    color: var(--gold);
+  }
+}
+
+.accordion p {
+  padding-bottom: 1.25rem;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* 404 & Empty States */
+.not-found-card,
+.empty-state-card {
+  text-align: center;
+  padding: clamp(3rem, 6vw, 5rem) 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  margin: 3rem auto;
+  max-width: 38rem;
+}
+
+.empty-state-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  color: var(--gold);
+  margin: 0 auto 1.5rem;
+  display: grid;
+  place-items: center;
+}
+
+/* Simple Pages Helpers */
+.simple-page-header {
+  margin-bottom: 2.25rem;
+}
+
+.simple-page-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.simple-steps-stack {
+  display: grid;
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.simple-step-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.simple-step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--gold-light);
+  color: var(--gold);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.simple-step-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.35rem;
+}
+
+.simple-step-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.simple-page-cta {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.brand-panel {
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.brand-panel-text {
+  flex: 1;
+  min-width: 240px;
+}
+
+.brand-panel-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.brand-panel-desc {
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.contact-container {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.contact-form {
+  max-width: 100%;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.disclaimer-banner-wrap {
+  margin: 1.5rem 0 2rem;
+}
+
+.disclaimer-heading-badge {
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+
+.faq-stack {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.not-found-wrapper {
+  text-align: center;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.not-found-icon {
+  color: var(--gold);
+  margin-inline: auto;
+  margin-bottom: 1.25rem;
+}
+
+.not-found-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  margin-bottom: 0.75rem;
+}
+
+.not-found-text {
+  max-width: 36rem;
+  margin-inline: auto;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.not-found-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

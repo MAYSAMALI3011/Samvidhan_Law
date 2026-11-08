@@ -1,0 +1,237 @@
+/* ==========================================================================
+   BASE & TYPOGRAPHY SYSTEM — QUIET LUXURY & LEGAL AUTHORITY
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background-color: var(--canvas);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--canvas);
+  color: var(--text);
+  transition: background-color var(--transition-base), color var(--transition-base);
+  position: relative;
+}
+
+/* Subtle Ashoka-inspired line pattern watermark at very low opacity (3-4%) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  background-image: radial-gradient(circle at center, var(--navy-900) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+html[data-theme='dark'] body::before {
+  opacity: 0.05;
+  background-image: radial-gradient(circle at center, var(--gold) 1px, transparent 1px);
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Headings with DM Serif Display */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.85rem, 3.8vw, 2.75rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+  line-height: 1.3;
+}
+
+h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  line-height: 1.4;
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.lead {
+  font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+  line-height: 1.65;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.tertiary {
+  color: var(--text-tertiary);
+}
+
+/* Letter-spaced Imperial Gold Eyebrow */
+.eyebrow,
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+/* Animated Underline on Text Links */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--gold);
+  font-weight: 600;
+  position: relative;
+  text-decoration: none;
+}
+
+.text-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--gold);
+  transition: width var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .text-link:hover::after {
+    width: 100%;
+  }
+}
+
+/* Accessibility Focus Visible Ring */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(176, 141, 87, 0.25);
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   ACCESSIBILITY: SKIP LINK & FOCUS RINGS
+   -------------------------------------------------------------------------- */
+.skip-link {
+  position: fixed;
+  top: -120px;
+  left: 1.5rem;
+  z-index: 9999;
+  padding: 0.85rem 1.5rem;
+  background: var(--navy-900);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 1.5rem;
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Button Press Effects */
+button, .btn, [role="button"] {
+  touch-action: manipulation;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+}
+
+button:active, .btn:active, [role="button"]:active {
+  transform: scale(0.97);
+}
+
+/* Accessible Clickable Card */
+.clickable-card-wrapper {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.clickable-card-wrapper:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}

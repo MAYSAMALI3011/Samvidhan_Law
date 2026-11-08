@@ -1,0 +1,176 @@
+/* ==========================================================================
+   SAAS SKELETON LOADERS
+   Exact layout matching with smooth shimmer animations (respects theme tokens)
+   ========================================================================== */
+
+.saas-skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.09) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+}
+
+[data-theme='light'] .saas-skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.04) 25%,
+    rgba(15, 23, 42, 0.08) 50%,
+    rgba(15, 23, 42, 0.04) 75%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Dashboard Path Skeleton */
+.path-skeleton-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5rem;
+  padding: 2rem 0;
+}
+
+.path-skeleton-node-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.path-skeleton-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+}
+
+.path-skeleton-caption {
+  width: 180px;
+  height: 18px;
+}
+
+.path-skeleton-sub {
+  width: 120px;
+  height: 12px;
+}
+
+/* Article of the Day Skeleton */
+.aotd-skeleton-card {
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: var(--surface, #0b1526);
+  border: 1px solid rgba(176, 141, 87, 0.25);
+}
+
+.aotd-skeleton-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.aotd-skeleton-body {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1.25rem;
+}
+
+/* Streak Card Skeleton */
+.streak-skeleton-card {
+  padding: 1.4rem;
+  border-radius: 16px;
+  background: var(--surface, #0b1526);
+  border: 1px solid rgba(176, 141, 87, 0.25);
+}
+
+.streak-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.streak-skeleton-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.streak-skeleton-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Table Skeleton */
+.table-skeleton-wrap {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(176, 141, 87, 0.25);
+  background: var(--surface, #0b1526);
+}
+
+.table-skeleton-header {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(176, 141, 87, 0.2);
+}
+
+.table-skeleton-row {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* AI Answer Typing Shimmer */
+.ai-typing-shimmer-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  background: rgba(176, 141, 87, 0.08);
+  border: 1px solid rgba(176, 141, 87, 0.25);
+}
+
+.ai-avatar-shimmer {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ai-lines-shimmer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .saas-skeleton-shimmer {
+    animation: none !important;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,137 @@
+/* ==========================================================================
+   LAYOUT, GRID & VERTICAL RHYTHM
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.25rem, 3.5vw, 2.5rem);
+  padding-right: clamp(1.25rem, 3.5vw, 2.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+.container-narrow {
+  max-width: var(--container-narrow);
+}
+
+/* Focused reading container with optimal 68ch line length */
+.reading-layout {
+  max-width: var(--reading-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Vertical Rhythm: clamp(4rem, 8vw, 7.5rem) */
+.section {
+  padding-top: clamp(4rem, 8vw, 7rem);
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero {
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+  padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+/* Hairline Dividers */
+.hairline-gold {
+  height: 1px;
+  background: var(--hairline-gold);
+  border: 0;
+  width: 100%;
+}
+
+.hairline-navy {
+  height: 1px;
+  background: var(--hairline-navy);
+  border: 0;
+  width: 100%;
+}
+
+/* 12-Column Responsive Grid */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.col-12 { grid-column: span 12; }
+.col-8  { grid-column: span 8; }
+.col-6  { grid-column: span 6; }
+.col-4  { grid-column: span 4; }
+.col-3  { grid-column: span 3; }
+
+@media (max-width: 990px) {
+  .col-8, .col-6, .col-4 {
+    grid-column: span 12;
+  }
+}
+
+/* Multi-column Flex & Grids */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+@media (max-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Section Header Structure */
+.section-header {
+  margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
+  max-width: 44rem;
+}
+
+.section-header.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.section-header h2 {
+  margin-bottom: 0.85rem;
+}
+
+.section-header .lead {
+  margin-bottom: 0;
+}
+
+/* Fullscreen focus mode for interactive lessons and quizzes */
+.lesson-focus-main {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100vh;
+}
