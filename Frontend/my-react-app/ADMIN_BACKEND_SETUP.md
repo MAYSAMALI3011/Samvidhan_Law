@@ -93,7 +93,20 @@ CREATE TABLE mistake_reports (
   resolution_note TEXT
 );
 
--- 5. Audit Trail
+-- 5. Subscriptions & AI Usage Quotas
+CREATE TABLE subscriptions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  tier TEXT NOT NULL DEFAULT 'free', -- 'free' | 'pro' | 'patron'
+  status TEXT NOT NULL DEFAULT 'active', -- 'active' | 'cancelled' | 'past_due'
+  ai_daily_limit INTEGER, -- NULL represents UNLIMITED daily AI questions (Pro & Patron)
+  is_unlimited BOOLEAN NOT NULL DEFAULT false,
+  ai_usage_today INTEGER NOT NULL DEFAULT 0,
+  resets_at TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '1 day',
+  valid_until TIMESTAMPTZ
+);
+
+-- 6. Audit Trail
 CREATE TABLE audit_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),

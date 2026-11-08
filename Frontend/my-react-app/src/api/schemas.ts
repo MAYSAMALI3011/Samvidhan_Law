@@ -33,7 +33,8 @@ export const subscriptionPlanSchema = z.object({
   status: z.enum(['active', 'cancelled', 'past_due', 'trialing']),
   validUntil: z.string().optional(),
   aiUsageToday: z.number().default(0),
-  aiDailyLimit: z.number().default(5),
+  aiDailyLimit: z.number().nullable().default(5),
+  unlimited: z.boolean().default(false),
 }).passthrough()
 
 export const checkoutSessionResponseSchema = z.object({

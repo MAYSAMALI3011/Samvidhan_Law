@@ -1,135 +1,182 @@
 # Samvidhan Unified Content Model Specification
 
-> **Status:** Draft / Pending Review  
+> **Status:** Draft / Ready for Approval  
 > **Target Release:** Phase 3 Content Architecture Unification  
-> **Scope:** Canonical Lesson IDs, Curriculum Hierarchy (Units vs Chapters), Admin Content Sync, Inline Quizzes, Server XP Authority, and Zero-Data-Loss LocalStorage Migration.
+> **Scope:** Canonical Lesson IDs, Complete Old-to-New ID Matrix, Curriculum Hierarchy (Units vs Chapters), Inline Quizzes, Dynamic Lesson XP, URL Redirects, Stable Unit Slugs, `quizScores` Remapping, and Zero-Data-Loss Migration.
 
 ---
 
 ## 1. Problem Statement & Historical Context
 
-The codebase currently contains three separate, overlapping content ID styles and models that evolved across previous prototypes:
+The codebase contains three distinct content models that evolved across previous prototypes:
 
-| Model / Source | Example Lesson ID | Hierarchy Container | Quiz Representation | Status / Usage |
+1. **Curriculum Catalog** (`src/data/mock/curriculum.ts`): Courses $\rightarrow$ Chapters $\rightarrow$ Lessons with separate `quizzes: Quiz[]`. Lesson IDs use course prefixes like `cf-preamble`, `fr-equality`, `el-consumer`.
+2. **Interactive Units** (`src/data/mock/learningUnits.ts`): Units with numeric IDs and slugs (`foundations-of-the-republic`), containing lessons with rich interactive cards and inline `quizQuestions`. IDs use semantic names like `preamble-we-the-people`, `basic-structure-limits`, `article-14-equality-safeguard`.
+3. **Admin Content Seed** (`src/api/services/adminService.ts`): Administrative content inventory with IDs like `lesson-preamble-1`, `lesson-basic-structure-2`, `lesson-article-14-3`, and `draft-directive-principles-4`.
+
+This document establishes the single canonical content model, resolves all collisions, and specifies zero-data-loss migrations.
+
+---
+
+## 2. Complete Old-to-New ID Mapping Matrix
+
+Every entity in the current codebase is mapped below. Any item that exists in only one source model is explicitly flagged.
+
+### A. Courses / Tracks
+
+| Source Model | Old Course ID | Canonical Course / Track Slug | Title | Presence / Notes |
 |---|---|---|---|---|
-| **Catalog / Courses** (`src/data/mock/curriculum.ts`) | `cf-preamble`, `fr-equality` | Course -> Chapters (`cf-1`) | Separate `quizzes: Quiz[]` via `quizId: 'quiz-cf-preamble'` | Used by legacy `catalog.ts`, course listing, library filters |
-| **Interactive Units** (`src/data/mock/learningUnits.ts`) | `preamble-we-the-people`, `article-14-equality` | Units (`unitId: 1`, `slug: 'foundations-of-the-republic'`) | Rich inline interactive cards + `quizQuestions` array | Used by `LearningPath`, `LessonPlayer`, `QuizEngine` |
-| **Admin Content** (`src/api/services/adminService.ts`) | `lesson-preamble-1`, `lesson-equality-1` | `unitId: 1`, `type: 'lesson'` | Abstracted `contentPreview` + `questionType` | Used by Admin Content Manager & Review Workflow |
+| `curriculum.ts` | `constitution-foundations` | `constitution-foundations` | Constitution Foundations | In catalog |
+| `curriculum.ts` | `fundamental-rights` | `fundamental-rights` | Fundamental Rights | In catalog |
+| `curriculum.ts` | `everyday-law` | `everyday-law` | Everyday Legal Knowledge | In catalog |
+| `curriculum.ts` | `digital-privacy` | `digital-privacy` | Cybercrime and Digital Privacy | In catalog |
 
-Having three divergent ID schemes introduces:
-- Redundant data lookups in `LearnPages.tsx` (looping through `unitsData` first, then falling back to `getLesson(catalogId)`).
-- Risk of split progress in `localStorage` (a user bookmarking `cf-preamble` vs completing `preamble-we-the-people`).
-- Disconnected admin review states that do not directly map to the learner-facing curriculum.
+### B. Units & Chapters
 
----
-
-## 2. Canonical Lesson ID Specification
-
-All lessons across the application will use a **single, canonical, semantic kebab-case ID**.
-
-### Format Rule
-`[topic-slug]-[specific-focus]` (lowercase, alphanumeric with hyphens, 3–40 characters).
-
-### Canonical Lesson Registry & Legacy Aliases
-
-| Canonical Lesson ID | Course / Track | Unit ID | Legacy Catalog ID | Legacy Admin ID | Title |
+| Source Model | Old Unit / Chapter ID | Canonical Unit Slug | Numeric Order (`unitId`) | Title | Presence / Notes |
 |---|---|---|---|---|---|
-| `preamble-we-the-people` | `constitution-foundations` | 1 | `cf-preamble` | `lesson-preamble-1` | We, The People: The Source of Power |
-| `parts-schedules-map` | `constitution-foundations` | 1 | `cf-parts` | `lesson-parts-1` | Parts, Schedules & Constitutional Map |
-| `parliament-union-executive` | `constitution-foundations` | 1 | `cf-parliament` | `lesson-parliament-1` | Parliament & The Union Executive |
-| `judiciary-court-hierarchy` | `constitution-foundations` | 1 | `cf-courts` | `lesson-judiciary-1` | Supreme Court, High Courts & Hierarchy |
-| `fundamental-rights-framework` | `fundamental-rights` | 2 | `fr-overview` | `lesson-fr-overview` | Architecture of Part III Rights |
-| `article-14-equality` | `fundamental-rights` | 2 | `fr-equality` | `lesson-equality-1` | Equality Before Law & Non-Arbitrariness |
-| `article-21-life-liberty` | `fundamental-rights` | 2 | `fr-liberty` | `lesson-liberty-1` | Protection of Life & Personal Liberty |
-| `consumer-protection-basics` | `everyday-law` | 3 | `el-consumer` | `lesson-consumer-1` | Consumer Protection & Unfair Practices |
-| `workplace-rights-basics` | `everyday-law` | 3 | `el-work` | `lesson-workplace-1` | Workplace Safeguards & Fair Treatment |
-| `campus-student-rights` | `everyday-law` | 3 | `el-student` | `lesson-student-1` | Campus Discipline & Student Safeguards |
-| `filing-police-complaint-fir` | `everyday-law` | 3 | `el-complaint` | `lesson-fir-1` | Police Encounters, Grievance & FIRs |
-| `online-offences-cybercrime` | `digital-privacy` | 4 | `dp-offences` | `lesson-cyber-1` | Cyber Harassment, Fraud & IT Act |
-| `digital-privacy-data-protection` | `digital-privacy` | 4 | `dp-privacy` | `lesson-privacy-1` | Personal Data Privacy & Consent |
+| `learningUnits.ts` / `curriculum.ts` | `1` / `cf-1` | `foundations-of-the-republic` | 1 | Foundations of the Republic | In both models |
+| `curriculum.ts` | `cf-2` | `institutions-of-the-state` | 2 | Institutions: Parliament & Courts | *Only in curriculum.ts* |
+| `learningUnits.ts` / `curriculum.ts` | `2` / `fr-1` | `fundamental-rights-in-practice` | 3 | Fundamental Rights in Practice | In both models |
+| `curriculum.ts` | `el-1` | `consumer-and-workplace-law` | 4 | Everyday Law: Markets & Work | *Only in curriculum.ts* |
+| `curriculum.ts` | `el-2` | `campus-and-civic-life` | 5 | Everyday Law: Campus & Civic Life | *Only in curriculum.ts* |
+| `curriculum.ts` | `dp-1` | `cybercrime-and-digital-privacy` | 6 | Cybercrime & Digital Privacy | *Only in curriculum.ts* |
+| `adminService.ts` | `unitId: 3` | `directive-principles-and-policy` | 7 | Directive Principles of State Policy | *Only in admin seed* (`draft-directive-principles-4`) |
+
+### C. Lessons
+
+| Canonical Lesson ID | Title | Unit Slug | Declared `xp` | Old Curriculum ID | Old LearningUnits ID | Old Admin Seed ID | Presence Status |
+|---|---|---|---|---|---|---|---|
+| `preamble-we-the-people` | We, The People: The Source of Power | `foundations-of-the-republic` | 15 | `cf-preamble` | `preamble-we-the-people` | `lesson-preamble-1` | **In all 3 models** |
+| `basic-structure-limits` | Basic Structure: Can Parliament Change Anything? | `foundations-of-the-republic` | 20 | *None* | `basic-structure-limits` | `lesson-basic-structure-2` | **In learningUnits & admin only** (*Flag: missing in curriculum.ts*) |
+| `parts-schedules-map` | Parts, Schedules & Constitutional Map | `foundations-of-the-republic` | 15 | `cf-parts` | *None* | *None* | **In curriculum.ts only** |
+| `parliament-union-executive` | Parliament & The Union Executive | `institutions-of-the-state` | 15 | `cf-parliament` | *None* | *None* | **In curriculum.ts only** |
+| `judiciary-court-hierarchy` | Supreme Court, High Courts & Hierarchy | `institutions-of-the-state` | 15 | `cf-courts` | *None* | *None* | **In curriculum.ts only** |
+| `fundamental-rights-framework` | Architecture of Part III Rights | `fundamental-rights-in-practice` | 15 | `fr-overview` | *None* | *None* | **In curriculum.ts only** |
+| `article-14-equality` | Equality Before Law & Non-Arbitrariness | `fundamental-rights-in-practice` | 15 | `fr-equality` | `article-14-equality-safeguard` | `lesson-article-14-3` | **In all 3 models** (names reconciled) |
+| `article-21-life-liberty` | Protection of Life & Personal Liberty | `fundamental-rights-in-practice` | 20 | `fr-liberty` | *None* | *None* | **In curriculum.ts only** |
+| `consumer-protection-basics` | Consumer Protection & Unfair Practices | `consumer-and-workplace-law` | 15 | `el-consumer` | *None* | *None* | **In curriculum.ts only** |
+| `workplace-rights-basics` | Workplace Safeguards & Fair Treatment | `consumer-and-workplace-law` | 15 | `el-work` | *None* | *None* | **In curriculum.ts only** |
+| `campus-student-rights` | Campus Discipline & Student Safeguards | `campus-and-civic-life` | 15 | `el-student` | *None* | *None* | **In curriculum.ts only** |
+| `filing-police-complaint-fir` | Police Encounters, Grievance & FIRs | `campus-and-civic-life` | 20 | `el-complaint` | *None* | *None* | **In curriculum.ts only** |
+| `online-offences-cybercrime` | Cyber Harassment, Fraud & IT Act | `cybercrime-and-digital-privacy` | 15 | `dp-offences` | *None* | *None* | **In curriculum.ts only** |
+| `digital-privacy-data-protection` | Personal Data Privacy & Consent | `cybercrime-and-digital-privacy` | 15 | `dp-privacy` | *None* | *None* | **In curriculum.ts only** |
+| `directive-principles-policy` | Directive Principles & Uniform Civil Code | `directive-principles-and-policy` | 15 | *None* | *None* | `draft-directive-principles-4` | **In admin seed only** (*Flag: draft status*) |
+
+### D. Quizzes
+
+In the unified model, every quiz is canonically referenced by its associated lesson ID:
+
+| Old Quiz ID (`curriculum.ts`) | Associated Canonical Lesson ID | Canonical Quiz ID | Question Source |
+|---|---|---|---|
+| `quiz-cf-preamble` | `preamble-we-the-people` | `quiz:preamble-we-the-people` | Merged inline questions |
+| *None* | `basic-structure-limits` | `quiz:basic-structure-limits` | Inline questions from `learningUnits.ts` |
+| `quiz-cf-parts` | `parts-schedules-map` | `quiz:parts-schedules-map` | From `curriculum.ts` questions |
+| `quiz-cf-parliament` | `parliament-union-executive` | `quiz:parliament-union-executive` | From `curriculum.ts` questions |
+| `quiz-cf-courts` | `judiciary-court-hierarchy` | `quiz:judiciary-court-hierarchy` | From `curriculum.ts` questions |
+| `quiz-fr-overview` | `fundamental-rights-framework` | `quiz:fundamental-rights-framework` | From `curriculum.ts` questions |
+| `quiz-fr-equality` | `article-14-equality` | `quiz:article-14-equality` | Merged inline questions |
+| `quiz-fr-liberty` | `article-21-life-liberty` | `quiz:article-21-life-liberty` | From `curriculum.ts` questions |
+| `quiz-el-consumer` | `consumer-protection-basics` | `quiz:consumer-protection-basics` | From `curriculum.ts` questions |
+| `quiz-el-work` | `workplace-rights-basics` | `quiz:workplace-rights-basics` | From `curriculum.ts` questions |
+| `quiz-el-student` | `campus-student-rights` | `quiz:campus-student-rights` | From `curriculum.ts` questions |
+| `quiz-el-complaint` | `filing-police-complaint-fir` | `quiz:filing-police-complaint-fir` | From `curriculum.ts` questions |
+| `quiz-dp-offences` | `online-offences-cybercrime` | `quiz:online-offences-cybercrime` | From `curriculum.ts` questions |
+| `quiz-dp-privacy` | `digital-privacy-data-protection` | `quiz:digital-privacy-data-protection` | From `curriculum.ts` questions |
 
 ---
 
-## 3. Hierarchy Reconciliation: Tracks, Units & Chapters
+## 3. Hierarchy & Stable Slug Keys for Units
 
-We reconcile the terminology into a clean 3-level educational hierarchy:
+Units are the primary organizational container for both the Duolingo-style winding path (`LearningPath`) and sidebar navigation.
 
-```
-[Track / Course] (e.g. "Constitution Foundations", "Everyday Legal Knowledge")
-   └── [Unit] (e.g. Unit 1: "Foundations of the Republic", Unit 2: "Fundamental Rights")
-          └── [Lesson] (e.g. "preamble-we-the-people")
-                 ├── Interactive Cards (Theory, Citizen Scenario, Law, Action, Raizada Did-You-Know)
-                 └── Inline Quiz Engine (Multiple Choice, Match Pairs, Step Order, Spot Violation)
-```
-
-1. **Top Container: `Track` (or `Course`)**  
-   Represents the thematic legal discipline (e.g. Constitution, Everyday Law, Digital Law).
-2. **Intermediate Container: `Unit` (Canonical)**  
-   The primary visual and progress milestone unit on the Duolingo-style winding path and learning sidebar. Each unit carries a numeric `unitId`, title, description, and list of canonical lessons.  
-   *Chapter alias:* Legacy references to `chapterId` (e.g. `cf-1`, `cf-2`) map directly to `unitId` as a sub-grouping property (`unit.chapter = 1`), preserving compatibility with existing course catalog headers without fragmenting navigation.
-3. **Leaf Node: `Lesson`**  
-   The interactive learning unit identified by its canonical ID.
-
----
-
-## 4. Admin Content ID Scheme Reconciliation
-
-In the Admin Content Manager, review workflow, and audit logs:
-- `AdminContentItem.id` will match the **canonical lesson ID** directly (e.g. `id: 'preamble-we-the-people'`).
-- For quiz questions managed individually by reviewers, question IDs follow `[canonical-lesson-id]-q[number]` (e.g. `preamble-we-the-people-q1`).
-- The admin backend SQL table will store `content_id VARCHAR(64) PRIMARY KEY` matching the canonical ID.
-- Legacy admin IDs (`lesson-preamble-1`, `lesson-equality-1`) are resolved through an alias dictionary when reading legacy audit records or mistake reports.
-
----
-
-## 5. Quiz Representation: Inline on Lessons
-
-### Decision: Inline Questions on the Lesson Payload
-Rather than maintaining detached `Quiz` objects in a separate array requiring cross-table joins and secondary routes:
-1. Every lesson payload contains its optional `quizQuestions: QuizQuestion[]` directly.
-2. The quiz questions support all four rich question types:
-   - `multiple_choice`
-   - `match_pairs`
-   - `order_steps`
-   - `spot_violation`
-3. Standalone quiz routes (`/quiz/:quizId`) resolve by matching `quizId` to `canonicalLessonId` (or `quiz-[canonicalLessonId]`).
-4. Result: Zero out-of-sync questions, atomic lesson reviews in admin, and instantaneous client-side question caching.
-
----
-
-## 6. XP System & Server Authority
-
-### Baseline Values
-- **Lesson Completion:** 15 XP standard completion bonus.
-- **Quiz Mastery:** 25 XP for score $\ge 80\%$, 15 XP for score $< 80\%$.
-- **Constitutional Chests:** 20–25 XP.
-
-### Authority Modes
-- **Live Mode (`VITE_USE_MOCKS=false`):**  
-  The client submits `POST /api/progress/complete-lesson` or `POST /api/progress/submit-quiz` with an `Idempotency-Key` UUID. The server calculates and returns the official updated total XP, streak, and unlocked badges. The client immediately renders the server response.
-- **Mock Mode (`VITE_USE_MOCKS=true`):**  
-  The client executes local optimistic calculation using the lesson's declared `xp` value, persisting to local storage.
-
----
-
-## 7. Migration Adapter (Zero-Data-Loss)
-
-### Storage Keys to Migrate in `localStorage['progress']`
-1. `completedLessonIds`: `string[]`
-2. `bookmarks`: `string[]`
-3. `savedLessonIds`: `string[]`
-4. `quizScores`: `Record<string, number>`
-
-### Bidirectional Legacy Alias Map
+### Dual Key Representation
+Every unit defines both a numeric display order (`order` / `id: number`) and a stable kebab-case `slug`:
 ```ts
-export const LEGACY_LESSON_ID_MAP: Record<string, string> = {
-  // Curriculum Catalog IDs -> Canonical IDs
+export interface CanonicalUnit {
+  id: number // Numeric sequence for visual badges (e.g. 1 for "Unit 1")
+  slug: string // Stable URL & API key, e.g. "foundations-of-the-republic"
+  kicker: string // "UNIT 1"
+  title: string // "Foundations of the Republic"
+  description: string
+  courseSlug: string // Foreign key to Course / Track
+  lessons: CanonicalLesson[]
+}
+```
+
+### URL Navigation Stability
+Routes and helper functions (`getUnit`, `lessonsForUnit`) accept **both** the numeric string and the slug:
+- `/learn/unit/1` $\rightarrow$ resolves Unit 1
+- `/learn/unit/foundations-of-the-republic` $\rightarrow$ resolves Unit 1
+- If reordered in the future, the stable `slug` remains permanent in bookmarks and URLs.
+
+---
+
+## 4. Per-Lesson XP & Quiz Bonus Computation
+
+### A. Dynamic Lesson XP (No Hardcoded 15 XP)
+1. Each lesson in the canonical catalog declares its own `xp` property based on depth and complexity:
+   - Standard lesson: `xp: 15` (e.g. `preamble-we-the-people`, `article-14-equality`)
+   - Advanced / Landmark case study lesson: `xp: 20` (e.g. `basic-structure-limits`, `article-21-life-liberty`, `filing-police-complaint-fir`)
+2. **Server-Authoritative Award:**  
+   When the client calls `POST /api/progress/complete-lesson`:
+   - In Live Mode (`VITE_USE_MOCKS=false`), the server inspects the lesson record from the database, retrieves `lesson.xp`, and awards that exact amount.
+   - In Mock Mode (`VITE_USE_MOCKS=true`), `progressService.ts` looks up `getLesson(payload.lessonId)?.xp ?? 15` and awards it dynamically instead of hardcoding 15.
+   - If a lesson was already completed previously by this user, the server/service awards `earnedXp: 0` and does not duplicate XP.
+
+### B. Quiz Bonus XP Formula
+When the client calls `POST /api/progress/submit-quiz`:
+1. **First Attempt Scoring:**
+   - Mastery ($\text{Score} \ge 80\%$): Awards **25 XP** bonus.
+   - Participation ($\text{Score} < 80\%$): Awards **15 XP** bonus.
+2. **Retake & Upgrade Policy:**
+   - If previous score was $< 80\%$ (15 XP awarded) and new score is $\ge 80\%$, the server awards the delta: $+10\text{ XP}$ ($25 - 15$).
+   - If previous score was already $\ge 80\%$, subsequent retakes award `0 XP` bonus to prevent infinite XP farming.
+   - The stored score in `quizScores[lessonId]` is always updated to `Math.max(previousScore, newScore)`.
+
+---
+
+## 5. Client-Side URL Redirects
+
+To prevent broken links from external shares, browser history, or bookmarks, client-side route redirects will be registered in `App.tsx` / `LearnPages.tsx`:
+
+### Redirect Rules
+
+| Incoming Request URL | Redirect Target URL | HTTP / Navigation Type |
+|---|---|---|
+| `/learn/:courseId/cf-preamble` | `/learn/:courseId/preamble-we-the-people` | 301 / `Navigate replace` |
+| `/learn/:courseId/cf-parts` | `/learn/:courseId/parts-schedules-map` | 301 / `Navigate replace` |
+| `/learn/:courseId/cf-parliament` | `/learn/:courseId/parliament-union-executive` | 301 / `Navigate replace` |
+| `/learn/:courseId/cf-courts` | `/learn/:courseId/judiciary-court-hierarchy` | 301 / `Navigate replace` |
+| `/learn/:courseId/fr-overview` | `/learn/:courseId/fundamental-rights-framework` | 301 / `Navigate replace` |
+| `/learn/:courseId/fr-equality` | `/learn/:courseId/article-14-equality` | 301 / `Navigate replace` |
+| `/learn/:courseId/article-14-equality-safeguard` | `/learn/:courseId/article-14-equality` | 301 / `Navigate replace` |
+| `/learn/:courseId/fr-liberty` | `/learn/:courseId/article-21-life-liberty` | 301 / `Navigate replace` |
+| `/learn/:courseId/el-consumer` | `/learn/:courseId/consumer-protection-basics` | 301 / `Navigate replace` |
+| `/learn/:courseId/el-work` | `/learn/:courseId/workplace-rights-basics` | 301 / `Navigate replace` |
+| `/learn/:courseId/el-student` | `/learn/:courseId/campus-student-rights` | 301 / `Navigate replace` |
+| `/learn/:courseId/el-complaint` | `/learn/:courseId/filing-police-complaint-fir` | 301 / `Navigate replace` |
+| `/learn/:courseId/dp-offences` | `/learn/:courseId/online-offences-cybercrime` | 301 / `Navigate replace` |
+| `/learn/:courseId/dp-privacy` | `/learn/:courseId/digital-privacy-data-protection` | 301 / `Navigate replace` |
+| `/quiz/quiz-:legacyId` | `/quiz/:canonicalLessonId` | 301 / `Navigate replace` |
+| `/quiz/:legacyId` | `/quiz/:canonicalLessonId` | 301 / `Navigate replace` |
+| `/quiz/:legacyId/results` | `/quiz/:canonicalLessonId/results` | 301 / `Navigate replace` |
+
+---
+
+## 6. Zero-Data-Loss Migration & `quizScores` Key Remapping
+
+### Master Alias Lookup Dictionary
+```ts
+export const CANONICAL_LESSON_ALIAS_MAP: Record<string, string> = {
+  // Curriculum Catalog IDs
   'cf-preamble': 'preamble-we-the-people',
   'cf-parts': 'parts-schedules-map',
   'cf-parliament': 'parliament-union-executive',
   'cf-courts': 'judiciary-court-hierarchy',
   'fr-overview': 'fundamental-rights-framework',
   'fr-equality': 'article-14-equality',
+  'article-14-equality-safeguard': 'article-14-equality',
   'fr-liberty': 'article-21-life-liberty',
   'el-consumer': 'consumer-protection-basics',
   'el-work': 'workplace-rights-basics',
@@ -138,58 +185,99 @@ export const LEGACY_LESSON_ID_MAP: Record<string, string> = {
   'dp-offences': 'online-offences-cybercrime',
   'dp-privacy': 'digital-privacy-data-protection',
 
-  // Admin Scheme IDs -> Canonical IDs
+  // Admin Scheme IDs
   'lesson-preamble-1': 'preamble-we-the-people',
-  'lesson-parts-1': 'parts-schedules-map',
-  'lesson-parliament-1': 'parliament-union-executive',
-  'lesson-judiciary-1': 'judiciary-court-hierarchy',
-  'lesson-fr-overview': 'fundamental-rights-framework',
-  'lesson-equality-1': 'article-14-equality',
-  'lesson-liberty-1': 'article-21-life-liberty',
-  'lesson-consumer-1': 'consumer-protection-basics',
-  'lesson-workplace-1': 'workplace-rights-basics',
-  'lesson-student-1': 'campus-student-rights',
-  'lesson-fir-1': 'filing-police-complaint-fir',
-  'lesson-cyber-1': 'online-offences-cybercrime',
-  'lesson-privacy-1': 'digital-privacy-data-protection',
+  'lesson-basic-structure-2': 'basic-structure-limits',
+  'lesson-article-14-3': 'article-14-equality',
+  'draft-directive-principles-4': 'directive-principles-policy',
 }
 ```
 
-### Migration Implementation Strategy
+### Remapping `quizScores`
+Old storage saved quiz scores under arbitrary prefixes like `"quiz-cf-preamble"`, `"cf-preamble"`, or `"quiz-fr-equality"`.
+The migration normalizes all quiz score keys directly to the **canonical lesson ID**:
 ```ts
-export function migrateProgressState(progress: ProgressState): ProgressState {
-  const remapId = (id: string): string => LEGACY_LESSON_ID_MAP[id] || id
+export function normalizeQuizKey(rawKey: string): string {
+  // Strip 'quiz:' or 'quiz-' prefix if present
+  const stripped = rawKey.replace(/^quiz[:-]/, '')
+  return CANONICAL_LESSON_ALIAS_MAP[stripped] || stripped
+}
+```
 
-  const completed = Array.from(new Set((progress.completedLessonIds || []).map(remapId)))
-  const bookmarks = Array.from(new Set((progress.bookmarks || []).map(remapId)))
-  const saved = Array.from(new Set((progress.savedLessonIds || []).map(remapId)))
+### Complete Migration Algorithm
+```ts
+export function migrateProgressState(rawProgress: ProgressState): ProgressState {
+  if (!rawProgress) return rawProgress
 
+  const remap = (id: string): string => CANONICAL_LESSON_ALIAS_MAP[id] || id
+
+  // 1. Remap and deduplicate completed lessons
+  const completedLessonIds = Array.from(
+    new Set((rawProgress.completedLessonIds || []).map(remap))
+  )
+
+  // 2. Remap and deduplicate bookmarks
+  const bookmarks = Array.from(
+    new Set((rawProgress.bookmarks || []).map(remap))
+  )
+
+  // 3. Remap and deduplicate saved lessons
+  const savedLessonIds = Array.from(
+    new Set((rawProgress.savedLessonIds || []).map(remap))
+  )
+
+  // 4. Remap quizScores, preserving the highest score if duplicate keys collide
   const quizScores: Record<string, number> = {}
-  Object.entries(progress.quizScores || {}).forEach(([key, score]) => {
-    const canonicalKey = remapId(key.replace(/^quiz-/, ''))
+  Object.entries(rawProgress.quizScores || {}).forEach(([key, score]) => {
+    const canonicalKey = normalizeQuizKey(key)
     quizScores[canonicalKey] = Math.max(score, quizScores[canonicalKey] || 0)
   })
 
+  // 5. Update history items hrefs
+  const history = (rawProgress.history || []).map((item) => {
+    let nextHref = item.href
+    Object.entries(CANONICAL_LESSON_ALIAS_MAP).forEach(([oldId, newId]) => {
+      if (nextHref.includes(oldId)) {
+        nextHref = nextHref.replace(oldId, newId)
+      }
+    })
+    return { ...item, href: nextHref }
+  })
+
   return {
-    ...progress,
-    completedLessonIds: completed,
+    ...rawProgress,
+    completedLessonIds,
     bookmarks,
-    savedLessonIds: saved,
+    savedLessonIds,
     quizScores,
+    history,
   }
 }
 ```
 
-- Runs automatically during `AppStateContext` mount and during `safeValidate(progressStateSchema, ...)` parsing.
-- Idempotent: Can be run multiple times safely without altering already-canonical state.
-- Deduplicating: `Set` prevents duplicates if a user had both legacy and canonical entries.
+### Invariants & Guarantees
+- **Idempotency:** Running `migrateProgressState` on already-migrated state produces identical output.
+- **Empty State Safety:** Works identically with `{}` or default state.
+- **No Demotions:** `Math.max` ensures no user's quiz score drops if they took both legacy and modern variants.
+- **Executed on Mount:** Runs in `AppStateContext.tsx` on load and automatically writes back the clean canonical state to `localStorage`.
 
 ---
 
-## 8. Verification Plan & Safety Guarantees
-1. Unit tests covering:
-   - Full migration of legacy `cf-preamble` / `lesson-preamble-1` into `preamble-we-the-people`.
-   - Score preservation in `quizScores`.
-   - Backward lookup when navigating to `/learn/constitution-foundations/cf-preamble` automatically resolving or redirecting cleanly.
-2. Zero visual layout or CSS animation modifications.
-3. Updating `docs/API_CONTRACT.md` and `ADMIN_BACKEND_SETUP.md` with the unified schema.
+## 7. AI Quota Representation: `null` & `unlimited: true`
+
+In both `API_CONTRACT.md` and TypeScript definitions, the Sentinel value `9999` is deprecated in favor of explicit typed unlimited representation:
+
+```ts
+// User Subscription Quota Schema
+export interface SubscriptionPlanQuota {
+  tier: 'free' | 'pro' | 'patron'
+  dailyAiLimit: number | null // null indicates unlimited quota
+  isUnlimited: boolean        // true for pro and patron
+  usedToday: number
+  resetsAt: string            // ISO 8601 UTC timestamp
+}
+```
+
+- Free tier: `dailyAiLimit: 5`, `isUnlimited: false`
+- Pro tier: `dailyAiLimit: null`, `isUnlimited: true`
+- Patron tier: `dailyAiLimit: null`, `isUnlimited: true`

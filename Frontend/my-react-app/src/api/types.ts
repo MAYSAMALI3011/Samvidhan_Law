@@ -128,7 +128,8 @@ export interface SubscriptionPlan {
   status: 'active' | 'cancelled' | 'past_due' | 'trialing'
   validUntil?: string
   aiUsageToday: number
-  aiDailyLimit: number
+  aiDailyLimit: number | null
+  unlimited?: boolean
 }
 
 export interface CheckoutSessionResponse {
