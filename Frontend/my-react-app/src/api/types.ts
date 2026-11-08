@@ -13,6 +13,7 @@ import type {
   UserTier,
   ActivityItem,
   AskMessage,
+  AskConversation,
 } from '../types'
 
 export type {
@@ -30,6 +31,7 @@ export type {
   UserTier,
   ActivityItem,
   AskMessage,
+  AskConversation,
 }
 
 export interface ApiResponse<T = unknown> {
@@ -111,4 +113,56 @@ export interface ContactPayload {
 
 export interface NewsletterPayload {
   email: string
+}
+
+export interface UserSettings {
+  dailyGoal: number
+  soundEnabled: boolean
+  mascotEnabled: boolean
+  reduceMotion: boolean
+  compact: boolean
+}
+
+export interface SubscriptionPlan {
+  tier: UserTier
+  status: 'active' | 'cancelled' | 'past_due' | 'trialing'
+  validUntil?: string
+  aiUsageToday: number
+  aiDailyLimit: number
+}
+
+export interface CheckoutSessionResponse {
+  success: boolean
+  checkoutUrl?: string
+  clientSecret?: string
+  message?: string
+}
+
+export interface ReferralMilestone {
+  milestone: number
+  label: string
+  reward: string
+  unlocked: boolean
+}
+
+export interface ReferralStats {
+  referralCode: string
+  invitesCount: number
+  earnedXp: number
+  milestones: ReferralMilestone[]
+}
+
+export interface AffiliateStats {
+  clicks: number
+  conversions: number
+  earnings: number
+  payoutStatus: string
+}
+
+export interface AffiliateApplicationPayload {
+  name: string
+  email: string
+  organization?: string
+  audienceSize?: string
+  message: string
 }

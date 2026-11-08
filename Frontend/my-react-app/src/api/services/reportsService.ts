@@ -1,6 +1,6 @@
-import { apiClient } from '../client'
-import { isMockMode } from '../config'
-import type { ContactPayload, MistakeReportPayload, NewsletterPayload } from '../types'
+import { apiClient } from '../client.ts'
+import { isMockMode } from '../config.ts'
+import type { MistakeReportPayload, NewsletterPayload } from '../types.ts'
 
 export async function submitMistakeReport(payload: MistakeReportPayload): Promise<{ success: boolean; id: string }> {
   if (isMockMode()) {
@@ -21,14 +21,7 @@ export async function submitMistakeReport(payload: MistakeReportPayload): Promis
   return res
 }
 
-export async function submitContact(payload: ContactPayload): Promise<{ success: boolean }> {
-  if (isMockMode()) {
-    await new Promise((resolve) => setTimeout(resolve, 350))
-    return { success: true }
-  }
-
-  return apiClient.post<{ success: boolean }>('/api/contact', payload)
-}
+export { submitContact } from './contactService.ts'
 
 export async function subscribeNewsletter(payload: NewsletterPayload): Promise<{ success: boolean; message: string }> {
   if (isMockMode()) {

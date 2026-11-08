@@ -3,6 +3,7 @@ import { Landmark, TrendingUp, DollarSign, CheckCircle2, ArrowRight } from 'luci
 import { usePageMeta } from '../../hooks/usePageMeta'
 import { BackButton } from '../../components/common/BackButton'
 import { useAppState } from '../../context/useAppState'
+import { applyAffiliate } from '../../api/services/affiliateService'
 
 export function AffiliatePage() {
   const { pushToast } = useAppState()
@@ -17,11 +18,21 @@ export function AffiliatePage() {
     path: '/affiliates',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!name.trim() || !email.trim()) return
-    setSubmitted(true)
-    pushToast('Thank you for applying! Our partnership team will review your application within 48 hours.', 'success')
+    try {
+      const res = await applyAffiliate({
+        name: name.trim(),
+        email: email.trim(),
+        audienceSize: audience,
+        message: 'Application via Educator & Partner portal',
+      })
+      setSubmitted(true)
+      pushToast(res.message, 'success')
+    } catch {
+      pushToast('Unable to submit affiliate application. Please try again.', 'error')
+    }
   }
 
   return (

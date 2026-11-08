@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { X, Crown, Check, Sparkles, Shield, ArrowRight } from 'lucide-react'
 import { setUserTier } from '../../utils/tiers'
 import { useAppState } from '../../context/useAppState'
+import { isMockMode } from '../../api/config'
+import { createCheckoutSession } from '../../api/services/subscriptionService'
 import { CardNumberInput } from '../../components/ui/TextFields.jsx'
 import './growth.css'
 
@@ -36,14 +38,17 @@ export function ProGateModal({ isOpen, onClose, featureName }: ProGateModalProps
 
   if (!isOpen) return null
 
-  const isDevMock = import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS !== 'false'
-
-  const handleUpgradeDemo = () => {
-    if (isDevMock) {
+  const handleUpgradeDemo = async () => {
+    try {
+      const res = await createCheckoutSession('pro')
+      if (res.checkoutUrl) {
+        window.location.href = res.checkoutUrl
+        return
+      }
       setUserTier('pro')
-      pushToast('Welcome to Samvidhan Pro! All features unlocked (Demo mode).', 'success')
+      pushToast(res.message || 'Welcome to Samvidhan Pro! All features unlocked.', 'success')
       onClose()
-    } else {
+    } catch {
       pushToast('Upgrade coming soon. Payment gateway integration is currently in progress.', 'info')
     }
   }
@@ -125,7 +130,7 @@ export function ProGateModal({ isOpen, onClose, featureName }: ProGateModalProps
             onClick={handleUpgradeDemo}
           >
             <Sparkles size={16} aria-hidden="true" />
-            <span>{isDevMock ? 'Upgrade to Pro (Demo)' : 'Upgrade coming soon'}</span>
+            <span>{isMockMode() ? 'Upgrade to Pro (Demo)' : 'Upgrade to Pro'}</span>
             <ArrowRight size={16} aria-hidden="true" />
           </button>
           <p className="pro-guarantee-note">

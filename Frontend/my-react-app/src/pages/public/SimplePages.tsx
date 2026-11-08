@@ -17,6 +17,7 @@ import { usePageMeta } from '../../hooks/usePageMeta'
 import { BrandMark } from '../../components/brand/BrandMark'
 import { MorMascot } from '../../components/mascot/MorMascot'
 import { AutoGrowTextarea } from '../../components/ui/TextFields.jsx'
+import { submitContact } from '../../api/services/contactService'
 
 export function HowItWorksPage() {
   usePageMeta({
@@ -155,17 +156,26 @@ export function ContactPage() {
 
       <form
         className="form contact-form"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault()
           if (!name.trim() || !email.trim() || !message.trim()) {
             setError('Please complete all required fields.')
             return
           }
           setError('')
-          pushToast('Thank you! Your message has been received.', 'success')
-          setName('')
-          setEmail('')
-          setMessage('')
+          try {
+            const res = await submitContact({
+              name: name.trim(),
+              email: email.trim(),
+              message: message.trim(),
+            })
+            pushToast(res.message, 'success')
+            setName('')
+            setEmail('')
+            setMessage('')
+          } catch {
+            pushToast('Unable to send message right now. Please try again.', 'error')
+          }
         }}
       >
         <Field label="Your Name" error={error && !name.trim() ? 'Name is required' : undefined}>

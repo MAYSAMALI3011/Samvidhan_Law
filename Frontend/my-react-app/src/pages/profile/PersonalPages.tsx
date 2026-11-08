@@ -29,6 +29,7 @@ import { useTheme } from '../../context/useTheme'
 import { getLesson, getQuiz } from '../../services/catalog'
 import { usePageMeta } from '../../hooks/usePageMeta'
 import { readJson, writeJson } from '../../utils/storage'
+import { updateSettings } from '../../api/services/userService'
 
 export function ProfilePage() {
   const { user, demoSignOut, pushToast } = useAppState()
@@ -364,7 +365,7 @@ export function SettingsPage() {
     path: '/settings',
   })
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
     writeJson('pref:motion', reduceMotion)
     writeJson('pref:compact', compact)
@@ -373,6 +374,18 @@ export function SettingsPage() {
       document.documentElement.classList.add('reduced-motion')
     } else {
       document.documentElement.classList.remove('reduced-motion')
+    }
+
+    try {
+      await updateSettings({
+        reduceMotion,
+        compact,
+        dailyGoal: progress.dailyGoal,
+        soundEnabled: progress.soundEnabled,
+        mascotEnabled: progress.mascotEnabled,
+      })
+    } catch {
+      // non-blocking
     }
 
     setSavedSuccess(true)

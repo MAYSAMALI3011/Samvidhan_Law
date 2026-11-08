@@ -1,9 +1,11 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { z } from 'zod'
 import {
   userProfileSchema,
   lessonCompletionResponseSchema,
   quizSubmissionResponseSchema,
+  subscriptionPlanSchema,
   safeValidate,
 } from '../api/schemas.ts'
 import {
@@ -13,6 +15,7 @@ import {
   setAuthToken,
   isMockMode,
 } from '../api/config.ts'
+import { createIdempotencyKey, ApiError } from '../api/client.ts'
 
 test('auth config: manages auth strategy and bearer token state cleanly', () => {
   assert.equal(getAuthStrategy(), 'cookie')
@@ -30,6 +33,14 @@ test('auth config: manages auth strategy and bearer token state cleanly', () => 
 
 test('isMockMode: defaults correctly in dev environment', () => {
   assert.equal(typeof isMockMode(), 'boolean')
+})
+
+test('createIdempotencyKey: generates non-empty unique keys', () => {
+  const k1 = createIdempotencyKey()
+  const k2 = createIdempotencyKey()
+  assert.ok(k1 && typeof k1 === 'string')
+  assert.ok(k2 && typeof k2 === 'string')
+  assert.notEqual(k1, k2)
 })
 
 test('userProfileSchema: validates and normalizes profile payload', () => {
@@ -70,10 +81,18 @@ test('safeValidate: returns valid data when parsing succeeds', () => {
   assert.equal(validated.progress.xp, 60)
 })
 
-test('safeValidate: gracefully falls back without crashing when fallback provided', () => {
+test('safeValidate: gracefully falls back for non-critical content lists', () => {
+  const tagsSchema = z.array(z.string())
+  const malformed = { not: 'an array' }
+  const fallback = ['Preamble', 'Fundamental Rights']
+  const result = safeValidate(tagsSchema, malformed, 'catalog.tags', fallback)
+  assert.deepEqual(result, fallback)
+})
+
+test('safeValidate: never substitutes fallbacks over critical state (throws ApiError to preserve real state)', () => {
   const malformed = {
-    name: 'Invalid User',
-    email: 'not-an-email', // invalid email will fail userProfileSchema
+    name: 'Corrupted User',
+    email: 'invalid-email-pattern',
   }
   const fallback = {
     name: 'Fallback User',
@@ -83,8 +102,15 @@ test('safeValidate: gracefully falls back without crashing when fallback provide
     tier: 'free' as const,
     aiUsageToday: 0,
   }
-  const result = safeValidate(userProfileSchema, malformed, 'test.profile', fallback)
-  assert.deepEqual(result, fallback)
+
+  assert.throws(
+    () => {
+      safeValidate(userProfileSchema, malformed, 'authService.userProfile', fallback)
+    },
+    (err: unknown) => {
+      return err instanceof ApiError && err.isValidationError === true
+    },
+  )
 })
 
 test('quizSubmissionResponseSchema: validates quiz submission event response', () => {
@@ -110,4 +136,18 @@ test('quizSubmissionResponseSchema: validates quiz submission event response', (
   assert.equal(validated.success, true)
   assert.equal(validated.earnedXp, 25)
   assert.equal(validated.progress.quizScores['quiz-preamble-1'], 85)
+})
+
+test('subscriptionPlanSchema: validates subscription plan and usage quota', () => {
+  const raw = {
+    tier: 'pro',
+    status: 'active',
+    validUntil: '2027-12-31',
+    aiUsageToday: 4,
+    aiDailyLimit: 50,
+  }
+  const validated = safeValidate(subscriptionPlanSchema, raw, 'subscriptionService.getCurrentPlan')
+  assert.equal(validated.tier, 'pro')
+  assert.equal(validated.aiDailyLimit, 50)
+  assert.equal(validated.aiUsageToday, 4)
 })

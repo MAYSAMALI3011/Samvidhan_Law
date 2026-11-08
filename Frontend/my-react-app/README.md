@@ -2,7 +2,11 @@
 
 Premium Indian LegalTech + EdTech frontend (React, Vite, TypeScript).
 
-This milestone is **frontend only**. Authentication, Ask Samvidhan answers, progress, and bookmarks are local demonstrations. They are not live backend services.
+This milestone is **frontend only**. An abstraction layer in `src/api/` manages typed communication with runtime Zod validation and a mock/live switch (`VITE_USE_MOCKS`).
+
+## Backend API Specification
+The full backend API contract, authentication specifications, CSRF requirements, server-authoritative gamification rules, and SSE event streaming definitions are documented in:
+- [API Contract & Specification](../../docs/API_CONTRACT.md)
 
 ## Run
 

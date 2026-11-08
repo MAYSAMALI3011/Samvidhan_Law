@@ -1,4 +1,4 @@
-import { apiClient } from '../client'
+import { apiClient, createIdempotencyKey } from '../client.ts'
 import { isMockMode } from '../config'
 import {
   progressStateSchema,
@@ -64,6 +64,7 @@ export async function fetchProgress(): Promise<ProgressState> {
 export async function completeLessonEvent(payload: {
   lessonId: string
   title: string
+  idempotencyKey?: string
 }): Promise<LessonCompletionResponse> {
   if (isMockMode()) {
     const current = readJson<ProgressState>('progress', emptyProgress)
@@ -92,8 +93,13 @@ export async function completeLessonEvent(payload: {
     }
   }
 
-  // Live Mode: Server-authoritative calculation
-  const raw = await apiClient.post<unknown>('/api/progress/complete-lesson', payload)
+  // Live Mode: Server-authoritative calculation with Idempotency-Key
+  const idempotencyKey = payload.idempotencyKey || createIdempotencyKey()
+  const raw = await apiClient.post<unknown>(
+    '/api/progress/complete-lesson',
+    { lessonId: payload.lessonId, title: payload.title },
+    { idempotencyKey },
+  )
   return safeValidate(lessonCompletionResponseSchema, raw, 'progressService.completeLessonEvent')
 }
 
@@ -101,6 +107,7 @@ export async function submitQuizEvent(payload: {
   quizId: string
   score: number
   title: string
+  idempotencyKey?: string
 }): Promise<QuizSubmissionResponse> {
   if (isMockMode()) {
     const current = readJson<ProgressState>('progress', emptyProgress)
@@ -126,14 +133,20 @@ export async function submitQuizEvent(payload: {
     }
   }
 
-  // Live Mode: Server-authoritative calculation
-  const raw = await apiClient.post<unknown>('/api/progress/submit-quiz', payload)
+  // Live Mode: Server-authoritative calculation with Idempotency-Key
+  const idempotencyKey = payload.idempotencyKey || createIdempotencyKey()
+  const raw = await apiClient.post<unknown>(
+    '/api/progress/submit-quiz',
+    { quizId: payload.quizId, score: payload.score, title: payload.title },
+    { idempotencyKey },
+  )
   return safeValidate(quizSubmissionResponseSchema, raw, 'progressService.submitQuizEvent')
 }
 
 export async function openChestEvent(payload: {
   chestId: string
   xpBonus?: number
+  idempotencyKey?: string
 }): Promise<ChestOpenResponse> {
   if (isMockMode()) {
     const current = readJson<ProgressState>('progress', emptyProgress)
@@ -151,11 +164,16 @@ export async function openChestEvent(payload: {
     return { success: true, progress: next, bonusXp: bonus }
   }
 
-  const raw = await apiClient.post<unknown>('/api/progress/open-chest', payload)
+  const idempotencyKey = payload.idempotencyKey || createIdempotencyKey()
+  const raw = await apiClient.post<unknown>(
+    '/api/progress/open-chest',
+    { chestId: payload.chestId, xpBonus: payload.xpBonus },
+    { idempotencyKey },
+  )
   return safeValidate(chestOpenResponseSchema, raw, 'progressService.openChestEvent')
 }
 
-export async function useStreakFreezeEvent(): Promise<ProgressState> {
+export async function useStreakFreezeEvent(idempotencyKey?: string): Promise<ProgressState> {
   if (isMockMode()) {
     const current = readJson<ProgressState>('progress', emptyProgress)
     const next: ProgressState = {
@@ -166,7 +184,8 @@ export async function useStreakFreezeEvent(): Promise<ProgressState> {
     return next
   }
 
-  const raw = await apiClient.post<unknown>('/api/progress/streak-freeze', {})
+  const key = idempotencyKey || createIdempotencyKey()
+  const raw = await apiClient.post<unknown>('/api/progress/streak-freeze', {}, { idempotencyKey: key })
   const res = safeValidate(progressStateSchema, raw, 'progressService.useStreakFreezeEvent')
   return res
 }

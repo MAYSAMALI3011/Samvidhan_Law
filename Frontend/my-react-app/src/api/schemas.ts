@@ -20,6 +20,66 @@ export const userProfileSchema = z.object({
   aiUsageToday: z.number().nonnegative().default(0),
 }).passthrough()
 
+export const userSettingsSchema = z.object({
+  dailyGoal: z.number().default(30),
+  soundEnabled: z.boolean().default(true),
+  mascotEnabled: z.boolean().default(true),
+  reduceMotion: z.boolean().default(false),
+  compact: z.boolean().default(false),
+}).passthrough()
+
+export const subscriptionPlanSchema = z.object({
+  tier: userTierSchema,
+  status: z.enum(['active', 'cancelled', 'past_due', 'trialing']),
+  validUntil: z.string().optional(),
+  aiUsageToday: z.number().default(0),
+  aiDailyLimit: z.number().default(5),
+}).passthrough()
+
+export const checkoutSessionResponseSchema = z.object({
+  success: z.boolean(),
+  checkoutUrl: z.string().optional(),
+  clientSecret: z.string().optional(),
+  message: z.string().optional(),
+}).passthrough()
+
+export const referralMilestoneSchema = z.object({
+  milestone: z.number(),
+  label: z.string(),
+  reward: z.string(),
+  unlocked: z.boolean(),
+})
+
+export const referralStatsSchema = z.object({
+  referralCode: z.string(),
+  invitesCount: z.number().default(0),
+  earnedXp: z.number().default(0),
+  milestones: z.array(referralMilestoneSchema).default([]),
+}).passthrough()
+
+export const affiliateStatsSchema = z.object({
+  clicks: z.number().default(0),
+  conversions: z.number().default(0),
+  earnings: z.number().default(0),
+  payoutStatus: z.string().default('Active'),
+}).passthrough()
+
+export const askMessageSchema = z.object({
+  id: z.string(),
+  role: z.enum(['user', 'assistant']),
+  content: z.string(),
+  createdAt: z.string().default(() => new Date().toISOString()),
+  sources: z.array(z.object({ title: z.string(), note: z.string() })).optional(),
+  nextSteps: z.array(z.string()).optional(),
+}).passthrough()
+
+export const askConversationSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  messages: z.array(askMessageSchema).default([]),
+  updatedAt: z.string().optional(),
+}).passthrough()
+
 export const authResponseSchema = z.object({
   success: z.boolean(),
   user: userProfileSchema.optional(),
@@ -253,30 +313,50 @@ export const chestOpenResponseSchema = z.object({
 
 /**
  * Safe Zod Parser helper
- * Validates data and on failure, reports error gracefully without crashing.
+ * Validates data and on failure, reports error gracefully.
+ *
+ * Rule:
+ * For auth, progress, user profile, and subscription responses, NEVER substitute
+ * a fallback over real user state. Keep existing state, report via validation event,
+ * and throw ApiError so callers can preserve state and notify the user.
+ * Fallbacks are permitted only for non-critical content lists.
  */
 export function safeValidate<T>(
   schema: z.ZodType<T>,
   data: unknown,
   context: string,
   fallback?: T,
+  options?: { isCritical?: boolean },
 ): T {
   const result = schema.safeParse(data)
   if (result.success) {
     return result.data
   }
 
+  const isCriticalContext =
+    options?.isCritical ||
+    /^(auth|progress|user|subscription|payment|me)/i.test(context) ||
+    context.includes('authService') ||
+    context.includes('progressService') ||
+    context.includes('subscriptionService') ||
+    context.includes('userService')
+
   // Gracefully report validation issue
-  console.warn(`[API Validation Warning] ${context}:`, result.error.issues)
+  console.warn(`[API Validation Warning${isCriticalContext ? ' CRITICAL' : ''}] ${context}:`, result.error.issues)
   if (typeof window !== 'undefined') {
     window.dispatchEvent(
       new CustomEvent('samvidhan:api-validation-error', {
-        detail: { context, issues: result.error.issues },
+        detail: {
+          context,
+          issues: result.error.issues,
+          critical: isCriticalContext,
+        },
       }),
     )
   }
 
-  if (fallback !== undefined) {
+  // Never substitute a fallback for critical state (auth, progress, subscriptions)
+  if (fallback !== undefined && !isCriticalContext) {
     return fallback
   }
 

@@ -22,6 +22,17 @@ export interface RequestOptions extends Omit<RequestInit, 'body'> {
   timeoutMs?: number
   retry?: boolean
   skipAuth?: boolean
+  idempotencyKey?: string
+}
+
+/**
+ * Generate a unique idempotency key for state-changing requests
+ */
+export function createIdempotencyKey(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  return 'idemp_' + Math.random().toString(36).slice(2) + Date.now().toString(36)
 }
 
 /**
@@ -86,6 +97,11 @@ async function executeRequest<T>(endpoint: string, options: RequestOptions = {})
   // Strategy 1: Bearer token (if strategy is set to bearer and token exists)
   if (!skipAuth && strategy === 'bearer' && token) {
     headers['Authorization'] = `Bearer ${token}`
+  }
+
+  // Idempotency-Key for state-changing requests
+  if (options.idempotencyKey) {
+    headers['Idempotency-Key'] = options.idempotencyKey
   }
 
   // Setup timeout via AbortController
@@ -165,18 +181,18 @@ export const apiClient = {
   },
 
   post: <T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> => {
-    return executeRequest<T>(endpoint, { ...options, method: 'POST', body })
+    return executeRequest<T>(endpoint, { ...options, method: 'POST', body, retry: false })
   },
 
   put: <T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> => {
-    return executeRequest<T>(endpoint, { ...options, method: 'PUT', body })
+    return executeRequest<T>(endpoint, { ...options, method: 'PUT', body, retry: false })
   },
 
   patch: <T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> => {
-    return executeRequest<T>(endpoint, { ...options, method: 'PATCH', body })
+    return executeRequest<T>(endpoint, { ...options, method: 'PATCH', body, retry: false })
   },
 
   delete: <T>(endpoint: string, options?: RequestOptions): Promise<T> => {
-    return executeRequest<T>(endpoint, { ...options, method: 'DELETE' })
+    return executeRequest<T>(endpoint, { ...options, method: 'DELETE', retry: false })
   },
 }

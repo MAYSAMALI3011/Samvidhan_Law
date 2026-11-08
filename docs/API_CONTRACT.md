@@ -1,29 +1,60 @@
 # Samvidhan API Contract & Specification
 
-> **Version:** 1.0.0  
-> **Status:** Phase 2 Complete (Frontend-Backend Contract)  
+> **Version:** 1.1.0 (Phase 2 Hardened)  
+> **Status:** Production-Ready Contract  
 > **Target Consumer:** Backend Engineering Team  
-> **Security Baseline:** No credentials or tokens stored in `localStorage`. httpOnly secure cookies are the default session mechanism.
+> **Security Baseline:** No credentials or tokens stored in `localStorage`. `httpOnly` secure cookies are the default session mechanism.
 
 ---
 
 ## 1. Global Architectural Standards
 
-### 1.1 Base URL
+### 1.1 Base URL & Environment
 All API requests are prefixed by the base URL configured via environment variables:
-- **Local Dev / Staging:** `http://localhost:8000` (or `http://localhost:5000`)
+- **Local Dev / Staging:** Configured via `.env.development` (`VITE_API_URL=http://localhost:8000`)
 - **Production:** Configured via `VITE_API_URL` (e.g. `https://api.samvidhan.in`)
-- **Live Mode Toggle:** When `VITE_USE_MOCKS=false` or when `import.meta.env.PROD === true`. Production builds **force live API mode**; mocks cannot execute in production.
+- **Live Mode Enforcement:** When `VITE_USE_MOCKS=false` or when `import.meta.env.PROD === true`. Production builds **force live API mode**; mocks cannot execute in production builds.
 
 ### 1.2 Authentication Strategies
-1. **Primary (Recommended & Default):** `httpOnly` secure cookies with `SameSite=Lax` (or `None` with `Secure` for cross-domain APIs). The frontend issues all requests with `credentials: 'include'`.
+1. **Primary (Default):** `httpOnly` secure cookies with `SameSite=Lax` (or `None` with `Secure` for cross-domain API hosts). The frontend issues all requests with `credentials: 'include'`.
 2. **Configurable Fallback:** Bearer Token via HTTP header:
    ```http
    Authorization: Bearer <in_memory_jwt_token>
    ```
    *Note: If the Bearer strategy is selected, tokens reside exclusively in JavaScript memory and are never persisted to `localStorage` or `sessionStorage`.*
 
-### 1.3 Standard Error Format
+### 1.3 CSRF Protection
+Because session cookies use `credentials: 'include'`, the backend must protect all state-changing endpoints (`POST`, `PUT`, `PATCH`, `DELETE`) against Cross-Site Request Forgery (CSRF):
+- **Cookie Policy:** Authentication cookies must declare `SameSite=Lax` (or `SameSite=Strict` where feasible).
+- **Origin & Referer Verification:** The backend must verify that the `Origin` or `Referer` header matches the authorized frontend domain (e.g., `https://samvidhan.in` or `http://localhost:5173`).
+- **CSRF Token Header (Recommended):** The server may issue an anti-CSRF token (e.g., via a readable `XSRF-TOKEN` cookie or handshake endpoint) which the client transmits as `X-CSRF-Token` on mutating requests.
+
+### 1.4 Request Retries & Idempotency Keys
+- **Safe Retries:** Only idempotent `GET` and `HEAD` requests are automatically retried by the frontend HTTP client (up to 2 retries on network failures with exponential backoff).
+- **Zero Auto-Retry on Mutations:** State-changing requests (`POST`, `PUT`, `PATCH`, `DELETE`) **never auto-retry**.
+- **Idempotency-Key Header:** For state-changing operations (lesson completion, quiz submission, chest opening, streak freezing, subscription checkout, and referral redemption), the client generates and sends a UUID header:
+  ```http
+  Idempotency-Key: 9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d
+  ```
+  **Backend Requirement:** The server must cache the response for each `Idempotency-Key` (e.g., in Redis with a 24-hour TTL). If a request with the same `Idempotency-Key` is received again (e.g., user manual retry), the backend must return the cached response without re-executing state side-effects (e.g., without awarding double XP or double-billing).
+
+### 1.5 Rate Limiting & 429 AI Quota Handling
+When rate limits or daily AI question quotas are exceeded:
+- **HTTP Status:** `429 Too Many Requests`
+- **Response Payload:**
+  ```json
+  {
+    "success": false,
+    "message": "Daily AI question limit reached. Upgrade to Samvidhan Pro for unlimited queries.",
+    "retryAfter": 86400,
+    "currentTier": "free",
+    "dailyLimit": 5,
+    "usageToday": 5
+  }
+  ```
+- **Response Headers:** `Retry-After: <seconds_until_midnight_utc>`
+
+### 1.6 Standard Error Format
 All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
 ```json
 {
@@ -34,19 +65,6 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
   }
 }
 ```
-
-### 1.4 HTTP Status Codes
-| Status | Meaning | Frontend Action |
-| :--- | :--- | :--- |
-| `200 OK` | Request succeeded | Parses payload via Zod validator |
-| `201 Created` | Resource created | Updates local TanStack Query cache |
-| `204 No Content` | Action succeeded with no body | Returns success |
-| `400 Bad Request` | Payload validation failure | Displays field error banner / message |
-| `401 Unauthorized` | Invalid or expired session | Dispatches `samvidhan:unauthorized`, redirects to `/login?returnTo=...` |
-| `403 Forbidden` | Insufficient role / tier permissions | Renders Forbidden or ProGate modal |
-| `404 Not Found` | Resource does not exist | Renders EmptyStateView |
-| `429 Too Many Requests` | Rate limit exceeded (e.g., AI quota) | Displays cooldown / upgrade toast |
-| `500 Server Error` | Unhandled backend exception | Displays toast: "Unable to reach server" |
 
 ---
 
@@ -76,7 +94,7 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
       "tier": "free",
       "aiUsageToday": 1
     },
-    "token": "optional_bearer_token_if_cookie_unavailable"
+    "token": "optional_bearer_token_if_cookie_strategy_disabled"
   }
   ```
 - **Error Codes:** `401 Unauthorized`, `429 Too Many Requests`
@@ -107,45 +125,22 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
     }
   }
   ```
-- **Error Codes:** `400 Bad Request` (Email already registered, password below strength requirement)
 
 ### 2.3 Verify Email OTP
 - **Method & Path:** `POST /api/auth/verify-otp`
 - **Auth Required:** No
-- **Request Body:**
-  ```json
-  {
-    "email": "aarav.sharma@college.ac.in",
-    "code": "482913"
-  }
-  ```
-- **Response (`200 OK`):**
-  ```json
-  {
-    "success": true
-  }
-  ```
-- **Error Codes:** `400 Bad Request` (Invalid or expired 6-digit code)
+- **Request Body:** `{ "email": "aarav.sharma@college.ac.in", "code": "482913" }`
+- **Response (`200 OK`):** `{ "success": true }`
 
 ### 2.4 Resend OTP
 - **Method & Path:** `POST /api/auth/resend-otp`
 - **Auth Required:** No
-- **Request Body:**
-  ```json
-  {
-    "email": "aarav.sharma@college.ac.in"
-  }
-  ```
-- **Response (`200 OK`):**
-  ```json
-  {
-    "success": true
-  }
-  ```
+- **Request Body:** `{ "email": "aarav.sharma@college.ac.in" }`
+- **Response (`200 OK`):** `{ "success": true }`
 
 ### 2.5 Current Session Profile (`me`)
 - **Method & Path:** `GET /api/auth/me`
-- **Auth Required:** Yes (`httpOnly` session cookie or Bearer header)
+- **Auth Required:** Yes
 - **Response (`200 OK`):**
   ```json
   {
@@ -158,78 +153,100 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
     "aiUsageToday": 2
   }
   ```
-- **Error Codes:** `401 Unauthorized`
 
 ### 2.6 Logout
 - **Method & Path:** `POST /api/auth/logout`
 - **Auth Required:** Yes
-- **Response (`200 OK`):**
-  *(Clears session cookie)*
-  ```json
-  {
-    "success": true
-  }
-  ```
+- **Response (`200 OK`):** `{ "success": true }`
 
-### 2.7 Forgot Password & Reset Password
-- **Request Reset:** `POST /api/auth/forgot-password`
-  - Body: `{ "email": "priya.sen@example.in" }`
-  - Response: `{ "success": true }`
-- **Submit New Password:** `POST /api/auth/reset-password`
-  - Body: `{ "token": "rst_token_123", "newPassword": "NewStrongPassword456!" }`
-  - Response: `{ "success": true }`
+### 2.7 Password Recovery
+- **Request:** `POST /api/auth/forgot-password` `{ "email": "priya.sen@example.in" }` -> `{ "success": true }`
+- **Reset:** `POST /api/auth/reset-password` `{ "token": "tok_123", "newPassword": "NewPassword456!" }` -> `{ "success": true }`
 
 ---
 
-## 3. Progress & Gamification (Server-Authoritative)
+## 3. User Account & Preferences Endpoints
+
+### 3.1 Get Profile
+- **Method & Path:** `GET /api/user/profile`
+- **Auth Required:** Yes
+- **Response (`200 OK`):** Same as `/api/auth/me`.
+
+### 3.2 Update Profile
+- **Method & Path:** `PATCH /api/user/profile`
+- **Auth Required:** Yes
+- **Request Body:**
+  ```json
+  {
+    "name": "Priya Sen Sharma",
+    "interests": ["Constitutional Law", "Environmental Jurisprudence"]
+  }
+  ```
+- **Response (`200 OK`):** Updated `DemoUser` object.
+
+### 3.3 Update Settings
+- **Method & Path:** `PATCH /api/user/settings`
+- **Auth Required:** Yes
+- **Request Body:**
+  ```json
+  {
+    "dailyGoal": 50,
+    "soundEnabled": true,
+    "mascotEnabled": true,
+    "reduceMotion": false,
+    "compact": false
+  }
+  ```
+- **Response (`200 OK`):** Updated `UserSettings` object.
+
+### 3.4 Export User Data (GDPR / DPDP Compliance)
+- **Method & Path:** `GET /api/user/export`
+- **Auth Required:** Yes
+- **Response (`200 OK`):** Full JSON bundle of learner profile, progress, quiz history, bookmarks, notes, and activity log.
+
+### 3.5 Delete Account
+- **Method & Path:** `DELETE /api/user/account`
+- **Auth Required:** Yes
+- **Headers:** `Idempotency-Key: <UUID>`
+- **Response (`200 OK`):** `{ "success": true }`
+
+---
+
+## 4. Progress & Gamification (Server-Authoritative)
 
 > [!IMPORTANT]
-> In live mode, XP calculations, streak increments, badge unlocking, and tier quota deductions are calculated **authoritatively on the server**. The frontend emits event payloads and renders the returned `progress` state.
+> The server computes XP, streaks, badges, and daily targets authoritatively. The frontend sends the action event with an `Idempotency-Key` and renders what the server returns. Never substitute client fallbacks over failed server progress.
 
-### 3.1 Fetch User Progress
+### 4.1 Fetch User Progress
 - **Method & Path:** `GET /api/progress`
 - **Auth Required:** Yes
 - **Response (`200 OK`):**
   ```json
   {
     "completedLessonIds": ["lesson-preamble-1", "lesson-art14-2"],
-    "quizScores": {
-      "quiz-preamble-1": 100,
-      "quiz-art14-2": 85
-    },
+    "quizScores": { "quiz-preamble-1": 100 },
     "bookmarks": ["lesson-preamble-1"],
     "savedLessonIds": ["lesson-art14-2"],
-    "history": [
-      {
-        "id": "hist_1",
-        "label": "Completed: We, The People",
-        "at": "Just now",
-        "href": "/learn/foundations-of-the-republic/we-the-people-the-source-of-power"
-      }
-    ],
+    "history": [],
     "xp": 145,
     "streak": 4,
     "dailyGoal": 30,
     "soundEnabled": true,
     "mascotEnabled": true,
     "streakFreezes": 1,
-    "badges": ["first-step", "preamble-scholar"],
+    "badges": ["first-step"],
     "weeklyHistory": [
       { "day": "M", "xp": 30, "completed": true },
-      { "day": "T", "xp": 45, "completed": true },
-      { "day": "W", "xp": 15, "completed": true },
-      { "day": "T", "xp": 55, "completed": true },
-      { "day": "F", "xp": 0, "completed": false },
-      { "day": "S", "xp": 0, "completed": false },
-      { "day": "S", "xp": 0, "completed": false }
+      { "day": "T", "xp": 45, "completed": true }
     ],
     "chestsOpened": ["chest-unit-1"]
   }
   ```
 
-### 3.2 Complete Lesson Event
+### 4.2 Complete Lesson Event
 - **Method & Path:** `POST /api/progress/complete-lesson`
 - **Auth Required:** Yes
+- **Headers:** `Idempotency-Key: <UUID>`
 - **Request Body:**
   ```json
   {
@@ -244,33 +261,14 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
     "earnedXp": 15,
     "streakIncremented": true,
     "newBadges": ["first-step"],
-    "progress": {
-      "completedLessonIds": ["lesson-preamble-1"],
-      "quizScores": {},
-      "bookmarks": [],
-      "savedLessonIds": [],
-      "history": [
-        {
-          "id": "hist_2",
-          "label": "Completed: We, The People: The Source of Power",
-          "at": "Just now",
-          "href": "/search?q=We%2C%20The%20People"
-        }
-      ],
-      "xp": 160,
-      "streak": 5,
-      "dailyGoal": 30,
-      "soundEnabled": true,
-      "mascotEnabled": true,
-      "streakFreezes": 1,
-      "badges": ["first-step"]
-    }
+    "progress": { ... }
   }
   ```
 
-### 3.3 Submit Quiz Event
+### 4.3 Submit Quiz Event
 - **Method & Path:** `POST /api/progress/submit-quiz`
 - **Auth Required:** Yes
+- **Headers:** `Idempotency-Key: <UUID>`
 - **Request Body:**
   ```json
   {
@@ -285,41 +283,28 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
     "success": true,
     "earnedXp": 25,
     "newBadges": ["quiz-ace"],
-    "progress": {
-      "completedLessonIds": ["lesson-preamble-1"],
-      "quizScores": { "quiz-preamble-1": 100 },
-      "bookmarks": [],
-      "savedLessonIds": [],
-      "history": [],
-      "xp": 185,
-      "streak": 5,
-      "dailyGoal": 30,
-      "soundEnabled": true,
-      "mascotEnabled": true,
-      "streakFreezes": 1,
-      "badges": ["first-step", "quiz-ace"]
-    }
+    "progress": { ... }
   }
   ```
 
-### 3.4 Open Milestone Chest
+### 4.4 Open Milestone Chest
 - **Method & Path:** `POST /api/progress/open-chest`
-- **Auth Required:** Yes
+- **Headers:** `Idempotency-Key: <UUID>`
 - **Request Body:** `{ "chestId": "chest-unit-1" }`
 - **Response (`200 OK`):** `{ "success": true, "bonusXp": 20, "progress": { ... } }`
 
-### 3.5 Use Streak Freeze
+### 4.5 Use Streak Freeze
 - **Method & Path:** `POST /api/progress/streak-freeze`
-- **Auth Required:** Yes
+- **Headers:** `Idempotency-Key: <UUID>`
 - **Response (`200 OK`):** `{ "success": true, "progress": { ... } }`
 
 ---
 
-## 4. Ask Samvidhan: SSE Real-Time Streaming Assistant
+## 5. Ask Samvidhan: Real-Time SSE Assistant
 
-### 4.1 Chat Stream Request
+### 5.1 Chat Stream Request
 - **Method & Path:** `POST /api/assistant/chat`
-- **Auth Required:** Recommended (Guest allowed subject to IP daily quota)
+- **Auth Required:** Recommended (Guest subject to IP quota)
 - **Headers:**
   ```http
   Content-Type: application/json
@@ -328,154 +313,147 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
 - **Request Body:**
   ```json
   {
-    "prompt": "Can the police arrest me after sunset without a female officer?",
+    "prompt": "Can police seize my phone without an FIR or warrant?",
     "conversationId": "conv_991823"
   }
   ```
 
-### 4.2 SSE Stream Protocol
-The server writes chunks as Server-Sent Events (`text/event-stream`). The frontend parses each event according to the event name or payload:
+### 5.2 Stream Behavior & Timeouts
+- **Timeout Model:** Exempt from the 15-second request timeout. Governed by a **30-second idle timeout** (reset upon each event chunk) and user abort via UI stop button.
+- **Event Protocol:**
+  - `event: token` -> `{"token": "Under Article 20(3)..."}`
+  - `event: citation` -> `{"label": "Virendra Khanna v. State", "url": "/library/privacy", "summary": "Compelling phone password violates self-incrimination safeguards."}`
+  - `event: followUps` -> `{"followUps": ["What is Section 91 CrPC notice?", "Can police clone my device?"]}`
+  - `event: done` -> `{"done": true}`
+  - `event: error` -> `{"message": "Daily AI limit exceeded. Upgrade to Pro."}`
 
-#### 1. Token Event (Streaming Markdown Text)
-```http
-event: token
-data: {"token": "Under Section 46(4) of the Code of Criminal Procedure (CrPC), "}
-
-event: token
-data: {"token": "no woman shall be arrested after sunset and before sunrise "}
-```
-
-#### 2. Statutory Citation Event (Rich Cards in Sidebar / Footer)
-```http
-event: citation
-data: {"label": "Section 46(4) CrPC", "url": "/library/fir-checklist", "summary": "Arrest of woman only in exceptional circumstances by woman police officer with prior magistrate sanction."}
-```
-
-#### 3. Follow-up Suggestions Event
-```http
-event: followUps
-data: {"followUps": ["What is a Zero FIR?", "What are my rights during bail?", "Can police seize my phone?"]}
-```
-
-#### 4. Stream Completed Event
-```http
-event: done
-data: {"done": true}
-```
-
-#### 5. Error Event
-```http
-event: error
-data: {"message": "AI quota exhausted for today. Upgrade to Pro for unlimited inquiries."}
-```
+### 5.3 Conversations Management
+- `GET /api/assistant/conversations`: Returns `AskConversation[]`
+- `GET /api/assistant/conversations/:id`: Returns `AskConversation`
+- `DELETE /api/assistant/conversations/:id`: Deletes conversation history.
 
 ---
 
-## 5. Catalog, Curriculum & Library Endpoints
+## 6. Subscriptions & Tier Upgrades
 
-### 5.1 Courses
-- `GET /api/catalog/courses`: Returns `Course[]`
-- `GET /api/catalog/courses/:id`: Returns single `Course`
-- `GET /api/catalog/courses/:id/lessons`: Returns `Lesson[]`
+> [!NOTE]
+> Client never stores or transmits raw credit card numbers. All payment collection uses the payment provider's hosted checkout (Stripe / Razorpay).
 
-### 5.2 Lessons & Interactive Cards
-- `GET /api/catalog/lessons/:id`: Returns `Lesson` with `interactiveCards: InteractiveLessonCard[]`
-- `GET /api/catalog/units`: Returns `LearningUnit[]` (Duolingo-style roadmap nodes)
-
-### 5.3 Quizzes
-- `GET /api/catalog/quizzes/:id`: Returns `Quiz` with questions of type:
-  `multiple_choice`, `true_false`, `match_pairs`, `order_steps`, `fill_blank`, `spot_violation`.
-
-### 5.4 Constitution Topics & Library
-- `GET /api/constitution/topics`: Returns `ConstitutionTopic[]`
-- `GET /api/constitution/topics/:id`: Returns `ConstitutionTopic`
-- `GET /api/library/documents?category=...&tag=...`: Returns `LibraryDocument[]`
-- `GET /api/library/documents/:id`: Returns single `LibraryDocument`
-
-### 5.5 Global Search
-- `GET /api/search?q=habeas+corpus`:
-- Returns:
+### 6.1 Get Current Subscription
+- **Method & Path:** `GET /api/subscriptions/current`
+- **Auth Required:** Yes
+- **Response (`200 OK`):**
   ```json
   {
-    "courses": [],
-    "lessons": [],
-    "topics": [],
-    "documents": []
+    "tier": "pro",
+    "status": "active",
+    "validUntil": "2027-12-31T23:59:59Z",
+    "aiUsageToday": 3,
+    "aiDailyLimit": 50
   }
   ```
 
----
-
-## 6. Feedback, Mistake Reporting & Contact
-
-### 6.1 Report Mistake
-- **Method & Path:** `POST /api/reports/mistake`
-- **Request Body:**
+### 6.2 Create Checkout Session
+- **Method & Path:** `POST /api/subscriptions/checkout`
+- **Auth Required:** Yes
+- **Headers:** `Idempotency-Key: <UUID>`
+- **Request Body:** `{ "tier": "pro" }`
+- **Response (`200 OK`):**
   ```json
   {
-    "questionId": "q-art19-1",
-    "cardId": "card-preamble-2",
-    "prompt": "Which amendment added Secular to the Preamble?",
-    "reason": "Typo in citation year: missing 1976."
+    "success": true,
+    "checkoutUrl": "https://checkout.stripe.com/pay/cs_live_xyz",
+    "clientSecret": "pi_123_secret_456"
   }
   ```
-- **Response (`201 Created`):** `{ "success": true, "id": "rep_102" }`
 
-### 6.2 Contact Form
-- **Method & Path:** `POST /api/contact`
-- **Request Body:**
-  ```json
-  {
-    "name": "Priya Sen",
-    "email": "priya.sen@example.in",
-    "message": "Feedback regarding Fundamental Duties curriculum coverage."
-  }
-  ```
+### 6.3 Cancel Subscription
+- **Method & Path:** `POST /api/subscriptions/cancel`
+- **Headers:** `Idempotency-Key: <UUID>`
 - **Response (`200 OK`):** `{ "success": true }`
 
-### 6.3 Newsletter Subscription
-- **Method & Path:** `POST /api/newsletter/subscribe`
-- **Request Body:** `{ "email": "citizen@example.in" }`
-- **Response (`200 OK`):** `{ "success": true, "message": "Subscribed to Gazette Briefing!" }`
+### 6.4 Webhook Lifecycle Events (Backend Inbound)
+- `customer.subscription.created`: Sets user tier to `pro` or `patron`.
+- `customer.subscription.updated`: Syncs expiration date and status.
+- `customer.subscription.deleted`: Reverts tier to `free`.
 
 ---
 
-## 7. Admin Control Plane
+## 7. Growth: Referrals & Affiliates
 
-*Restricted to users with roles: `superadmin`, `admin`, `editor`, `reviewer`.*
+### 7.1 My Referral Stats
+- **Method & Path:** `GET /api/referrals/me`
+- **Auth Required:** Yes
+- **Response (`200 OK`):**
+  ```json
+  {
+    "referralCode": "PRIYA2026",
+    "invitesCount": 4,
+    "earnedXp": 150,
+    "milestones": [
+      { "milestone": 1, "label": "1 Friend Joined", "reward": "+1 Streak Freeze", "unlocked": true },
+      { "milestone": 3, "label": "3 Friends Joined", "reward": "14 Days Free Pro", "unlocked": true },
+      { "milestone": 10, "label": "10 Friends Joined", "reward": "Patron Profile Emblem", "unlocked": false }
+    ]
+  }
+  ```
 
-| Method | Path | Action |
-| :--- | :--- | :--- |
-| `GET` | `/api/admin/content` | List all curriculum content items with review status |
-| `POST` | `/api/admin/content` | Create draft curriculum content |
-| `PATCH` | `/api/admin/content/:id/status` | Advance review status (`Draft` -> `In Review` -> `Approved` -> `Published`) |
-| `DELETE` | `/api/admin/content/:id` | Remove curriculum content |
-| `GET` | `/api/admin/users` | List platform users with roles, XP, and status |
-| `PATCH` | `/api/admin/users/:id/role` | Update user role (`learner`, `reviewer`, `editor`, `admin`, `superadmin`) |
-| `POST` | `/api/admin/users/:id/reset-progress` | Reset test account XP/progress |
-| `PATCH` | `/api/admin/users/:id/status` | Suspend or reactivate user |
-| `GET` | `/api/admin/reports` | Mistake reports inbox |
-| `PATCH` | `/api/admin/reports/:id` | Mark mistake report status (`Investigating`, `Fixed`, `Rejected`) |
-| `GET` | `/api/admin/audit-logs` | Immutable audit log of all admin operations |
-| `GET` | `/api/admin/feature-flags` | Platform feature flags configuration |
-| `PATCH` | `/api/admin/feature-flags` | Toggle feature flags (e.g. mascotEnabled, citationEnforcement) |
+### 7.2 Apply Referral Code (At Signup / Onboarding)
+- **Method & Path:** `POST /api/referrals/apply`
+- **Headers:** `Idempotency-Key: <UUID>`
+- **Request Body:** `{ "code": "PRIYA2026" }`
+- **Response (`200 OK`):** `{ "success": true, "bonusXp": 25 }`
+
+### 7.3 Affiliate Program
+- **Apply:** `POST /api/affiliates/apply` (Body: `{ name, email, organization, audienceSize, message }`, Header: `Idempotency-Key`)
+- **Stats:** `GET /api/affiliates/stats` -> `{ clicks: 42, conversions: 8, earnings: 2400, payoutStatus: "Active" }`
 
 ---
 
-## 8. Explicit Backend Developer Assumptions
+## 8. Catalog, Curriculum, Feedback & Admin
 
-The frontend implementation makes the following explicit assumptions. **Please review each item and confirm or adjust**:
+### 8.1 Catalog Endpoints
+- `GET /api/catalog/courses`: List courses
+- `GET /api/catalog/courses/:id`: Get course
+- `GET /api/catalog/courses/:id/lessons`: Lessons for course
+- `GET /api/catalog/lessons/:id`: Single lesson with interactiveCards
+- `GET /api/catalog/units`: Duolingo-style roadmap learning units
+- `GET /api/catalog/quizzes/:id`: Quiz with typed questions
+- `GET /api/constitution/topics`: Constitution parts & topics
+- `GET /api/constitution/topics/:id`: Topic with statutory source notes
+- `GET /api/library/documents`: Document templates & legal checklists
+- `GET /api/search?q=...`: Global search
 
-- [ ] **Assumption 1: Cookie-first Authentication**
-  - *Assumption:* The backend will set an `httpOnly`, `Secure`, `SameSite=Lax` cookie upon successful login/signup, and clear it upon logout.
-  - *Fallback:* If your infrastructure requires Bearer headers (e.g., cross-origin API gateway), the frontend supports setting `VITE_AUTH_STRATEGY=bearer`, which uses in-memory token dispatching.
-- [ ] **Assumption 2: Server-Authoritative Gamification**
-  - *Assumption:* When a client submits `/api/progress/complete-lesson` or `/api/progress/submit-quiz`, the server computes XP (+15 for standard lessons, +25 for >=80% quiz, +15 for <80% quiz), updates daily targets and streak counters, and returns the full updated `progress` object.
-- [ ] **Assumption 3: Server-Sent Events (SSE) for Ask Samvidhan**
-  - *Assumption:* The `/api/assistant/chat` endpoint supports HTTP streaming with `text/event-stream` response header, emitting `token`, `citation`, `followUps`, and `done` events.
-- [ ] **Assumption 4: Standard Role Schema**
-  - *Assumption:* The backend user role enum is `['learner', 'editor', 'reviewer', 'admin', 'superadmin']`. Legacy `'user'` is deprecated.
-- [ ] **Assumption 5: User Tiers & AI Quotas**
-  - *Assumption:* Tiers are `['free', 'pro', 'patron']`. The free tier allows 5 AI questions/day. The server returns current `aiUsageToday` in `/api/auth/me` and enforces `429 Too Many Requests` when exceeded.
-- [ ] **Assumption 6: Strict Citation Requirement for Admin Publishing**
-  - *Assumption:* The admin workflow enforces that no lesson or quiz question can transition to `Approved` or `Published` unless accompanied by a statutory citation (minimum 4 characters).
+### 8.2 Feedback & Contact Endpoints
+- `POST /api/reports/mistake`: Report question or lesson citation error
+- `POST /api/contact`: General inquiry contact form
+- `POST /api/newsletter/subscribe`: Gazette briefing newsletter
+
+### 8.3 Admin Control Plane
+- `GET /api/admin/content`, `POST /api/admin/content`, `PATCH /api/admin/content/:id/status`, `DELETE /api/admin/content/:id`
+- `GET /api/admin/users`, `PATCH /api/admin/users/:id/role`, `POST /api/admin/users/:id/reset-progress`, `PATCH /api/admin/users/:id/status`
+- `GET /api/admin/reports`, `PATCH /api/admin/reports/:id`
+- `GET /api/admin/audit-logs`
+- `GET /api/admin/feature-flags`, `PATCH /api/admin/feature-flags`
+
+---
+
+## 9. Explicit Backend Developer Assumptions
+
+Please review each assumption and confirm or adjust:
+
+- [ ] **Assumption 1: Cookie-first Authentication with CSRF Protection**
+  - The backend sets `httpOnly`, `Secure`, `SameSite=Lax` cookies upon login/signup and validates `Origin`/`Referer` headers (or `X-CSRF-Token`) on all non-GET requests.
+  - *Fallback:* Setting `VITE_AUTH_STRATEGY=bearer` switches frontend to in-memory Bearer token headers without touching `localStorage`.
+- [ ] **Assumption 2: Idempotency-Key Support on Mutating Operations**
+  - The backend inspects `Idempotency-Key` headers on state-changing requests (`complete-lesson`, `submit-quiz`, `open-chest`, `streak-freeze`, `checkout`, `referrals`) and prevents double-awarding of XP, badges, or billing charges upon retries.
+- [ ] **Assumption 3: Server-Authoritative Gamification**
+  - XP, streak counts, daily goal progress, and unlocked badges are calculated by the server. The client sends event payloads and updates its UI from the authoritative server response.
+- [ ] **Assumption 4: Safe Validation Policy**
+  - The client will NEVER substitute default fallbacks over failed auth, user profile, progress, or subscription responses. If the backend schema deviates unexpectedly, the client keeps existing state, displays an error notification, and dispatches a telemetry warning.
+- [ ] **Assumption 5: Server-Sent Events (SSE) with 30s Idle Timeout**
+  - `POST /api/assistant/chat` emits `token`, `citation`, `followUps`, and `done` events. The client keeps the connection open until `done` or a 30s idle gap occurs.
+- [ ] **Assumption 6: AI Quota Enforcement (429)**
+  - Free tier allows 5 AI questions/day; Pro allows 50 questions/day; Patron is unlimited. The server returns `429 Too Many Requests` with `Retry-After` header and JSON error payload when exceeded.
+- [ ] **Assumption 7: Standard Role Enum**
+  - User roles are `['learner', 'editor', 'reviewer', 'admin', 'superadmin']`. Legacy `'user'` is migrated to `'learner'`.

@@ -1,13 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Copy, Check, Gift, Share2, Sparkles, ShieldCheck } from 'lucide-react'
 import { usePageMeta } from '../../hooks/usePageMeta'
 import { useAppState } from '../../context/useAppState'
 import { BackButton } from '../../components/common/BackButton'
 import { MorMascot } from '../../components/mascot/MorMascot'
+import { getReferralStats } from '../../api/services/referralService'
+import type { ReferralStats } from '../../api/types'
 
 export function ReferralPage() {
   const { user, pushToast } = useAppState()
   const [copied, setCopied] = useState(false)
+  const [stats, setStats] = useState<ReferralStats | null>(null)
+
+  useEffect(() => {
+    getReferralStats().then(setStats).catch(() => {})
+  }, [])
 
   usePageMeta({
     title: 'Invite Friends & Earn Rewards — Samvidhan',
@@ -15,7 +22,7 @@ export function ReferralPage() {
     path: '/refer',
   })
 
-  const referralCode = user?.name ? user.name.replace(/\s+/g, '').toUpperCase().slice(0, 6) + '2026' : 'CITIZEN2026'
+  const referralCode = stats?.referralCode || (user?.name ? user.name.replace(/\s+/g, '').toUpperCase().slice(0, 6) + '2026' : 'CITIZEN2026')
   const inviteUrl = `${window.location.origin}/signup?ref=${referralCode}`
 
   const handleCopy = () => {
