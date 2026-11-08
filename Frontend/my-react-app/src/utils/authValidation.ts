@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { scorePassword } from '../components/ui/TextFields.jsx'
+import { scorePassword } from '../components/ui/textFieldLogic.ts'
 
 /**
  * Shared Zod email schema used across Login, Signup, and Forgot Password

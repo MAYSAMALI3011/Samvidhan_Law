@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
-import { streamMockChat } from './mockStreamer'
+import { streamChat } from '../../../api/services/assistantService'
 
 export interface ChatMessage {
   id: string
@@ -74,7 +74,7 @@ export function useChatStream() {
       )
 
       // Consume mock or real SSE stream
-      const stream = streamMockChat(promptText, controller.signal)
+      const stream = streamChat(promptText, { signal: controller.signal })
 
       for await (const chunk of stream) {
         if (controller.signal.aborted) break
@@ -94,7 +94,7 @@ export function useChatStream() {
           })
         )
       }
-    } catch (err: any) {
+    } catch {
       if (!controller.signal.aborted) {
         setMessages((prev) =>
           prev.map((m) =>

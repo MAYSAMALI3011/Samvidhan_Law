@@ -19,10 +19,10 @@ export interface AppState {
   toasts: ToastItem[]
   demoSignIn: (user: DemoUser) => void
   demoSignOut: () => void
-  completeLesson: (lessonId: string, title: string) => void
-  saveQuizScore: (quizId: string, score: number, title: string) => void
-  toggleBookmark: (lessonId: string) => void
-  toggleSaved: (lessonId: string) => void
+  completeLesson: (lessonId: string, title: string) => void | Promise<void>
+  saveQuizScore: (quizId: string, score: number, title: string) => void | Promise<void>
+  toggleBookmark: (lessonId: string) => void | Promise<void>
+  toggleSaved: (lessonId: string) => void | Promise<void>
   recordActivity: (label: string, href: string) => void
   pushToast: (
     message: string,
@@ -34,11 +34,11 @@ export interface AppState {
   addXp: (amount: number) => void
   toggleSound: () => void
   toggleMascot: () => void
-  setDailyGoal: (goal: number) => void
+  setDailyGoal: (goal: number) => void | Promise<void>
   playSound: (type: SoundEffectType) => void
-  openChest: (chestId: string, xpBonus?: number) => void
-  awardBadge: (badgeId: string) => void
-  useStreakFreeze: () => void
+  openChest: (chestId: string, xpBonus?: number) => void | Promise<void>
+  awardBadge: (badgeId: string) => void | Promise<void>
+  useStreakFreeze: () => void | Promise<void>
   setUserTier: (tier: UserTier) => void
   incrementAiUsage: () => number
 }

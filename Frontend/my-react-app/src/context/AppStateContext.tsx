@@ -1,10 +1,20 @@
-import { useCallback, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { nowLabel } from '../utils/format'
 import { readJson, removeKey, writeJson } from '../utils/storage'
 import { playSoundEffect, type SoundEffectType } from '../utils/audio'
 import type { ActivityItem, DemoUser, ProgressState, UserTier } from '../types'
 import { AppStateContext } from './AppState'
 import type { ToastItem } from './AppState'
+import { isMockMode } from '../api/config'
+import {
+  completeLessonEvent,
+  submitQuizEvent,
+  openChestEvent,
+  useStreakFreezeEvent,
+  setDailyGoalEvent,
+  fetchProgress,
+} from '../api/services/progressService'
+import { toggleBookmarkApi, toggleSavedApi } from '../api/services/bookmarksService'
 
 const emptyProgress: ProgressState = {
   completedLessonIds: [],
@@ -144,26 +154,42 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
-  const setDailyGoal = useCallback((goal: number) => {
+  useEffect(() => {
+    if (user && !isMockMode()) {
+      fetchProgress()
+        .then((serverProgress) => {
+          setProgress(serverProgress)
+          writeJson('progress', serverProgress)
+        })
+        .catch(() => {})
+    }
+  }, [user])
+
+  const setDailyGoal = useCallback(async (goal: number) => {
     setProgress((current) => {
       const next = { ...current, dailyGoal: goal }
       writeJson('progress', next)
       return next
     })
+    try {
+      await setDailyGoalEvent(goal)
+    } catch {
+      // non-blocking
+    }
   }, [])
 
   const openChest = useCallback(
-    (chestId: string, xpBonus: number = 20) => {
+    async (chestId: string, xpBonus: number = 20) => {
       if (progress.chestsOpened?.includes(chestId)) return
-      setProgress((current) => {
-        const opened = [...(current.chestsOpened || []), chestId]
-        const nextXp = (current.xp || 0) + xpBonus
-        const next = { ...current, chestsOpened: opened, xp: nextXp }
-        writeJson('progress', next)
-        return next
-      })
-      playSound('chest')
-      pushToast(`Treasure unlocked! +${xpBonus} Bonus XP`, 'success')
+      try {
+        const res = await openChestEvent({ chestId, xpBonus })
+        setProgress(res.progress)
+        writeJson('progress', res.progress)
+        playSound('chest')
+        pushToast(`Treasure unlocked! +${res.bonusXp} Bonus XP`, 'success')
+      } catch {
+        pushToast('Unable to open chest.', 'error')
+      }
     },
     [playSound, progress.chestsOpened, pushToast],
   )
@@ -183,14 +209,16 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     [playSound, progress.badges, pushToast],
   )
 
-  const useStreakFreeze = useCallback(() => {
+  const useStreakFreeze = useCallback(async () => {
     if ((progress.streakFreezes || 0) <= 0) return
-    setProgress((current) => {
-      const next = { ...current, streakFreezes: Math.max(0, current.streakFreezes - 1) }
-      writeJson('progress', next)
-      return next
-    })
-    pushToast('Streak Freeze activated! Your streak is protected for today.', 'info')
+    try {
+      const nextProgress = await useStreakFreezeEvent()
+      setProgress(nextProgress)
+      writeJson('progress', nextProgress)
+      pushToast('Streak Freeze activated! Your streak is protected for today.', 'info')
+    } catch {
+      pushToast('Unable to activate streak freeze.', 'error')
+    }
   }, [progress.streakFreezes, pushToast])
 
   const recordActivity = useCallback(
@@ -206,85 +234,79 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   )
 
   const completeLesson = useCallback(
-    (lessonId: string, title: string) => {
-      setProgress((current) => {
-        const completedLessonIds = current.completedLessonIds.includes(lessonId)
-          ? current.completedLessonIds
-          : [...current.completedLessonIds, lessonId]
-        const item: ActivityItem = {
-          id: uid(),
-          label: `Completed: ${title}`,
-          at: nowLabel(),
-          href: `/search?q=${encodeURIComponent(title)}`,
+    async (lessonId: string, title: string) => {
+      try {
+        const res = await completeLessonEvent({ lessonId, title })
+        setProgress(res.progress)
+        writeJson('progress', res.progress)
+        if (progress.soundEnabled) {
+          playSoundEffect('complete')
         }
-        const nextXp = (current.xp || 0) + 15
-        const next = {
-          ...current,
-          completedLessonIds,
-          xp: nextXp,
-          history: [item, ...current.history].slice(0, 12),
-        }
-        writeJson('progress', next)
-        return next
-      })
-      if (progress.soundEnabled) {
-        playSoundEffect('complete')
+        pushToast(`Lesson completed! +${res.earnedXp} XP`, 'success')
+      } catch (err) {
+        console.error('Failed to complete lesson:', err)
+        pushToast('Unable to sync lesson completion with server.', 'error')
       }
-      pushToast(`Lesson completed! +15 XP`, 'success')
     },
     [progress.soundEnabled, pushToast],
   )
 
   const saveQuizScore = useCallback(
-    (quizId: string, score: number, title: string) => {
-      setProgress((current) => {
-        const item: ActivityItem = {
-          id: uid(),
-          label: `Quiz: ${title} (${score}%)`,
-          at: nowLabel(),
-          href: `/quiz/${quizId}/results`,
+    async (quizId: string, score: number, title: string) => {
+      try {
+        const res = await submitQuizEvent({ quizId, score, title })
+        setProgress(res.progress)
+        writeJson('progress', res.progress)
+        if (progress.soundEnabled) {
+          playSoundEffect(score >= 70 ? 'complete' : 'correct')
         }
-        const bonusXp = score >= 80 ? 25 : 15
-        const nextXp = (current.xp || 0) + bonusXp
-        const next = {
-          ...current,
-          quizScores: { ...current.quizScores, [quizId]: score },
-          xp: nextXp,
-          history: [item, ...current.history].slice(0, 12),
-        }
-        writeJson('progress', next)
-        return next
-      })
-      if (progress.soundEnabled) {
-        playSoundEffect(score >= 70 ? 'complete' : 'correct')
+        pushToast(`Quiz submitted: ${score}%! (+${res.earnedXp} XP)`, 'success')
+      } catch (err) {
+        console.error('Failed to record quiz score:', err)
+        pushToast('Unable to sync quiz score with server.', 'error')
       }
-      pushToast(`Quiz submitted: ${score}%!`, 'success')
     },
     [progress.soundEnabled, pushToast],
   )
 
   const toggleBookmark = useCallback(
-    (lessonId: string) => {
+    async (lessonId: string) => {
       const exists = progress.bookmarks.includes(lessonId)
+      const updatedBookmarks = exists
+        ? progress.bookmarks.filter((id) => id !== lessonId)
+        : [...progress.bookmarks, lessonId]
       persist({
         ...progress,
-        bookmarks: exists
-          ? progress.bookmarks.filter((id) => id !== lessonId)
-          : [...progress.bookmarks, lessonId],
+        bookmarks: updatedBookmarks,
       })
+      if (!isMockMode()) {
+        try {
+          await toggleBookmarkApi(lessonId)
+        } catch {
+          // fallback
+        }
+      }
     },
     [persist, progress],
   )
 
   const toggleSaved = useCallback(
-    (lessonId: string) => {
+    async (lessonId: string) => {
       const exists = progress.savedLessonIds.includes(lessonId)
+      const updatedSaved = exists
+        ? progress.savedLessonIds.filter((id) => id !== lessonId)
+        : [...progress.savedLessonIds, lessonId]
       persist({
         ...progress,
-        savedLessonIds: exists
-          ? progress.savedLessonIds.filter((id) => id !== lessonId)
-          : [...progress.savedLessonIds, lessonId],
+        savedLessonIds: updatedSaved,
       })
+      if (!isMockMode()) {
+        try {
+          await toggleSavedApi(lessonId)
+        } catch {
+          // fallback
+        }
+      }
     },
     [persist, progress],
   )
