@@ -1,4 +1,5 @@
 import React from 'react'
+import { assetUrl, resolveSrcSet } from '../../utils/assetUrl'
 
 export interface FeatherMarkProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: number
@@ -34,8 +35,8 @@ export function FeatherMark({
       {...rest}
     >
       <img
-        src="/assets/brand/plume-emblem-hd.png"
-        srcSet="/assets/brand/plume-emblem-1x.png 60w, /assets/brand/plume-emblem-2x.png 120w, /assets/brand/plume-emblem-3x.png 180w, /assets/brand/plume-emblem-hd.png 256w, /assets/brand/plume-emblem-full.png 512w"
+        src={assetUrl('/assets/brand/plume-emblem-hd.png')}
+        srcSet={resolveSrcSet('/assets/brand/plume-emblem-1x.png 60w, /assets/brand/plume-emblem-2x.png 120w, /assets/brand/plume-emblem-3x.png 180w, /assets/brand/plume-emblem-hd.png 256w, /assets/brand/plume-emblem-full.png 512w')}
         sizes={`${size}px`}
         width={size}
         height={size}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { assetUrl, resolveSrcSet } from '../../utils/assetUrl'
 
 export interface FeatherAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: number
@@ -31,8 +32,8 @@ export function FeatherAvatar({
       {...rest}
     >
       <img
-        src="/assets/brand/plume-emblem-1x.png"
-        srcSet="/assets/brand/plume-emblem-1x.png 60w, /assets/brand/plume-emblem-2x.png 120w, /assets/brand/plume-emblem-3x.png 180w"
+        src={assetUrl('/assets/brand/plume-emblem-1x.png')}
+        srcSet={resolveSrcSet('/assets/brand/plume-emblem-1x.png 60w, /assets/brand/plume-emblem-2x.png 120w, /assets/brand/plume-emblem-3x.png 180w')}
         sizes={`${size}px`}
         width={size}
         height={size}

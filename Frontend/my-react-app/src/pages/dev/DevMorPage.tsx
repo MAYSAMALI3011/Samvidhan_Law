@@ -5,6 +5,8 @@ import { Mor, MorSays } from '../../components/mascot/Mor'
 import { morQueue } from '../../components/mascot/morQueue'
 import type { MorMood, MorSize } from '../../components/mascot/Mor'
 import { MorLogoMono } from '../../components/mascot/MorLogoMono'
+import morCharacterSheet from '../../assets/mor/mor_character_sheet.png'
+import { assetUrl } from '../../utils/assetUrl'
 import { usePageMeta } from '../../hooks/usePageMeta'
 
 const MOODS: { mood: MorMood; label: string; desc: string }[] = [
@@ -295,7 +297,7 @@ export function DevMorPage() {
           >
             <div style={{ marginBottom: '1rem' }}>
               <img
-                src="/mor-favicon.svg"
+                src={assetUrl('/mor-favicon.svg')}
                 alt="Mor Favicon"
                 width={72}
                 height={72}
@@ -322,7 +324,7 @@ export function DevMorPage() {
           >
             <div style={{ marginBottom: '1rem', width: '100%', maxHeight: '72px', overflow: 'hidden' }}>
               <img
-                src="/src/assets/mor/mor_character_sheet.png"
+                src={morCharacterSheet}
                 alt="Mor Character Model Sheet"
                 style={{ width: '100%', height: 'auto', borderRadius: '8px', objectFit: 'cover' }}
               />
