@@ -1,7 +1,7 @@
-import { apiClient } from '../client'
-import { isMockMode } from '../config'
-import { readJson, writeJson } from '../../utils/storage'
-import type { ProgressState } from '../types'
+import { apiClient } from '../client.ts'
+import { isMockMode } from '../config.ts'
+import { readJson, writeJson } from '../../utils/storage.ts'
+import type { ProgressState } from '../types.ts'
 
 export async function toggleBookmarkApi(lessonId: string): Promise<string[]> {
   if (isMockMode()) {

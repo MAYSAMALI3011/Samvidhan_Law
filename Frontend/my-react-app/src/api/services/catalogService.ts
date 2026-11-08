@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { apiClient } from '../client'
-import { isMockMode } from '../config'
+import { apiClient } from '../client.ts'
+import { isMockMode } from '../config.ts'
 import {
   courseSchema,
   lessonSchema,
@@ -9,7 +9,7 @@ import {
   constitutionTopicSchema,
   libraryDocumentSchema,
   safeValidate,
-} from '../schemas'
+} from '../schemas.ts'
 import type {
   Course,
   Lesson,
@@ -17,13 +17,13 @@ import type {
   Quiz,
   ConstitutionTopic,
   LibraryDocument,
-} from '../types'
+} from '../types.ts'
 
 // Mock Data references
-import { courses as mockCourses, lessons as mockLessons, quizzes as mockQuizzes } from '../../data/mock/curriculum'
-import { unitsData as mockUnits } from '../../data/mock/learningUnits'
-import { constitutionTopics as mockTopics } from '../../data/mock/constitution'
-import { libraryDocuments as mockDocuments } from '../../data/mock/library'
+import { courses as mockCourses, lessons as mockLessons, quizzes as mockQuizzes } from '../../data/mock/curriculum.ts'
+import { unitsData as mockUnits } from '../../data/mock/learningUnits.ts'
+import { constitutionTopics as mockTopics } from '../../data/mock/constitution.ts'
+import { libraryDocuments as mockDocuments } from '../../data/mock/library.ts'
 
 /**
  * Async API Fetchers (Used by TanStack Query and live integrations)

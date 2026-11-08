@@ -1,12 +1,12 @@
-import { apiClient } from '../client'
-import { isMockMode } from '../config'
-import { searchResultsSchema, safeValidate } from '../schemas'
-import type { SearchResults } from '../types'
+import { apiClient } from '../client.ts'
+import { isMockMode } from '../config.ts'
+import { searchResultsSchema, safeValidate } from '../schemas.ts'
+import type { SearchResults } from '../types.ts'
 
-import { courses } from '../../data/mock/curriculum'
-import { lessons } from '../../data/mock/curriculum'
-import { constitutionTopics } from '../../data/mock/constitution'
-import { libraryDocuments } from '../../data/mock/library'
+import { courses } from '../../data/mock/curriculum.ts'
+import { lessons } from '../../data/mock/curriculum.ts'
+import { constitutionTopics } from '../../data/mock/constitution.ts'
+import { libraryDocuments } from '../../data/mock/library.ts'
 
 export async function searchAll(query: string): Promise<SearchResults> {
   const q = query.trim().toLowerCase()

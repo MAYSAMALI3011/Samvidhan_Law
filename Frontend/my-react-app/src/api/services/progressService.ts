@@ -1,21 +1,21 @@
 import { apiClient, createIdempotencyKey } from '../client.ts'
-import { isMockMode } from '../config'
+import { isMockMode } from '../config.ts'
 import {
   progressStateSchema,
   lessonCompletionResponseSchema,
   quizSubmissionResponseSchema,
   chestOpenResponseSchema,
   safeValidate,
-} from '../schemas'
+} from '../schemas.ts'
 import type {
   ProgressState,
   LessonCompletionResponse,
   QuizSubmissionResponse,
   ChestOpenResponse,
   ActivityItem,
-} from '../types'
-import { readJson, writeJson } from '../../utils/storage'
-import { nowLabel } from '../../utils/format'
+} from '../types.ts'
+import { readJson, writeJson } from '../../utils/storage.ts'
+import { nowLabel } from '../../utils/format.ts'
 
 const emptyProgress: ProgressState = {
   completedLessonIds: [],
