@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Briefcase,
@@ -23,7 +23,7 @@ export interface SituationItem {
   icon: LucideIcon
 }
 
-export const situationsList: SituationItem[] = [
+const situationsList: SituationItem[] = [
   {
     id: 'rights',
     title: 'Fundamental Rights & Writ Petitions',
@@ -108,13 +108,13 @@ export function SituationsCarousel() {
 
   const maxIndex = Math.max(0, situationsList.length - cardsPerView)
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
-  }
+  }, [maxIndex])
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
-  }
+  }, [maxIndex])
 
   // Automatic movement every 3.5s unless hovered/focused
   useEffect(() => {
@@ -125,7 +125,7 @@ export function SituationsCarousel() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
     }
-  }, [isPaused, maxIndex])
+  }, [isPaused, handleNext])
 
   const handleCardMouseMove = (id: string, e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()

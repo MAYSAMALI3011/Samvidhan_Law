@@ -21,7 +21,7 @@ export interface BadgeItem {
   Icon: LucideIcon
 }
 
-export const allBadges: BadgeItem[] = [
+const allBadges: BadgeItem[] = [
   {
     id: 'first-step',
     title: 'First Step',

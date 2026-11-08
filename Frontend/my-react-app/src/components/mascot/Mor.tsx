@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useAppState } from '../../context/useAppState'
+import React, { useEffect, useContext } from 'react'
+import { AppStateContext } from '../../context/AppState'
 import { useMorMessage, morQueue } from './morQueue'
 import {
   resolveMorMood,
@@ -82,14 +82,8 @@ export function Mor({
   showBubble = false,
   bubbleText,
 }: MorProps) {
-  let settingsEnabled: boolean | undefined = undefined
-  try {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const state = useAppState()
-    settingsEnabled = state?.progress?.mascotEnabled
-  } catch {
-    // Safe fallback when rendered outside AppStateProvider in unit tests or dev isolation
-  }
+  const state = useContext(AppStateContext)
+  const settingsEnabled = state?.progress?.mascotEnabled
 
   // Honor Settings toggle: "Show guide character" (progress.mascotEnabled)
   if (!shouldRenderMor(settingsEnabled, enabled)) {
@@ -209,4 +203,3 @@ export function MorSays({
 // Backward-compatible alias
 export const MorMascot = Mor
 export type MorMascotProps = MorProps
-export { morQueue } from './morQueue'

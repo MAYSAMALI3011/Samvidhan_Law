@@ -9,9 +9,3 @@ export {
   type MorMascotProps,
   type MorSaysProps,
 } from './Mor'
-
-export {
-  morQueue,
-  useMorMessage,
-  type MorMessage,
-} from './morQueue'

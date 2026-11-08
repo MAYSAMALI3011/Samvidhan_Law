@@ -30,7 +30,7 @@ export interface DataTableProps<T> {
   emptyState?: React.ReactNode
 }
 
-export function DataTable<T extends Record<string, any>>({
+export function DataTable<T>({
   data,
   columns,
   keyExtractor,
@@ -63,8 +63,8 @@ export function DataTable<T extends Record<string, any>>({
     if (!col) return data
 
     return [...data].sort((a, b) => {
-      const valA = col.sortValue ? col.sortValue(a) : a[sortKey]
-      const valB = col.sortValue ? col.sortValue(b) : b[sortKey]
+      const valA = col.sortValue ? col.sortValue(a) : (a as Record<string, unknown>)[sortKey]
+      const valB = col.sortValue ? col.sortValue(b) : (b as Record<string, unknown>)[sortKey]
 
       if (valA == null) return 1
       if (valB == null) return -1
@@ -256,7 +256,7 @@ export function DataTable<T extends Record<string, any>>({
                     )}
                     {visibleColumns.map((col) => (
                       <td key={col.key} className="td-cell" data-label={col.header}>
-                        {col.render ? col.render(item) : String(item[col.key] ?? '')}
+                        {col.render ? col.render(item) : String((item as Record<string, unknown>)[col.key] ?? '')}
                       </td>
                     ))}
                   </tr>

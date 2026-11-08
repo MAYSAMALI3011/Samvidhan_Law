@@ -58,10 +58,7 @@ export function Loader({
 
   // Anti-flicker delay (e.g. 300ms)
   useEffect(() => {
-    if (delayMs === 0) {
-      setShouldRender(true)
-      return
-    }
+    if (delayMs <= 0) return
     const timer = setTimeout(() => setShouldRender(true), delayMs)
     return () => clearTimeout(timer)
   }, [delayMs])

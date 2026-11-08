@@ -173,7 +173,7 @@ export async function openChestEvent(payload: {
   return safeValidate(chestOpenResponseSchema, raw, 'progressService.openChestEvent')
 }
 
-export async function useStreakFreezeEvent(idempotencyKey?: string): Promise<ProgressState> {
+export async function activateStreakFreezeEvent(idempotencyKey?: string): Promise<ProgressState> {
   if (isMockMode()) {
     const current = readJson<ProgressState>('progress', emptyProgress)
     const next: ProgressState = {
@@ -186,7 +186,7 @@ export async function useStreakFreezeEvent(idempotencyKey?: string): Promise<Pro
 
   const key = idempotencyKey || createIdempotencyKey()
   const raw = await apiClient.post<unknown>('/api/progress/streak-freeze', {}, { idempotencyKey: key })
-  const res = safeValidate(progressStateSchema, raw, 'progressService.useStreakFreezeEvent')
+  const res = safeValidate(progressStateSchema, raw, 'progressService.activateStreakFreezeEvent')
   return res
 }
 

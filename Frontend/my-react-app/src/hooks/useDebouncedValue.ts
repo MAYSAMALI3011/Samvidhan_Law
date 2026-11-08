@@ -9,13 +9,12 @@ export interface UseDebouncedValueResult<T> {
 
 export function useDebouncedValue<T>(value: T, delay = 300): UseDebouncedValueResult<T> {
   const [debouncedValue, setDebouncedValue] = useState<T>(value)
-  const [isDebouncing, setIsDebouncing] = useState(false)
   const abortControllerRef = useRef<AbortController>(new AbortController())
   const timerRef = useRef<number | null>(null)
 
-  useEffect(() => {
-    setIsDebouncing(true)
+  const isDebouncing = value !== debouncedValue
 
+  useEffect(() => {
     // Abort previous stale request
     abortControllerRef.current.abort()
     abortControllerRef.current = new AbortController()
@@ -26,7 +25,6 @@ export function useDebouncedValue<T>(value: T, delay = 300): UseDebouncedValueRe
 
     timerRef.current = window.setTimeout(() => {
       setDebouncedValue(value)
-      setIsDebouncing(false)
     }, delay)
 
     return () => {
@@ -41,7 +39,7 @@ export function useDebouncedValue<T>(value: T, delay = 300): UseDebouncedValueRe
       window.clearTimeout(timerRef.current)
     }
     abortControllerRef.current.abort()
-    setIsDebouncing(false)
+    setDebouncedValue(value)
   }
 
   const getAbortSignal = () => abortControllerRef.current.signal

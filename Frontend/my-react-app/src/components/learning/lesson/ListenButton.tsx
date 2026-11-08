@@ -8,14 +8,17 @@ export interface ListenButtonProps {
 
 export function ListenButton({ textToRead, className = '' }: ListenButtonProps) {
   const [isSpeaking, setIsSpeaking] = useState(false)
+  const [prevText, setPrevText] = useState(textToRead)
   const isSupported = typeof window !== 'undefined' && 'speechSynthesis' in window
 
-  useEffect(() => {
-    // Stop speech when text changes or on unmount
-    if (isSupported) {
-      window.speechSynthesis.cancel()
-    }
+  // Adjust state during render when textToRead changes
+  if (prevText !== textToRead) {
+    setPrevText(textToRead)
     setIsSpeaking(false)
+  }
+
+  useEffect(() => {
+    // Cancel active synthesis on text change or unmount
     return () => {
       if (isSupported) {
         window.speechSynthesis.cancel()

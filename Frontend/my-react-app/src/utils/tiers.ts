@@ -81,7 +81,9 @@ export function setUserTier(tier: UserTier) {
       writeJson('user', user)
     }
     window.dispatchEvent(new CustomEvent('samvidhan:tier-changed', { detail: { tier } }))
-  } catch {}
+  } catch {
+    /* ignore storage or custom event error */
+  }
 }
 
 export function hasFeature(feature: FeatureKey, tier: UserTier = getCurrentTier()): boolean {
@@ -131,6 +133,8 @@ export function incrementAiDailyUsage(): number {
       writeJson('user', user)
     }
     window.dispatchEvent(new CustomEvent('samvidhan:ai-usage-changed', { detail: { used: next } }))
-  } catch {}
+  } catch {
+    /* ignore storage or custom event error */
+  }
   return next
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Filter, X, RotateCcw, Bookmark, Check } from 'lucide-react'
 import './data.css'
@@ -42,8 +42,12 @@ export function AdvancedFilterBar({
   const [viewNameInput, setViewNameInput] = useState('')
   const [showSaveView, setShowSaveView] = useState(false)
 
+  const hasMountedRef = useRef(false)
+
   // Sync from URL search params on mount
   useEffect(() => {
+    if (hasMountedRef.current) return
+    hasMountedRef.current = true
     const fromUrl: Record<string, string> = {}
     configs.forEach((cfg) => {
       const val = searchParams.get(cfg.key)
@@ -52,7 +56,7 @@ export function AdvancedFilterBar({
     if (Object.keys(fromUrl).length > 0) {
       onFilterChange({ ...activeFilters, ...fromUrl })
     }
-  }, [])
+  }, [configs, searchParams, onFilterChange, activeFilters])
 
   const handleSelect = (key: string, value: string) => {
     const updated = { ...activeFilters }
@@ -83,7 +87,9 @@ export function AdvancedFilterBar({
     setSavedViews(updated)
     try {
       localStorage.setItem(storageKey, JSON.stringify(updated))
-    } catch {}
+    } catch {
+      /* ignore storage error */
+    }
     setViewNameInput('')
     setShowSaveView(false)
   }

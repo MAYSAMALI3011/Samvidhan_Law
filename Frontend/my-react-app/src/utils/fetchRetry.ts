@@ -21,14 +21,14 @@ export async function retryAsync<T>(
   while (true) {
     try {
       return await fn()
-    } catch (err: any) {
+    } catch (err: unknown) {
       attempt++
       if (attempt > maxRetries) {
         throw err
       }
 
       if (onRetry) {
-        onRetry(attempt, err)
+        onRetry(attempt, err instanceof Error ? err : new Error(String(err)))
       }
 
       // Jittered exponential delay

@@ -48,6 +48,12 @@ export function AskSamvidhanModal({ isOpen, onClose }: AskSamvidhanModalProps) {
   const [showScrollBottom, setShowScrollBottom] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
   const [proModalOpen, setProModalOpen] = useState(false)
+  const [prevOpen, setPrevOpen] = useState(isOpen)
+
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
   const usage = getAiDailyUsage()
   const tier = getCurrentTier()
 
@@ -59,15 +65,16 @@ export function AskSamvidhanModal({ isOpen, onClose }: AskSamvidhanModalProps) {
     enabled: isOpen,
   })
 
-  // Restore draft on mount or open
-  useEffect(() => {
-    if (isOpen) {
+  // Restore draft when opening modal (adjust state during render)
+  if (prevOpen !== isOpen) {
+    setPrevOpen(isOpen)
+    if (isOpen && !inputText) {
       const saved = getSavedDraft()
-      if (saved && !inputText) {
+      if (saved) {
         setInputText(saved)
       }
     }
-  }, [isOpen])
+  }
 
   // Pattern 8: Rate-limit send button to prevent spamming
   const { throttledFn: throttledSend, isLocked: isSendThrottled } = useThrottledCallback(
@@ -84,10 +91,6 @@ export function AskSamvidhanModal({ isOpen, onClose }: AskSamvidhanModalProps) {
     500,
     { leading: true, trailing: false }
   )
-
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  const scrollAreaRef = useRef<HTMLDivElement>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   // Auto-scroll to bottom while streaming
   useEffect(() => {

@@ -9,7 +9,7 @@ export function AdminSettings() {
   const [savedSuccess, setSavedSuccess] = useState(false)
 
   const handleToggle = (key: string) => {
-    const updated = { ...flags, [key]: !(flags as any)[key] }
+    const updated: Record<string, boolean> = { ...flags, [key]: !flags[key] }
     setFlags(updated)
     adminService.updateFeatureFlags(updated)
     setSavedSuccess(true)

@@ -8,34 +8,46 @@ export interface ChatLauncherProps {
 
 export function ChatLauncher({ isOpen, onToggle }: ChatLauncherProps) {
   const [showNudge, setShowNudge] = useState(false)
-  const [pillExpanded, setPillExpanded] = useState(false)
+  const [pillExpanded, setPillExpanded] = useState(() => {
+    try {
+      return !sessionStorage.getItem('samvidhan-chat-intro-seen')
+    } catch {
+      return false
+    }
+  })
 
   const handleDismissNudge = useCallback(() => {
     setShowNudge(false)
     try {
       localStorage.setItem('samvidhan-nudge-dismissed', 'true')
-    } catch {}
+    } catch {
+      /* ignore storage error */
+    }
   }, [])
 
   // Show attached pill on first visit for 4 seconds, then collapse
   useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem('samvidhan-chat-intro-seen')
-    if (!hasSeenIntro) {
-      setPillExpanded(true)
+    if (pillExpanded) {
       const timer = setTimeout(() => {
         setPillExpanded(false)
-        sessionStorage.setItem('samvidhan-chat-intro-seen', 'true')
+        try {
+          sessionStorage.setItem('samvidhan-chat-intro-seen', 'true')
+        } catch {
+          /* ignore storage error */
+        }
       }, 4000)
       return () => clearTimeout(timer)
     }
-  }, [])
+  }, [pillExpanded])
 
   // Show suggestion nudge bubble once per session after 3s, auto-dismiss after 8s
   useEffect(() => {
     let isDismissed = false
     try {
       isDismissed = localStorage.getItem('samvidhan-nudge-dismissed') === 'true'
-    } catch {}
+    } catch {
+      /* ignore storage error */
+    }
 
     if (!isDismissed) {
       const showTimer = setTimeout(() => {

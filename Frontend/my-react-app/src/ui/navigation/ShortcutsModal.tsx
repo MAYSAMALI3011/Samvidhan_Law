@@ -1,22 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { X, Keyboard } from 'lucide-react'
+import { shortcutItems } from './shortcutsData'
 import './navigation.css'
 
 export interface ShortcutsModalProps {
   isOpen: boolean
   onClose: () => void
 }
-
-export const shortcutItems = [
-  { keys: ['?'], description: 'Open keyboard shortcuts help' },
-  { keys: ['Ctrl', 'K'], altKeys: ['/'], description: 'Open Command Palette / Search' },
-  { keys: ['G', 'D'], description: 'Go to Dashboard' },
-  { keys: ['G', 'C'], description: 'Go to Curriculum & Courses' },
-  { keys: ['G', 'B'], description: 'Go to Bookmarks' },
-  { keys: ['B'], description: 'Toggle bookmark on active lesson' },
-  { keys: ['T'], description: 'Toggle Theme (Light / Dark)' },
-  { keys: ['Esc'], description: 'Close active modal / dialog' },
-]
 
 export function ShortcutsModal({ isOpen, onClose }: ShortcutsModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)

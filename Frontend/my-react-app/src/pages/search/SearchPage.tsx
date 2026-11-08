@@ -28,7 +28,9 @@ function saveRecentSearch(term: string) {
     const current = getRecentSearches()
     const filtered = [term.trim(), ...current.filter((s) => s.toLowerCase() !== term.trim().toLowerCase())].slice(0, 10)
     localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(filtered))
-  } catch {}
+  } catch {
+    /* ignore storage error */
+  }
 }
 
 export function SearchPage() {
@@ -83,7 +85,8 @@ export function SearchPage() {
   useEffect(() => {
     if (debouncedValue.trim() && debouncedValue !== initial) {
       setParams({ q: debouncedValue }, { replace: true })
-      void run(debouncedValue)
+      const timer = window.setTimeout(() => void run(debouncedValue), 0)
+      return () => window.clearTimeout(timer)
     }
   }, [debouncedValue, initial, setParams])
 

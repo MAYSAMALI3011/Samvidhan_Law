@@ -30,8 +30,10 @@ export function ConfirmModal({
 
   useEffect(() => {
     if (isOpen) {
-      setTypedInput('')
-      const timer = setTimeout(() => cancelBtnRef.current?.focus(), 50)
+      const timer = setTimeout(() => {
+        setTypedInput('')
+        cancelBtnRef.current?.focus()
+      }, 50)
       return () => clearTimeout(timer)
     }
   }, [isOpen])

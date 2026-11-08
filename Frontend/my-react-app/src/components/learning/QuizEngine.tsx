@@ -44,7 +44,10 @@ export function QuizEngine({
   const [matchedPairs, setMatchedPairs] = useState<Record<string, string>>({})
   const [selectedLeft, setSelectedLeft] = useState<string | null>(null)
   // For order steps
-  const [orderedSteps, setOrderedSteps] = useState<{ id: string; label: string; order: number }[]>([])
+  const [orderedSteps, setOrderedSteps] = useState<{ id: string; label: string; order: number }[]>(() => {
+    const q0 = questions[0]
+    return q0?.type === 'order_steps' && q0.steps ? [...q0.steps].reverse() : []
+  })
   // For fill blank
   const [filledWord, setFilledWord] = useState<string | null>(null)
   // For spot violation
@@ -58,45 +61,20 @@ export function QuizEngine({
   const currentQ = questionQueue[currentIndex]
   const progressPercent = Math.min(100, Math.round((currentIndex / questionQueue.length) * 100))
 
-  // Initialize question state when moving to next question
-  useEffect(() => {
+  // Sync state when moving to next question (adjust state during render)
+  const [prevIndex, setPrevIndex] = useState(0)
+  if (prevIndex !== currentIndex) {
+    setPrevIndex(currentIndex)
     setSelectedOptionId(null)
     setMatchedPairs({})
     setSelectedLeft(null)
     setFilledWord(null)
     setSpottedSentenceId(null)
     setFeedback(null)
-
     if (currentQ?.type === 'order_steps' && currentQ.steps) {
-      // Shuffle steps initially so user can reorder them
-      const shuffled = [...currentQ.steps].sort(() => Math.random() - 0.5)
-      setOrderedSteps(shuffled)
+      setOrderedSteps([...currentQ.steps].reverse())
     }
-  }, [currentIndex, currentQ])
-
-  // Keyboard 1-4 shortcuts for multiple choice
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (feedback !== null || !currentQ || currentQ.type === 'match_pairs' || currentQ.type === 'order_steps') return
-
-      if (currentQ.options) {
-        const num = parseInt(e.key, 10)
-        if (!isNaN(num) && num >= 1 && num <= currentQ.options.length) {
-          setSelectedOptionId(currentQ.options[num - 1].id)
-          playSound('pop')
-        }
-      }
-
-      if (e.key === 'Enter' && canCheckAnswer() && feedback === null) {
-        checkAnswer()
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  })
-
-  if (!currentQ && !isCompleted) return null
+  }
 
   const canCheckAnswer = (): boolean => {
     if (!currentQ) return false
@@ -118,7 +96,7 @@ export function QuizEngine({
   const checkAnswer = () => {
     if (!currentQ) return
 
-    let isCorrect = false
+    let isCorrect: boolean
 
     if (currentQ.type === 'match_pairs' && currentQ.pairs) {
       isCorrect = currentQ.pairs.every((pair) => matchedPairs[pair.left] === pair.right)
@@ -156,6 +134,30 @@ export function QuizEngine({
       setQuestionQueue((prev) => [...prev, currentQ])
     }
   }
+
+  // Keyboard 1-4 shortcuts for multiple choice
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (feedback !== null || !currentQ || currentQ.type === 'match_pairs' || currentQ.type === 'order_steps') return
+
+      if (currentQ.options) {
+        const num = parseInt(e.key, 10)
+        if (!isNaN(num) && num >= 1 && num <= currentQ.options.length) {
+          setSelectedOptionId(currentQ.options[num - 1].id)
+          playSound('pop')
+        }
+      }
+
+      if (e.key === 'Enter' && canCheckAnswer() && feedback === null) {
+        checkAnswer()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  })
+
+  if (!currentQ && !isCompleted) return null
 
   const handleContinue = () => {
     setFeedback(null)
@@ -211,7 +213,9 @@ export function QuizEngine({
         status: 'New',
       })
       localStorage.setItem('samvidhan-mistake-reports', JSON.stringify(reports))
-    } catch {}
+    } catch {
+      /* ignore storage errors */
+    }
     setTimeout(() => {
       setReportModalOpen(false)
       setReportSubmitted(false)

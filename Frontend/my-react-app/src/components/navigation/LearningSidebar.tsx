@@ -58,7 +58,9 @@ export function LearningSidebar({ onOpenChat, onCollapseChange }: LearningSideba
     setCollapsed(next)
     try {
       localStorage.setItem('samvidhan-sidebar-collapsed', String(next))
-    } catch {}
+    } catch {
+      /* ignore storage error */
+    }
     if (onCollapseChange) {
       onCollapseChange(next)
     }

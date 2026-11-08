@@ -23,7 +23,7 @@ import { ExpandingLogoutButton } from '../../components/animations/ExpandingLogo
 import { ThemeToggle } from '../../components/common/ThemeToggle'
 import { EmptyStateView } from '../../ui/feedback/EmptyStateView'
 import { BulkActionBar } from '../../ui/data/BulkActionBar'
-import { shortcutItems } from '../../ui/navigation/ShortcutsModal'
+import { shortcutItems } from '../../ui/navigation/shortcutsData'
 import { useAppState } from '../../context/useAppState'
 import { useTheme } from '../../context/useTheme'
 import { getLesson, getQuiz } from '../../services/catalog'

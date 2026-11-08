@@ -12,10 +12,17 @@ interface SiteNavbarProps {
 }
 
 export function SiteNavbar({ onOpenSearch }: SiteNavbarProps) {
+  const location = useLocation()
+  const { user } = useAppState()
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { user } = useAppState()
-  const location = useLocation()
+  const [prevPath, setPrevPath] = useState(location.pathname)
+
+  // Close mobile drawer on route change (adjust state during render)
+  if (prevPath !== location.pathname) {
+    setPrevPath(location.pathname)
+    setMobileMenuOpen(false)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,11 +31,6 @@ export function SiteNavbar({ onOpenSearch }: SiteNavbarProps) {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  // Close mobile drawer on route change
-  useEffect(() => {
-    setMobileMenuOpen(false)
-  }, [location.pathname])
 
   const handleSearchClick = () => {
     if (onOpenSearch) {

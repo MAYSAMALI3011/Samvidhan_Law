@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { CheckCircle2, ShieldCheck, Check, XCircle } from 'lucide-react'
 import { adminService, type AdminContentItem } from '../../services/adminService'
-import { useAdminContext } from './AdminLayout'
+import { useAdminContext } from './useAdminContext'
 
 export function AdminReviewWorkflow() {
   const [items, setItems] = useState<AdminContentItem[]>(() => adminService.getContentItems())
@@ -19,8 +19,8 @@ export function AdminReviewWorkflow() {
       setItems(adminService.getContentItems())
       setSuccessMsg(`Item status updated to ${status}!`)
       setTimeout(() => setSuccessMsg(null), 3500)
-    } catch (err: any) {
-      setErrorMsg(err.message)
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : 'An error occurred')
     }
   }
 

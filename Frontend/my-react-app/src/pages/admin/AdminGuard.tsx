@@ -9,6 +9,11 @@ export function AdminGuard() {
   const { user } = useAppState()
   const location = useLocation()
 
+  // Hooks must be called at top-level before early returns
+  const isDevMock = import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS !== 'false'
+  const initialRole: UserRole = (user?.role as UserRole) || 'learner'
+  const [demoRole, setDemoRole] = useState<UserRole>(initialRole)
+
   // 1. In production builds, disable /admin entirely until a server-verified role exists
   if (import.meta.env.PROD) {
     return <Navigate to="/admin/forbidden" replace />
@@ -19,14 +24,6 @@ export function AdminGuard() {
     const returnTo = encodeURIComponent(location.pathname + location.search)
     return <Navigate to={`/login?returnTo=${returnTo}`} state={{ from: location }} replace />
   }
-
-  // 3. Keep the demo role switcher strictly in DEV with mock mode enabled
-  const isDevMock = import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS !== 'false'
-
-  // User role comes strictly from auth layer, defaulting to 'learner' (never defaulting to 'superadmin')
-  const initialRole: UserRole = (user.role as UserRole) || 'learner'
-
-  const [demoRole, setDemoRole] = useState<UserRole>(initialRole)
 
   const activeRole = isDevMock ? demoRole : initialRole
   const hasAccess = ADMIN_ROLES.includes(activeRole)

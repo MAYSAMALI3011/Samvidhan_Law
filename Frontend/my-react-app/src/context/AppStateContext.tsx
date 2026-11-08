@@ -10,7 +10,7 @@ import {
   completeLessonEvent,
   submitQuizEvent,
   openChestEvent,
-  useStreakFreezeEvent,
+  activateStreakFreezeEvent,
   setDailyGoalEvent,
   fetchProgress,
 } from '../api/services/progressService'
@@ -212,7 +212,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const useStreakFreeze = useCallback(async () => {
     if ((progress.streakFreezes || 0) <= 0) return
     try {
-      const nextProgress = await useStreakFreezeEvent()
+      const nextProgress = await activateStreakFreezeEvent()
       setProgress(nextProgress)
       writeJson('progress', nextProgress)
       pushToast('Streak Freeze activated! Your streak is protected for today.', 'info')

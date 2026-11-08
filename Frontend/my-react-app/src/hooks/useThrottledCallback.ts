@@ -5,18 +5,20 @@ export interface ThrottledOptions {
   trailing?: boolean
 }
 
-export function useThrottledCallback<T extends (...args: any[]) => any>(
-  callback: T,
+export function useThrottledCallback<Args extends unknown[], R = void>(
+  callback: (...args: Args) => R,
   delay = 100,
   options: ThrottledOptions = { leading: true, trailing: true },
 ) {
   const lastExecTimeRef = useRef<number>(0)
   const timerRef = useRef<number | null>(null)
-  const callbackRef = useRef<T>(callback)
-  const lastArgsRef = useRef<Parameters<T> | null>(null)
+  const callbackRef = useRef<(...args: Args) => R>(callback)
+  const lastArgsRef = useRef<Args | null>(null)
   const [isLocked, setIsLocked] = useState(false)
 
-  callbackRef.current = callback
+  useEffect(() => {
+    callbackRef.current = callback
+  }, [callback])
 
   useEffect(() => {
     return () => {
@@ -25,7 +27,7 @@ export function useThrottledCallback<T extends (...args: any[]) => any>(
   }, [])
 
   const throttledFn = useCallback(
-    (...args: Parameters<T>) => {
+    (...args: Args) => {
       const now = Date.now()
       const elapsed = now - lastExecTimeRef.current
       lastArgsRef.current = args

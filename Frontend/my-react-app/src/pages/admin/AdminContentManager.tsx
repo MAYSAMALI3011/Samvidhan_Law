@@ -12,7 +12,7 @@ import {
   Search,
 } from 'lucide-react'
 import { adminService, type AdminContentItem } from '../../services/adminService'
-import { useAdminContext } from './AdminLayout'
+import { useAdminContext } from './useAdminContext'
 
 export function AdminContentManager() {
   const [items, setItems] = useState<AdminContentItem[]>(() => adminService.getContentItems())
@@ -49,7 +49,7 @@ export function AdminContentManager() {
       unitId: editItem.unitId || 1,
       title: editItem.title,
       type: 'lesson',
-      status: (editItem.status as any) || 'Draft',
+      status: (editItem.status as AdminContentItem['status']) || 'Draft',
       citation: editItem.citation,
       author: editItem.author || 'Editorial Team',
       updatedAt: new Date().toISOString().split('T')[0],
@@ -331,7 +331,7 @@ export function AdminContentManager() {
                     id="item-status"
                     className="field-input"
                     value={editItem.status || 'Draft'}
-                    onChange={(e) => setEditItem({ ...editItem, status: e.target.value as any })}
+                    onChange={(e) => setEditItem({ ...editItem, status: e.target.value as AdminContentItem['status'] })}
                   >
                     <option value="Draft">Draft</option>
                     <option value="In Review">In Review</option>

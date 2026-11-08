@@ -28,9 +28,12 @@ export interface PathNode {
   stars?: number
 }
 
+type UnitData = (typeof unitsData)[number]
+type LessonData = UnitData['lessons'][number]
+
 export function LearningPath() {
   const { progress, openChest, playSound, pushToast } = useAppState()
-  const [activeGuidebook, setActiveGuidebook] = useState<any | null>(null)
+  const [activeGuidebook, setActiveGuidebook] = useState<UnitData | null>(null)
   const [openedChestId, setOpenedChestId] = useState<string | null>(null)
   const currentNodeRef = useRef<HTMLDivElement>(null)
 
@@ -91,7 +94,7 @@ export function LearningPath() {
 
             {/* Vertical Winding Path */}
             <div className="duo-path-track">
-              {unit.lessons.map((lesson: any, idx: number) => {
+              {unit.lessons.map((lesson: LessonData, idx: number) => {
                 const isCompleted = completedIds.includes(lesson.id)
                 // Current if previous is completed (or first lesson) and not yet completed
                 const isFirst = idx === 0 && unit.id === 1

@@ -12,7 +12,10 @@ export function SiteFooter() {
   const [submitting, setSubmitting] = useState(false)
   const [subscribed, setSubscribed] = useState(false)
   const [error, setError] = useState('')
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  })
   const footerRef = useRef<HTMLElement>(null)
   const { pushToast } = useAppState()
 
@@ -21,7 +24,6 @@ export function SiteFooter() {
     if (typeof window === 'undefined') return
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (isReduced) {
-      setIsVisible(true)
       return
     }
 

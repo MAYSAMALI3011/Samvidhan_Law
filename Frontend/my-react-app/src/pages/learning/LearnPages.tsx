@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
     ArrowRight,
   BookOpen,
@@ -357,13 +357,15 @@ function LessonNotesSection({ lessonId }: { lessonId: string }) {
 
 export function LessonPage() {
   const { courseId = '', lessonId = '' } = useParams()
+  const navigate = useNavigate()
   const { progress, completeLesson, toggleBookmark, toggleSaved, pushToast } = useAppState()
   const [interactiveMode, setInteractiveMode] = useState(false)
 
   // 1. Check if lesson exists in modern Duolingo unitsData
-  let unitLesson: any = null
+  type UnitLessonType = (typeof unitsData)[number]['lessons'][number]
+  let unitLesson: UnitLessonType | null = null
   for (const u of unitsData) {
-    const found = u.lessons.find((l: any) => l.id === lessonId)
+    const found = u.lessons.find((l) => l.id === lessonId)
     if (found) {
       unitLesson = found
       break
@@ -385,7 +387,7 @@ export function LessonPage() {
     const handleComplete = () => {
       completeLesson(unitLesson.id, unitLesson.title)
       pushToast('Mastery complete! +' + (unitLesson.xp || 15) + ' XP earned & streak saved!', 'success')
-      window.location.href = '/dashboard'
+      navigate('/dashboard')
     }
 
     return (

@@ -3,7 +3,7 @@ import {
   completeLessonEvent,
   submitQuizEvent,
   openChestEvent,
-  useStreakFreezeEvent,
+  activateStreakFreezeEvent,
 } from '../services/progressService'
 import { toggleBookmarkApi, toggleSavedApi } from '../services/bookmarksService'
 import { queryKeys } from './useQueries'
@@ -42,7 +42,7 @@ export function useOpenChestMutation() {
 export function useStreakFreezeMutation() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: useStreakFreezeEvent,
+    mutationFn: activateStreakFreezeEvent,
     onSuccess: (data) => {
       queryClient.setQueryData<ProgressState>(queryKeys.progress, data)
     },

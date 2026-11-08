@@ -24,27 +24,9 @@ export function useAutosave<T>({
   const latestValueRef = useRef(value)
   const isOnline = useRef(typeof navigator !== 'undefined' ? navigator.onLine : true)
 
-  latestValueRef.current = value
-
-  // Track online/offline status
   useEffect(() => {
-    const handleOnline = () => {
-      isOnline.current = true
-      // trigger sync if offline draft was pending
-      triggerSave()
-    }
-    const handleOffline = () => {
-      isOnline.current = false
-      setStatus('offline')
-    }
-
-    window.addEventListener('online', handleOnline)
-    window.addEventListener('offline', handleOffline)
-    return () => {
-      window.removeEventListener('online', handleOnline)
-      window.removeEventListener('offline', handleOffline)
-    }
-  }, [])
+    latestValueRef.current = value
+  }, [value])
 
   // Save execution
   const triggerSave = useCallback(async () => {
@@ -54,7 +36,9 @@ export function useAutosave<T>({
       // Save locally and mark as offline, will sync
       try {
         localStorage.setItem(`autosave:${key}`, JSON.stringify(val))
-      } catch {}
+      } catch {
+        /* ignore localStorage quota/disabled errors */
+      }
       setStatus('offline')
       return
     }
@@ -80,6 +64,26 @@ export function useAutosave<T>({
       setStatus('offline')
     }
   }, [key, onSave])
+
+  // Track online/offline status
+  useEffect(() => {
+    const handleOnline = () => {
+      isOnline.current = true
+      // trigger sync if offline draft was pending
+      void triggerSave()
+    }
+    const handleOffline = () => {
+      isOnline.current = false
+      setStatus('offline')
+    }
+
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
+  }, [triggerSave])
 
   // Watch for value changes and debounce
   useEffect(() => {
@@ -129,7 +133,9 @@ export function useAutosave<T>({
   const clearDraft = useCallback(() => {
     try {
       localStorage.removeItem(`autosave:${key}`)
-    } catch {}
+    } catch {
+      /* ignore localStorage errors */
+    }
     setStatus('idle')
   }, [key])
 

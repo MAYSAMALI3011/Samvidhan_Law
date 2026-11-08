@@ -27,6 +27,7 @@ export function FeatherAvatar({
         position: 'relative',
       }}
       aria-hidden="true"
+      data-mode={mode}
       {...rest}
     >
       <img

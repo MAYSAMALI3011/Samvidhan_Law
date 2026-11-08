@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink, Outlet, Link, useOutletContext } from 'react-router-dom'
+import { NavLink, Outlet, Link } from 'react-router-dom'
 import {
   LayoutDashboard,
   BookOpen,
@@ -16,15 +16,7 @@ import {
 } from 'lucide-react'
 import { BrandMark } from '../../components/brand/BrandMark'
 import type { UserRole } from '../../types'
-
-interface AdminContextType {
-  demoRole: UserRole
-  setDemoRole: (role: UserRole) => void
-}
-
-export function useAdminContext() {
-  return useOutletContext<AdminContextType>()
-}
+import { useAdminContext } from './useAdminContext'
 
 export function AdminLayout() {
   const { demoRole, setDemoRole } = useAdminContext()
