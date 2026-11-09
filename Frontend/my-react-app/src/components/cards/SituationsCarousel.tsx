@@ -91,7 +91,11 @@ export function SituationsCarousel() {
   const [isPaused, setIsPaused] = useState(false)
   const [cardsPerView, setCardsPerView] = useState(3)
   const [mousePos, setMousePos] = useState<{ [key: string]: { x: number; y: number } }>({})
+  const [trackOffset, setTrackOffset] = useState(0)
   const timerRef = useRef<number | null>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef<number | null>(null)
+  const touchEndX = useRef<number | null>(null)
 
   useEffect(() => {
     const updateCardsPerView = () => {
@@ -108,6 +112,23 @@ export function SituationsCarousel() {
 
   const maxIndex = Math.max(0, situationsList.length - cardsPerView)
 
+  // Recalculate exact pixel offset based on DOM position of target card
+  const updateOffset = useCallback(() => {
+    if (!trackRef.current) return
+    const cards = trackRef.current.children
+    const clampedIndex = Math.min(currentIndex, maxIndex)
+    if (cards[clampedIndex]) {
+      const targetCard = cards[clampedIndex] as HTMLElement
+      setTrackOffset(targetCard.offsetLeft)
+    }
+  }, [currentIndex, maxIndex])
+
+  useEffect(() => {
+    updateOffset()
+    window.addEventListener('resize', updateOffset)
+    return () => window.removeEventListener('resize', updateOffset)
+  }, [updateOffset])
+
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
   }, [maxIndex])
@@ -116,16 +137,41 @@ export function SituationsCarousel() {
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
   }, [maxIndex])
 
-  // Automatic movement every 3.5s unless hovered/focused
+  // Automatic movement every 4s unless hovered/focused/touched
   useEffect(() => {
     if (isPaused) return
     timerRef.current = window.setInterval(() => {
       handleNext()
-    }, 3500)
+    }, 4000)
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
     }
   }, [isPaused, handleNext])
+
+  // Touch Swipe Handlers for Mobile & Tablet
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX
+    setIsPaused(true)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const distance = touchStartX.current - touchEndX.current
+      const minSwipeDistance = 45
+      if (distance > minSwipeDistance) {
+        handleNext()
+      } else if (distance < -minSwipeDistance) {
+        handlePrev()
+      }
+    }
+    touchStartX.current = null
+    touchEndX.current = null
+    setIsPaused(false)
+  }
 
   const handleCardMouseMove = (id: string, e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -153,6 +199,9 @@ export function SituationsCarousel() {
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       role="region"
       aria-roledescription="carousel"
       aria-label="Practical Legal Situations"
@@ -200,9 +249,10 @@ export function SituationsCarousel() {
       {/* The Moving Track Viewport */}
       <div className="situations-carousel-viewport">
         <div
+          ref={trackRef}
           className="situations-carousel-track"
           style={{
-            transform: `translateX(-${currentIndex * 396}px)`,
+            transform: `translateX(-${trackOffset}px)`,
           }}
         >
           {situationsList.map((item) => {

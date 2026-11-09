@@ -45,11 +45,11 @@ export function ConstitutionIndexPage() {
         </div>
 
         <h2>The Preamble</h2>
-        <p style={{ fontStyle: 'italic', color: '#f8fafc', fontSize: '1.12rem', lineHeight: '1.8' }}>
+        <p className="preamble-quote-text" style={{ fontStyle: 'italic', fontSize: '1.12rem', lineHeight: '1.8' }}>
           "WE, THE PEOPLE OF INDIA, having solemnly resolved to constitute India into a SOVEREIGN SOCIALIST SECULAR DEMOCRATIC REPUBLIC and to secure to all its citizens: JUSTICE, social, economic and political; LIBERTY of thought, expression, belief, faith and worship; EQUALITY of status and of opportunity; and to promote among them all FRATERNITY assuring the dignity of the individual and the unity and integrity of the Nation;"
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid rgba(176, 141, 87, 0.3)' }}>
-          <span style={{ fontSize: '0.88rem', color: '#cbd5e1' }}>
+          <span className="preamble-adopted-date" style={{ fontSize: '0.88rem' }}>
             Adopted by the Constituent Assembly on 26th November 1949
           </span>
           <Link

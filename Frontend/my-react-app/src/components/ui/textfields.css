@@ -11,7 +11,19 @@
   display: grid; gap: .5rem; width: 100%; max-width: 28rem;
   color: var(--tf-text); font-family: inherit;
 }
-:root[data-theme="light"] .tf { --tf-surface: #fffdf8; --tf-border: rgba(15,26,51,.2); --tf-text: #14213d; --tf-muted: #5b6577; }
+.form-row .tf,
+.search-form-full .tf,
+.tf-full {
+  max-width: 100%;
+}
+:root[data-theme="light"] .tf,
+html[data-theme="light"] .tf,
+[data-theme="light"] .tf { 
+  --tf-surface: #ffffff; 
+  --tf-border: rgba(176, 141, 87, 0.3); 
+  --tf-text: #0f172a; 
+  --tf-muted: #475569; 
+}
 .tf__label { font-size: .85rem; color: var(--tf-muted); font-weight: 500; }
 .tf__label:empty { display: none; }
 .tf__box {

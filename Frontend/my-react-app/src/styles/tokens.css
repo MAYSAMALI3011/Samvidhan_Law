@@ -78,6 +78,11 @@ html[data-theme='light'] {
   --hero-bg: radial-gradient(circle at 85% 15%, #15294a 0%, #0a1628 55%, #070d18 100%);
   --hero-fg: #f8fafc;
 
+  /* Global Layout Tokens */
+  --background: var(--bg);
+  --section-padding: clamp(2.75rem, 5vw, 5.5rem);
+  --text-section: clamp(1.75rem, 3.2vw, 2.75rem);
+
   color-scheme: light;
 }
 
@@ -134,11 +139,18 @@ html[data-theme='dark'] {
   --hero-bg: radial-gradient(circle at 85% 15%, #132238 0%, #080e1a 60%, #050912 100%);
   --hero-fg: #f8fafc;
 
+  /* Global Layout Tokens */
+  --background: var(--bg);
+  --section-padding: clamp(2.75rem, 5vw, 5.5rem);
+  --text-section: clamp(1.75rem, 3.2vw, 2.75rem);
+
   color-scheme: dark;
 }
 
 :root {
   --font-display: 'DM Serif Display', Georgia, serif;
+  --font-heading: 'DM Serif Display', Georgia, serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
