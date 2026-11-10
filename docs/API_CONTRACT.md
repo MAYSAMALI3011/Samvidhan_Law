@@ -362,7 +362,7 @@ All failure responses (`4xx`, `5xx`) must return JSON matching this schema:
   - `event: token` -> `{"token": "Under Article 20(3)..."}`
   - `event: citation` -> `{"label": "Virendra Khanna v. State", "url": "/library/privacy", "summary": "Compelling phone password violates self-incrimination safeguards."}`
   - `event: followUps` -> `{"followUps": ["What is Section 91 CrPC notice?", "Can police clone my device?"]}`
-  - `event: done` -> `{"done": true}`
+  - `event: done` -> `{"done": true, "conversationId": "conv_991823"}` (optional `conversationId`)
   - `event: error` -> `{"message": "Daily AI limit exceeded. Upgrade to Pro."}`
 
 ### 5.3 Conversations Management

@@ -4,6 +4,7 @@ import { setUserTier } from '../../utils/tiers'
 import { useAppState } from '../../context/useAppState'
 import { isMockMode } from '../../api/config'
 import { createCheckoutSession } from '../../api/services/subscriptionService'
+import { isValidCheckoutUrl } from '../../utils/redirect'
 import { CardNumberInput } from '../../components/ui/TextFields.jsx'
 import './growth.css'
 
@@ -42,7 +43,11 @@ export function ProGateModal({ isOpen, onClose, featureName }: ProGateModalProps
     try {
       const res = await createCheckoutSession('pro')
       if (res.checkoutUrl) {
-        window.location.href = res.checkoutUrl
+        if (isValidCheckoutUrl(res.checkoutUrl)) {
+          window.location.href = res.checkoutUrl
+          return
+        }
+        pushToast('Invalid checkout URL received from server.', 'error')
         return
       }
       setUserTier('pro')

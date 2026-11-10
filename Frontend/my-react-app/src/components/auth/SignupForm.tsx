@@ -94,11 +94,23 @@ export function SignupForm({ onSwitchToLogin, isActive }: SignupFormProps) {
     if (!validate()) return
 
     setIsLoading(true)
-    const result = await signupUser({ name, email, password })
+    let result
+    try {
+      result = await signupUser({ name, email, password })
+    } catch (err: unknown) {
+      setIsLoading(false)
+      const errorMsg =
+        err instanceof Error && err.message
+          ? err.message
+          : 'Sign-up is unavailable'
+      setErrors((prev) => ({ ...prev, email: errorMsg }))
+      pushToast(errorMsg, 'error')
+      return
+    }
     setIsLoading(false)
 
-    if (!result.success) {
-      const errorMsg = result.error || 'Sign-up is unavailable'
+    if (!result?.success) {
+      const errorMsg = result?.error || 'Sign-up is unavailable'
       setErrors((prev) => ({ ...prev, email: errorMsg }))
       pushToast(errorMsg, 'error')
       return

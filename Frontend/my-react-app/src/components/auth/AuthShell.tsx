@@ -77,10 +77,16 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
   useEffect(() => {
     const routeMode = location.pathname.includes('signup') ? 'signup' : 'login'
     if (routeMode !== mode) {
-      setIsSwapping(true)
-      setMode(routeMode)
-      const timer = setTimeout(() => setIsSwapping(false), currentDuration * 1000)
-      return () => clearTimeout(timer)
+      let resetTimer: ReturnType<typeof setTimeout> | undefined
+      const timer = setTimeout(() => {
+        setIsSwapping(true)
+        setMode(routeMode)
+        resetTimer = setTimeout(() => setIsSwapping(false), currentDuration * 1000)
+      }, 0)
+      return () => {
+        clearTimeout(timer)
+        if (resetTimer) clearTimeout(resetTimer)
+      }
     }
   }, [location.pathname, mode, currentDuration])
 

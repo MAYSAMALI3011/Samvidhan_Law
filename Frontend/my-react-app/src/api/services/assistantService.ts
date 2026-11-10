@@ -1,6 +1,9 @@
 import { getApiBaseUrl, getAuthStrategy, getAuthToken, isMockMode } from '../config'
 import { streamMockChat } from '../../components/assistant/streaming/mockStreamer'
 import type { StreamChunk } from '../types'
+import { parseSSEBlock } from '../../utils/sse'
+
+export { parseSSEBlock }
 
 export interface ChatStreamOptions {
   conversationId?: string
@@ -119,43 +122,9 @@ export async function* streamChat(
       buffer = lines.pop() || ''
 
       for (const block of lines) {
-        if (!block.trim()) continue
-
-        let eventType = 'message'
-        let dataStr = ''
-
-        const blockLines = block.split('\n')
-        for (const line of blockLines) {
-          if (line.startsWith('event:')) {
-            eventType = line.replace(/^event:\s*/, '').trim()
-          } else if (line.startsWith('data:')) {
-            dataStr = line.replace(/^data:\s*/, '').trim()
-          }
-        }
-
-        if (!dataStr) continue
-
-        try {
-          const parsed = JSON.parse(dataStr)
-
-          if (eventType === 'token' || parsed.token !== undefined) {
-            yield { token: parsed.token || parsed }
-          } else if (eventType === 'citation' || parsed.citation !== undefined) {
-            yield { citation: parsed.citation || parsed }
-          } else if (eventType === 'followUps' || parsed.followUps !== undefined) {
-            yield { followUps: parsed.followUps || parsed }
-          } else if (eventType === 'done' || parsed.done) {
-            yield { done: true }
-          } else if (eventType === 'error') {
-            throw new Error(parsed.message || 'Stream error occurred.')
-          }
-        } catch (parseErr) {
-          if (parseErr instanceof SyntaxError) {
-            // Raw text fallback
-            yield { token: dataStr }
-          } else {
-            throw parseErr
-          }
+        const chunk = parseSSEBlock(block)
+        if (chunk) {
+          yield chunk
         }
       }
     }

@@ -6,6 +6,7 @@ import { SocialAuthButtons } from './SocialAuthButtons'
 import { useAppState } from '../../context/useAppState'
 import { GhostComplete } from '../ui/TextFields.jsx'
 import { validateEmail } from '../../utils/authValidation'
+import { sanitizeReturnUrl } from '../../utils/redirect'
 import { loginUser } from '../../services/apiClient'
 
 interface LoginFormProps {
@@ -57,11 +58,23 @@ export function LoginForm({ onSwitchToSignup, isActive }: LoginFormProps) {
     if (!validate()) return
 
     setIsLoading(true)
-    const result = await loginUser({ email, password })
+    let result
+    try {
+      result = await loginUser({ email, password })
+    } catch (err: unknown) {
+      setIsLoading(false)
+      const errorMsg =
+        err instanceof Error && err.message
+          ? err.message
+          : 'Invalid email or password.'
+      setErrors((prev) => ({ ...prev, password: errorMsg }))
+      pushToast(errorMsg, 'error')
+      return
+    }
     setIsLoading(false)
 
-    if (!result.success || !result.user) {
-      const errorMsg = result.error || 'Log in is unavailable'
+    if (!result?.success || !result.user) {
+      const errorMsg = result?.error || 'Invalid email or password.'
       setErrors((prev) => ({ ...prev, password: errorMsg }))
       pushToast(errorMsg, 'error')
       return
@@ -72,7 +85,8 @@ export function LoginForm({ onSwitchToSignup, isActive }: LoginFormProps) {
     pushToast(`Welcome back, ${result.user.name}!`, 'success')
 
     const params = new URLSearchParams(location.search)
-    const returnTo = params.get('returnTo') || location.state?.from?.pathname || '/dashboard'
+    const rawReturnTo = params.get('returnTo') || (location.state as { from?: { pathname?: string } })?.from?.pathname
+    const returnTo = sanitizeReturnUrl(rawReturnTo, '/dashboard')
 
     setTimeout(() => {
       navigate(returnTo)

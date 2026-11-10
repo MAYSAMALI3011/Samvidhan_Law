@@ -66,6 +66,19 @@ function buildUrl(endpoint: string, params?: Record<string, string | number | bo
   return queryString ? `${fullUrl}?${queryString}` : fullUrl
 }
 
+const AUTH_ENTRY_ENDPOINTS = [
+  '/api/auth/login',
+  '/api/auth/signup',
+  '/api/auth/verify-otp',
+  '/api/auth/resend-otp',
+  '/api/auth/forgot-password',
+  '/api/auth/reset-password',
+]
+
+function isAuthEntryEndpoint(endpoint: string): boolean {
+  return AUTH_ENTRY_ENDPOINTS.some((path) => endpoint === path || endpoint.endsWith(path))
+}
+
 /**
  * Core HTTP Request Execution
  */
@@ -121,6 +134,17 @@ async function executeRequest<T>(endpoint: string, options: RequestOptions = {})
     clearTimeout(timer)
 
     if (res.status === 401) {
+      if (isAuthEntryEndpoint(endpoint)) {
+        let errorBody: { message?: string; errors?: unknown } = {}
+        try {
+          errorBody = await res.json()
+        } catch {
+          // Fall back to default
+        }
+        const message = errorBody.message || 'Invalid email or password.'
+        throw new ApiError(message, 401, errorBody.errors)
+      }
+
       handleUnauthorized()
       throw new ApiError('Session expired or unauthorized. Please log in again.', 401)
     }

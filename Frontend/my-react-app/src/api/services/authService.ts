@@ -2,6 +2,18 @@ import { apiClient, ApiError } from '../client'
 import { isMockMode, setAuthToken } from '../config'
 import { authResponseSchema, safeValidate, userProfileSchema } from '../schemas'
 import type { AuthSessionResponse, DemoUser } from '../types'
+import type { UserRole } from '../../types'
+
+function getDevMockRole(): UserRole {
+  if (import.meta.env.DEV) {
+    const envRole = import.meta.env.VITE_DEV_MOCK_ROLE
+    const validRoles: UserRole[] = ['learner', 'editor', 'reviewer', 'admin', 'superadmin']
+    if (envRole && validRoles.includes(envRole as UserRole)) {
+      return envRole as UserRole
+    }
+  }
+  return 'learner'
+}
 
 export async function loginUser(credentials: {
   email: string
@@ -19,7 +31,7 @@ export async function loginUser(credentials: {
       name: formattedName || 'Citizen Learner',
       email,
       interests: ['Constitutional Law', 'Citizen Rights'],
-      role: 'learner',
+      role: getDevMockRole(),
       tier: 'free',
       aiUsageToday: 0,
     }
@@ -72,7 +84,7 @@ export async function signupUser(payload: {
       name: payload.name.trim(),
       email,
       interests: ['Constitutional Law', 'Citizen Rights'],
-      role: 'learner',
+      role: getDevMockRole(),
       tier: 'free',
       aiUsageToday: 0,
     }

@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { useAppState } from '../../context/useAppState'
+import { isMockMode } from '../../api/config'
 import { Mor } from '../../components/mascot/Mor'
 import { TagInput } from '../../components/ui/TextFields.jsx'
 
@@ -34,15 +35,22 @@ export function OnboardingFlow() {
     e.preventDefault()
     playSound('complete')
     setDailyGoal(goal)
-    demoSignIn({
-      name: name || 'Citizen Scholar',
-      email: email || 'citizen@samvidhan.in',
-      interests: topics.length ? topics : [reason || 'Constitutional Awareness'],
-      role: 'learner',
-    })
-    addXp(25)
-    pushToast('Welcome to Samvidhan! +25 Welcome XP earned!', 'success')
-    navigate('/learn')
+
+    if (import.meta.env.DEV && isMockMode()) {
+      demoSignIn({
+        name: name || 'Citizen Scholar',
+        email: email || 'citizen@samvidhan.in',
+        interests: topics.length ? topics : [reason || 'Constitutional Awareness'],
+        role: 'learner',
+      })
+      addXp(25)
+      pushToast('Welcome to Samvidhan! +25 Welcome XP earned!', 'success')
+      navigate('/learn')
+    } else {
+      const emailParam = email ? `?email=${encodeURIComponent(email)}` : ''
+      pushToast('Preferences saved! Please create an account to start your journey.', 'info')
+      navigate(`/signup${emailParam}`)
+    }
   }
 
   return (

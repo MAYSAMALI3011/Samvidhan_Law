@@ -1,36 +1,80 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAppState } from '../../context/useAppState'
-import type { UserRole } from '../../types'
+import { isMockMode } from '../../api/config'
+import { getCurrentUser } from '../../api/services/authService'
+import { sanitizeReturnUrl } from '../../utils/redirect'
+import { Loader } from '../../ui/loaders/Loader'
+import type { DemoUser, UserRole } from '../../types'
 
 const ADMIN_ROLES: UserRole[] = ['superadmin', 'admin', 'editor', 'reviewer']
 
+/**
+ * AdminGuard protects /admin routes.
+ *
+ * NOTE: This frontend check is strictly for conditional UI navigation and rendering.
+ * All administrative API endpoints enforce real authorization checks and permissions server-side.
+ */
 export function AdminGuard() {
   const { user } = useAppState()
   const location = useLocation()
+  const isDevMock = import.meta.env.DEV && isMockMode()
 
-  // Hooks must be called at top-level before early returns
-  const isDevMock = import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS !== 'false'
-  const initialRole: UserRole = (user?.role as UserRole) || 'learner'
-  const [demoRole, setDemoRole] = useState<UserRole>(initialRole)
+  const [demoRole, setDemoRole] = useState<UserRole>(() => (user?.role as UserRole) || 'learner')
+  const [liveUser, setLiveUser] = useState<DemoUser | null>(user)
+  const [isVerifying, setIsVerifying] = useState<boolean>(!isDevMock)
 
-  // 1. In production builds, disable /admin entirely until a server-verified role exists
-  if (import.meta.env.PROD) {
-    return <Navigate to="/admin/forbidden" replace />
+  useEffect(() => {
+    if (isDevMock) return
+
+    let active = true
+    getCurrentUser()
+      .then((serverUser) => {
+        if (active) {
+          setLiveUser(serverUser)
+          setIsVerifying(false)
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setLiveUser(null)
+          setIsVerifying(false)
+        }
+      })
+
+    return () => {
+      active = false
+    }
+  }, [isDevMock])
+
+  // While server authorization is verifying in live mode, render the loader
+  if (isVerifying) {
+    return <Loader fullscreen caption="Verifying administrative credentials with server..." />
   }
 
-  // 2. Access requires an authenticated user; unauthenticated visitors are redirected to login
-  if (!user) {
-    const returnTo = encodeURIComponent(location.pathname + location.search)
+  const effectiveUser = isDevMock ? user : liveUser
+
+  // If not authenticated, redirect to login with safe returnTo parameter
+  if (!effectiveUser) {
+    const safePath = sanitizeReturnUrl(location.pathname + location.search, '/dashboard')
+    const returnTo = encodeURIComponent(safePath)
     return <Navigate to={`/login?returnTo=${returnTo}`} state={{ from: location }} replace />
   }
 
-  const activeRole = isDevMock ? demoRole : initialRole
+  // In dev mock mode: allow testing role switcher; in live mode: server-verified role only
+  const activeRole: UserRole = isDevMock ? demoRole : ((effectiveUser.role as UserRole) || 'learner')
   const hasAccess = ADMIN_ROLES.includes(activeRole)
 
   if (!hasAccess) {
     return <Navigate to="/admin/forbidden" replace />
   }
 
-  return <Outlet context={{ demoRole: activeRole, setDemoRole: isDevMock ? setDemoRole : () => {} }} />
+  return (
+    <Outlet
+      context={{
+        demoRole: activeRole,
+        setDemoRole: isDevMock ? setDemoRole : () => {},
+      }}
+    />
+  )
 }

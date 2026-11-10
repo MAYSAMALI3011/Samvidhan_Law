@@ -117,8 +117,12 @@ export default function App() {
           <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
           <Route path="/refer" element={<RequireAuth><ReferralPage /></RequireAuth>} />
           <Route path="/affiliates" element={<AffiliatePage />} />
-          <Route path="/dev/loaders" element={<DevLoadersPage />} />
-          <Route path="/dev/mor" element={<DevMorPage />} />
+          {import.meta.env.DEV && (
+            <>
+              <Route path="/dev/loaders" element={<DevLoadersPage />} />
+              <Route path="/dev/mor" element={<DevMorPage />} />
+            </>
+          )}
           <Route path="/paths/:role" element={<Navigate to="/learn" replace />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

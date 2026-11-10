@@ -96,6 +96,7 @@ export interface StreamChunk {
   citation?: { label: string; url: string; summary: string }
   followUps?: string[]
   done?: boolean
+  conversationId?: string
 }
 
 export interface MistakeReportPayload {

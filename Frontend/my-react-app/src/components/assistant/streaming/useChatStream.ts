@@ -17,6 +17,7 @@ export function useChatStream() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
+  const conversationIdRef = useRef<string | undefined>(undefined)
 
   const stopGeneration = useCallback(() => {
     if (abortControllerRef.current) {
@@ -74,10 +75,17 @@ export function useChatStream() {
       )
 
       // Consume mock or real SSE stream
-      const stream = streamChat(promptText, { signal: controller.signal })
+      const stream = streamChat(promptText, {
+        signal: controller.signal,
+        conversationId: conversationIdRef.current,
+      })
 
       for await (const chunk of stream) {
         if (controller.signal.aborted) break
+
+        if (chunk.conversationId) {
+          conversationIdRef.current = chunk.conversationId
+        }
 
         setMessages((prev) =>
           prev.map((m) => {
@@ -94,15 +102,26 @@ export function useChatStream() {
           })
         )
       }
-    } catch {
+    } catch (err: unknown) {
       if (!controller.signal.aborted) {
+        const message =
+          err instanceof Error && err.message?.trim()
+            ? err.message.trim()
+            : typeof err === 'object' &&
+                err !== null &&
+                'message' in err &&
+                typeof (err as { message: unknown }).message === 'string' &&
+                (err as { message: string }).message.trim()
+              ? (err as { message: string }).message.trim()
+              : 'Connection lost. Please retry your query.'
+
         setMessages((prev) =>
           prev.map((m) =>
             m.id === assistantMsgId
               ? {
                   ...m,
                   isStreaming: false,
-                  error: 'Connection lost. Please retry your query.',
+                  error: message,
                 }
               : m
           )
@@ -121,6 +140,7 @@ export function useChatStream() {
 
   const clearChat = useCallback(() => {
     stopGeneration()
+    conversationIdRef.current = undefined
     setMessages([])
   }, [stopGeneration])
 

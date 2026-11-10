@@ -40,7 +40,8 @@ jobs:
         working-directory: Frontend/my-react-app
         env:
           GITHUB_PAGES: 'true'
-          VITE_USE_MOCKS: 'true'
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_AUTH_STRATEGY: ${{ vars.VITE_AUTH_STRATEGY }}
         run: npm run build
 
       - name: Setup SPA 404 Fallback
