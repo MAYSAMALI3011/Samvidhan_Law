@@ -61,6 +61,13 @@ const searchableCatalog: SearchItem[] = [
     to: '/library/sample-consumer-checklist',
     snippet: 'District consumer commission procedure and compensation',
   },
+  {
+    id: 'dpdp-compliance',
+    title: 'DPDP Act 2023 & E-Commerce Compliance Guide',
+    category: 'Library',
+    to: '/library/dpdp-business-compliance-checklist',
+    snippet: '8 Essential Rules: 1-Tap Consent, Grievance Officer, Erasure, Seller Disclosures',
+  },
 ]
 
 export function NavbarInlineSearch() {

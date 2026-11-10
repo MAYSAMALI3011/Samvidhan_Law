@@ -768,16 +768,17 @@
   .auth-sliding-arena {
     display: flex;
     flex-direction: column;
-    position: static;
+    position: relative;
     padding: 0.5rem;
     height: auto;
+    overflow: hidden;
   }
 
   .auth-sliding-visual-card {
-    position: static;
+    position: relative;
     width: 100%;
     min-height: 180px;
-    transform: none !important;
+    will-change: transform, opacity;
   }
 
   .auth-visual-card {
@@ -804,17 +805,19 @@
   }
 
   .auth-slot-panel {
-    position: static;
+    position: relative;
     width: 100%;
-    padding: 1.5rem 1rem;
+    padding: 1.25rem 0.5rem;
     height: auto;
   }
 
   .auth-slot-panel.is-slot-inactive {
-  pointer-events: none !important;
-  opacity: 0 !important;
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
-}
+    display: none !important;
+  }
+
+  .auth-slot-panel.is-slot-active {
+    display: block !important;
+  }
 }
 
 .auth-slot-panel::-webkit-scrollbar {

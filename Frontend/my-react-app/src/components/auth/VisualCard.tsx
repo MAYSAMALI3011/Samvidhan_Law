@@ -101,7 +101,7 @@ export function VisualCard({ mode, isReducedMotion = false }: VisualCardProps) {
               initial={{ opacity: 0, y: isReducedMotion ? 0 : 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: isReducedMotion ? 0 : -8 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.45, ease: [0.32, 0.04, 0.18, 1] }}
               className="auth-card-copy-block"
             >
               <h2 className="auth-card-title">Welcome back</h2>
@@ -115,7 +115,7 @@ export function VisualCard({ mode, isReducedMotion = false }: VisualCardProps) {
               initial={{ opacity: 0, y: isReducedMotion ? 0 : 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: isReducedMotion ? 0 : -8 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.45, ease: [0.32, 0.04, 0.18, 1] }}
               className="auth-card-copy-block"
             >
               <h2 className="auth-card-title">Join us today</h2>

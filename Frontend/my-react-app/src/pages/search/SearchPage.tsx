@@ -11,7 +11,7 @@ import { useDebouncedValue } from '../../hooks/useDebouncedValue'
 import { GhostComplete } from '../../components/ui/TextFields.jsx'
 
 const RECENT_SEARCHES_KEY = 'samvidhan_recent_searches'
-const popularSearches = ['Preamble', 'Fundamental Rights', 'Consumer Protection', 'Article 21', 'Cyber Fraud', 'Arrest Safeguards']
+const popularSearches = ['Preamble', 'Fundamental Rights', 'DPDP Act 2023', 'Consumer Protection', 'Article 21', 'Cyber Fraud', 'Arrest Safeguards']
 
 function getRecentSearches(): string[] {
   try {

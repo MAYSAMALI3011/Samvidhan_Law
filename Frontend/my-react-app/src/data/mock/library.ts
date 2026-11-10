@@ -74,6 +74,27 @@ export const libraryDocuments: LibraryDocument[] = [
       'Until a verified knowledge base exists, the Ask interface uses labelled mock replies and must not invent case citations.',
     ],
   },
+  {
+    id: 'dpdp-business-compliance-checklist',
+    title: 'DPDP Act 2023 & E-Commerce: 8-Point Statutory Compliance Guide',
+    category: 'Digital safety',
+    summary: 'Essential legal requirements for Indian websites, startups, and e-commerce platforms: 1-tap consent withdrawal, grievance officer, e-com disclosures, and DPDP safeguards.',
+    updatedLabel: 'Statutory Guide · DPDP Act 2023 & Consumer Protection Rules',
+    sourceLabel: 'Digital Personal Data Protection Act, 2023 & Consumer Protection (E-Commerce) Rules, 2020',
+    isSample: true,
+    tags: ['dpdp', 'compliance', 'privacy', 'ecommerce', 'consumer', 'business', 'startup'],
+    body: [
+      'Digital platforms and commercial websites operating in India are governed by two landmark statutory frameworks: the Digital Personal Data Protection Act, 2023 (DPDP Act) and the Consumer Protection (E-Commerce) Rules, 2020. Non-compliance carries severe statutory penalties under Section 33 of the DPDP Act (up to ₹250 crore).',
+      '01. Plain-English Privacy Notice (Section 5 & 6, DPDP Act): Every digital service collecting citizen personal data must present a standalone, transparent notice specifying exactly what data is gathered, the specific lawful purpose, how citizens may exercise correction or erasure rights, and how to file grievances.',
+      '02. 1-Tap Consent & Easy Withdrawal ("Consent do = Waapas lo", Section 6(4)): Under Section 6(4), withdrawing consent must be as effortless as giving it. If obtaining marketing or promotional consent took a 1-tap checkbox, the platform must allow the citizen to revoke that consent in 1 tap from their account settings without contacting customer support.',
+      '03. Grievance Redressal Officer (Section 8(9) & IT Rules): Platforms must prominently publish the contact details of a designated Grievance Officer / Data Protection Officer on the website and app: full legal name, designation, physical office address, direct email, and telephone number, with mandatory dispute resolution within 30 days.',
+      '04. Cookie & Tracker Transparency: The platform must clearly distinguish strictly essential session cookies from marketing, behavioral, or analytical trackers, providing an explicit opt-in mechanism prior to deploying non-essential tracking pixels.',
+      '05. Right to Erasure / Data Deletion (Section 12): Citizens have an enforceable right to request the complete erasure and deletion of their personal data once the commercial or transaction purpose is fulfilled, unless retention is mandated by taxation (GST) or financial audit statutes.',
+      '06. Mandatory E-Commerce Seller Disclosures (Consumer Protection Rules, 2020): E-commerce platforms and D2C brands must prominently display: (a) Registered legal entity name (e.g. Pvt. Ltd./LLP), (b) Physical registered office address, (c) Verified customer care contact (+91 phone/email), (d) Explicit Return Policy (e.g. 7-day return), (e) Refund Policy (5–7 business days refund directly to source account), and (f) Shipping and delivery timelines (2–4 days).',
+      '07. Protection of Children’s Personal Data (Section 9): Processing personal data of minors (under 18 years) requires verifiable parental consent. Platforms are strictly prohibited from engaging in behavioral tracking, profiling, or targeted advertisements directed at children.',
+      '08. Technical Security Safeguards & Breach Reporting (Section 8(5)): Data fiduciaries must implement reasonable technical and organizational safeguards (end-to-end encryption in transit and at rest, role-based access). Any security breach must be reported to the Data Protection Board of India and CERT-In within statutory timelines.',
+    ],
+  },
 ]
 
 export const libraryCategories = [

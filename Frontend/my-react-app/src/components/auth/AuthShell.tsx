@@ -9,13 +9,17 @@ import { SignupForm } from './SignupForm'
 import { usePageMeta } from '../../hooks/usePageMeta'
 
 // ============================================================================
-// ANIMATION TIMING TOKENS
+// ANIMATION TIMING TOKENS (Fine-tuned physical motion curves)
 // ============================================================================
 const AUTH_ANIMATION_TOKENS = {
-  swapDuration: 0.72,
-  swapEase: [0.22, 1, 0.36, 1] as const,
-  cardLiftScale: 1.015,
-  cardElevatedShadow: '0 28px 60px -15px rgba(0, 0, 0, 0.75), 0 0 35px rgba(176, 141, 87, 0.25)',
+  // Desktop: gentle acceleration and silky deceleration for natural physical travel
+  desktopDuration: 0.92,
+  desktopEase: [0.32, 0.04, 0.18, 1] as const,
+  // Mobile: small, weighted vertical translation (bottom-to-up / up-to-bottom)
+  mobileDuration: 0.72,
+  mobileEase: [0.32, 0.04, 0.18, 1] as const,
+  cardLiftScale: 1.012,
+  cardElevatedShadow: '0 24px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(176, 141, 87, 0.22)',
   cardNormalShadow: '0 16px 36px -12px rgba(0, 0, 0, 0.5)',
   reducedMotionDuration: 0.2,
 }
@@ -39,6 +43,17 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
   const [isSwapping, setIsSwapping] = useState(false)
   const isInitialMount = useRef(true)
 
+  // Track viewport width for responsive motion mode
+  const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < 900 : false))
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 900)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   // Reduced motion preference detection
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
@@ -54,6 +69,10 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
     return () => mediaQuery.removeEventListener('change', checkMotion)
   }, [])
 
+  const currentDuration = isMobile
+    ? AUTH_ANIMATION_TOKENS.mobileDuration
+    : AUTH_ANIMATION_TOKENS.desktopDuration
+
   // Sync mode with route changes (browser back/forward button navigation)
   useEffect(() => {
     const routeMode = location.pathname.includes('signup') ? 'signup' : 'login'
@@ -62,14 +81,14 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
       const timer = setTimeout(() => {
         setIsSwapping(true)
         setMode(routeMode)
-        resetTimer = setTimeout(() => setIsSwapping(false), AUTH_ANIMATION_TOKENS.swapDuration * 1000)
+        resetTimer = setTimeout(() => setIsSwapping(false), currentDuration * 1000)
       }, 0)
       return () => {
         clearTimeout(timer)
         if (resetTimer) clearTimeout(resetTimer)
       }
     }
-  }, [location.pathname, mode])
+  }, [location.pathname, mode, currentDuration])
 
   useEffect(() => {
     isInitialMount.current = false
@@ -87,7 +106,7 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
     setIsSwapping(true)
     setMode(targetMode)
     navigate(targetMode === 'login' ? '/login' : '/signup', { replace: false })
-    setTimeout(() => setIsSwapping(false), AUTH_ANIMATION_TOKENS.swapDuration * 1000)
+    setTimeout(() => setIsSwapping(false), currentDuration * 1000)
   }
 
   // Keyboard navigation for tab rail
@@ -98,6 +117,45 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
       e.preventDefault()
       handleSwitchMode('login')
+    }
+  }
+
+  // Touch swipe gesture support for mobile
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStartRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+      }
+    }
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current || e.changedTouches.length === 0) return
+    const touchEnd = e.changedTouches[0]
+    const deltaX = touchEnd.clientX - touchStartRef.current.x
+    const deltaY = touchEnd.clientY - touchStartRef.current.y
+    touchStartRef.current = null
+
+    // Threshold of 40px for deliberate swipe gesture
+    const minSwipeDistance = 40
+
+    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > minSwipeDistance) {
+      // Vertical swipe: swipe up -> switch to signup, swipe down -> switch to login
+      if (deltaY < 0 && mode === 'login') {
+        handleSwitchMode('signup')
+      } else if (deltaY > 0 && mode === 'signup') {
+        handleSwitchMode('login')
+      }
+    } else if (Math.abs(deltaX) > minSwipeDistance) {
+      // Horizontal swipe: swipe left -> switch to signup, swipe right -> switch to login
+      if (deltaX < 0 && mode === 'login') {
+        handleSwitchMode('signup')
+      } else if (deltaX > 0 && mode === 'signup') {
+        handleSwitchMode('login')
+      }
     }
   }
 
@@ -212,36 +270,63 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
             </button>
           </div>
 
-          {/* 3. True Sliding Arena: Visual Card slides horizontally via GPU transform */}
-          <div className="auth-sliding-arena">
+          {/* 3. True Sliding Arena: Visual Card slides with organic physics */}
+          <div
+            className="auth-sliding-arena"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             {/* The Floating Sliding Visual Card */}
             <motion.div
               className="auth-sliding-visual-card"
               initial={false}
-              animate={{
-                x: prefersReducedMotion
-                  ? 0
-                  : mode === 'signup'
-                  ? '108.5%'
-                  : '0%',
-                scale: isSwapping && !prefersReducedMotion ? AUTH_ANIMATION_TOKENS.cardLiftScale : 1,
-                boxShadow: isSwapping && !prefersReducedMotion
-                  ? AUTH_ANIMATION_TOKENS.cardElevatedShadow
-                  : AUTH_ANIMATION_TOKENS.cardNormalShadow,
-              }}
-              transition={{
-                x: {
-                  duration: prefersReducedMotion ? AUTH_ANIMATION_TOKENS.reducedMotionDuration : AUTH_ANIMATION_TOKENS.swapDuration,
-                  ease: AUTH_ANIMATION_TOKENS.swapEase,
-                },
-                scale: { duration: 0.3 },
-                boxShadow: { duration: 0.3 },
-              }}
+              animate={
+                prefersReducedMotion
+                  ? { x: 0, y: 0, scale: 1, opacity: 1 }
+                  : isMobile
+                  ? {
+                      x: 0,
+                      y: mode === 'signup' ? [26, 0] : [-26, 0],
+                      opacity: [0.92, 1],
+                      scale: 1,
+                    }
+                  : {
+                      x: mode === 'signup' ? '108.5%' : '0%',
+                      y: 0,
+                      scale: isSwapping ? AUTH_ANIMATION_TOKENS.cardLiftScale : 1,
+                      boxShadow: isSwapping
+                        ? AUTH_ANIMATION_TOKENS.cardElevatedShadow
+                        : AUTH_ANIMATION_TOKENS.cardNormalShadow,
+                    }
+              }
+              transition={
+                prefersReducedMotion
+                  ? { duration: AUTH_ANIMATION_TOKENS.reducedMotionDuration }
+                  : isMobile
+                  ? {
+                      y: {
+                        duration: AUTH_ANIMATION_TOKENS.mobileDuration,
+                        ease: AUTH_ANIMATION_TOKENS.mobileEase,
+                      },
+                      opacity: {
+                        duration: AUTH_ANIMATION_TOKENS.mobileDuration,
+                        ease: AUTH_ANIMATION_TOKENS.mobileEase,
+                      },
+                    }
+                  : {
+                      x: {
+                        duration: AUTH_ANIMATION_TOKENS.desktopDuration,
+                        ease: AUTH_ANIMATION_TOKENS.desktopEase,
+                      },
+                      scale: { duration: 0.4, ease: [0.32, 0.04, 0.18, 1] },
+                      boxShadow: { duration: 0.4, ease: [0.32, 0.04, 0.18, 1] },
+                    }
+              }
             >
               <VisualCard mode={mode} isReducedMotion={prefersReducedMotion} />
             </motion.div>
 
-            {/* Left Slot: Signup Form Panel (Revealed when card is on Right) */}
+            {/* Left Slot: Signup Form Panel (Revealed when card is on Right on desktop, or active on mobile) */}
             <div
               className={`auth-slot-panel auth-slot-left ${mode === 'signup' ? 'is-slot-active' : 'is-slot-inactive'}`}
               role="tabpanel"
@@ -251,15 +336,31 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
             >
               <motion.div
                 initial={false}
-                animate={{
-                  opacity: mode === 'signup' ? 1 : 0,
-                  x: mode === 'signup' ? 0 : -20,
-                  pointerEvents: mode === 'signup' ? 'auto' : 'none',
-                }}
+                animate={
+                  prefersReducedMotion
+                    ? { opacity: mode === 'signup' ? 1 : 0, x: 0, y: 0 }
+                    : isMobile
+                    ? {
+                        opacity: mode === 'signup' ? 1 : 0,
+                        y: mode === 'signup' ? [22, 0] : [-16, 0],
+                        x: 0,
+                        pointerEvents: mode === 'signup' ? 'auto' : 'none',
+                      }
+                    : {
+                        opacity: mode === 'signup' ? 1 : 0,
+                        x: mode === 'signup' ? 0 : -22,
+                        y: 0,
+                        pointerEvents: mode === 'signup' ? 'auto' : 'none',
+                      }
+                }
                 transition={{
-                  duration: prefersReducedMotion ? AUTH_ANIMATION_TOKENS.reducedMotionDuration : 0.35,
-                  delay: mode === 'signup' ? 0.15 : 0,
-                  ease: 'easeOut',
+                  duration: prefersReducedMotion
+                    ? AUTH_ANIMATION_TOKENS.reducedMotionDuration
+                    : isMobile
+                    ? 0.65
+                    : 0.68,
+                  delay: mode === 'signup' ? (isMobile ? 0.05 : 0.14) : 0,
+                  ease: [0.32, 0.04, 0.18, 1],
                 }}
                 className="auth-slot-inner"
               >
@@ -270,7 +371,7 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
               </motion.div>
             </div>
 
-            {/* Right Slot: Login Form Panel (Revealed when card is on Left) */}
+            {/* Right Slot: Login Form Panel (Revealed when card is on Left on desktop, or active on mobile) */}
             <div
               className={`auth-slot-panel auth-slot-right ${mode === 'login' ? 'is-slot-active' : 'is-slot-inactive'}`}
               role="tabpanel"
@@ -280,15 +381,31 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
             >
               <motion.div
                 initial={false}
-                animate={{
-                  opacity: mode === 'login' ? 1 : 0,
-                  x: mode === 'login' ? 0 : 20,
-                  pointerEvents: mode === 'login' ? 'auto' : 'none',
-                }}
+                animate={
+                  prefersReducedMotion
+                    ? { opacity: mode === 'login' ? 1 : 0, x: 0, y: 0 }
+                    : isMobile
+                    ? {
+                        opacity: mode === 'login' ? 1 : 0,
+                        y: mode === 'login' ? [-22, 0] : [16, 0],
+                        x: 0,
+                        pointerEvents: mode === 'login' ? 'auto' : 'none',
+                      }
+                    : {
+                        opacity: mode === 'login' ? 1 : 0,
+                        x: mode === 'login' ? 0 : 22,
+                        y: 0,
+                        pointerEvents: mode === 'login' ? 'auto' : 'none',
+                      }
+                }
                 transition={{
-                  duration: prefersReducedMotion ? AUTH_ANIMATION_TOKENS.reducedMotionDuration : 0.35,
-                  delay: mode === 'login' ? 0.15 : 0,
-                  ease: 'easeOut',
+                  duration: prefersReducedMotion
+                    ? AUTH_ANIMATION_TOKENS.reducedMotionDuration
+                    : isMobile
+                    ? 0.65
+                    : 0.68,
+                  delay: mode === 'login' ? (isMobile ? 0.05 : 0.14) : 0,
+                  ease: [0.32, 0.04, 0.18, 1],
                 }}
                 className="auth-slot-inner"
               >

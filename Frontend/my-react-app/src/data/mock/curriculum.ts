@@ -289,18 +289,20 @@ export const lessons: Lesson[] = [
     id: 'dp-privacy',
     courseId: 'digital-privacy',
     chapterId: 'dp-1',
-    title: 'Digital privacy hygiene for learners',
+    title: 'Digital Privacy & DPDP Act 2023 Citizen Rights',
     durationMinutes: 12,
-    summary: 'Data, consent, and practical privacy habits without overstating the law.',
+    summary: 'Statutory consent rules, 1-tap withdrawal, right to erasure, and online privacy safeguards under India’s Digital Personal Data Protection Act 2023.',
     content: [
-      'Privacy is both a constitutional conversation and a set of daily habits: account recovery, app permissions, and sharing. India’s data protection framework continues to develop; check official notifications for current duties of organisations.',
-      'This lesson stays at hygiene and awareness. It does not certify compliance for a business.',
+      'Under the Digital Personal Data Protection (DPDP) Act 2023, personal data processing requires clear, itemised notice (Sections 5 & 6) and verifiable consent.',
+      'A fundamental statutory rule is Consent Parity (Section 6(4)): withdrawing consent for marketing or tracking must be as simple, effortless, and accessible as giving it ("Consent do = Waapas lo").',
+      'Citizens possess actionable rights including the Right to Erasure / Data Deletion (Section 12), the right to nominate representatives, and the right to contact a designated Grievance Redressal Officer (Section 8(9)). For children and minors (Section 9), verifiable parental consent is mandatory with a strict statutory bar on behavioural tracking.',
     ],
     example:
-      'A quiz app asking for contacts and photos may be a product choice, not a legal requirement. Learners can refuse permissions that are unrelated to the feature they need.',
+      'If an online shopping platform took your consent to receive promotional messages via an easy opt-in checkbox, Section 6(4) of the DPDP Act mandates they provide an equally direct 1-tap mechanism to withdraw that marketing consent at any time without punitive service denial.',
     takeaways: [
-      'Minimise permissions and reuse of passwords.',
-      'Legal duties of platforms are distinct from personal hygiene.',
+      'Under DPDP Section 6(4), withdrawing consent must be as effortless and 1-tap as granting it.',
+      'You have the legal right to request complete deletion of your personal data under Section 12.',
+      'Every regulated entity must publish the identity and contact details of a Grievance Redressal Officer.',
     ],
   },
 ]

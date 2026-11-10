@@ -35,6 +35,7 @@ interface SearchItem {
 
 const popularSearches = [
   'Article 21 Life & Liberty',
+  'DPDP Act 2023 Compliance',
   'Right to Information (RTI)',
   'D.K. Basu Arrest Guidelines',
   'Consumer Court Protection',
