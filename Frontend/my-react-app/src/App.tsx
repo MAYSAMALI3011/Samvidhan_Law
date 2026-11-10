@@ -17,8 +17,7 @@ const DisclaimerPage = lazy(() =>
   import('./pages/public/SimplePages').then((m) => ({ default: m.DisclaimerPage })),
 )
 const NotFoundPage = lazy(() => import('./pages/public/SimplePages').then((m) => ({ default: m.NotFoundPage })))
-const LoginPage = lazy(() => import('./pages/auth/AuthPages').then((m) => ({ default: m.LoginPage })))
-const SignupPage = lazy(() => import('./pages/auth/AuthPages').then((m) => ({ default: m.SignupPage })))
+const AuthPage = lazy(() => import('./pages/auth/AuthPages').then((m) => ({ default: m.AuthPage })))
 const ForgotPasswordPage = lazy(() =>
   import('./pages/auth/AuthPages').then((m) => ({ default: m.ForgotPasswordPage })),
 )
@@ -94,8 +93,8 @@ export default function App() {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<AuthPage defaultMode="login" />} />
+          <Route path="/signup" element={<AuthPage defaultMode="signup" />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/onboarding" element={<OnboardingFlow />} />
           <Route path="/learn" element={<LearnIndexPage />} />

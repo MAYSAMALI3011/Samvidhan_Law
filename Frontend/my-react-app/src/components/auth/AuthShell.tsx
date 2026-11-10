@@ -77,16 +77,10 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
   useEffect(() => {
     const routeMode = location.pathname.includes('signup') ? 'signup' : 'login'
     if (routeMode !== mode) {
-      let resetTimer: ReturnType<typeof setTimeout> | undefined
-      const timer = setTimeout(() => {
-        setIsSwapping(true)
-        setMode(routeMode)
-        resetTimer = setTimeout(() => setIsSwapping(false), currentDuration * 1000)
-      }, 0)
-      return () => {
-        clearTimeout(timer)
-        if (resetTimer) clearTimeout(resetTimer)
-      }
+      setIsSwapping(true)
+      setMode(routeMode)
+      const timer = setTimeout(() => setIsSwapping(false), currentDuration * 1000)
+      return () => clearTimeout(timer)
     }
   }, [location.pathname, mode, currentDuration])
 
@@ -185,7 +179,7 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
             <button
               type="button"
               role="tab"
-              id="tab-signin"
+              id="tab-login"
               aria-selected={mode === 'login'}
               aria-controls="panel-login"
               tabIndex={mode === 'login' ? 0 : -1}
@@ -193,7 +187,7 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
               className={`auth-rail-tab-btn ${mode === 'login' ? 'is-active' : ''}`}
             >
               <LogIn size={18} aria-hidden="true" />
-              <span className="auth-rail-tab-label">Sign in</span>
+              <span className="auth-rail-tab-label">Log in</span>
               {mode === 'login' && (
                 <motion.div
                   layoutId="activeTabRailIndicator"
@@ -278,16 +272,23 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
           >
             {/* The Floating Sliding Visual Card */}
             <motion.div
+              key={isMobile ? `mobile-card-${mode}` : 'desktop-visual-card'}
               className="auth-sliding-visual-card"
-              initial={false}
+              initial={
+                prefersReducedMotion
+                  ? false
+                  : isMobile
+                  ? { y: mode === 'signup' ? 28 : -28, opacity: 0.88, x: 0 }
+                  : false
+              }
               animate={
                 prefersReducedMotion
                   ? { x: 0, y: 0, scale: 1, opacity: 1 }
                   : isMobile
                   ? {
                       x: 0,
-                      y: mode === 'signup' ? [26, 0] : [-26, 0],
-                      opacity: [0.92, 1],
+                      y: 0,
+                      opacity: 1,
                       scale: 1,
                     }
                   : {
@@ -318,8 +319,8 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
                         duration: AUTH_ANIMATION_TOKENS.desktopDuration,
                         ease: AUTH_ANIMATION_TOKENS.desktopEase,
                       },
-                      scale: { duration: 0.4, ease: [0.32, 0.04, 0.18, 1] },
-                      boxShadow: { duration: 0.4, ease: [0.32, 0.04, 0.18, 1] },
+                      scale: { duration: 0.35, ease: [0.32, 0.04, 0.18, 1] },
+                      boxShadow: { duration: 0.35, ease: [0.32, 0.04, 0.18, 1] },
                     }
               }
             >
@@ -335,14 +336,15 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
               aria-hidden={mode !== 'signup'}
             >
               <motion.div
-                initial={false}
+                key={isMobile ? `mobile-signup-${mode}` : 'desktop-signup'}
+                initial={isMobile && mode === 'signup' ? { y: 24, opacity: 0 } : false}
                 animate={
                   prefersReducedMotion
                     ? { opacity: mode === 'signup' ? 1 : 0, x: 0, y: 0 }
                     : isMobile
                     ? {
                         opacity: mode === 'signup' ? 1 : 0,
-                        y: mode === 'signup' ? [22, 0] : [-16, 0],
+                        y: 0,
                         x: 0,
                         pointerEvents: mode === 'signup' ? 'auto' : 'none',
                       }
@@ -357,9 +359,9 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
                   duration: prefersReducedMotion
                     ? AUTH_ANIMATION_TOKENS.reducedMotionDuration
                     : isMobile
-                    ? 0.65
-                    : 0.68,
-                  delay: mode === 'signup' ? (isMobile ? 0.05 : 0.14) : 0,
+                    ? 0.55
+                    : 0.65,
+                  delay: mode === 'signup' ? (isMobile ? 0.05 : 0.12) : 0,
                   ease: [0.32, 0.04, 0.18, 1],
                 }}
                 className="auth-slot-inner"
@@ -376,18 +378,19 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
               className={`auth-slot-panel auth-slot-right ${mode === 'login' ? 'is-slot-active' : 'is-slot-inactive'}`}
               role="tabpanel"
               id="panel-login"
-              aria-labelledby="tab-signin"
+              aria-labelledby="tab-login"
               aria-hidden={mode !== 'login'}
             >
               <motion.div
-                initial={false}
+                key={isMobile ? `mobile-login-${mode}` : 'desktop-login'}
+                initial={isMobile && mode === 'login' ? { y: -24, opacity: 0 } : false}
                 animate={
                   prefersReducedMotion
                     ? { opacity: mode === 'login' ? 1 : 0, x: 0, y: 0 }
                     : isMobile
                     ? {
                         opacity: mode === 'login' ? 1 : 0,
-                        y: mode === 'login' ? [-22, 0] : [16, 0],
+                        y: 0,
                         x: 0,
                         pointerEvents: mode === 'login' ? 'auto' : 'none',
                       }
@@ -402,9 +405,9 @@ export function AuthShell({ initialMode = 'login' }: AuthShellProps) {
                   duration: prefersReducedMotion
                     ? AUTH_ANIMATION_TOKENS.reducedMotionDuration
                     : isMobile
-                    ? 0.65
-                    : 0.68,
-                  delay: mode === 'login' ? (isMobile ? 0.05 : 0.14) : 0,
+                    ? 0.55
+                    : 0.65,
+                  delay: mode === 'login' ? (isMobile ? 0.05 : 0.12) : 0,
                   ease: [0.32, 0.04, 0.18, 1],
                 }}
                 className="auth-slot-inner"

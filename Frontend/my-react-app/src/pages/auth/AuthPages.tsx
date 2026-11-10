@@ -20,6 +20,10 @@ function DemoBanner() {
   )
 }
 
+export function AuthPage({ defaultMode = 'login' }: { defaultMode?: 'login' | 'signup' }) {
+  return <AuthShell initialMode={defaultMode} />
+}
+
 export function LoginPage() {
   return <AuthShell initialMode="login" />
 }

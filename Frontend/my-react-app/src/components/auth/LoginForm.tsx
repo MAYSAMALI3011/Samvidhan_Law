@@ -61,7 +61,7 @@ export function LoginForm({ onSwitchToSignup, isActive }: LoginFormProps) {
     setIsLoading(false)
 
     if (!result.success || !result.user) {
-      const errorMsg = result.error || 'Sign-in is unavailable'
+      const errorMsg = result.error || 'Log in is unavailable'
       setErrors((prev) => ({ ...prev, password: errorMsg }))
       pushToast(errorMsg, 'error')
       return
