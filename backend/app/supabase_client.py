@@ -160,5 +160,7 @@ def get_supabase_admin_client():
     """
     if not settings.SUPABASE_URL or not settings.service_role_key:
         return None
+    if "placeholder" in settings.SUPABASE_URL.lower():
+        return None
     from supabase import create_client
     return create_client(settings.SUPABASE_URL, settings.service_role_key)
