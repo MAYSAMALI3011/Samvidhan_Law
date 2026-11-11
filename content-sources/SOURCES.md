@@ -1,0 +1,133 @@
+# Constitution & Legal Source Documents Catalog
+
+This catalog lists all source PDF documents in `content-sources/` used by the Samvidhan backend for the verified legal data layer.
+
+## Instructions for Verification
+To complete official provenance verification for each document:
+1. Match each file with the corresponding official publication on [legislative.gov.in](https://legislative.gov.in) or [egazette.gov.in](https://egazette.gov.in).
+2. Fill in the `official_url`, `edition_or_as_on_date`, and `downloaded_on` fields in `content-sources/sources.csv`.
+3. Run the CLI tool `python backend/scripts/ingest/verify_source.py <source_id>` to mark a document as verified.
+
+## Source Files Table
+
+| File Path | Kind | Amendment No. | Notes |
+|---|---|---|---|
+| `575648bd8ecb7654db902b93115d35e4.pdf` | constitution | - | Bilingual Hindi/English Constitution of India (as on 1 May 2024) |
+| `95ef471035ee0b5e4e5b1cac3d3584c1.pdf` | constitution | - | Official Constitution of India (English, updated up to 106th Amendment Act, 2023) |
+| `constitution/Constitution_of_India_English.pdf` | constitution | - | Official Constitution of India (English, updated up to 106th Amendment Act, 2023) |
+| `preamble/Preamble_Hindi_text_with_42nd_footnotes.pdf` | preamble | - | - |
+| `preamble/Preamble_scan_1.pdf` | preamble | - | - |
+| `preamble/Preamble_scan_2.pdf` | preamble | - | - |
+| `amendment_acts/001_1st_Amendment_Act_1951.pdf` | amendment_act | 1 | - |
+| `amendment_acts/002_2nd_Amendment_Act_1952.pdf` | amendment_act | 2 | - |
+| `amendment_acts/003_3rd_Amendment_Act_1954.pdf` | amendment_act | 3 | - |
+| `amendment_acts/003_3rd_Amendment_Act_1954_SCAN_DUPLICATE.pdf` | amendment_act | 3 | Duplicate copy of amendment |
+| `amendment_acts/004_4th_Amendment_Act_1955.pdf` | amendment_act | 4 | - |
+| `amendment_acts/005_5th_Amendment_Act_1955.pdf` | amendment_act | 5 | - |
+| `amendment_acts/006_6th_Amendment_Act_1956.pdf` | amendment_act | 6 | - |
+| `amendment_acts/007_7th_Amendment_Act_1956.pdf` | amendment_act | 7 | - |
+| `amendment_acts/008_8th_Amendment_Act_1959.pdf` | amendment_act | 8 | - |
+| `amendment_acts/009_9th_Amendment_Act_1960.pdf` | amendment_act | 9 | - |
+| `amendment_acts/009_9th_Amendment_Act_1960_DUPLICATE.pdf` | amendment_act | 9 | Duplicate copy of amendment |
+| `amendment_acts/010_10th_Amendment_Act_1961.pdf` | amendment_act | 10 | - |
+| `amendment_acts/011_11th_Amendment_Act_1961.pdf` | amendment_act | 11 | - |
+| `amendment_acts/012_12th_Amendment_Act_1962.pdf` | amendment_act | 12 | - |
+| `amendment_acts/013_13th_Amendment_Act_1962.pdf` | amendment_act | 13 | - |
+| `amendment_acts/014_14th_Amendment_Act_1962.pdf` | amendment_act | 14 | - |
+| `amendment_acts/015_15th_Amendment_Act_1963.pdf` | amendment_act | 15 | - |
+| `amendment_acts/016_16th_Amendment_Act_1963.pdf` | amendment_act | 16 | - |
+| `amendment_acts/017_17th_Amendment_Act_1964.pdf` | amendment_act | 17 | - |
+| `amendment_acts/018_18th_Amendment_Act_1966.pdf` | amendment_act | 18 | - |
+| `amendment_acts/019_19th_Amendment_Act_1966.pdf` | amendment_act | 19 | - |
+| `amendment_acts/020_20th_Amendment_Act_1966.pdf` | amendment_act | 20 | - |
+| `amendment_acts/021_21st_Amendment_Act_1967.pdf` | amendment_act | 21 | - |
+| `amendment_acts/022_22nd_Amendment_Act_1969.pdf` | amendment_act | 22 | - |
+| `amendment_acts/023_23rd_Amendment_Act_1969.pdf` | amendment_act | 23 | - |
+| `amendment_acts/024_24th_Amendment_Act_1971.pdf` | amendment_act | 24 | - |
+| `amendment_acts/025_25th_Amendment_Act_1971.pdf` | amendment_act | 25 | - |
+| `amendment_acts/026_26th_Amendment_Act_1971.pdf` | amendment_act | 26 | - |
+| `amendment_acts/027_27th_Amendment_Act_1971.pdf` | amendment_act | 27 | - |
+| `amendment_acts/028_28th_Amendment_Act_1972.pdf` | amendment_act | 28 | - |
+| `amendment_acts/029_29th_Amendment_Act_1972.pdf` | amendment_act | 29 | - |
+| `amendment_acts/030_30th_Amendment_Act_1972.pdf` | amendment_act | 30 | - |
+| `amendment_acts/031_31st_Amendment_Act_1973.pdf` | amendment_act | 31 | - |
+| `amendment_acts/032_32nd_Amendment_Act_1973.pdf` | amendment_act | 32 | - |
+| `amendment_acts/033_33rd_Amendment_Act_1974.pdf` | amendment_act | 33 | - |
+| `amendment_acts/034_34th_Amendment_Act_1974.pdf` | amendment_act | 34 | - |
+| `amendment_acts/035_35th_Amendment_Act_1974.pdf` | amendment_act | 35 | - |
+| `amendment_acts/036_36th_Amendment_Act_1975.pdf` | amendment_act | 36 | - |
+| `amendment_acts/037_37th_Amendment_Act_1975.pdf` | amendment_act | 37 | - |
+| `amendment_acts/038_38th_Amendment_Act_1975.pdf` | amendment_act | 38 | - |
+| `amendment_acts/039_39th_Amendment_Act_1975.pdf` | amendment_act | 39 | - |
+| `amendment_acts/040_40th_Amendment_Act_1976.pdf` | amendment_act | 40 | - |
+| `amendment_acts/041_41st_Amendment_Act_1976.pdf` | amendment_act | 41 | - |
+| `amendment_acts/042_42nd_Amendment_Act_1976.pdf` | amendment_act | 42 | - |
+| `amendment_acts/043_43rd_Amendment_Act_1977.pdf` | amendment_act | 43 | - |
+| `amendment_acts/044_44th_Amendment_Act_1978.pdf` | amendment_act | 44 | - |
+| `amendment_acts/045_45th_Amendment_Act_1980.pdf` | amendment_act | 45 | - |
+| `amendment_acts/046_46th_Amendment_Act_1982.pdf` | amendment_act | 46 | - |
+| `amendment_acts/047_47th_Amendment_Act_1984.pdf` | amendment_act | 47 | - |
+| `amendment_acts/048_48th_Amendment_Act_1984.pdf` | amendment_act | 48 | - |
+| `amendment_acts/049_49th_Amendment_Act_1984.pdf` | amendment_act | 49 | - |
+| `amendment_acts/050_50th_Amendment_Act_1984.pdf` | amendment_act | 50 | - |
+| `amendment_acts/051_51st_Amendment_Act_1984.pdf` | amendment_act | 51 | - |
+| `amendment_acts/052_52nd_Amendment_Act_1985.pdf` | amendment_act | 52 | - |
+| `amendment_acts/053_53rd_Amendment_Act_1986.pdf` | amendment_act | 53 | - |
+| `amendment_acts/054_54th_Amendment_Act_1986.pdf` | amendment_act | 54 | - |
+| `amendment_acts/055_55th_Amendment_Act_1986.pdf` | amendment_act | 55 | - |
+| `amendment_acts/056_56th_Amendment_Act_1987.pdf` | amendment_act | 56 | - |
+| `amendment_acts/057_57th_Amendment_Act_1987.pdf` | amendment_act | 57 | - |
+| `amendment_acts/058_58th_Amendment_Act_1987.pdf` | amendment_act | 58 | - |
+| `amendment_acts/059_59th_Amendment_Act_1988.pdf` | amendment_act | 59 | - |
+| `amendment_acts/060_60th_Amendment_Act_1988.pdf` | amendment_act | 60 | - |
+| `amendment_acts/061_61st_Amendment_Act_1988.pdf` | amendment_act | 61 | - |
+| `amendment_acts/062_62nd_Amendment_Act_1989.pdf` | amendment_act | 62 | - |
+| `amendment_acts/063_63rd_Amendment_Act_1989.pdf` | amendment_act | 63 | - |
+| `amendment_acts/064_64th_Amendment_Act_1990.pdf` | amendment_act | 64 | - |
+| `amendment_acts/065_65th_Amendment_Act_1990.pdf` | amendment_act | 65 | - |
+| `amendment_acts/066_66th_Amendment_Act_1990_SCAN.pdf` | amendment_act | 66 | Scanned copy requiring OCR |
+| `amendment_acts/067_67th_Amendment_Act_1990.pdf` | amendment_act | 67 | - |
+| `amendment_acts/068_68th_Amendment_Act_1991.pdf` | amendment_act | 68 | - |
+| `amendment_acts/069_69th_Amendment_Act_1991_SCAN.pdf` | amendment_act | 69 | Scanned copy requiring OCR |
+| `amendment_acts/070_70th_Amendment_Act_1992.pdf` | amendment_act | 70 | - |
+| `amendment_acts/071_71st_Amendment_Act_1992.pdf` | amendment_act | 71 | - |
+| `amendment_acts/072_72nd_Amendment_Act_1992_SCAN.pdf` | amendment_act | 72 | Scanned copy requiring OCR |
+| `amendment_acts/073_73rd_Amendment_Act_1992.pdf` | amendment_act | 73 | - |
+| `amendment_acts/074_74th_Amendment_Act_1992.pdf` | amendment_act | 74 | - |
+| `amendment_acts/075_75th_Amendment_Act_1993_SCAN.pdf` | amendment_act | 75 | Scanned copy requiring OCR |
+| `amendment_acts/076_76th_Amendment_Act_1994.pdf` | amendment_act | 76 | - |
+| `amendment_acts/077_77th_Amendment_Act_1995.pdf` | amendment_act | 77 | - |
+| `amendment_acts/078_78th_Amendment_Act_1995.pdf` | amendment_act | 78 | - |
+| `amendment_acts/079_79th_Amendment_Act_1999.pdf` | amendment_act | 79 | - |
+| `amendment_acts/080_80th_Amendment_Act_1999.pdf` | amendment_act | 80 | - |
+| `amendment_acts/081_81st_Amendment_Act_2000.pdf` | amendment_act | 81 | - |
+| `amendment_acts/082_82nd_Amendment_Act_2000.pdf` | amendment_act | 82 | - |
+| `amendment_acts/083_83rd_Amendment_Act_2000.pdf` | amendment_act | 83 | - |
+| `amendment_acts/084_84th_Amendment_Act_2002.pdf` | amendment_act | 84 | - |
+| `amendment_acts/085_85th_Amendment_Act_2001.pdf` | amendment_act | 85 | - |
+| `amendment_acts/086_86th_Amendment_Act_2002.pdf` | amendment_act | 86 | - |
+| `amendment_acts/087_87th_Amendment_Act_2003.pdf` | amendment_act | 87 | - |
+| `amendment_acts/088_88th_Amendment_Act_2003.pdf` | amendment_act | 88 | - |
+| `amendment_acts/089_89th_Amendment_Act_2003.pdf` | amendment_act | 89 | - |
+| `amendment_acts/090_90th_Amendment_Act_2003.pdf` | amendment_act | 90 | - |
+| `amendment_acts/091_91st_Amendment_Act_2003.pdf` | amendment_act | 91 | - |
+| `amendment_acts/092_92nd_Amendment_Act_2003.pdf` | amendment_act | 92 | - |
+| `amendment_acts/093_93rd_Amendment_Act_2005.pdf` | amendment_act | 93 | - |
+| `amendment_acts/094_94th_Amendment_Act_2006_SCAN.pdf` | amendment_act | 94 | Scanned copy requiring OCR |
+| `amendment_acts/095_95th_Amendment_Act_2009.pdf` | amendment_act | 95 | - |
+| `amendment_acts/096_96th_Amendment_Act_2011_SCAN.pdf` | amendment_act | 96 | Scanned copy requiring OCR |
+| `amendment_acts/097_97th_Amendment_Act_2011_SCAN.pdf` | amendment_act | 97 | Scanned copy requiring OCR |
+| `amendment_acts/098_98th_Amendment_Act_2012_SCAN.pdf` | amendment_act | 98 | Scanned copy requiring OCR |
+| `amendment_acts/099_99th_Amendment_Act_2014.pdf` | amendment_act | 99 | - |
+| `amendment_acts/100_100th_Amendment_Act_2015.pdf` | amendment_act | 100 | - |
+| `amendment_acts/101_101st_Amendment_Act_2016_SCAN.pdf` | amendment_act | 101 | Scanned copy requiring OCR |
+| `amendment_acts/102_102nd_Amendment_Act_2018_SCAN.pdf` | amendment_act | 102 | Scanned copy requiring OCR |
+| `amendment_acts/103_103rd_Amendment_Act_2019_SCAN.pdf` | amendment_act | 103 | Scanned copy requiring OCR |
+| `amendment_acts/104_104th_Amendment_Act_2019.pdf` | amendment_act | 104 | - |
+| `amendment_acts/105_105th_Amendment_Act_2021_SCAN.pdf` | amendment_act | 105 | Scanned copy requiring OCR |
+| `amendment_acts/106_106th_Amendment_Act_2023.pdf` | amendment_act | 106 | - |
+| `statements_of_objects_and_reasons/SOR_Art164_proviso.pdf` | statement_of_objects_and_reasons | - | Scanned statement of objects and reasons |
+| `statements_of_objects_and_reasons/SOR_Art334_reservation.pdf` | statement_of_objects_and_reasons | - | Scanned statement of objects and reasons |
+| `statements_of_objects_and_reasons/SOR_Odia_Eighth_Schedule.pdf` | statement_of_objects_and_reasons | - | Scanned statement of objects and reasons |
+| `statements_of_objects_and_reasons/SOR_cooperative_societies.pdf` | statement_of_objects_and_reasons | - | Scanned statement of objects and reasons |
+| `statements_of_objects_and_reasons/SOR_entry33_List3.pdf` | statement_of_objects_and_reasons | - | Scanned statement of objects and reasons |
