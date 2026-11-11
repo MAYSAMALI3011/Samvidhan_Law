@@ -25,3 +25,17 @@ pnpm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+__pycache__/
+*.py[cod]
+*.class
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+UNVERIFIED_full_constitution/
