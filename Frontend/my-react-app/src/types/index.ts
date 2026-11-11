@@ -43,6 +43,7 @@ export interface InteractiveLessonCard {
   }
   takeaway: string
   citizenExample?: CitizenExample
+  lawHistory?: LawHistory
 }
 
 export interface Lesson {
@@ -127,6 +128,40 @@ export interface ConstitutionTopic {
   sections: { heading: string; body: string }[]
   relatedLessonIds: string[]
   sourceNote: string
+  lawHistory?: LawHistory
+}
+
+export type LawStatus = 'in_force' | 'amended' | 'repealed' | 'replaced' | 'proposed'
+
+export type LawChangeKind =
+  | 'original'
+  | 'amended'
+  | 'inserted'
+  | 'omitted'
+  | 'replaced'
+  | 'proposed'
+
+export interface LawHistoryEntry {
+  id: string
+  kind: LawChangeKind
+  effectiveDate: string
+  whatChanged: string
+  oldText?: string
+  newText?: string
+  reason: string
+  reasonSource?: string
+  changedBy: string
+  authority: string
+  sourceLabel: string
+  sourceUrl: string
+  verifiedOn: string
+  isSample?: boolean
+}
+
+export interface LawHistory {
+  currentStatus: LawStatus
+  lastVerifiedOn: string
+  entries: LawHistoryEntry[]
 }
 
 export interface LibraryDocument {

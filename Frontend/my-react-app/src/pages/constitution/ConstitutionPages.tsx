@@ -6,6 +6,7 @@ import { usePageMeta } from '../../hooks/usePageMeta'
 import { EmptyState } from '../../components/feedback/Toasts'
 import { Breadcrumbs } from '../../components/common/ProgressBar'
 import { BackButton } from '../../components/common/BackButton'
+import { LawHistoryTimeline } from '../../components/learning/lesson/LawHistoryTimeline'
 
 export function ConstitutionIndexPage() {
   usePageMeta({
@@ -233,6 +234,12 @@ export function ConstitutionTopicPage() {
           <span>{topic.sourceNote}</span>
         </div>
       </header>
+
+      {topic.lawHistory && (
+        <section style={{ marginBottom: '2rem' }}>
+          <LawHistoryTimeline history={topic.lawHistory} />
+        </section>
+      )}
 
       <div className="reading">
         {topic.sections.map((s, idx) => (

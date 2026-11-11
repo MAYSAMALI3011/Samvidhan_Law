@@ -379,3 +379,70 @@ Once implemented, every merged path must be verified using this click-through ch
   `{"completedLessonIds": ["cf-preamble", "fr-equality"], "quizScores": {"quiz-cf-preamble": 85}}`
 - [ ] Reload the app — inspect `localStorage` and verify migrated state:
   `{"completedLessonIds": ["preamble-we-the-people", "article-14-equality"], "quizScores": {"preamble-we-the-people": 85}}`
+
+---
+
+## 11. Law History Content Model & Authoring Guide
+
+> [!IMPORTANT]
+> **Absolute Content Integrity Rule:**
+> **Never write or fabricate legal history, article text, amendment numbers, dates, reasons, or authorities from memory.**
+> Every entry in a `lawHistory` block must cite and link to an approved official source domain (`gov.in`, `nic.in`, `sansad.in`). Synthetic or placeholder fixtures must carry `"isSample": true` and are restricted to dev testbeds.
+
+### A. Field Guide & Specification
+
+| Field | Type | Description | Example |
+|---|---|---|---|
+| `currentStatus` | `'in_force' \| 'amended' \| 'repealed' \| 'replaced' \| 'proposed'` | Current legal status of the provision | `'in_force'` |
+| `lastVerifiedOn` | `string` (`YYYY-MM-DD`) | Date when legal accuracy was last audited against official gazettes | `'2026-04-01'` |
+| `entries` | `LawHistoryEntry[]` | Chronological/historical modifications or proposals | Array of objects below |
+| `entry.id` | `string` | Unique identifier for entry | `'art-21-44th-amend'` |
+| `entry.kind` | `'original' \| 'amended' \| 'inserted' \| 'omitted' \| 'replaced' \| 'proposed'` | Nature of the statutory event | `'amended'` |
+| `entry.effectiveDate` | `string` (`YYYY`, `YYYY-MM`, or `YYYY-MM-DD`) | Date or month/year amendment took effect | `'1978-06-20'` |
+| `entry.whatChanged` | `string` | Concise plain-language summary of what the change accomplished | `'Restricted emergency suspension of protection.'` |
+| `entry.oldText` | `string` (optional) | Exact prior statutory wording before the change | `'...'` |
+| `entry.newText` | `string` (optional) | Exact enacted statutory wording introduced | `'...'` |
+| `entry.reason` | `string` | Objective historical/legal rationale for the modification | `'To prevent arbitrary deprivation of liberty during emergencies.'` |
+| `entry.reasonSource` | `string` (optional) | Official document explaining rationale | `'Statement of Objects and Reasons'` |
+| `entry.changedBy` | `string` | Institution responsible for enacting the change | `'Parliament of India'` |
+| `entry.authority` | `string` | Formal statutory citation or Act title | `'Constitution (Forty-fourth Amendment) Act, 1978'` |
+| `entry.sourceLabel` | `string` | Human-readable title of official gazette or archive | `'Legislative Department, Ministry of Law and Justice'` |
+| `entry.sourceUrl` | `string` (`https://...`) | Verified link to official domain (`gov.in`, `nic.in`, `sansad.in`) | `'https://legislative.gov.in/act'` |
+| `entry.verifiedOn` | `string` (`YYYY-MM-DD`) | Date this specific entry was verified | `'2026-04-01'` |
+| `entry.isSample` | `boolean` (optional) | Flag indicating synthetic fixture; filtered out in production | `true` |
+
+### B. Content Authoring Rules
+
+1. **Source Whitelist:** Only URLs with the `https:` protocol hosted on official Indian domains (`*.gov.in`, `*.nic.in`, `*.sansad.in`) are approved for direct linking. Unverified external references will display a cautionary warning in the UI.
+2. **Date Granularity:** If the exact date of presidential assent or gazette notification is known, use `YYYY-MM-DD`. If only the month or year is authenticated, use `YYYY-MM` or `YYYY`.
+3. **Neutral, Descriptive Rationale:** `reason` must quote or paraphrase official legislative sources (such as the *Statement of Objects and Reasons* or parliamentary committee reports), not editorial commentary.
+4. **Verbatim Text:** When quoting `oldText` or `newText`, provide exact statutory language verbatim from the gazette.
+
+### C. Blank JSON Template for Authors
+
+```json
+{
+  "lawHistory": {
+    "currentStatus": "in_force",
+    "lastVerifiedOn": "2026-04-01",
+    "entries": [
+      {
+        "id": "law-entry-unique-id",
+        "kind": "amended",
+        "effectiveDate": "YYYY-MM-DD",
+        "whatChanged": "Clear, concise summary of the textual change.",
+        "oldText": "Exact statutory wording prior to amendment (optional).",
+        "newText": "Exact statutory wording after amendment (optional).",
+        "reason": "Objective explanation from official statement of objects and reasons.",
+        "reasonSource": "Statement of Objects and Reasons (optional)",
+        "changedBy": "Parliament of India",
+        "authority": "Constitution (Nth Amendment) Act, YYYY",
+        "sourceLabel": "Legislative Department / India Code / Sansad Record",
+        "sourceUrl": "https://legislative.gov.in/path/to/gazette",
+        "verifiedOn": "YYYY-MM-DD"
+      }
+    ]
+  }
+}
+```
+

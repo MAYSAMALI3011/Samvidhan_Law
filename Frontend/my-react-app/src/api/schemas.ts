@@ -128,6 +128,49 @@ export const interactiveLessonCardSchema = z.object({
     law: z.string(),
     action: z.string(),
   }).optional(),
+  lawHistory: z.lazy(() => lawHistorySchema).optional(),
+}).passthrough()
+
+export const lawStatusSchema = z.enum([
+  'in_force',
+  'amended',
+  'repealed',
+  'replaced',
+  'proposed',
+])
+
+export const lawChangeKindSchema = z.enum([
+  'original',
+  'amended',
+  'inserted',
+  'omitted',
+  'replaced',
+  'proposed',
+])
+
+export const lawHistoryEntrySchema = z.object({
+  id: z.string().min(1),
+  kind: lawChangeKindSchema,
+  effectiveDate: z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/, 'effectiveDate must be YYYY, YYYY-MM, or YYYY-MM-DD'),
+  whatChanged: z.string().min(1),
+  oldText: z.string().optional(),
+  newText: z.string().optional(),
+  reason: z.string().min(1),
+  reasonSource: z.string().optional(),
+  changedBy: z.string().min(1),
+  authority: z.string().min(1),
+  sourceLabel: z.string().min(1),
+  sourceUrl: z.string().url().refine((u) => u.startsWith('https://'), {
+    message: 'sourceUrl must be an https URL',
+  }),
+  verifiedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'verifiedOn must be YYYY-MM-DD'),
+  isSample: z.boolean().optional(),
+}).passthrough()
+
+export const lawHistorySchema = z.object({
+  currentStatus: lawStatusSchema,
+  lastVerifiedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'lastVerifiedOn must be YYYY-MM-DD'),
+  entries: z.array(lawHistoryEntrySchema),
 }).passthrough()
 
 export const lessonSchema = z.object({
@@ -239,6 +282,7 @@ export const constitutionTopicSchema = z.object({
   })),
   relatedLessonIds: z.array(z.string()),
   sourceNote: z.string(),
+  lawHistory: lawHistorySchema.optional(),
 }).passthrough()
 
 export const libraryDocumentSchema = z.object({

@@ -67,6 +67,9 @@ const AffiliatePage = lazy(() =>
 )
 const DevLoadersPage = lazy(() => import('./pages/dev/DevLoadersPage'))
 const DevMorPage = lazy(() => import('./pages/dev/DevMorPage').then((m) => ({ default: m.DevMorPage })))
+const DevLawHistoryPage = lazy(() =>
+  import('./pages/dev/DevLawHistoryPage').then((m) => ({ default: m.DevLawHistoryPage })),
+)
 
 // Admin Lazy Modules
 const AdminGuard = lazy(() => import('./pages/admin/AdminGuard').then((m) => ({ default: m.AdminGuard })))
@@ -121,6 +124,7 @@ export default function App() {
             <>
               <Route path="/dev/loaders" element={<DevLoadersPage />} />
               <Route path="/dev/mor" element={<DevMorPage />} />
+              <Route path="/dev/law-history" element={<DevLawHistoryPage />} />
             </>
           )}
           <Route path="/paths/:role" element={<Navigate to="/learn" replace />} />

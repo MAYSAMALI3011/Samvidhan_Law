@@ -6,6 +6,7 @@ import { SimplifyButton } from './SimplifyButton'
 import { KeyWordChip } from './KeyWordChip'
 import { ExamplePanel } from './ExamplePanel'
 import { OfficialTextAccordion } from './OfficialTextAccordion'
+import { LawHistoryTimeline } from './LawHistoryTimeline'
 import { FlipCard } from './FlipCard'
 import { RememberBox } from './RememberBox'
 import type { InteractiveLessonCard, ScenarioChoice } from '../../../types'
@@ -109,6 +110,11 @@ export function LessonCardStage({
             articleText={card.officialArticleText}
             landmarkCase={card.landmarkCase}
           />
+        )}
+
+        {/* Law History Timeline */}
+        {card.lawHistory && (
+          <LawHistoryTimeline history={card.lawHistory} />
         )}
 
         {/* Did You Know? Flip Card */}

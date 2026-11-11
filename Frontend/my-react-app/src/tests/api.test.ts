@@ -6,6 +6,8 @@ import {
   lessonCompletionResponseSchema,
   quizSubmissionResponseSchema,
   subscriptionPlanSchema,
+  lawHistorySchema,
+  lawHistoryEntrySchema,
   safeValidate,
 } from '../api/schemas.ts'
 import {
@@ -153,3 +155,49 @@ test('subscriptionPlanSchema: validates subscription plan and usage quota', () =
   assert.equal(validated.unlimited, true)
   assert.equal(validated.aiUsageToday, 4)
 })
+
+test('lawHistorySchema: validates full law history and detects invalid date / url / missing fields', () => {
+  const validHistory = {
+    currentStatus: 'in_force',
+    lastVerifiedOn: '2026-04-01',
+    entries: [
+      {
+        id: 'entry-1',
+        kind: 'amended',
+        effectiveDate: '1978-06-20',
+        whatChanged: 'Replaced statutory clause',
+        reason: 'Restoration of civil liberties',
+        changedBy: 'Parliament of India',
+        authority: 'Constitution (Forty-fourth Amendment) Act, 1978',
+        sourceLabel: 'Legislative Department',
+        sourceUrl: 'https://legislative.gov.in/act',
+        verifiedOn: '2026-04-01',
+      },
+    ],
+  }
+
+  const res = lawHistorySchema.safeParse(validHistory)
+  assert.equal(res.success, true)
+
+  // Invalid effectiveDate
+  const badDateRes = lawHistoryEntrySchema.safeParse({
+    ...validHistory.entries[0],
+    effectiveDate: '1978/06/20',
+  })
+  assert.equal(badDateRes.success, false)
+
+  // Invalid sourceUrl (non-https)
+  const httpUrlRes = lawHistoryEntrySchema.safeParse({
+    ...validHistory.entries[0],
+    sourceUrl: 'http://legislative.gov.in/act',
+  })
+  assert.equal(httpUrlRes.success, false)
+
+  // Missing required field (e.g. whatChanged)
+  const missingFieldRes = lawHistoryEntrySchema.safeParse({
+    ...validHistory.entries[0],
+    whatChanged: '',
+  })
+  assert.equal(missingFieldRes.success, false)
+})
+
