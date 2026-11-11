@@ -59,6 +59,24 @@ CREATE TABLE IF NOT EXISTS public.amendment_acts (
 
 CREATE INDEX IF NOT EXISTS idx_amendment_acts_number ON public.amendment_acts(number);
 
+-- 3b. Amendment Sections (Individual sections of each Amendment Act)
+CREATE TABLE IF NOT EXISTS public.amendment_sections (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    amendment_number INT NOT NULL REFERENCES public.amendment_acts(number) ON DELETE CASCADE,
+    section_number TEXT NOT NULL,
+    title TEXT,
+    content TEXT NOT NULL,
+    article_refs TEXT[] NOT NULL DEFAULT '{}',
+    action_type TEXT NOT NULL CHECK (action_type IN ('amendment', 'insertion', 'substitution', 'omission', 'other')),
+    source_document_id UUID REFERENCES public.source_documents(id) ON DELETE RESTRICT,
+    source_page INT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_amendment_sections_num ON public.amendment_sections(amendment_number);
+CREATE INDEX IF NOT EXISTS idx_amendment_sections_art_refs ON public.amendment_sections USING GIN (article_refs);
+CREATE INDEX IF NOT EXISTS idx_amendment_sections_action ON public.amendment_sections(action_type);
+
 -- 4. Amendment Reasons (Statements of Objects and Reasons)
 CREATE TABLE IF NOT EXISTS public.amendment_reasons (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -113,6 +131,7 @@ ALTER TABLE public.constitution_topics ADD COLUMN IF NOT EXISTS article_refs TEX
 ALTER TABLE public.source_documents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.constitution_provisions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.amendment_acts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.amendment_sections ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.amendment_reasons ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.law_history_entries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ingest_runs ENABLE ROW LEVEL SECURITY;
