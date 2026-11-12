@@ -41,16 +41,16 @@ CREATE TABLE public.constitution_provisions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     kind TEXT NOT NULL DEFAULT 'article' CHECK (kind IN ('preamble', 'article', 'schedule')),
     article_no TEXT NOT NULL,
-    article_number TEXT,  -- alias for query compatibility
+    article_number TEXT,
     clause_number TEXT,
     subclause_number TEXT,
     part_no TEXT,
-    part_number TEXT,     -- alias for query compatibility
+    part_number TEXT,
     part_title TEXT,
     chapter_title TEXT,
     heading TEXT NOT NULL DEFAULT '',
     body_raw TEXT NOT NULL,
-    content TEXT,         -- alias for query compatibility
+    content TEXT,
     footnotes JSONB NOT NULL DEFAULT '[]'::jsonb,
     source_document_id UUID REFERENCES public.source_documents(id) ON DELETE RESTRICT,
     page_start INT NOT NULL DEFAULT 1,
@@ -80,7 +80,7 @@ FOR EACH ROW EXECUTE FUNCTION tsvector_update_trigger(search_tsv, 'pg_catalog.en
 
 -- Trigger to sync aliases (article_no <-> article_number, body_raw <-> content, part_no <-> part_number)
 CREATE OR REPLACE FUNCTION public.sync_constitution_provision_fields()
-RETURNS TRIGGER AS 
+RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
     IF NEW.article_no IS NULL OR NEW.article_no = '' THEN
         NEW.article_no := coalesce(NEW.article_number, '');
@@ -88,28 +88,24 @@ BEGIN
     IF NEW.article_number IS NULL OR NEW.article_number = '' THEN
         NEW.article_number := NEW.article_no;
     END IF;
-
     IF NEW.body_raw IS NULL OR NEW.body_raw = '' THEN
         NEW.body_raw := coalesce(NEW.content, '');
     END IF;
     IF NEW.content IS NULL OR NEW.content = '' THEN
         NEW.content := NEW.body_raw;
     END IF;
-
     IF NEW.part_no IS NULL OR NEW.part_no = '' THEN
         NEW.part_no := coalesce(NEW.part_number, '');
     END IF;
     IF NEW.part_number IS NULL OR NEW.part_number = '' THEN
         NEW.part_number := NEW.part_no;
     END IF;
-
     IF NEW.source_page IS NULL OR NEW.source_page = 1 THEN
         NEW.source_page := coalesce(NEW.page_start, 1);
     END IF;
-
     RETURN NEW;
 END;
- LANGUAGE plpgsql;
+$$;
 
 CREATE TRIGGER trg_sync_constitution_provisions
 BEFORE INSERT OR UPDATE ON public.constitution_provisions
@@ -180,24 +176,24 @@ CREATE TABLE public.law_history_entries (
     article_ref TEXT NOT NULL,
     kind TEXT NOT NULL CHECK (kind IN ('original', 'amended', 'inserted', 'omitted', 'replaced', 'proposed', 'substituted')),
     effective_date TEXT NOT NULL DEFAULT '',
-    when_changed TEXT,               -- alias for compatibility
+    when_changed TEXT,
     what_changed TEXT NOT NULL DEFAULT '',
     old_text TEXT,
-    older_law_text TEXT,             -- alias for compatibility
+    older_law_text TEXT,
     new_text TEXT,
     reason TEXT NOT NULL DEFAULT '',
-    why_changed TEXT,                -- alias for compatibility
-    reason_candidate TEXT,           -- verbatim excerpt from SOR (reviewer only)
+    why_changed TEXT,
+    reason_candidate TEXT,
     reason_source TEXT,
     changed_by TEXT NOT NULL DEFAULT 'Parliament of India',
-    who_changed TEXT,                -- alias for compatibility
+    who_changed TEXT,
     authority TEXT NOT NULL DEFAULT 'Parliament of India',
     source_label TEXT NOT NULL DEFAULT '',
     source_url TEXT NOT NULL DEFAULT '',
-    official_source_url TEXT,        -- alias for compatibility
+    official_source_url TEXT,
     verified_on DATE,
     amendment_number INT REFERENCES public.amendment_acts(number) ON DELETE SET NULL,
-    footnote_ref TEXT,               -- evidence footnote
+    footnote_ref TEXT,
     source_document_id UUID REFERENCES public.source_documents(id) ON DELETE RESTRICT,
     source_page INT,
     status TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft', 'verified', 'published')),
@@ -206,8 +202,6 @@ CREATE TABLE public.law_history_entries (
     reviewed_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
     reviewed_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    -- Strict CHECK constraint: published entries MUST be complete and properly formatted
     CONSTRAINT check_published_entry_complete CHECK (
         status != 'published' OR (
             source_document_id IS NOT NULL AND
@@ -218,7 +212,7 @@ CREATE TABLE public.law_history_entries (
             authority <> '' AND
             source_label <> '' AND
             source_url LIKE 'https://%' AND
-            effective_date ~ '^\d{4}(-\d{2}(-\d{2})?)?$' AND
+            effective_date ~ '^\\d{4}(-\\d{2}(-\\d{2})?)?$' AND
             verified_on IS NOT NULL
         )
     )
@@ -232,53 +226,41 @@ CREATE INDEX idx_law_hist_amd_num ON public.law_history_entries(amendment_number
 
 -- Trigger to synchronize compatibility aliases and status <-> published flag
 CREATE OR REPLACE FUNCTION public.sync_law_history_entry_fields()
-RETURNS TRIGGER AS 
+RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
-    -- Sync what_changed <-> why_changed
     IF NEW.what_changed IS NULL OR NEW.what_changed = '' THEN
         NEW.what_changed := coalesce(NEW.why_changed, '');
     END IF;
     IF NEW.why_changed IS NULL OR NEW.why_changed = '' THEN
         NEW.why_changed := NEW.what_changed;
     END IF;
-
-    -- Sync effective_date <-> when_changed
     IF NEW.effective_date IS NULL OR NEW.effective_date = '' THEN
         NEW.effective_date := coalesce(NEW.when_changed, '');
     END IF;
     IF NEW.when_changed IS NULL OR NEW.when_changed = '' THEN
         NEW.when_changed := NEW.effective_date;
     END IF;
-
-    -- Sync changed_by <-> who_changed
     IF NEW.changed_by IS NULL OR NEW.changed_by = '' THEN
         NEW.changed_by := coalesce(NEW.who_changed, 'Parliament of India');
     END IF;
     IF NEW.who_changed IS NULL OR NEW.who_changed = '' THEN
         NEW.who_changed := NEW.changed_by;
     END IF;
-
-    -- Sync old_text <-> older_law_text
     IF NEW.old_text IS NULL OR NEW.old_text = '' THEN
         NEW.old_text := NEW.older_law_text;
     END IF;
     IF NEW.older_law_text IS NULL OR NEW.older_law_text = '' THEN
         NEW.older_law_text := NEW.old_text;
     END IF;
-
-    -- Sync source_url <-> official_source_url
     IF NEW.source_url IS NULL OR NEW.source_url = '' THEN
         NEW.source_url := coalesce(NEW.official_source_url, '');
     END IF;
     IF NEW.official_source_url IS NULL OR NEW.official_source_url = '' THEN
         NEW.official_source_url := NEW.source_url;
     END IF;
-
     IF NEW.reason IS NULL OR NEW.reason = '' THEN
         NEW.reason := coalesce(NEW.why_changed, NEW.what_changed, '');
     END IF;
-
-    -- Sync status <-> published flag
     IF NEW.published = TRUE AND NEW.status = 'draft' THEN
         NEW.status := 'published';
     ELSIF NEW.status = 'published' THEN
@@ -286,10 +268,9 @@ BEGIN
     ELSE
         NEW.published := FALSE;
     END IF;
-
     RETURN NEW;
 END;
- LANGUAGE plpgsql;
+$$;
 
 CREATE TRIGGER trg_sync_law_history_entries
 BEFORE INSERT OR UPDATE ON public.law_history_entries
@@ -298,7 +279,7 @@ EXECUTE FUNCTION public.sync_law_history_entry_fields();
 
 -- Trigger to verify source document is verified before publishing an entry
 CREATE OR REPLACE FUNCTION public.check_law_history_published_source()
-RETURNS TRIGGER AS 
+RETURNS trigger LANGUAGE plpgsql AS $$
 DECLARE
     v_source_status TEXT;
 BEGIN
@@ -306,11 +287,9 @@ BEGIN
         IF NEW.source_document_id IS NULL THEN
             RAISE EXCEPTION 'Cannot publish law_history_entry %: source_document_id is required', NEW.id;
         END IF;
-
         SELECT verification_status INTO v_source_status
         FROM public.source_documents
         WHERE id = NEW.source_document_id;
-
         IF v_source_status IS NULL OR v_source_status != 'verified' THEN
             RAISE EXCEPTION 'Cannot publish law_history_entry %: referenced source document % is not verified (current status: %)',
                 NEW.id, NEW.source_document_id, coalesce(v_source_status, 'NOT FOUND');
@@ -318,7 +297,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
- LANGUAGE plpgsql;
+$$;
 
 CREATE TRIGGER trg_check_law_history_published_source
 BEFORE INSERT OR UPDATE ON public.law_history_entries
@@ -344,7 +323,7 @@ CREATE INDEX idx_ingest_runs_status ON public.ingest_runs(status);
 CREATE INDEX idx_ingest_runs_type ON public.ingest_runs(run_type);
 
 -- 8. Add article_refs to constitution_topics if table exists
-DO 
+DO $$
 BEGIN
     IF EXISTS (
         SELECT FROM information_schema.tables 
@@ -352,7 +331,8 @@ BEGIN
     ) THEN
         ALTER TABLE public.constitution_topics ADD COLUMN IF NOT EXISTS article_refs TEXT[] NOT NULL DEFAULT '{}';
     END IF;
-END ;
+END;
+$$;
 
 -- 9. Enable Row Level Security (RLS) on all tables (Deny by default for anon/authenticated)
 ALTER TABLE public.source_documents ENABLE ROW LEVEL SECURITY;
