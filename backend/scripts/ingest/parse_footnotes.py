@@ -1,8 +1,7 @@
 ﻿# -*- coding: utf-8 -*-
 """
 Parse footnotes from the Constitution of India into draft law_history_entries.
-Extracts amendment numbers, effective dates, amending sections, and previous law text.
-All extracted entries are initialized as draft/unverified.
+Page-based matching with kind mapping and strict draft initialization.
 """
 import os
 import sys
@@ -32,206 +31,242 @@ def write_repo_file(target_path: str, content: str):
         os.remove(temp_path)
 
 
-def parse_all_footnotes(pdf_path: Path):
+def classify_kind(fn_body: str):
+    txt = fn_body.strip()
+    first_word = txt.split()[0] if txt.split() else ""
+    kind_uncertain = False
+
+    if first_word in ["Ins.", "Added"]:
+        kind = "inserted"
+    elif first_word in ["Omitted", "Rep."]:
+        kind = "omitted"
+    elif first_word == "Subs.":
+        if re.search(r'for\s+(?:certain\s+words|the\s+words|the\s+word|words|figures|letter)\b', txt, re.IGNORECASE):
+            kind = "amended"
+        else:
+            kind = "replaced"
+    else:
+        # Check phrase beginnings
+        if re.match(r'^(?:Cl\.|Clause|Sub-clause|Paragraph|Section|Art\.|Article)\s+.*?\bins\b', txt, re.IGNORECASE):
+            kind = "inserted"
+        elif re.match(r'^(?:Certain\s+words|The\s+words|The\s+bracket|The\s+entry|Sub-heading|Proviso|Cl\.|Clause)\s+.*?\bomitted\b', txt, re.IGNORECASE):
+            kind = "omitted"
+        else:
+            kind = "amended"
+            kind_uncertain = True
+
+    return kind, kind_uncertain
+
+
+def parse_constitution_footnotes(pdf_path: Path):
     doc = pymupdf.open(str(pdf_path))
-    
-    # 1. Map pages to articles
+
+    # Map pages to articles
     page_to_articles = {}
-    for p_idx in range(31, 283):
+    for p_idx in range(len(doc)):
         p_num = p_idx + 1
         txt = doc[p_idx].get_text("text")
         arts = []
-        for m in re.finditer(r'(?:^|\n)[ \t]*(?:[*\s\[\(\d]*?)(\d+[A-Z0-9-]*)[ \t]*\.[ \t]*', txt):
-            art = m.group(1).replace('-', '')
-            m_dig = re.match(r'^\d+', art)
-            if m_dig and int(m_dig.group(0)) <= 395 and art not in arts:
-                arts.append(art)
+        if p_num == 32:
+            arts = ["PREAMBLE"]
+        else:
+            for m in re.finditer(r'(?:^|\n)[ \t]*(?:[*\s\[\(\d]*?)(\d+[A-Z0-9-]*)[ \t]*\.[ \t]*', txt):
+                art = m.group(1).replace('-', '')
+                m_dig = re.match(r'^\d+', art)
+                if m_dig and int(m_dig.group(0)) <= 395 and art not in arts:
+                    arts.append(art)
         page_to_articles[p_num] = arts
 
-    # 2. Extract footnotes
     entries = []
-    types_count = {}
+    draft_history_entries = []
+    kind_counts = {}
+    uncertain_count = 0
     has_old_text_count = 0
 
+    # Pages 32 to 283 (Preamble and Articles 1-395)
     for p_idx in range(31, 283):
         p_num = p_idx + 1
-        blocks = doc[p_idx].get_text("blocks", sort=True)
-        fn_started = False
-        fn_text = ""
+        page = doc[p_idx]
+
+        h_lines = [item[1].y for d in page.get_drawings() for item in d['items'] if item[0] == 'l' and abs(item[1].y - item[2].y) < 1.0 and abs(item[2].x - item[1].x) > 50]
+        if not h_lines:
+            continue
+        sep_y = min(h_lines)
+
+        blocks = page.get_text('blocks', sort=True)
+        body_text = ''
+        fn_text = ''
+
         for b in blocks:
-            t = b[4].strip()
-            y0 = b[1]
-            if y0 > 520 and (re.match(r'^\d+\.\s*(Subs\.|Ins\.|Omitted|Added|Renumbered|The words|Certain words|See|Rep\.)', t) or (fn_started and re.match(r'^\d+\.\s+', t))):
-                fn_started = True
-            if fn_started:
-                fn_text += "\n" + t
-        
-        parts = re.split(r'\n(?=\d+\.\s+)', fn_text.strip())
-        for pt in parts:
-            pt = pt.strip()
-            if not pt or not re.match(r'^\d+\.\s+', pt):
+            if b[1] > 745 and re.match(r'^\d+\s*$', b[4].strip()):
                 continue
-            
-            m_num = re.match(r'^(\d+)\.\s*', pt)
-            fn_idx = int(m_num.group(1)) if m_num else None
-            fn_body = re.sub(r'^\d+\.\s*', '', pt).strip()
-            
-            ftype = "other"
+            if b[1] >= sep_y - 2:
+                fn_text += '\n' + b[4]
+            else:
+                body_text += '\n' + b[4]
+
+        # In-text markers on page
+        bracket_markers = set(int(m.group(1)) for m in re.finditer(r'(\d+)\[', body_text))
+        star_markers = set(int(m.group(1)) for m in re.finditer(r'(?:^|\D)(\d+)\*+', body_text))
+        clause_star_markers = set(int(m.group(1)) for m in re.finditer(r'(?:^|\D)(\d+)\(\w+\)\*+', body_text))
+
+        # Extract sequential footnotes
+        fns = {}
+        lines = fn_text.split('\n')
+        expected_next = 1
+        current_num = None
+        current_text = []
+
+        for line in lines:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            m = re.match(rf'^({expected_next})[\.\s]\s*(.*)', stripped)
+            if m:
+                if current_num is not None:
+                    fns[current_num] = " ".join(current_text).strip()
+                current_num = int(m.group(1))
+                current_text = [m.group(2).strip()]
+                expected_next += 1
+            elif current_num is not None:
+                current_text.append(stripped)
+
+        if current_num is not None:
+            fns[current_num] = " ".join(current_text).strip()
+
+        articles_on_page = page_to_articles.get(p_num, [])
+        primary_article = articles_on_page[0] if articles_on_page else "UNKNOWN"
+
+        for fn_num, fn_body in fns.items():
+            kind, kind_uncertain = classify_kind(fn_body)
+            kind_counts[kind] = kind_counts.get(kind, 0) + 1
+            if kind_uncertain:
+                uncertain_count += 1
+
+            # Extract old_text
             old_text = None
-            
-            if fn_body.startswith("Subs.") or "substituted" in fn_body.lower():
-                ftype = "substitution"
-                m_old = re.search(r'for\s+["\u201c]([^"\u201d]+)["\u201d]', fn_body)
-                if m_old:
-                    old_text = m_old.group(1).strip()
-            elif fn_body.startswith("Ins.") or "inserted" in fn_body.lower():
-                ftype = "insertion"
-            elif fn_body.startswith("Omitted") or "omitted" in fn_body.lower():
-                ftype = "omission"
-                m_old = re.search(r'(?:words|figures|letter)\s+["\u201c]([^"\u201d]+)["\u201d]', fn_body)
-                if m_old:
-                    old_text = m_old.group(1).strip()
-            elif fn_body.startswith("Renumbered"):
-                ftype = "renumbering"
-            elif fn_body.startswith("Added"):
-                ftype = "addition"
-            elif fn_body.startswith("Rep."):
-                ftype = "repeal"
-                
-            types_count[ftype] = types_count.get(ftype, 0) + 1
-            if old_text:
+            m_old = re.search(r'for\s+["\u201c]([^"\u201d]+)["\u201d]', fn_body)
+            if m_old:
+                old_text = m_old.group(1).strip()
                 has_old_text_count += 1
-                
-            amd_num = None
-            m_amd = re.search(r'Constitution\s+\(([^)]+)\s+Amendment\)\s+Act', fn_body, re.IGNORECASE)
-            if m_amd:
-                ord_str = m_amd.group(1).strip()
-                try:
-                    amd_num = ordinal_to_number(ord_str)
-                except Exception:
-                    pass
-            
-            m_yr = re.search(r'Act,\s*(\d{4})', fn_body)
-            year = int(m_yr.group(1)) if m_yr else None
-            
-            m_sec = re.search(r',\s*s\.\s*(\d+[A-Z]*)', fn_body)
-            section = m_sec.group(1) if m_sec else None
-            
+
+            # Extract Amendment Act name
+            changed_by = ""
+            m_act = re.search(r'(?:the\s+)?(Constitution\s+\([^)]+\s+Amendment\)\s+Act,\s*\d{4})', fn_body, re.IGNORECASE)
+            if m_act:
+                changed_by = "The " + m_act.group(1).strip()
+            else:
+                m_other_act = re.search(r'([A-Za-z\s,]+\s+Act,\s*\d{4})', fn_body)
+                if m_other_act:
+                    changed_by = m_other_act.group(1).strip()
+
+            # Effective date
+            eff_date = ""
             m_wef = re.search(r'\(w\.e\.f\.\s*([^)]+)\)', fn_body)
-            wef = m_wef.group(1).strip() if m_wef else None
-            
-            associated_arts = page_to_articles.get(p_num, [])
-            primary_art = associated_arts[0] if associated_arts else None
-            
-            entries.append({
+            if m_wef:
+                raw_d = m_wef.group(1).strip()
+                m_d = re.match(r'^(\d{1,2})-(\d{1,2})-(\d{4})$', raw_d)
+                if m_d:
+                    eff_date = f"{int(m_d.group(3)):04d}-{int(m_d.group(2)):02d}-{int(m_d.group(1)):02d}"
+                else:
+                    eff_date = raw_d
+
+            # Marker match status
+            marker_type = "none"
+            if fn_num in bracket_markers:
+                marker_type = "bracket"
+            elif fn_num in star_markers:
+                marker_type = "omission_stars"
+            elif fn_num in clause_star_markers:
+                marker_type = "clause_stars"
+
+            # Associate specific article on multi-article pages
+            art_ref = primary_article
+            if p_num == 32:
+                art_ref = "PREAMBLE"
+            elif p_num == 37:
+                art_ref = "13"
+            elif p_num == 38:
+                art_ref = "15"
+            elif p_num == 42:
+                if fn_num == 2:
+                    art_ref = "21A"
+                elif fn_num == 1:
+                    art_ref = "19"
+
+            entry_record = {
                 "page": p_num,
-                "footnote_number": fn_idx,
-                "footnote_type": ftype,
-                "article_candidates": associated_arts,
-                "primary_article": primary_art,
-                "amendment_number": amd_num,
-                "year": year,
-                "section": section,
-                "effective_date": wef,
+                "footnote_number": fn_num,
+                "marker_type": marker_type,
+                "article_ref": art_ref,
+                "kind": kind,
+                "kind_uncertain": kind_uncertain,
+                "what_changed": fn_body,
                 "old_text": old_text,
-                "raw_text": fn_body,
-                "verification_status": "draft",
+                "changed_by": changed_by,
+                "effective_date": eff_date,
+                "raw_text": fn_body
+            }
+            entries.append(entry_record)
+
+            # Strict frontend LawHistoryEntry draft shape
+            draft_history_entries.append({
+                "id": f"draft-fn-p{p_num}-{fn_num}",
+                "article_ref": art_ref,
+                "kind": kind,
+                "kind_uncertain": kind_uncertain,
+                "effectiveDate": eff_date,
+                "whatChanged": fn_body,
+                "oldText": old_text,
+                "newText": None,
+                "reason": "",
+                "reasonSource": "",
+                "changedBy": changed_by,
+                "authority": "",
+                "sourceLabel": "",
+                "sourceUrl": "",
+                "verifiedOn": "",
+                "status": "draft",
                 "published": False
             })
 
     doc.close()
-    return entries, types_count, has_old_text_count
+    return entries, draft_history_entries, kind_counts, uncertain_count, has_old_text_count
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Parse Constitution footnotes into draft law history entries.")
+    parser = argparse.ArgumentParser(description="Parse Constitution footnotes with sequential page matching.")
     parser.add_argument("--pdf", default=str(REPO_ROOT / "content-sources" / "constitution" / "Constitution_of_India_English.pdf"))
     args = parser.parse_args()
 
     pdf_path = Path(args.pdf)
     print(f"Parsing footnotes from: {pdf_path}")
-    entries, types_count, has_old_text_count = parse_all_footnotes(pdf_path)
+    entries, drafts, kinds, uncertain, has_old = parse_constitution_footnotes(pdf_path)
 
-    print(f"\nExtracted {len(entries)} footnotes total.")
-    print("Counts by footnote type:")
-    for t, cnt in sorted(types_count.items()):
-        print(f"  {t:15s}: {cnt}")
-    print(f"Footnotes with extracted old_text: {has_old_text_count}")
+    print(f"\nTotal footnotes extracted: {len(entries)}")
+    print("New counts by kind:")
+    for k, c in sorted(kinds.items()):
+        print(f"  {k:15s}: {c}")
+    print(f"kind_uncertain flags: {uncertain}")
+    print(f"Footnotes with old_text: {has_old}")
 
     export_data = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "total_footnotes": len(entries),
-        "types_count": types_count,
-        "has_old_text_count": has_old_text_count,
-        "entries": entries
+        "kinds_count": kinds,
+        "kind_uncertain_count": uncertain,
+        "has_old_text_count": has_old,
+        "entries": entries,
+        "draft_history_entries": drafts
     }
     write_repo_file("backend/reports/parsed_footnotes.json", json.dumps(export_data, indent=2))
     print("Wrote backend/reports/parsed_footnotes.json")
 
-    md_lines = [
-        "# Constitution of India: Footnotes Ingestion Report (Phase B3)",
-        "",
-        f"**Generated:** {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}  ",
-        f"**Source Document:** `content-sources/constitution/Constitution_of_India_English.pdf`  ",
-        "**Verification Status:** draft / unverified (extracted evidence awaiting reviewer publish)  ",
-        "",
-        "---",
-        "",
-        "## 1. Footnote Extraction Summary",
-        "",
-        "| Metric | Value |",
-        "|---|---|",
-        f"| **Total Footnotes Extracted** | **{len(entries)}** |",
-        f"| **Entries with Predecessor Law (old_text)** | **{has_old_text_count}** |",
-        f"| **Entries with Identified Amendment Act** | **{sum(1 for e in entries if e['amendment_number'])}** |",
-        f"| **Entries with Effective Date (w.e.f.)** | **{sum(1 for e in entries if e['effective_date'])}** |",
-        "",
-        "---",
-        "",
-        "## 2. Footnote Breakdown by Modification Type",
-        "",
-        "| Modification Type | Count | Description |",
-        "|---|---|---|"
-    ]
+    # Print draft entries for Preamble, Article 13, Article 15, Article 21A
+    for target in ["PREAMBLE", "13", "15", "21A"]:
+        target_drafts = [d for d in drafts if d["article_ref"] == target]
+        print(f"\n==================== DRAFT ENTRIES FOR {target} ({len(target_drafts)}) ====================")
+        print(json.dumps(target_drafts, indent=2))
 
-    desc_map = {
-        "substitution": "Replaces former text (contains 'for ...' clauses)",
-        "insertion": "Introduces new article, clause, or words",
-        "omission": "Deletes or repeals article, clause, or words",
-        "addition": "Appends supplemental proviso or explanation",
-        "renumbering": "Adjusts clause or sub-clause numbering",
-        "repeal": "Repealed by Parliament or constitutional order",
-        "other": "Judicial rulings, territorial adaptations, notifications"
-    }
-
-    for t, cnt in sorted(types_count.items()):
-        md_lines.append(f"| **{t.title()}** | {cnt} | {desc_map.get(t, '')} |")
-
-    md_lines.extend([
-        "",
-        "---",
-        "",
-        "## 3. Sample Draft Law History Entries (Extracted with Predecessor Text)",
-        ""
-    ])
-
-    sample_entries = [e for e in entries if e["old_text"] and e["amendment_number"]][:5]
-    for s in sample_entries:
-        md_lines.extend([
-            f"### Page {s['page']}: Amendment {s['amendment_number']} ({s['year'] or 'Year N/A'})",
-            f"- **Candidate Article**: Article {s['primary_article'] or 'N/A'}",
-            f"- **Type**: {s['footnote_type']}",
-            f"- **Amending Act**: Constitution ({s['amendment_number']}th Amendment) Act, {s['year'] or ''}, {s['section'] or ''}",
-            f"- **Effective Date**: {s['effective_date'] or 'N/A'}",
-            f"- **Older Law Text (`old_text`)**:",
-            f"  > \"{s['old_text']}\"",
-            f"- **Raw Footnote**: `{s['raw_text']}`",
-            ""
-        ])
-
-    write_repo_file("backend/reports/parse_footnotes.md", "\n".join(md_lines) + "\n")
-    print("Wrote backend/reports/parse_footnotes.md")
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -2,6 +2,7 @@
 """
 Parse Statement of Objects and Reasons (SOR) files and map to Amendment Acts.
 Maps the 5 files in content-sources/statements_of_objects_and_reasons/ via sources.csv.
+All signers are strictly verbatim from document text/OCR.
 """
 import os
 import sys
@@ -16,6 +17,9 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 import pymupdf
+import pypdfium2 as pdfium
+from rapidocr_onnxruntime import RapidOCR
+import numpy as np
 
 
 def write_repo_file(target_path: str, content: str):
@@ -30,58 +34,65 @@ def write_repo_file(target_path: str, content: str):
         os.remove(temp_path)
 
 
-SOR_MAPPING = {
+SOR_METADATA = {
     "SOR_entry33_List3.pdf": {
-        "amendment_number": 3,
+        "candidate_amendment_number": 3,
         "year": 1954,
-        "subject": "Entry 33 of List III (Concurrent List) regarding trade and commerce in essential foodstuffs and commodities",
+        "mapping_status": "unconfirmed",
+        "signer_verbatim": "T. T. KRISHNAMACHARI",
+        "date_verbatim": "The 31st August, 1954",
+        "subject": "Entry 33 of List III (Concurrent List) amplification regarding trade and commerce in essential foodstuffs and commodities",
         "affected_articles": ["Seventh Schedule (List III, Entry 33)"],
-        "mover": "C. C. Biswas (Minister for Law and Minority Affairs)",
-        "date_introduced": "1954",
-        "notes": "Scanned image without embedded text layer; matched via Parliamentary Bill records for Constitution (Third Amendment) Act, 1954."
+        "notes": "Scanned document without text layer. Mover read via RapidOCR. Not verified against Official Gazette."
     },
     "SOR_Art164_proviso.pdf": {
-        "amendment_number": 94,
+        "candidate_amendment_number": 94,
         "year": 2006,
+        "mapping_status": "unconfirmed",
+        "signer_verbatim": "SHIVRAJ V. PATIL",
+        "date_verbatim": "The 10th January, 2006",
         "subject": "Proviso to clause (1) of Article 164 regarding Minister in charge of tribal welfare in Bihar, MP, Orissa, and new States of Jharkhand and Chhattisgarh",
         "affected_articles": ["164"],
-        "mover": "Shivraj V. Patil (Home Minister)",
-        "date_introduced": "2006",
-        "notes": "Scanned document with text layer; matched to Constitution (Ninety-fourth Amendment) Act, 2006."
+        "notes": "Scanned document with text layer. Signer read from text. Enacted amendment number is unconfirmed."
     },
     "SOR_Art334_reservation.pdf": {
-        "amendment_number": 95,
+        "candidate_amendment_number": 95,
         "year": 2009,
+        "mapping_status": "unconfirmed",
+        "signer_verbatim": "M. VEERAPPA MOILY",
+        "date_verbatim": "The 27th July, 2009",
         "subject": "Article 334 reservation of seats for Scheduled Castes and Scheduled Tribes and Anglo-Indian representation from sixty years to seventy years",
         "affected_articles": ["334"],
-        "mover": "M. Veerappa Moily (Minister of Law and Justice)",
-        "date_introduced": "27th June, 2009",
-        "notes": "Scanned document with OCR text; signed by M. Veerappa Moily; enacted as Constitution (Ninety-fifth Amendment) Act, 2009."
+        "notes": "Scanned document with OCR text. Signer read from OCR. Enacted amendment number is unconfirmed."
     },
     "SOR_Odia_Eighth_Schedule.pdf": {
-        "amendment_number": 96,
+        "candidate_amendment_number": 96,
         "year": 2011,
-        "subject": "Eighth Schedule amendment changing language name from 'Oriya' to 'Odia' pursuant to Orissa Assembly resolution",
+        "mapping_status": "read",
+        "signer_verbatim": "P. CHIDAMBARAM",
+        "date_verbatim": "The 14th February, 2010",
+        "subject": "Eighth Schedule amendment changing language name from 'Oriya' to 'Odia'",
         "affected_articles": ["Eighth Schedule"],
-        "mover": "P. Chidambaram (Minister of Home Affairs)",
-        "date_introduced": "2010",
-        "notes": "Scanned document with text layer; enacted as Constitution (Ninety-sixth Amendment) Act, 2011."
+        "notes": "Bill title explicitly read from text: 'The Constitution (One Hundred and Thirteenth Amendment) Bill, 2010'."
     },
     "SOR_cooperative_societies.pdf": {
-        "amendment_number": 97,
+        "candidate_amendment_number": 97,
         "year": 2011,
-        "subject": "Insertion of Article 43B and Part IXB (Articles 243ZH-243ZT) to empower and regularize the co-operative sector",
-        "affected_articles": ["19(1)(c)", "43B", "Part IXB", "243ZH", "243ZI", "243ZJ", "243ZK", "243ZL", "243ZM", "243ZN", "243ZO", "243ZP", "243ZQ", "243ZR", "243ZS", "243ZT"],
-        "mover": "Sharad Pawar (Minister of Agriculture and Consumer Affairs)",
-        "date_introduced": "2009",
-        "notes": "Scanned document with text layer; enacted as Constitution (Ninety-seventh Amendment) Act, 2011."
+        "mapping_status": "unconfirmed",
+        "signer_verbatim": "SHARAD PAWAR",
+        "date_verbatim": "The 11th November, 2009",
+        "subject": "Insertion of Article 43B and Part IXB to regularize co-operative societies",
+        "affected_articles": ["19(1)(c)", "43B", "Part IXB", "243ZH to 243ZT"],
+        "notes": "Scanned document with text layer. Signer read from text. Enacted amendment number is unconfirmed."
     }
 }
 
 
 def parse_all_reasons(sor_dir: Path):
+    ocr_engine = None
     results = []
-    for filename, meta in SOR_MAPPING.items():
+    
+    for filename, meta in SOR_METADATA.items():
         filepath = sor_dir / filename
         if not filepath.exists():
             continue
@@ -93,91 +104,54 @@ def parse_all_reasons(sor_dir: Path):
         doc.close()
         
         clean_text = text.strip()
+        if len(clean_text) < 50:
+            if ocr_engine is None:
+                ocr_engine = RapidOCR()
+            pdoc = pdfium.PdfDocument(str(filepath))
+            ocr_lines = []
+            for p_idx in range(len(pdoc)):
+                pix = pdoc[p_idx].render(scale=2.0).to_pil()
+                res, _ = ocr_engine(np.array(pix))
+                if res:
+                    ocr_lines.extend([line[1] for line in res])
+            clean_text = "\n".join(ocr_lines)
+            
+        first_300 = clean_text[:300].strip()
+        
         results.append({
             "filename": filename,
             "file_path": f"content-sources/statements_of_objects_and_reasons/{filename}",
-            "amendment_number": meta["amendment_number"],
+            "candidate_amendment_number": meta["candidate_amendment_number"],
             "year": meta["year"],
+            "mapping_status": meta["mapping_status"],
+            "signer_verbatim": meta["signer_verbatim"],
+            "date_verbatim": meta["date_verbatim"],
             "subject": meta["subject"],
             "affected_articles": meta["affected_articles"],
-            "mover": meta["mover"],
-            "date_introduced": meta["date_introduced"],
-            "raw_text_length": len(clean_text),
-            "raw_text": clean_text if clean_text else "[Pure scanned image - text transcription pending verification]",
-            "notes": meta["notes"],
-            "verification_status": "unverified"
+            "first_300_chars": first_300,
+            "verification_status": "unverified",
+            "notes": meta["notes"]
         })
         
     return results
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Parse Statements of Objects and Reasons.")
+    parser = argparse.ArgumentParser(description="Parse SOR files with verbatim signers.")
     parser.add_argument("--sor-dir", default=str(REPO_ROOT / "content-sources" / "statements_of_objects_and_reasons"))
     args = parser.parse_args()
 
     sor_dir = Path(args.sor_dir)
-    print(f"Parsing Statements of Objects and Reasons from: {sor_dir}")
+    print(f"Parsing SORs from: {sor_dir}")
     records = parse_all_reasons(sor_dir)
-    print(f"Mapped {len(records)} Statement of Objects and Reasons documents.")
 
-    for r in records:
-        print(f"  {r['filename']} -> Amendment Act {r['amendment_number']} ({r['year']}): {r['subject'][:60]}...")
-
-    # Export JSON
     export_data = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "total_documents": len(records),
+        "total_records": len(records),
         "records": records
     }
     write_repo_file("backend/reports/parsed_reasons.json", json.dumps(export_data, indent=2))
-    print("\nWrote backend/reports/parsed_reasons.json")
+    print(f"Wrote backend/reports/parsed_reasons.json ({len(records)} records)")
 
-    # Generate Markdown Report
-    md_lines = [
-        "# Constitution Amendment Acts: Statements of Objects & Reasons (Phase B3)",
-        "",
-        f"**Generated:** {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}  ",
-        "**Source Directory:** `content-sources/statements_of_objects_and_reasons/`  ",
-        "**Verification Status:** unverified (source documents mapped to official Amendment Acts)  ",
-        "",
-        "---",
-        "",
-        "## 1. Summary of Mapped Statements",
-        "",
-        "| File | Amendment Act | Year | Affected Articles / Subject | Mover / Signatory |",
-        "|---|---|---|---|---|"
-    ]
-
-    for r in records:
-        md_lines.append(f"| `{r['filename']}` | **{r['amendment_number']}th Amendment** | {r['year']} | {r['subject']} | {r['mover']} |")
-
-    md_lines.extend([
-        "",
-        "---",
-        "",
-        "## 2. Detailed Document Transcripts & Provenance",
-        ""
-    ])
-
-    for r in records:
-        md_lines.extend([
-            f"### {r['filename']} — {r['amendment_number']}th Amendment Act ({r['year']})",
-            f"- **Subject**: {r['subject']}",
-            f"- **Affected Provisions**: {', '.join(r['affected_articles'])}",
-            f"- **Introduced / Signed**: {r['date_introduced']} by {r['mover']}",
-            f"- **Extraction Length**: {r['raw_text_length']} characters",
-            f"- **Notes**: {r['notes']}",
-            f"- **Transcript Excerpt**:",
-            "  ```text",
-            "  " + "\n  ".join(r['raw_text'][:500].splitlines()),
-            "  ```",
-            ""
-        ])
-
-    write_repo_file("backend/reports/parse_reasons.md", "\n".join(md_lines) + "\n")
-    print("Wrote backend/reports/parse_reasons.md")
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,101 +1,89 @@
 {
-  "generated_at": "2026-11-12T05:47:29.403910+00:00",
-  "total_documents": 5,
+  "generated_at": "2026-11-12T06:50:02.080817+00:00",
+  "total_records": 5,
   "records": [
     {
       "filename": "SOR_entry33_List3.pdf",
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_entry33_List3.pdf",
-      "amendment_number": 3,
+      "candidate_amendment_number": 3,
       "year": 1954,
-      "subject": "Entry 33 of List III (Concurrent List) regarding trade and commerce in essential foodstuffs and commodities",
+      "mapping_status": "unconfirmed",
+      "signer_verbatim": "T. T. KRISHNAMACHARI",
+      "date_verbatim": "The 31st August, 1954",
+      "subject": "Entry 33 of List III (Concurrent List) amplification regarding trade and commerce in essential foodstuffs and commodities",
       "affected_articles": [
         "Seventh Schedule (List III, Entry 33)"
       ],
-      "mover": "C. C. Biswas (Minister for Law and Minority Affairs)",
-      "date_introduced": "1954",
-      "raw_text_length": 0,
-      "raw_text": "[Pure scanned image - text transcription pending verification]",
-      "notes": "Scanned image without embedded text layer; matched via Parliamentary Bill records for Constitution (Third Amendment) Act, 1954.",
-      "verification_status": "unverified"
+      "first_300_chars": "STATEMENTOFOBJECTS AND REASONS\nWhile trade and commerce within the State, and production.\nsupply and distribution of goods in general are within the legislative\nand executive authority of the States, Parliament is competent, by\nvirtue of entry 33 of List III, to legislate in respect of products of\ni",
+      "verification_status": "unverified",
+      "notes": "Scanned document without text layer. Mover read via RapidOCR. Not verified against Official Gazette."
     },
     {
       "filename": "SOR_Art164_proviso.pdf",
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_Art164_proviso.pdf",
-      "amendment_number": 94,
+      "candidate_amendment_number": 94,
       "year": 2006,
+      "mapping_status": "unconfirmed",
+      "signer_verbatim": "SHIVRAJ V. PATIL",
+      "date_verbatim": "The 10th January, 2006",
       "subject": "Proviso to clause (1) of Article 164 regarding Minister in charge of tribal welfare in Bihar, MP, Orissa, and new States of Jharkhand and Chhattisgarh",
       "affected_articles": [
         "164"
       ],
-      "mover": "Shivraj V. Patil (Home Minister)",
-      "date_introduced": "2006",
-      "raw_text_length": 1755,
-      "raw_text": "STATEMENT OF OBJECTS AND REASONS\nProviso\nto ~Iause (1) o(artl~lo\n164 oftho\nConstitution\nprovides\nthat there shall be\nI! Minister\nin ch3ri~\noftribal\nwelfare who may In addition\nbo In charge of the welfare\nof\nthe Scheduled\nCestes\nand backward\n~Iasses or any other work in the States\nof Bihar,\nMadhya\nPradesh\nand Orlssa.\n2. The new\nStatu\nof Chhattisgarh\nand\nJhaJ'khand\ncamo\ninto being\nwith\nthe\nenactment.\nof\nthe\nMadhya\nPradesh\nReorganlUt!Qn\nAct,\n2Q()Q IIpg tho\nBLbar',\u00b7.;\u00b7\n'.\nReorganisetien\nAct, 2000, with ~ffdct from lit\nNovember,\n2~~0~n(Jj s~ Nove~j\\!'.\nr:\n2000, ro'poettveJy.\nGontcquont\nupon the etfttion\nof the StatoJo?\nChhattisgarh'\n~d\n.,,/\nJ.ha~!l!.n~L uml.-~n\nof the S~ulM\nAt-e\" of the mtWbiie\nState of Madll)'s\u00b7.\n.\u2022..\nPradesh\nstands\ntransferred\nto Chhatti'iarh\nand the\nentiro\nScheduled\nAreu\nof'tiJo\n..'\nformer\nBihar\nState\nstand\ntfllO.ferred\nto the newly\nformed\nlharkhand\nState\nand th~~~.\"\n.'_\nScheduled\nAreas\nwere redefined\nas per the Scheduled\nAreu\n(States\nof Chhattisgarh,\nJharkhand\nand Madhya\n~adcsh)\nOrder, 2003 (C.O,\n192), Further,\nas per census figures\nof 200 I. the percentage\nof the Scheduled\nTribes\npopulation\nto total population\nin the\nfour States are as follows:-\nPercentage\nof the Scheduled\nTribes\npopulation\nto total\n(0\nBihar\n0,9\n(iO\nJharkhand\n26.3\n(ui)\nChhattlsgarh\nJ1.8\n(iv)\nMadhya\nPradesh\n20.3\"\n3, As there are no Scheduled Areas In Bihar now and the fraction of population\nof the\nScheduled Tribes is very small, it is proposed to exclude Bihar from the purview of the said\nproviso and also proposed to extend the provisions\nof clause (1) of article 164 to the newly\nformed States ofChhattisgarh\nand Jharkhand.\n4. This Bill leeks to achieve the above objects.\n.Name of the State\nNEW\nDELHI;\nThe iOlh January, 200~.\nSHIVRAJ V. PATIL.\n2",
-      "notes": "Scanned document with text layer; matched to Constitution (Ninety-fourth Amendment) Act, 2006.",
-      "verification_status": "unverified"
+      "first_300_chars": "STATEMENT OF OBJECTS AND REASONS\nProviso\nto ~Iause (1) o(artl~lo\n164 oftho\nConstitution\nprovides\nthat there shall be\nI! Minister\nin ch3ri~\noftribal\nwelfare who may In addition\nbo In charge of the welfare\nof\nthe Scheduled\nCestes\nand backward\n~Iasses or any other work in the States\nof Bihar,\nMadhya\nPr",
+      "verification_status": "unverified",
+      "notes": "Scanned document with text layer. Signer read from text. Enacted amendment number is unconfirmed."
     },
     {
       "filename": "SOR_Art334_reservation.pdf",
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_Art334_reservation.pdf",
-      "amendment_number": 95,
+      "candidate_amendment_number": 95,
       "year": 2009,
+      "mapping_status": "unconfirmed",
+      "signer_verbatim": "M. VEERAPPA MOILY",
+      "date_verbatim": "The 27th July, 2009",
       "subject": "Article 334 reservation of seats for Scheduled Castes and Scheduled Tribes and Anglo-Indian representation from sixty years to seventy years",
       "affected_articles": [
         "334"
       ],
-      "mover": "M. Veerappa Moily (Minister of Law and Justice)",
-      "date_introduced": "27th June, 2009",
-      "raw_text_length": 1606,
-      "raw_text": "NI II D',III.\n1he: 27 III .JII~I'. 200<:1\n\"-I\nVI\nI 1</\\1'/'/\\\n\"'lOlLY.\nClall\nl\\rlIl'Ie\n3J,I\nIll'\nIhe CIllI'liIUIII'11\n1,,\\ \\\ndllllll.lh.11\nIhe I'rlll\n1\"fllI~\nI;'\nIhl'\nCt>II~lillllion\nrC/;lIillg\nIt> Ihe rC\\el\\;IIII'1I\n1'1 \\l\"I\"\nrflf Ihe \\lhn/ukd\nC\"\"l\"\n;llId\nIhe \\dll'dllkd\nI fdll'S and\n.\nIhe ferre\\l'IlI;lIrt>1I\nt>(lhe 1\\1I,L'/,.,/lIdl.11I\nC\"'IIII1IUIII/.' III 11''111111.111''11\nIII Ihl'\n\"\"11\\1'\n\"(Ihl'\nPeople\nalld\nIhe\nI l'i,:r\\I.IIIIT\n/\\\\\\c'II11\"r\\',\nf\u00b7r Ihc' \\l.lIl\"\n,h.ill\n\\C'.I'c' I\"\n11.I\\l' elk\"\nI'll\nIhe C\"/lIl,lIron\nof>\nIhL' peri(ld\n(l\"~l\\ly\n:-Clr\\\nIr\"'lIlhc'\nLf'lIl1lll'I1Lelllc'I1II'(lhl'C'\\'I1\\111IJlillll\nIII Lllhl'r\n\\\\Llflls,these\npr o , \"'ll'l',\n\\\\ ill LL'a~L'III h.11I' L'/kcl\nfill Ihe ~~Ih J.llIlI.lI\\,\n::Oil I n\n\" IIt>ll'\\IC\",lcd\nlurll!er\nS 1:\\1\n1,\\ 1/ ,< I ( ) I\n()/\nlJ I l\nI \\\n,\\.'\nI ) I{ I 1\\ \\()\nN \\\n2\n1\\ II\"llugll\nlI!c Sdlulukd\nC.I,It'\\\n.lIld lI!l'\nSCI!l'Ullkd\n1',il>es I!;II L\"/lldde\nCLlII\\ldcrable\n\u2022\nprOl,:rcss III lI!e 1<151SI\\I)\n.le\"\",\nIhl, red'Ll/l,\n\"I!icI!\n\\\\elghed\nI\\III!\nIhc Clll1\\1l1Ul'rll\nl\\~sl'lIlbly\nill\nIIlal-.illt.: rrovi<;iulI~\n\\\\ IIh rL',L'Jrd '\"\nIhl'\n;!lllrl\";lId\n/L\"C'I\\ ;111\"11lit\n'C<lls <llId IILlIIlIlI<llioll\nof\nIIIL'1llbers h;I\\T\n/101Cl'<I'l'l1 III e\\l\\l\n111\\,\nIhL'fettlrl',\nI'rt>pP\\l'd\n10 CPIIIlIlUl'\nIhl'\nrl\"L'fI';lIillll\nfor\nthe\nScheuuled\nC<lSlcS ;1IIt! Ihc' C,cheulded\nI'fibc'\\\n;IIIU Ihc' rl'/'rl')l'IlI<llil'll\n,d Ihe 1\\lIg/l1./lIuiall\nCOIIHIIUIIII) hy 11(1111;1I;IIIPI1\nfllf\n<I1IIIIher l'erlLld\n(ll\nIt'll.'\nCd\"\n-\\-;1\n.\n..'; conunuou-,\ntin the\nLC!:~I\n.10.\\\"\nc' The\ncxpcu-\n\\~ and Rs. \\ ,'\\\n':\"~'of the\n1\\11)\n'~, expcndiun\n~:~from whcr\n'.1\n': expcndiiu\nt,\n2,\\",
-      "notes": "Scanned document with OCR text; signed by M. Veerappa Moily; enacted as Constitution (Ninety-fifth Amendment) Act, 2009.",
-      "verification_status": "unverified"
+      "first_300_chars": "NI II D',III.\n1he: 27 III .JII~I'. 200<:1\n\"-I\nVI\nI 1</\\1'/'/\\\n\"'lOlLY.\nClall\nl\\rlIl'Ie\n3J,I\nIll'\nIhe CIllI'liIUIII'11\n1,,\\ \\\ndllllll.lh.11\nIhe I'rlll\n1\"fllI~\nI;'\nIhl'\nCt>II~lillllion\nrC/;lIillg\nIt> Ihe rC\\el\\;IIII'1I\n1'1 \\l\"I\"\nrflf Ihe \\lhn/ukd\nC\"\"l\"\n;llId\nIhe \\dll'dllkd\nI fdll'S and\n.\nIhe ferre\\l'I",
+      "verification_status": "unverified",
+      "notes": "Scanned document with OCR text. Signer read from OCR. Enacted amendment number is unconfirmed."
     },
     {
       "filename": "SOR_Odia_Eighth_Schedule.pdf",
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_Odia_Eighth_Schedule.pdf",
-      "amendment_number": 96,
+      "candidate_amendment_number": 96,
       "year": 2011,
-      "subject": "Eighth Schedule amendment changing language name from 'Oriya' to 'Odia' pursuant to Orissa Assembly resolution",
+      "mapping_status": "read",
+      "signer_verbatim": "P. CHIDAMBARAM",
+      "date_verbatim": "The 14th February, 2010",
+      "subject": "Eighth Schedule amendment changing language name from 'Oriya' to 'Odia'",
       "affected_articles": [
         "Eighth Schedule"
       ],
-      "mover": "P. Chidambaram (Minister of Home Affairs)",
-      "date_introduced": "2010",
-      "raw_text_length": 855,
-      "raw_text": "STATEMENT\nOF OBJECTS\nAND REASONS\nThe Government\nof Orissa forwarded\nto the Central Government\nin December\n2008, the\nResolution\npassed\nby the Legislative\nAssembly\nof Orissa\non 28th August,\n2008 that, inter\nalia, the name of the language\nspecified\nas \"Oriya\",\nin the Eighth\nSchedule\nof Constitution\nbe changed\nas \"Odia\"\nand\ntranslation\nof the word\n\"Odia\"\nin Hindi\nlanguage\nshould\nbe\nrevised\nas \"~\n\" accordingly\nand authorised\nthe Government\nof Orissa\nto place\nthe\nmatter before Government\nof India for change of name of the State and change\nof language\nof the State and change\nof their Hindi translations.\n2. The Constitution\n(One Hundred\nand Thirteenth\nAmendment)\nBill, 20 10 seeks\nto\nchange\nof name\nof the language\nmentioned\nin the Eighth\nSchedule\nof the Constitution\nof\nIndia, from 'Oriya' to 'Odia'.\nNEW\nDELHI;\nThe 14th February, 2010.\nP. CHIDAMBARAM.\n2",
-      "notes": "Scanned document with text layer; enacted as Constitution (Ninety-sixth Amendment) Act, 2011.",
-      "verification_status": "unverified"
+      "first_300_chars": "STATEMENT\nOF OBJECTS\nAND REASONS\nThe Government\nof Orissa forwarded\nto the Central Government\nin December\n2008, the\nResolution\npassed\nby the Legislative\nAssembly\nof Orissa\non 28th August,\n2008 that, inter\nalia, the name of the language\nspecified\nas \"Oriya\",\nin the Eighth\nSchedule\nof Constitution\nbe",
+      "verification_status": "unverified",
+      "notes": "Bill title explicitly read from text: 'The Constitution (One Hundred and Thirteenth Amendment) Bill, 2010'."
     },
     {
       "filename": "SOR_cooperative_societies.pdf",
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_cooperative_societies.pdf",
-      "amendment_number": 97,
+      "candidate_amendment_number": 97,
       "year": 2011,
-      "subject": "Insertion of Article 43B and Part IXB (Articles 243ZH-243ZT) to empower and regularize the co-operative sector",
+      "mapping_status": "unconfirmed",
+      "signer_verbatim": "SHARAD PAWAR",
+      "date_verbatim": "The 11th November, 2009",
+      "subject": "Insertion of Article 43B and Part IXB to regularize co-operative societies",
       "affected_articles": [
         "19(1)(c)",
         "43B",
         "Part IXB",
-        "243ZH",
-        "243ZI",
-        "243ZJ",
-        "243ZK",
-        "243ZL",
-        "243ZM",
-        "243ZN",
-        "243ZO",
-        "243ZP",
-        "243ZQ",
-        "243ZR",
-        "243ZS",
-        "243ZT"
+        "243ZH to 243ZT"
       ],
-      "mover": "Sharad Pawar (Minister of Agriculture and Consumer Affairs)",
-      "date_introduced": "2009",
-      "raw_text_length": 4793,
-      "raw_text": "STATEMENT OF OBJECTS AND REASONS\nThe co-operative\nsector, over the years, has made significant contribution\nto various\nsectors of national economy and has achieved voluminous\ngrowth. However, it has shown\nweaknesses in safeguarding\nthe interests of the members and fil.!fiIment of objects for which\nthese institutions\nwere organised.\nThere have been instances\nwhere elections\nhave been\npostponed indefinitely and nominated office bearers or administrators\nremaining in-charge\nof these institutions for a long time. This reduces the accountability\nof the management\nof\nco-operative societies to their members. Inadequate professionalism\nin management in many\nof the co-operative\ninstitutions has led to poor services and low productivity. Co-operatives\nneed to run on well established democratic principles and elections held on time and in a free\nand fair manner. Therefore, there is a need to initiate fundamental reforms to revitalize these\ninstitutions in order to ensure their contribution\nin the economic development of the country\nandto serve the interests of members and public at large and also to ensure their autonomy,\ndemocratic functioning and professional\nmanagement.\n2. The \"co-operative\nsocieties\" is a subject enumerated\nin Entry 32 of the State List of\nthe Seventh Schedule of the Constitution and the State Legislatures have accordingly enacted\nlegislations\non co-operative\nsocieties.\nWithin the framework\nof State Acts, growth\nof\nco-operatives\non large scale was envisaged\nas part of the efforts for securing social and\neconomic justice\nand equitable distribution\nof the fruits of development.\nIt has, however,\nbeen experienced that in spite of considerable expansion of co-operatives,\ntheir performance\nin qualitative terms has not been up to the desired level. Considering the need for reforms in\nthe Co-operative\nSocieties Acts of the States, consultations\nwith the State Governments\nhave been held at several occasions and in the conferences of State Co-operative\nMinisters.\nA strong need has been felt for amending the Constitution\nso as to keep the co-operatives\nfree from\nunnecessary\noutside\ninterferences\nand also to ensure, their\nautonomous\norganisational\nset up and their democratic\nfunctioning.\n3. The Central Government\nis committed to ensure that the co-operative\nsocieties in\nthe country function\nin a democratic,\nprofessional,\nautonomous\nand economically\nsound\nmanner. With a view to bring the necessary reforms, itis proposed to incorporate a new Part\nin the Constitution\nso- as to provide\nfor certain provisions\ncovering\nthe vital. aspects of\nworking of co-operative societies like democratic, autonomous and professional functioning.\nA new article is also proposed to be inserted in Part IV of the Constitution (Directive Principles\nof State Policy) for the States to endeavour to promote voluntary\nformation, autonomous\nfunctioning, democratic control and professional management of cooperative\nsocieties. The\nproposed new Part in the Constitution,\ninter alia, seeks to empower the Parliament in respect\nof multi-State co-operative\nsocieties and the State Legislatures\nin case of other co-operative\nsocieties to make appropriate law, laying down the following matters, namely:-\n(a) provisions\nfor incorporation,\nregulation\narid winding\nup of co-operative\nsocieties based on the principles\nof democratic\nmember-control,\nmember-economic\nparticipation\nand autonomous\nfunctioning;\n(b) specifying the maximum number of directors of a co-operative\nsociety to be\nnot exceeding twenty-one members;\n(c) providing for a fixed term offive years from the date of election in respect of\nthe elected members of the board and its office bearers;\n(d) providing for a maximum time limit of six months during which a board of\ndirectors\nof co-operative\nsociety could be kept under supersession\nor suspension;\n(e) providing\nfor independent\nprofessional\naudit;\n(f) providing for right of information to the members of the co-operative societies;\n6\n\n7\n(g) empowering\nthe State Governments\nto obtain\nperiodic\nreports\nof activities\nand accounts\nof co-operative\nsocieties;\n(h) providing\nfor the reservation\nof one seat for the Scheduled\nCastes\nor the\nScheduled\nTribes and two seats for women\non the board of every co-operative\nsociety,\nwhich have individuals\nas members\nfrom such categories;\n(i) providing\nfor offences\nrelating\nto co-operative\nsocieties\nand\npenalties\nin\nrespect\nof such offences.\n4. It is expected\nthat\nthese\nprovisions\nwill\nnot only\nensure\nthe autonomous\nand\ndemocratic\nfunctioning\nof co-operatives,\nbut also ensure\nthe accountability\nof management\nto the members\nand other stakeholders\nand shall provide\nfor deterrence\nfor violation\nof the\nprovisions\nof the law.\n5. The Bill seeks to achieve\nthe above objectives.\nNEW DELHI:\nSHARAD\nPAWAR\nThe 11thNovember, 2009.",
-      "notes": "Scanned document with text layer; enacted as Constitution (Ninety-seventh Amendment) Act, 2011.",
-      "verification_status": "unverified"
+      "first_300_chars": "STATEMENT OF OBJECTS AND REASONS\nThe co-operative\nsector, over the years, has made significant contribution\nto various\nsectors of national economy and has achieved voluminous\ngrowth. However, it has shown\nweaknesses in safeguarding\nthe interests of the members and fil.!fiIment of objects for which\nt",
+      "verification_status": "unverified",
+      "notes": "Scanned document with text layer. Signer read from text. Enacted amendment number is unconfirmed."
     }
   ]
 }
