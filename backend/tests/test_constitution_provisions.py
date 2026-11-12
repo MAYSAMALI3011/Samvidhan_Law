@@ -48,7 +48,7 @@ def test_derive_current_status_empty():
 def test_derive_current_status_single_kinds():
     assert derive_current_status([make_entry("1", "omitted", "1978-06-20")]) == "repealed"
     assert derive_current_status([make_entry("2", "replaced", "2000-01-01")]) == "replaced"
-    assert derive_current_status([make_entry("3", "substituted", "1976-01-03")]) == "amended"
+    assert derive_current_status([make_entry("3", "amended", "1976-01-03")]) == "amended"
     assert derive_current_status([make_entry("4", "inserted", "2002-12-12")]) == "amended"
 
 
@@ -58,7 +58,7 @@ def test_derive_current_status_proposed_never_changes_status():
 
     # Substituted in 1978, followed by a proposed bill in 2024 -> remains amended
     entries = [
-        make_entry("1", "substituted", "1978-06-20"),
+        make_entry("1", "amended", "1978-06-20"),
         make_entry("p2", "proposed", "2024-05-01")
     ]
     assert derive_current_status(entries) == "amended"
@@ -74,7 +74,7 @@ def test_derive_current_status_proposed_never_changes_status():
 def test_derive_current_status_multiple_chronological():
     # Substituted in 1955, then omitted in 1978 -> repealed
     entries = [
-        make_entry("1", "substituted", "1955-04-27"),
+        make_entry("1", "amended", "1955-04-27"),
         make_entry("2", "omitted", "1978-06-20")
     ]
     assert derive_current_status(entries) == "repealed"

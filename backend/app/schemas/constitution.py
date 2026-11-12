@@ -7,8 +7,8 @@ from typing import List, Optional, Literal
 from pydantic import BaseModel, Field
 
 
-LawStatus = Literal["in_force", "amended", "omitted", "repealed", "substituted", "proposed"]
-LawChangeKind = Literal["original", "amended", "inserted", "omitted", "replaced", "proposed", "substituted"]
+LawStatus = Literal["in_force", "amended", "repealed", "replaced", "proposed"]
+LawChangeKind = Literal["original", "amended", "inserted", "omitted", "replaced", "proposed"]
 
 
 class LawHistoryEntry(BaseModel):
