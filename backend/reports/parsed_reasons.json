@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T06:50:02.080817+00:00",
+  "generated_at": "2026-11-12T07:16:54.636795+00:00",
   "total_records": 5,
   "records": [
     {
@@ -8,6 +8,7 @@
       "candidate_amendment_number": 3,
       "year": 1954,
       "mapping_status": "unconfirmed",
+      "bill_number": null,
       "signer_verbatim": "T. T. KRISHNAMACHARI",
       "date_verbatim": "The 31st August, 1954",
       "subject": "Entry 33 of List III (Concurrent List) amplification regarding trade and commerce in essential foodstuffs and commodities",
@@ -16,7 +17,7 @@
       ],
       "first_300_chars": "STATEMENTOFOBJECTS AND REASONS\nWhile trade and commerce within the State, and production.\nsupply and distribution of goods in general are within the legislative\nand executive authority of the States, Parliament is competent, by\nvirtue of entry 33 of List III, to legislate in respect of products of\ni",
       "verification_status": "unverified",
-      "notes": "Scanned document without text layer. Mover read via RapidOCR. Not verified against Official Gazette."
+      "notes": "Scanned document without text layer. Mover read via RapidOCR. Bill number not printed in statement."
     },
     {
       "filename": "SOR_Art164_proviso.pdf",
@@ -24,6 +25,7 @@
       "candidate_amendment_number": 94,
       "year": 2006,
       "mapping_status": "unconfirmed",
+      "bill_number": null,
       "signer_verbatim": "SHIVRAJ V. PATIL",
       "date_verbatim": "The 10th January, 2006",
       "subject": "Proviso to clause (1) of Article 164 regarding Minister in charge of tribal welfare in Bihar, MP, Orissa, and new States of Jharkhand and Chhattisgarh",
@@ -32,7 +34,7 @@
       ],
       "first_300_chars": "STATEMENT OF OBJECTS AND REASONS\nProviso\nto ~Iause (1) o(artl~lo\n164 oftho\nConstitution\nprovides\nthat there shall be\nI! Minister\nin ch3ri~\noftribal\nwelfare who may In addition\nbo In charge of the welfare\nof\nthe Scheduled\nCestes\nand backward\n~Iasses or any other work in the States\nof Bihar,\nMadhya\nPr",
       "verification_status": "unverified",
-      "notes": "Scanned document with text layer. Signer read from text. Enacted amendment number is unconfirmed."
+      "notes": "Scanned document with text layer. Signer read from text. Bill number not printed in statement."
     },
     {
       "filename": "SOR_Art334_reservation.pdf",
@@ -40,6 +42,7 @@
       "candidate_amendment_number": 95,
       "year": 2009,
       "mapping_status": "unconfirmed",
+      "bill_number": null,
       "signer_verbatim": "M. VEERAPPA MOILY",
       "date_verbatim": "The 27th July, 2009",
       "subject": "Article 334 reservation of seats for Scheduled Castes and Scheduled Tribes and Anglo-Indian representation from sixty years to seventy years",
@@ -48,14 +51,15 @@
       ],
       "first_300_chars": "NI II D',III.\n1he: 27 III .JII~I'. 200<:1\n\"-I\nVI\nI 1</\\1'/'/\\\n\"'lOlLY.\nClall\nl\\rlIl'Ie\n3J,I\nIll'\nIhe CIllI'liIUIII'11\n1,,\\ \\\ndllllll.lh.11\nIhe I'rlll\n1\"fllI~\nI;'\nIhl'\nCt>II~lillllion\nrC/;lIillg\nIt> Ihe rC\\el\\;IIII'1I\n1'1 \\l\"I\"\nrflf Ihe \\lhn/ukd\nC\"\"l\"\n;llId\nIhe \\dll'dllkd\nI fdll'S and\n.\nIhe ferre\\l'I",
       "verification_status": "unverified",
-      "notes": "Scanned document with OCR text. Signer read from OCR. Enacted amendment number is unconfirmed."
+      "notes": "Scanned document with OCR text. Signer read from OCR. Bill number not printed in statement."
     },
     {
       "filename": "SOR_Odia_Eighth_Schedule.pdf",
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_Odia_Eighth_Schedule.pdf",
       "candidate_amendment_number": 96,
       "year": 2011,
-      "mapping_status": "read",
+      "mapping_status": "unconfirmed",
+      "bill_number": "The Constitution (One Hundred and Thirteenth Amendment) Bill, 2010",
       "signer_verbatim": "P. CHIDAMBARAM",
       "date_verbatim": "The 14th February, 2010",
       "subject": "Eighth Schedule amendment changing language name from 'Oriya' to 'Odia'",
@@ -64,7 +68,7 @@
       ],
       "first_300_chars": "STATEMENT\nOF OBJECTS\nAND REASONS\nThe Government\nof Orissa forwarded\nto the Central Government\nin December\n2008, the\nResolution\npassed\nby the Legislative\nAssembly\nof Orissa\non 28th August,\n2008 that, inter\nalia, the name of the language\nspecified\nas \"Oriya\",\nin the Eighth\nSchedule\nof Constitution\nbe",
       "verification_status": "unverified",
-      "notes": "Bill title explicitly read from text: 'The Constitution (One Hundred and Thirteenth Amendment) Bill, 2010'."
+      "notes": "Bill number 'The Constitution (One Hundred and Thirteenth Amendment) Bill, 2010' read directly from text. Act number unconfirmed pending official gazette concordance."
     },
     {
       "filename": "SOR_cooperative_societies.pdf",
@@ -72,6 +76,7 @@
       "candidate_amendment_number": 97,
       "year": 2011,
       "mapping_status": "unconfirmed",
+      "bill_number": null,
       "signer_verbatim": "SHARAD PAWAR",
       "date_verbatim": "The 11th November, 2009",
       "subject": "Insertion of Article 43B and Part IXB to regularize co-operative societies",
@@ -83,7 +88,7 @@
       ],
       "first_300_chars": "STATEMENT OF OBJECTS AND REASONS\nThe co-operative\nsector, over the years, has made significant contribution\nto various\nsectors of national economy and has achieved voluminous\ngrowth. However, it has shown\nweaknesses in safeguarding\nthe interests of the members and fil.!fiIment of objects for which\nt",
       "verification_status": "unverified",
-      "notes": "Scanned document with text layer. Signer read from text. Enacted amendment number is unconfirmed."
+      "notes": "Scanned document with text layer. Signer read from text. Bill number not printed in statement."
     }
   ]
 }

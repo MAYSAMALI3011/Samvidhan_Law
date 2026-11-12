@@ -1,0 +1,65 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\MAYSAMALI MASU\AppData\Local\Programs\Python\Python314\python.exe
+rootdir: C:\Users\MAYSAMALI MASU\Documents\GitHub\Samvidhan_Law\backend
+configfile: pyproject.toml
+plugins: anyio-4.15.1, platformdirs-4.13.0, asyncio-1.4.1.post1, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collecting ... collected 33 items
+
+backend\tests\test_ai_router.py::test_openrouter_model_enforces_free_suffix PASSED [  3%]
+backend\tests\test_ai_router.py::test_provider_cooldown_and_failover_logic PASSED [  6%]
+backend\tests\test_assistant_stream.py::test_chat_stream_default_fallback_and_sse_protocol PASSED [  9%]
+backend\tests\test_auth.py::test_signup_success PASSED                   [ 12%]
+backend\tests\test_auth.py::test_signup_duplicate_email PASSED           [ 15%]
+backend\tests\test_auth.py::test_login_success_sets_cookies PASSED       [ 18%]
+backend\tests\test_auth.py::test_login_invalid_credentials_returns_401 PASSED [ 21%]
+backend\tests\test_auth.py::test_get_me_returns_profile_directly PASSED  [ 24%]
+backend\tests\test_auth.py::test_logout_clears_cookies PASSED            [ 27%]
+backend\tests\test_constitution_provisions.py::test_derive_current_status_empty PASSED [ 30%]
+backend\tests\test_constitution_provisions.py::test_derive_current_status_single_kinds PASSED [ 33%]
+backend\tests\test_constitution_provisions.py::test_derive_current_status_proposed_never_changes_status PASSED [ 36%]
+backend\tests\test_constitution_provisions.py::test_derive_current_status_multiple_chronological PASSED [ 39%]
+backend\tests\test_constitution_provisions.py::test_law_history_rule_1_incomplete_footnotes_returns_none PASSED [ 42%]
+backend\tests\test_constitution_provisions.py::test_law_history_rule_2_published_without_footnotes_returns_in_force PASSED [ 45%]
+backend\tests\test_constitution_provisions.py::test_law_history_rule_3_all_changes_published_returns_oldest_first PASSED [ 48%]
+backend\tests\test_constitution_provisions.py::test_provisions_endpoints PASSED [ 51%]
+backend\tests\test_constitution_provisions.py::test_public_law_history_endpoint_matches_frontend_shape PASSED [ 54%]
+backend\tests\test_errors.py::test_error_shape_on_404 PASSED             [ 57%]
+backend\tests\test_errors.py::test_error_shape_on_validation_failure PASSED [ 60%]
+backend\tests\test_health.py::test_health_check PASSED                   [ 63%]
+backend\tests\test_law_history.py::test_get_law_history_unverified_returns_404 PASSED [ 66%]
+backend\tests\test_law_history.py::test_draft_and_publish_with_unverified_source_fails PASSED [ 69%]
+backend\tests\test_law_history.py::test_publish_with_verified_source_succeeds PASSED [ 72%]
+backend\tests\test_ordinals.py::test_all_1_to_106_roundtrip PASSED       [ 75%]
+backend\tests\test_ordinals.py::test_specific_amendments PASSED          [ 78%]
+backend\tests\test_ordinals.py::test_suffixes PASSED                     [ 81%]
+backend\tests\test_ordinals.py::test_invalid PASSED                      [ 84%]
+backend\tests\test_quota.py::test_free_user_quota_enforcement PASSED     [ 87%]
+backend\tests\test_quota.py::test_pro_user_unlimited_quota PASSED        [ 90%]
+backend\tests\test_quota.py::test_guest_quota_enforcement PASSED         [ 93%]
+backend\tests\test_user.py::test_get_and_patch_user_profile PASSED       [ 96%]
+backend\tests\test_user.py::test_patch_user_settings PASSED              [100%]
+
+============================== warnings summary ===============================
+tests/test_assistant_stream.py::test_chat_stream_default_fallback_and_sse_protocol
+tests/test_auth.py::test_get_me_returns_profile_directly
+tests/test_user.py::test_get_and_patch_user_profile
+tests/test_user.py::test_get_and_patch_user_profile
+tests/test_user.py::test_get_and_patch_user_profile
+tests/test_user.py::test_patch_user_settings
+tests/test_user.py::test_patch_user_settings
+  C:\Users\MAYSAMALI MASU\AppData\Local\Programs\Python\Python314\Lib\site-packages\supabase\_sync\client.py:320: DeprecationWarning: The 'timeout' parameter is deprecated. Please configure it in the http client instead.
+    return SyncPostgrestClient(
+
+tests/test_assistant_stream.py::test_chat_stream_default_fallback_and_sse_protocol
+tests/test_auth.py::test_get_me_returns_profile_directly
+tests/test_user.py::test_get_and_patch_user_profile
+tests/test_user.py::test_get_and_patch_user_profile
+tests/test_user.py::test_get_and_patch_user_profile
+tests/test_user.py::test_patch_user_settings
+tests/test_user.py::test_patch_user_settings
+  C:\Users\MAYSAMALI MASU\AppData\Local\Programs\Python\Python314\Lib\site-packages\supabase\_sync\client.py:320: DeprecationWarning: The 'verify' parameter is deprecated. Please configure it in the http client instead.
+    return SyncPostgrestClient(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 33 passed, 14 warnings in 8.11s =======================
