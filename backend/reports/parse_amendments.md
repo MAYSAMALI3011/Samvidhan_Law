@@ -1,6 +1,6 @@
 # Constitution of India: Amendment Acts Ingestion Report (Phase B3)
 
-**Generated:** 2026-11-12 05:45:54 UTC  
+**Generated:** 2026-11-12 07:30:13 UTC  
 **Source Directory:** `content-sources/amendment_acts/`  
 **Total Acts Evaluated:** 106 Amendment Acts (1951–2023)
 
@@ -36,7 +36,7 @@
 
 ## 3. Pure Scanned Acts (OCR Pending)
 
-The following 12 Acts are scanned gazette images with no embedded text layer. They have been registered with `extraction_type='ocr'` and notes `'OCR pending'`:
+The following 8 Acts are scanned gazette images with no embedded text layer. They have been registered with `extraction_type='ocr'` and notes `'OCR pending'`:
 
 - **66th Amendment Act** (`066_66th_Amendment_Act_1990_SCAN.pdf`, 4 pages)
 - **69th Amendment Act** (`069_69th_Amendment_Act_1991_SCAN.pdf`, 3 pages)

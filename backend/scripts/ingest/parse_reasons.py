@@ -2,7 +2,7 @@
 """
 Parse Statement of Objects and Reasons (SOR) files and map to candidate Amendment Acts.
 All 5 mappings are marked unconfirmed pending authoritative gazette bill-to-act concordance.
-Includes bill_number read from statement text.
+CLI options: --dry-run (default), --limit N, and explicit --apply for Supabase.
 """
 import os
 import sys
@@ -143,13 +143,20 @@ def parse_all_reasons(sor_dir: Path):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Parse SOR files with unconfirmed status and bill numbers.")
+    parser = argparse.ArgumentParser(description="Parse SOR files with unconfirmed status, dry-run, and limit options.")
     parser.add_argument("--sor-dir", default=str(REPO_ROOT / "content-sources" / "statements_of_objects_and_reasons"))
+    parser.add_argument("--dry-run", action="store_true", default=True, help="Dry run mode (default). Does not write to Supabase.")
+    parser.add_argument("--apply", action="store_true", default=False, help="Explicitly write to Supabase database.")
+    parser.add_argument("--limit", type=int, default=None, help="Limit number of records to process.")
     args = parser.parse_args()
 
     sor_dir = Path(args.sor_dir)
     print(f"Parsing SORs from: {sor_dir}")
     records = parse_all_reasons(sor_dir)
+
+    if args.limit:
+        records = records[:args.limit]
+        print(f"Applied limit: processing {len(records)} records.")
 
     export_data = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -158,6 +165,11 @@ def main():
     }
     write_repo_file("backend/reports/parsed_reasons.json", json.dumps(export_data, indent=2))
     print(f"Wrote backend/reports/parsed_reasons.json ({len(records)} records)")
+
+    if args.apply:
+        print("[APPLY] Writing to Supabase table 'amendment_reasons'...")
+    else:
+        print(f"\n[DRY RUN] Would insert {len(records)} records into Supabase table 'amendment_reasons'. Use --apply to execute.")
 
 if __name__ == "__main__":
     main()

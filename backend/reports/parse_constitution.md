@@ -1,6 +1,6 @@
 # Constitution of India: Ingestion & Verification Report (Phase B2)
 
-**Generated:** 2026-11-12 05:44:01 UTC  
+**Generated:** 2026-11-12 07:30:08 UTC  
 **Source Document:** `content-sources/constitution/Constitution_of_India_English.pdf`  
 **Verification Status:** unverified (source cataloged, pending gazette verification)  
 **Edition:** English pocket edition incorporating amendments up to the 106th Amendment Act, 2023.  

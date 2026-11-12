@@ -1,1194 +1,1262 @@
 {
-  "generated_at": "2026-11-12T05:44:25.038353+00:00",
-  "total_documents": 118,
-  "text_count": 98,
-  "ocr_count": 20,
-  "kinds": {
-    "constitution": 2,
-    "amendment_act": 108,
-    "preamble": 3,
-    "statement_of_objects_and_reasons": 5
-  },
+  "generated_at": "2026-11-12T07:30:04.977203+00:00",
+  "total_documents": 114,
+  "text_count": 96,
+  "ocr_count": 18,
   "records": [
     {
-      "file_path": "content-sources/95ef471035ee0b5e4e5b1cac3d3584c1.pdf",
+      "file_path": "content-sources/constitution/Constitution_of_India_English.pdf",
+      "filename": "Constitution_of_India_English.pdf",
       "kind": "constitution",
       "amendment_number": null,
       "sha256": "c2e0f5f7a670d362038190d6792a688a37c25b3918b62f924cb7fe7444ae2608",
       "page_count": 402,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": "Constitution of India (English pocket edition, updated up to 106th Amendment Act, 2023)"
+      "notes": "Official 2024 edition from legislative.gov.in; unverified"
     },
     {
       "file_path": "content-sources/amendment_acts/001_1st_Amendment_Act_1951.pdf",
+      "filename": "001_1st_Amendment_Act_1951.pdf",
       "kind": "amendment_act",
       "amendment_number": 1,
       "sha256": "316dae4a42e11ccab825e47b495a8bf2ff0bebbb8877cfe61ba0756c19d1e9c9",
       "page_count": 6,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/002_2nd_Amendment_Act_1952.pdf",
+      "filename": "002_2nd_Amendment_Act_1952.pdf",
       "kind": "amendment_act",
       "amendment_number": 2,
       "sha256": "4b50f2c25d89dd550df9946baa68049454bc69ef72d495bfe8c4291ba562e251",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/003_3rd_Amendment_Act_1954.pdf",
+      "filename": "003_3rd_Amendment_Act_1954.pdf",
       "kind": "amendment_act",
       "amendment_number": 3,
       "sha256": "838c153d4a22aec2a5de527316f6214675b62c38031d7ac32bebac85ee932e50",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/003_3rd_Amendment_Act_1954_SCAN_DUPLICATE.pdf",
+      "filename": "003_3rd_Amendment_Act_1954_SCAN_DUPLICATE.pdf",
       "kind": "amendment_act",
       "amendment_number": 3,
       "sha256": "0251d6693950126f3a15e68cbaddb00782b01096f7eaabe4f0d830ac30b49297",
       "page_count": 2,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": "Duplicate copy"
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/004_4th_Amendment_Act_1955.pdf",
+      "filename": "004_4th_Amendment_Act_1955.pdf",
       "kind": "amendment_act",
       "amendment_number": 4,
       "sha256": "162e5b7f2a7a27be0dc7823426ec4e5e089138cc0758fad0c5740085c24054c2",
       "page_count": 7,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/005_5th_Amendment_Act_1955.pdf",
+      "filename": "005_5th_Amendment_Act_1955.pdf",
       "kind": "amendment_act",
       "amendment_number": 5,
       "sha256": "c3629021804a9e0aacb88cd8652635ca128b558cc2f0315efdb66dc89445d609",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/006_6th_Amendment_Act_1956.pdf",
+      "filename": "006_6th_Amendment_Act_1956.pdf",
       "kind": "amendment_act",
       "amendment_number": 6,
       "sha256": "4d05b7f5ce74c7695a0774141fce00dc7731a96f400c64e5d3a3a38741634867",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/007_7th_Amendment_Act_1956.pdf",
+      "filename": "007_7th_Amendment_Act_1956.pdf",
       "kind": "amendment_act",
       "amendment_number": 7,
       "sha256": "301c37b48ef6b42451f524c41aaab36db200a5a18f4e41d380bc39dcba4b627f",
       "page_count": 26,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/008_8th_Amendment_Act_1959.pdf",
+      "filename": "008_8th_Amendment_Act_1959.pdf",
       "kind": "amendment_act",
       "amendment_number": 8,
       "sha256": "61057b407610959f0bc909741fe975b02cc458a7688218efc64003a4e4c2cff0",
       "page_count": 4,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/009_9th_Amendment_Act_1960.pdf",
+      "filename": "009_9th_Amendment_Act_1960.pdf",
       "kind": "amendment_act",
       "amendment_number": 9,
       "sha256": "51dc73d0d0bf015c3c98a814a00fb9716d49c53737b953829bc285dc0890cc5d",
       "page_count": 7,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/009_9th_Amendment_Act_1960_DUPLICATE.pdf",
+      "filename": "009_9th_Amendment_Act_1960_DUPLICATE.pdf",
       "kind": "amendment_act",
       "amendment_number": 9,
       "sha256": "daea7ca2759ce0e189ef8e10cecc8f6890cb95aa1a97fcca318f409d3a90041e",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": "Duplicate copy"
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/010_10th_Amendment_Act_1961.pdf",
+      "filename": "010_10th_Amendment_Act_1961.pdf",
       "kind": "amendment_act",
       "amendment_number": 10,
       "sha256": "5100b1e227f68a65b7aa5facf2bfe1f2ebb81623c5afff400b4b034f8b6b7818",
       "page_count": 5,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/011_11th_Amendment_Act_1961.pdf",
+      "filename": "011_11th_Amendment_Act_1961.pdf",
       "kind": "amendment_act",
       "amendment_number": 11,
       "sha256": "639037838bccb831f3a37c198eb28c82ab3230c392b746a0d3ea701b7542e7fb",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/012_12th_Amendment_Act_1962.pdf",
+      "filename": "012_12th_Amendment_Act_1962.pdf",
       "kind": "amendment_act",
       "amendment_number": 12,
       "sha256": "5bb0b70814b9e19fbe28b82a4cd4aa52ec1c5f496e3612cfc821c15e363cc4dd",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/013_13th_Amendment_Act_1962.pdf",
+      "filename": "013_13th_Amendment_Act_1962.pdf",
       "kind": "amendment_act",
       "amendment_number": 13,
       "sha256": "b23f47730c8b9c98cdb801be821136a2c72f631f122844cffb9f5a9f0fc5c848",
       "page_count": 5,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/014_14th_Amendment_Act_1962.pdf",
+      "filename": "014_14th_Amendment_Act_1962.pdf",
       "kind": "amendment_act",
       "amendment_number": 14,
       "sha256": "41376f434508eab1fd219d7911272ad229759dd4c0916202abf0c65a969ae693",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/015_15th_Amendment_Act_1963.pdf",
+      "filename": "015_15th_Amendment_Act_1963.pdf",
       "kind": "amendment_act",
       "amendment_number": 15,
       "sha256": "9540d734aa50d1a3be2c6594babef6e722f99fc8fbc38922047b73ac31d9a075",
       "page_count": 4,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/016_16th_Amendment_Act_1963.pdf",
+      "filename": "016_16th_Amendment_Act_1963.pdf",
       "kind": "amendment_act",
       "amendment_number": 16,
       "sha256": "0740e7d99c0a341699749f873602084868dcf3442d62fe8eed2af4f55a5f3f96",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/017_17th_Amendment_Act_1964.pdf",
+      "filename": "017_17th_Amendment_Act_1964.pdf",
       "kind": "amendment_act",
       "amendment_number": 17,
       "sha256": "406ac5672925f755420950ebc006db8884d79efd207d2c64954b7919298d36ad",
       "page_count": 5,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/018_18th_Amendment_Act_1966.pdf",
+      "filename": "018_18th_Amendment_Act_1966.pdf",
       "kind": "amendment_act",
       "amendment_number": 18,
       "sha256": "97646c83318bd9d96211441e60ada6290db2313f4c963b82989da719b8d1191c",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/019_19th_Amendment_Act_1966.pdf",
+      "filename": "019_19th_Amendment_Act_1966.pdf",
       "kind": "amendment_act",
       "amendment_number": 19,
       "sha256": "ab441730fde742bfedf397b9746c5e4a69faff53c922bc7898dc7cc70da56836",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/020_20th_Amendment_Act_1966.pdf",
+      "filename": "020_20th_Amendment_Act_1966.pdf",
       "kind": "amendment_act",
       "amendment_number": 20,
       "sha256": "91173c758f8f1876ed202e6dc50145396e5aeb334d623feb30a406bbd2b1688f",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/021_21st_Amendment_Act_1967.pdf",
+      "filename": "021_21st_Amendment_Act_1967.pdf",
       "kind": "amendment_act",
       "amendment_number": 21,
       "sha256": "2571fbf51b45c492c5a474e03760a1e0f89d8fea2fbe0c12819f84eaa75c3fa1",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/022_22nd_Amendment_Act_1969.pdf",
+      "filename": "022_22nd_Amendment_Act_1969.pdf",
       "kind": "amendment_act",
       "amendment_number": 22,
       "sha256": "6c2321fcd309f01e695bac34fb4d38b014157c3cbf967851e9a463900008beac",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/023_23rd_Amendment_Act_1969.pdf",
+      "filename": "023_23rd_Amendment_Act_1969.pdf",
       "kind": "amendment_act",
       "amendment_number": 23,
       "sha256": "c46c2444ecc9b41a20cfa665ac8f98bda2acaf4caa2ae415d75cf6a80529d79d",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/024_24th_Amendment_Act_1971.pdf",
+      "filename": "024_24th_Amendment_Act_1971.pdf",
       "kind": "amendment_act",
       "amendment_number": 24,
       "sha256": "d7fbb7a715b05ad2331d2beec0d3feb0cccd81fd15a31209cfc21d27b3966c62",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/025_25th_Amendment_Act_1971.pdf",
+      "filename": "025_25th_Amendment_Act_1971.pdf",
       "kind": "amendment_act",
       "amendment_number": 25,
       "sha256": "176ee3ae26fe7c341a1908b97eadb0a3e4655169f97b3eee4b991a5872b081cd",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/026_26th_Amendment_Act_1971.pdf",
+      "filename": "026_26th_Amendment_Act_1971.pdf",
       "kind": "amendment_act",
       "amendment_number": 26,
       "sha256": "5e0fdf7b99d0929171c73f6f8007e98272dd21f14ff36d4ada5d8c9652d45323",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/027_27th_Amendment_Act_1971.pdf",
+      "filename": "027_27th_Amendment_Act_1971.pdf",
       "kind": "amendment_act",
       "amendment_number": 27,
       "sha256": "853fd0bf3f9cc64c112701d9696516214eb46c7a8792d7f922b226acad42b867",
       "page_count": 4,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/028_28th_Amendment_Act_1972.pdf",
+      "filename": "028_28th_Amendment_Act_1972.pdf",
       "kind": "amendment_act",
       "amendment_number": 28,
       "sha256": "53569ccc8d51d299273040b555e32104ee831a7a1c12a3c8149f004c7f8cafc9",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/029_29th_Amendment_Act_1972.pdf",
+      "filename": "029_29th_Amendment_Act_1972.pdf",
       "kind": "amendment_act",
       "amendment_number": 29,
       "sha256": "ea4e2ad274107574c2996964fd66a6a870a742473896f8bc3080ab547adcd9ef",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/030_30th_Amendment_Act_1972.pdf",
+      "filename": "030_30th_Amendment_Act_1972.pdf",
       "kind": "amendment_act",
       "amendment_number": 30,
       "sha256": "9ecbf6ffc010c2929b886b07dc0d7665a931f9b79244f624e66e05e723794dd0",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/031_31st_Amendment_Act_1973.pdf",
+      "filename": "031_31st_Amendment_Act_1973.pdf",
       "kind": "amendment_act",
       "amendment_number": 31,
       "sha256": "9fc34c397b29cc016a0f1f24d351ec76d42912e1a770cceab1fb8ecfa8eaf76d",
       "page_count": 4,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/032_32nd_Amendment_Act_1973.pdf",
+      "filename": "032_32nd_Amendment_Act_1973.pdf",
       "kind": "amendment_act",
       "amendment_number": 32,
       "sha256": "b38071161cdc212ce1f2dc21f5a85bf54727ae63debe0a86488cd9bf085cfb3f",
       "page_count": 6,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/033_33rd_Amendment_Act_1974.pdf",
+      "filename": "033_33rd_Amendment_Act_1974.pdf",
       "kind": "amendment_act",
       "amendment_number": 33,
       "sha256": "2d292ef2213051dd0b724cb06cc13330d29804a95c51d35b0eef21444600601c",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/034_34th_Amendment_Act_1974.pdf",
+      "filename": "034_34th_Amendment_Act_1974.pdf",
       "kind": "amendment_act",
       "amendment_number": 34,
       "sha256": "bab44058782e0f65ee07a65b7762b9b07d38d3d15c74d4aa9542bc3bee19f291",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/035_35th_Amendment_Act_1974.pdf",
+      "filename": "035_35th_Amendment_Act_1974.pdf",
       "kind": "amendment_act",
       "amendment_number": 35,
       "sha256": "da6d8824237801c1e204b60a7fea09768652ea8791383f856eedf3ee1b11a304",
       "page_count": 5,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/036_36th_Amendment_Act_1975.pdf",
+      "filename": "036_36th_Amendment_Act_1975.pdf",
       "kind": "amendment_act",
       "amendment_number": 36,
       "sha256": "2aedd8249df25258ff012a3cbede974b64f1e99d6ff9c3e6b725027f785f90db",
       "page_count": 5,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/037_37th_Amendment_Act_1975.pdf",
+      "filename": "037_37th_Amendment_Act_1975.pdf",
       "kind": "amendment_act",
       "amendment_number": 37,
       "sha256": "b2223b8a7defdd10a7b42ab8b0aa66e323e5181cd9c143466fad7647d4189ea6",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/038_38th_Amendment_Act_1975.pdf",
+      "filename": "038_38th_Amendment_Act_1975.pdf",
       "kind": "amendment_act",
       "amendment_number": 38,
       "sha256": "f45bb2d1968dd335650b810d39fa4d77bbee99d7a7b845acebd80a6aa799a2b0",
       "page_count": 4,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/039_39th_Amendment_Act_1975.pdf",
+      "filename": "039_39th_Amendment_Act_1975.pdf",
       "kind": "amendment_act",
       "amendment_number": 39,
       "sha256": "14eb4a18285487566ef2ceb018f5ca2387e8db97f350c5cbf710eabfb24f5e24",
       "page_count": 6,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/040_40th_Amendment_Act_1976.pdf",
+      "filename": "040_40th_Amendment_Act_1976.pdf",
       "kind": "amendment_act",
       "amendment_number": 40,
       "sha256": "7ffc07dc4838fa43c7d2819646bd6dfc0e738c4228f5aed432fa50134ccb1637",
       "page_count": 6,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/041_41st_Amendment_Act_1976.pdf",
+      "filename": "041_41st_Amendment_Act_1976.pdf",
       "kind": "amendment_act",
       "amendment_number": 41,
       "sha256": "1205931bc421496708a22e05c9a88d279a945a903505ef85403ae8d23b75f2c3",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/042_42nd_Amendment_Act_1976.pdf",
+      "filename": "042_42nd_Amendment_Act_1976.pdf",
       "kind": "amendment_act",
       "amendment_number": 42,
       "sha256": "9148fe881a4565beac0a545f710bf351e44ea551d1893b39875af8acb66ffc9f",
       "page_count": 27,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/043_43rd_Amendment_Act_1977.pdf",
+      "filename": "043_43rd_Amendment_Act_1977.pdf",
       "kind": "amendment_act",
       "amendment_number": 43,
       "sha256": "6827cab7c33b35f1f9671543295ab95862b6ad526931000ffcb3685a9134cc7b",
       "page_count": 4,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/044_44th_Amendment_Act_1978.pdf",
+      "filename": "044_44th_Amendment_Act_1978.pdf",
       "kind": "amendment_act",
       "amendment_number": 44,
       "sha256": "428d3b207e4b62ab1568de542b45efe72e3ba75c69ebc60807e1567fabe2098d",
       "page_count": 18,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/045_45th_Amendment_Act_1980.pdf",
+      "filename": "045_45th_Amendment_Act_1980.pdf",
       "kind": "amendment_act",
       "amendment_number": 45,
       "sha256": "ac675da542b7e4a8b2405a013a01548c99fe4ad42ab697ab17e4691dfb33471d",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/046_46th_Amendment_Act_1982.pdf",
+      "filename": "046_46th_Amendment_Act_1982.pdf",
       "kind": "amendment_act",
       "amendment_number": 46,
       "sha256": "668fd4dc6d7f2448dd9ee8a43381e67639c1c9ea195c9f51a76c866c7eae8baf",
       "page_count": 8,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/047_47th_Amendment_Act_1984.pdf",
+      "filename": "047_47th_Amendment_Act_1984.pdf",
       "kind": "amendment_act",
       "amendment_number": 47,
       "sha256": "6439fcca69e8e3b5eadc2dd09239f35ff5bc68367a241d8f6276610af2f8e080",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/048_48th_Amendment_Act_1984.pdf",
+      "filename": "048_48th_Amendment_Act_1984.pdf",
       "kind": "amendment_act",
       "amendment_number": 48,
       "sha256": "8a338ff931394656b85e2d2446b1d4e006c307bfb56bafe0be0e5b1777672746",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/049_49th_Amendment_Act_1984.pdf",
+      "filename": "049_49th_Amendment_Act_1984.pdf",
       "kind": "amendment_act",
       "amendment_number": 49,
       "sha256": "fc44222975055b22d9f86108099122e951c358f064deb62df6047d552f5bca15",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/050_50th_Amendment_Act_1984.pdf",
+      "filename": "050_50th_Amendment_Act_1984.pdf",
       "kind": "amendment_act",
       "amendment_number": 50,
       "sha256": "918d923573ad4632538d4dca2ffda93a8e58a25b69cbe62cafc742a2ea72424d",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/051_51st_Amendment_Act_1984.pdf",
+      "filename": "051_51st_Amendment_Act_1984.pdf",
       "kind": "amendment_act",
       "amendment_number": 51,
       "sha256": "e83236b4a78a27d9fe8f913dbbd6a68e152745e6672e0810629fc6260678ad5f",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/052_52nd_Amendment_Act_1985.pdf",
+      "filename": "052_52nd_Amendment_Act_1985.pdf",
       "kind": "amendment_act",
       "amendment_number": 52,
       "sha256": "261c88937cfcf9f2bbc0b5af74e8560bbd5924c41d6103d124db8c9205bb7d66",
       "page_count": 7,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/053_53rd_Amendment_Act_1986.pdf",
+      "filename": "053_53rd_Amendment_Act_1986.pdf",
       "kind": "amendment_act",
       "amendment_number": 53,
       "sha256": "bb6633395beeac47cb257dcf684a026ff9692c78ec25459c5d6b6614f51f41aa",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/054_54th_Amendment_Act_1986.pdf",
+      "filename": "054_54th_Amendment_Act_1986.pdf",
       "kind": "amendment_act",
       "amendment_number": 54,
       "sha256": "2957f2f18ae6c2a3fc52ebbe867c35d36c8e92003dc261393baa90fcf0202857",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/055_55th_Amendment_Act_1986.pdf",
+      "filename": "055_55th_Amendment_Act_1986.pdf",
       "kind": "amendment_act",
       "amendment_number": 55,
       "sha256": "ec765ad30d721da992fb943350756b5b08118e2d2ae53ca2a59bcca2f087b134",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/056_56th_Amendment_Act_1987.pdf",
+      "filename": "056_56th_Amendment_Act_1987.pdf",
       "kind": "amendment_act",
       "amendment_number": 56,
       "sha256": "68544dd6c03bbc6fd5fca3f67eeef8ccea8ae316e7283e2864f4faad14d22d8d",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/057_57th_Amendment_Act_1987.pdf",
+      "filename": "057_57th_Amendment_Act_1987.pdf",
       "kind": "amendment_act",
       "amendment_number": 57,
       "sha256": "c6ab8632627ef4ed6c51cbff38f64b256c712cbb5100b6d7c28c08dd9809149e",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/058_58th_Amendment_Act_1987.pdf",
+      "filename": "058_58th_Amendment_Act_1987.pdf",
       "kind": "amendment_act",
       "amendment_number": 58,
       "sha256": "8a7b94a524acfd63f32458e3cea6fbf3682403c2c0ffff6c91e28b6f365fc2de",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/059_59th_Amendment_Act_1988.pdf",
+      "filename": "059_59th_Amendment_Act_1988.pdf",
       "kind": "amendment_act",
       "amendment_number": 59,
       "sha256": "7fd419bfe852fd923370afaebda2893d9d665329988877c8ba4672926b330683",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/060_60th_Amendment_Act_1988.pdf",
+      "filename": "060_60th_Amendment_Act_1988.pdf",
       "kind": "amendment_act",
       "amendment_number": 60,
       "sha256": "b4aa8104af5360242bf6ffcd779c0adf8069474cfda05ba4ffa8b4fa62d11cfa",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/061_61st_Amendment_Act_1988.pdf",
+      "filename": "061_61st_Amendment_Act_1988.pdf",
       "kind": "amendment_act",
       "amendment_number": 61,
       "sha256": "bf3c9930f323fc1a573ff584fa3a0a781ee7f82c03e4ba22a758baa7dbecfb04",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/062_62nd_Amendment_Act_1989.pdf",
+      "filename": "062_62nd_Amendment_Act_1989.pdf",
       "kind": "amendment_act",
       "amendment_number": 62,
       "sha256": "fcb4bf9352868a69ca68d0a9e7c4067032c2021ec0e8c327628b5e5f2b9787ca",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/063_63rd_Amendment_Act_1989.pdf",
+      "filename": "063_63rd_Amendment_Act_1989.pdf",
       "kind": "amendment_act",
       "amendment_number": 63,
       "sha256": "130ec2e27466a565acd6e251542722380725a8ecd5e6952b06001b24de6d5688",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/064_64th_Amendment_Act_1990.pdf",
+      "filename": "064_64th_Amendment_Act_1990.pdf",
       "kind": "amendment_act",
       "amendment_number": 64,
       "sha256": "6b4c9f88c2c0a3892b405b09c6341229cb25f309d3e80bd4a852cc19e8f3ee4b",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/065_65th_Amendment_Act_1990.pdf",
+      "filename": "065_65th_Amendment_Act_1990.pdf",
       "kind": "amendment_act",
       "amendment_number": 65,
       "sha256": "a5d08ec7448719dfd0711a9346a66943c32bd68a927ed03ec4f1db86fb7ccc54",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/066_66th_Amendment_Act_1990_SCAN.pdf",
+      "filename": "066_66th_Amendment_Act_1990_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 66,
       "sha256": "8c792f2de965c9d846624b185647b52e5aad3daf216577c1344933909228ae4d",
       "page_count": 4,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/067_67th_Amendment_Act_1990.pdf",
+      "filename": "067_67th_Amendment_Act_1990.pdf",
       "kind": "amendment_act",
       "amendment_number": 67,
       "sha256": "d56b368d92ef7f9546c4ec30494351c2b999770ed38c2fcfb4f1cb315f0cda92",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/068_68th_Amendment_Act_1991.pdf",
+      "filename": "068_68th_Amendment_Act_1991.pdf",
       "kind": "amendment_act",
       "amendment_number": 68,
       "sha256": "67a5e7d8dcbb733e1757eede35b4bd26b2953b64b28f3add3735044f05d20036",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/069_69th_Amendment_Act_1991_SCAN.pdf",
+      "filename": "069_69th_Amendment_Act_1991_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 69,
       "sha256": "57355bd11bcf776bbfcb7a8c4eaa70e56bb2763929f0780a322bb6a58809df5f",
       "page_count": 3,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/070_70th_Amendment_Act_1992.pdf",
+      "filename": "070_70th_Amendment_Act_1992.pdf",
       "kind": "amendment_act",
       "amendment_number": 70,
       "sha256": "e622bf705a5a4a974d0c706ace413ce37d357c8ec2ef700defd24e3c04e19715",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/071_71st_Amendment_Act_1992.pdf",
+      "filename": "071_71st_Amendment_Act_1992.pdf",
       "kind": "amendment_act",
       "amendment_number": 71,
       "sha256": "f0c5f900fccd78243a3b5d5c2e206734414cda5df08f0ef29f12931d048a5f2a",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/072_72nd_Amendment_Act_1992_SCAN.pdf",
+      "filename": "072_72nd_Amendment_Act_1992_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 72,
       "sha256": "48f5f504cac6a9c5da8221c58ca33807b6eff3780f8fd108eaf9eb0f0a720aba",
       "page_count": 2,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/073_73rd_Amendment_Act_1992.pdf",
+      "filename": "073_73rd_Amendment_Act_1992.pdf",
       "kind": "amendment_act",
       "amendment_number": 73,
       "sha256": "92aee61f11e8ba4ea99f5fbca4170a0be9ddc1af59e487731051f5728c352914",
       "page_count": 11,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/074_74th_Amendment_Act_1992.pdf",
+      "filename": "074_74th_Amendment_Act_1992.pdf",
       "kind": "amendment_act",
       "amendment_number": 74,
       "sha256": "049e28f7cff79720c5a298e9facc5fdc7eaecdb78a707baad0504b214a788fd3",
       "page_count": 13,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/075_75th_Amendment_Act_1993_SCAN.pdf",
+      "filename": "075_75th_Amendment_Act_1993_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 75,
       "sha256": "69b64479d61a6512ef32cc075e7d418f107930a38ba4124fce76a205740d1d6a",
       "page_count": 2,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/076_76th_Amendment_Act_1994.pdf",
+      "filename": "076_76th_Amendment_Act_1994.pdf",
       "kind": "amendment_act",
       "amendment_number": 76,
       "sha256": "cf7846291f6cdad2e9f8aeec0c3771c9a381a309e881c85818706b590b1934a3",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/077_77th_Amendment_Act_1995.pdf",
+      "filename": "077_77th_Amendment_Act_1995.pdf",
       "kind": "amendment_act",
       "amendment_number": 77,
       "sha256": "b44400f310e2b39044bebbedc01b2a51cf9a2b12c3e5880d7b3965fd9d5d404f",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/078_78th_Amendment_Act_1995.pdf",
+      "filename": "078_78th_Amendment_Act_1995.pdf",
       "kind": "amendment_act",
       "amendment_number": 78,
       "sha256": "54ba091577faef973f9946c5ce64baad61f69d9cab772c67d754ed83e03395ad",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/079_79th_Amendment_Act_1999.pdf",
+      "filename": "079_79th_Amendment_Act_1999.pdf",
       "kind": "amendment_act",
       "amendment_number": 79,
       "sha256": "4fc3b50c96560453c67f755c3d285f54ff4ddfa35e02668ab8e13f7f82e1add2",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/080_80th_Amendment_Act_1999.pdf",
+      "filename": "080_80th_Amendment_Act_1999.pdf",
       "kind": "amendment_act",
       "amendment_number": 80,
       "sha256": "a877f10e4325a0d501a1e168b1bd2fd1cca0d4296613efd7e271987f9f44074e",
       "page_count": 4,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/081_81st_Amendment_Act_2000.pdf",
+      "filename": "081_81st_Amendment_Act_2000.pdf",
       "kind": "amendment_act",
       "amendment_number": 81,
       "sha256": "a11b75f8d610a528563f211064290401b7552511d089ef3884b0d13c4cfa5ebd",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/082_82nd_Amendment_Act_2000.pdf",
+      "filename": "082_82nd_Amendment_Act_2000.pdf",
       "kind": "amendment_act",
       "amendment_number": 82,
       "sha256": "1c681452e347c85005e47226a7c532c4924dce0873b0789810ff2f385325292d",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/083_83rd_Amendment_Act_2000.pdf",
+      "filename": "083_83rd_Amendment_Act_2000.pdf",
       "kind": "amendment_act",
       "amendment_number": 83,
       "sha256": "a62b5a203dbbdd3185cfd06c04090e9a60981a9172cc12438700be9f6fa1aa48",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/084_84th_Amendment_Act_2002.pdf",
+      "filename": "084_84th_Amendment_Act_2002.pdf",
       "kind": "amendment_act",
       "amendment_number": 84,
       "sha256": "85c9aee94d0d5a03248ce0286dd6a9bf2dd2454b402cc8f97921a002c46e9482",
       "page_count": 4,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/085_85th_Amendment_Act_2001.pdf",
+      "filename": "085_85th_Amendment_Act_2001.pdf",
       "kind": "amendment_act",
       "amendment_number": 85,
       "sha256": "057eb802bee15cd1d576729b70966f8972240eba580b82d43d1224c4d1ebb6ff",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/086_86th_Amendment_Act_2002.pdf",
+      "filename": "086_86th_Amendment_Act_2002.pdf",
       "kind": "amendment_act",
       "amendment_number": 86,
       "sha256": "588aa67f5dc92dba88553ab0348aad7f9eed36b71305997cd21fe5837525f854",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/087_87th_Amendment_Act_2003.pdf",
+      "filename": "087_87th_Amendment_Act_2003.pdf",
       "kind": "amendment_act",
       "amendment_number": 87,
       "sha256": "fbac66ef1502a5e5e4ce66cf063972816f5e3685211f1223b739ec0bea84591a",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/088_88th_Amendment_Act_2003.pdf",
+      "filename": "088_88th_Amendment_Act_2003.pdf",
       "kind": "amendment_act",
       "amendment_number": 88,
       "sha256": "9e8cc82b0339844e93fdf03d86f397cd70156614f4c51edc663cd2c5dd7262e2",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/089_89th_Amendment_Act_2003.pdf",
+      "filename": "089_89th_Amendment_Act_2003.pdf",
       "kind": "amendment_act",
       "amendment_number": 89,
       "sha256": "f7a390daa4dbaf331af79cdbfd81461afbb4e945816107410dbfab4490a0533a",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/090_90th_Amendment_Act_2003.pdf",
+      "filename": "090_90th_Amendment_Act_2003.pdf",
       "kind": "amendment_act",
       "amendment_number": 90,
       "sha256": "6e3b88232747dcc708b2450d81d0e62e3ac9447ec73a3148897ee271a23275f5",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/091_91st_Amendment_Act_2003.pdf",
+      "filename": "091_91st_Amendment_Act_2003.pdf",
       "kind": "amendment_act",
       "amendment_number": 91,
       "sha256": "b00bc7707a091fcce9453e633acb6f7e3df2b7670e6103ba9193e27ae334ddcd",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/092_92nd_Amendment_Act_2003.pdf",
+      "filename": "092_92nd_Amendment_Act_2003.pdf",
       "kind": "amendment_act",
       "amendment_number": 92,
       "sha256": "396217fbeaf7c36220b9f856d6ae3c49bb17be7facda93f8a6cea98a47089c5c",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/093_93rd_Amendment_Act_2005.pdf",
+      "filename": "093_93rd_Amendment_Act_2005.pdf",
       "kind": "amendment_act",
       "amendment_number": 93,
       "sha256": "8594c731ca153b0160cc5469a452748f53e0fbcebb88fb3996d32e9e5c57c199",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/094_94th_Amendment_Act_2006_SCAN.pdf",
+      "filename": "094_94th_Amendment_Act_2006_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 94,
       "sha256": "9fd8cde6b5dae43b9f0a580b0dfb5956a7223f157d007cc7177ea6ad1bbc53c2",
       "page_count": 1,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/095_95th_Amendment_Act_2009.pdf",
+      "filename": "095_95th_Amendment_Act_2009.pdf",
       "kind": "amendment_act",
       "amendment_number": 95,
       "sha256": "944ca4cc31c5a63f9f2e8b1c28036baa38c9286026cc607fbd52af59dfc05735",
       "page_count": 1,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/096_96th_Amendment_Act_2011_SCAN.pdf",
+      "filename": "096_96th_Amendment_Act_2011_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 96,
       "sha256": "eff27952dea1731a441f13ffa2843d24457d40c7d8e6ceb1441502234b52656c",
       "page_count": 1,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/097_97th_Amendment_Act_2011_SCAN.pdf",
+      "filename": "097_97th_Amendment_Act_2011_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 97,
       "sha256": "2a5e1424b372e9a6b205f3a96a2002ccd75b9179dd5843611f31a595dcdf9d5f",
       "page_count": 5,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/098_98th_Amendment_Act_2012_SCAN.pdf",
+      "filename": "098_98th_Amendment_Act_2012_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 98,
       "sha256": "83721135330e5420206d0a40d50e3df620354575316d7a8c5c9ec724e71967e8",
       "page_count": 2,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/099_99th_Amendment_Act_2014.pdf",
+      "filename": "099_99th_Amendment_Act_2014.pdf",
       "kind": "amendment_act",
       "amendment_number": 99,
       "sha256": "5f58f429044f61659521710a610fbe888a276ec98a9c1aa465a9726871b0b02b",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/100_100th_Amendment_Act_2015.pdf",
+      "filename": "100_100th_Amendment_Act_2015.pdf",
       "kind": "amendment_act",
       "amendment_number": 100,
       "sha256": "3ad91d6d208e999ad835f54444d96544c4bfa812853f9f44a2ddacf238bbddf1",
       "page_count": 14,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/101_101st_Amendment_Act_2016_SCAN.pdf",
+      "filename": "101_101st_Amendment_Act_2016_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 101,
       "sha256": "5b1aecec73a06766bf432269bf57cc2bfd668860eb552e8246ab9531b4d5d9ad",
       "page_count": 6,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/102_102nd_Amendment_Act_2018_SCAN.pdf",
+      "filename": "102_102nd_Amendment_Act_2018_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 102,
       "sha256": "39d019d9930f8cf4ab9c2db2d1ec06a97c23765ac8171e374bae3184d834e758",
       "page_count": 3,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/103_103rd_Amendment_Act_2019_SCAN.pdf",
+      "filename": "103_103rd_Amendment_Act_2019_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 103,
       "sha256": "29ec711c3e08bce81899ef58501fa261fb634676948d520aa86bfa18272f4821",
       "page_count": 2,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/104_104th_Amendment_Act_2019.pdf",
+      "filename": "104_104th_Amendment_Act_2019.pdf",
       "kind": "amendment_act",
       "amendment_number": 104,
       "sha256": "46125bd43eef53d4a5680ad8cc15f2498ca7baeb39749e770132e5da8febbb35",
       "page_count": 2,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/amendment_acts/105_105th_Amendment_Act_2021_SCAN.pdf",
+      "filename": "105_105th_Amendment_Act_2021_SCAN.pdf",
       "kind": "amendment_act",
       "amendment_number": 105,
       "sha256": "67766f9b560c2418b5d467e9fc10c64643fa0367808a11d7dbe4fa4b4c8c63ef",
       "page_count": 2,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": ""
+      "notes": "Scanned image; OCR required"
     },
     {
       "file_path": "content-sources/amendment_acts/106_106th_Amendment_Act_2023.pdf",
+      "filename": "106_106th_Amendment_Act_2023.pdf",
       "kind": "amendment_act",
       "amendment_number": 106,
       "sha256": "6cfed39cd43e1bf000ff19a9a614d6852df79c067c26ee8d679a765bfc148e35",
       "page_count": 3,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": ""
-    },
-    {
-      "file_path": "content-sources/constitution/Constitution_of_India_English.pdf",
-      "kind": "constitution",
-      "amendment_number": null,
-      "sha256": "c2e0f5f7a670d362038190d6792a688a37c25b3918b62f924cb7fe7444ae2608",
-      "page_count": 402,
-      "extraction_type": "text",
-      "verification_status": "unverified",
-      "notes": "Constitution of India (English pocket edition, updated up to 106th Amendment Act, 2023)"
-    },
-    {
-      "file_path": "content-sources/preamble/Preamble_Hindi_text_with_42nd_footnotes.pdf",
-      "kind": "preamble",
-      "amendment_number": null,
-      "sha256": "e3559e3a24af655acb11c395866fa6b611c56095015f41fcd9dec833defb7c41",
-      "page_count": 1,
-      "extraction_type": "text",
-      "verification_status": "unverified",
-      "notes": "Preamble source"
-    },
-    {
-      "file_path": "content-sources/preamble/Preamble_scan_1.pdf",
-      "kind": "preamble",
-      "amendment_number": null,
-      "sha256": "70bfd88ac61ad467f2b82d97be782e15c1e6d8567cdd5bafafc6aeb2cad69a66",
-      "page_count": 1,
-      "extraction_type": "ocr",
-      "verification_status": "unverified",
-      "notes": "Preamble source"
-    },
-    {
-      "file_path": "content-sources/preamble/Preamble_scan_2.pdf",
-      "kind": "preamble",
-      "amendment_number": null,
-      "sha256": "798393ec48a76de3953d13ccf9e4ca9be236487735b6537a03fb705aa470c8b7",
-      "page_count": 1,
-      "extraction_type": "ocr",
-      "verification_status": "unverified",
-      "notes": "Preamble source"
+      "notes": "Clean digital text layer"
     },
     {
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_Art164_proviso.pdf",
+      "filename": "SOR_Art164_proviso.pdf",
       "kind": "statement_of_objects_and_reasons",
       "amendment_number": null,
       "sha256": "aeae5aa3e8a5ed716f0f86191c01a48a55dec9c809d3a8ee3b4ab42c9c39f738",
       "page_count": 1,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": "Statement of Objects and Reasons"
+      "notes": "Historical parliamentary statement; unverified"
     },
     {
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_Art334_reservation.pdf",
+      "filename": "SOR_Art334_reservation.pdf",
       "kind": "statement_of_objects_and_reasons",
       "amendment_number": null,
       "sha256": "5c534e8bd7db3ddca45197eca3ddb509ca6e89a2d6b934d81a68f75d8c94793a",
       "page_count": 1,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": "Statement of Objects and Reasons"
-    },
-    {
-      "file_path": "content-sources/statements_of_objects_and_reasons/SOR_Odia_Eighth_Schedule.pdf",
-      "kind": "statement_of_objects_and_reasons",
-      "amendment_number": null,
-      "sha256": "af4d33ad777a857efb3a002344dfd44af9fcaced21906b5317f4de0dd5f992ad",
-      "page_count": 1,
-      "extraction_type": "ocr",
-      "verification_status": "unverified",
-      "notes": "Statement of Objects and Reasons"
+      "notes": "Historical parliamentary statement; unverified"
     },
     {
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_cooperative_societies.pdf",
+      "filename": "SOR_cooperative_societies.pdf",
       "kind": "statement_of_objects_and_reasons",
       "amendment_number": null,
       "sha256": "8c71690f3672404cb4f728d8c21375d40e7f16c4b4ed676143b315198693902a",
       "page_count": 2,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": "Statement of Objects and Reasons"
+      "notes": "Historical parliamentary statement; unverified"
     },
     {
       "file_path": "content-sources/statements_of_objects_and_reasons/SOR_entry33_List3.pdf",
+      "filename": "SOR_entry33_List3.pdf",
       "kind": "statement_of_objects_and_reasons",
       "amendment_number": null,
       "sha256": "a390e88da6d6ae09d2f013b380f7747fd44be897a4265eacce38f9b78a854276",
       "page_count": 1,
       "extraction_type": "ocr",
       "verification_status": "unverified",
-      "notes": "Statement of Objects and Reasons"
+      "notes": "Historical parliamentary statement; unverified"
+    },
+    {
+      "file_path": "content-sources/statements_of_objects_and_reasons/SOR_Odia_Eighth_Schedule.pdf",
+      "filename": "SOR_Odia_Eighth_Schedule.pdf",
+      "kind": "statement_of_objects_and_reasons",
+      "amendment_number": null,
+      "sha256": "af4d33ad777a857efb3a002344dfd44af9fcaced21906b5317f4de0dd5f992ad",
+      "page_count": 1,
+      "extraction_type": "ocr",
+      "verification_status": "unverified",
+      "notes": "Historical parliamentary statement; unverified"
     }
   ]
 }

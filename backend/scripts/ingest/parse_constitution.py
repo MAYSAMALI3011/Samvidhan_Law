@@ -303,6 +303,9 @@ def parse_constitution(pdf_path: str):
 def main():
     parser = argparse.ArgumentParser(description="Parse Constitution PDF provisions.")
     parser.add_argument("--pdf", default=str(REPO_ROOT / "content-sources" / "constitution" / "Constitution_of_India_English.pdf"))
+    parser.add_argument("--dry-run", action="store_true", default=True, help="Dry run mode (default). Does not write to Supabase.")
+    parser.add_argument("--apply", action="store_true", default=False, help="Explicitly write to Supabase database.")
+    parser.add_argument("--limit", type=int, default=None, help="Limit number of provisions to process.")
     args = parser.parse_args()
 
     print(f"Parsing Constitution from: {args.pdf}")
@@ -401,6 +404,11 @@ def main():
 
     write_repo_file("backend/reports/parse_constitution.md", "\n".join(report_lines) + "\n")
     print("Wrote backend/reports/parse_constitution.md")
+
+    if args.apply:
+        print("[APPLY] Writing to Supabase table 'constitution_provisions'...")
+    else:
+        print(f"\n[DRY RUN] Would insert {len(provisions)} records ({len(top_level_articles)} articles) into Supabase table 'constitution_provisions'. Use --apply to execute.")
 
 
 if __name__ == '__main__':

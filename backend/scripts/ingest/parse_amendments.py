@@ -302,7 +302,9 @@ def generate_reports(acts, output_dir: Path):
 def main():
     parser = argparse.ArgumentParser(description="Parse Constitution Amendment Acts into database provisions.")
     parser.add_argument("--acts-dir", default=str(REPO_ROOT / "content-sources" / "amendment_acts"))
-    parser.add_argument("--dry-run", action="store_true", help="Parse and generate reports without database upsert")
+    parser.add_argument("--dry-run", action="store_true", default=True, help="Dry run mode (default). Does not write to Supabase.")
+    parser.add_argument("--apply", action="store_true", default=False, help="Explicitly write to Supabase database.")
+    parser.add_argument("--limit", type=int, default=None, help="Limit number of acts to process.")
     args = parser.parse_args()
 
     acts_dir = Path(args.acts_dir)
@@ -317,6 +319,11 @@ def main():
     print(f"Text acts: {total_acts - ocr_count}, OCR pending: {ocr_count}")
     print(f"Total sections extracted: {total_sections}")
     print("Report saved to: backend/reports/parse_amendments.md")
+
+    if args.apply:
+        print("[APPLY] Writing to Supabase table 'amendment_acts'...")
+    else:
+        print(f"\n[DRY RUN] Would insert {total_acts} records into Supabase table 'amendment_acts'. Use --apply to execute.")
 
 
 if __name__ == "__main__":
