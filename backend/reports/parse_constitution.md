@@ -1,8 +1,9 @@
 # Constitution of India: Ingestion & Verification Report (Phase B2)
 
-**Generated:** 2026-11-11 16:46:14 UTC  
+**Generated:** 2026-11-12 05:44:01 UTC  
 **Source Document:** `content-sources/constitution/Constitution_of_India_English.pdf`  
-**Edition:** Pocket Edition incorporating all amendments up to the 106th Amendment Act, 2023.
+**Verification Status:** unverified (source cataloged, pending gazette verification)  
+**Edition:** English pocket edition incorporating amendments up to the 106th Amendment Act, 2023.  
 
 ---
 
@@ -10,119 +11,66 @@
 
 | Metric | Value |
 |---|---|
-| **Total Articles Parsed** | **482** |
-| **Total Clauses & Subclauses** | **858** |
-| **Total Database Provisions** | **1340** |
-| **Articles in Official Table of Contents** | **476** |
-| **TOC Coverage Rate** | **100.0%** |
-| **Articles with Footnotes Extracted** | **288** |
+| **Total Articles Parsed** | **506** |
+| **Total Clauses & Subclauses** | **899** |
+| **Total Database Provisions** | **1406** |
+| **Articles in Table of Contents** | **506** |
+| **TOC Match Rate** | **100.0%** |
+| **Articles with Footnotes Extracted** | **290** |
 | **Warnings / Anomalies** | **0** |
 
 ---
 
-## 2. Articles Breakdown by Part
+## 2. Articles Breakdown by Part (Authoritative Table of Contents Assignment)
 
 | Part | Title | Article Count |
 |---|---|---|
-| Part I: THE UNION AND ITS TERRITORY | 5 |
-| Part II: CITIZENSHIP | 7 |
-| Part III: FUNDAMENTAL RIGHTS General | 30 |
-| Part IV: DIRECTIVE PRINCIPLES OF STATE POLICY | 20 |
-| Part IVA: FUNDAMENTAL DUTIES | 1 |
-| Part IX: THE PANCHAYATS | 16 |
-| Part IXA: THE MUNICIPALITIES | 11 |
-| Part V: THE UNION | 107 |
-| Part VI: THE STATES | 90 |
-| Part VIII: THE UNION TERRITORIES | 6 |
-| Part X: THE SCHEDULED AND TRIBAL AREAS | 2 |
-| Part XI: RELATIONS BETWEEN THE UNION AND THE STATES | 22 |
-| Part XII: FINANCE, PROPERTY, CONTRACTS AND SUITS | 42 |
-| Part XIII: TRADE, COMMERCE AND INTERCOURSE WITHIN THE TERRITORY OF INDIA | 7 |
-| Part XIV: SERVICES UNDER THE UNION AND THE STATES | 17 |
-| Part XIVA: TRIBUNALS | 2 |
-| Part XIX: MISCELLANEOUS | 10 |
-| Part XV: ELECTIONS | 7 |
-| Part XVI: SPECIAL PROVISIONS RELATING TO CERTAIN CLASSES | 18 |
-| Part XVII: OFFICIAL LANGUAGE | 11 |
-| Part XVIII: EMERGENCY PROVISIONS | 10 |
-| Part XX: AMENDMENT OF THE CONSTITUTION | 1 |
-| Part XXI: TEMPORARY, TRANSITIONAL AND SPECIAL PROVISIONS | 35 |
-| Part XXII: SHORT TITLE, COMMENCEMENT, | 4 |
-| Preamble | 1 |
+| Part I | THE UNION AND ITS TERRITORY | 5 |
+| Part II | CITIZENSHIP | 7 |
+| Part III | FUNDAMENTAL RIGHTS | 30 |
+| Part IV | DIRECTIVE PRINCIPLES OF STATE POLICY | 20 |
+| Part IVA | FUNDAMENTAL DUTIES | 1 |
+| Part IX | THE PANCHAYATS | 16 |
+| Part IXA | THE MUNICIPALITIES | 18 |
+| Part IXB | THE CO-OPERATIVE SOCIETIES | 13 |
+| Part V | THE UNION | 107 |
+| Part VI | THE STATES | 90 |
+| Part VII | THE STATES IN PART B OF THE FIRST SCHEDULE (Omitted) | 1 |
+| Part VIII | THE UNION TERRITORIES | 8 |
+| Part X | THE SCHEDULED AND TRIBAL AREAS | 2 |
+| Part XI | RELATIONS BETWEEN THE UNION AND THE STATES | 22 |
+| Part XII | FINANCE, PROPERTY, CONTRACTS AND SUITS | 42 |
+| Part XIII | TRADE, COMMERCE AND INTERCOURSE WITHIN THE TERRITORY OF INDIA | 7 |
+| Part XIV | SERVICES UNDER THE UNION AND THE STATES | 17 |
+| Part XIVA | TRIBUNALS | 2 |
+| Part XIX | MISCELLANEOUS | 10 |
+| Part XV | ELECTIONS | 7 |
+| Part XVI | SPECIAL PROVISIONS RELATING TO CERTAIN CLASSES | 19 |
+| Part XVII | OFFICIAL LANGUAGE | 11 |
+| Part XVIII | EMERGENCY PROVISIONS | 10 |
+| Part XX | AMENDMENT OF THE CONSTITUTION | 1 |
+| Part XXI | TEMPORARY, TRANSITIONAL AND SPECIAL PROVISIONS | 36 |
+| Part XXII | SHORT TITLE, COMMENCEMENT, AUTHORITATIVE TEXT IN HINDI AND REPEALS | 4 |
 
 ---
 
-## 3. Self-Check & Warnings
+## 3. Discrepancy Analysis: The 6 Articles from Initial Report
 
-No warnings. All 476 articles from the official Table of Contents were matched and validated with zero missing articles and zero empty content errors.
+In the initial Phase B2 ingestion report, 482 articles were parsed and 476 matched in the initial TOC parse (diff: 6 articles). Analysis of the PDF layout revealed why those 6 articles were initially flagged:
+
+1. **Preamble**: Formatted before Part I in the Constitution; ingested as a foundational provision but has no article number.
+2. **Article 238 (Part VII)**: Omitted by the 7th Amendment Act, 1956. Has no body text in the PDF, but is retained in the Table of Contents under Part VII.
+3. **Article 243I**: Typeset in the Table of Contents with a hyphen (`243-I`) to avoid visual confusion with Roman numeral I; body text formats it as `243I`.
+4. **Article 243O**: Typeset in the Table of Contents with a hyphen (`243-O`) to avoid visual confusion with digit 0; body text formats it as `243O`.
+5. **Article 330A**: Added by the 106th Amendment Act, 2023. Typeset on a continuation line immediately following Article 330 in the Table of Contents.
+6. **Article 334A**: Added by the 106th Amendment Act, 2023. Typeset on a continuation line immediately following Article 334 in the Table of Contents.
+
+*(Note: Article 371B had whitespace preceding the dot (`371B .`) in the Table of Contents, and Part IXB (13 articles, 243ZH-243ZT) and Part IXA (18 articles, 243P-243ZG) were resolved through two-letter suffix matching and hyphen normalization).* 
+
+With the updated parser, **all 506 articles match the Table of Contents with 100% precision**.
 
 ---
 
-## 4. Spot-Check Sample Articles (5 Core Provisions)
+## 4. Verification & Content Integrity
 
-### Article 1: Name and territory of the Union
-- **Part**: I — THE UNION AND ITS TERRITORY
-- **Source Page**: 33
-```text
-—(1) India, that is Bharat, 
-shall be a Union of States.
-1[(2) The States and the territories thereof shall be as specified in 
-the First Schedule.]
-(3) The territory of India shall comprise—
-(a) the territories of the States;
-2[(b) the Union territories specified in the First Schedule; 
-and]
-(c) such other territories as may be acquired.
-```
-
-### Article 14: Equality before law
-- **Part**: III — FUNDAMENTAL RIGHTS General
-- **Source Page**: 37
-```text
-—The State shall not deny to any person 
-equality before the law or the equal protection of the laws within the territory of 
-India.
-```
-
-### Article 21: Protection of life and personal liberty
-- **Part**: III — FUNDAMENTAL RIGHTS General
-- **Source Page**: 42
-```text
-—No person shall be 
-deprived of his life or personal liberty except according to procedure 
-established by law.
-```
-
-### Article 51A: Fundamental duties
-- **Part**: IVA — FUNDAMENTAL DUTIES
-- **Source Page**: 56
-```text
-—It shall be the duty of every citizen of 
-India—
-(a) to abide by the Constitution and respect its ideals and 
-institutions, the National Flag and the National Anthem;
-(b) to cherish and follow the noble ideals which inspired our 
-national struggle for freedom;
-(c) to uphold and protect the sovereignty, unity and integrity of 
-India;
-(d) to defend the country and render national service when called 
-upon to do so;
-(e) to promote harmony and the spirit of common brotherhood 
-amongst all the people of India transcending religious, linguistic and 
-regional or sectional diversities; to renounce pr
-```
-
-### Article 368: Power of Parliament to amend the Constitution and procedure therefor
-- **Part**: XX — AMENDMENT OF THE CONSTITUTION
-- **Source Page**: 259
-```text
-— 2[(1) Notwithstanding anything in this Constitution, 
-Parliament may in exercise of its constituent power amend by way of addition, 
-variation or repeal any provision of this Constitution in accordance with the 
-procedure laid down in this article.]
-3[(2)] An amendment of this Constitution may be initiated only by the 
-introduction of a Bill for the purpose in either House of Parliament, and when 
-the Bill is passed in each House by a majority of the total membership of that 
-House and by a majority of not less than two-thirds of the members of that 
-House present and voting, 4[it shall be p
-```
+All provisions are marked as `unverified` pending independent confirmation against `legislative.gov.in`. No text or history has been generated from memory.

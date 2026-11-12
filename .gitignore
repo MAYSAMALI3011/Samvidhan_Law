@@ -39,3 +39,8 @@ venv/
 .pytest_cache/
 .ruff_cache/
 UNVERIFIED_full_constitution/
+content-sources/575648bd8ecb7654db902b93115d35e4.pdf
+.scratch/
+backend/scripts/writer.py
+inspect_*.py
+test_wf.py

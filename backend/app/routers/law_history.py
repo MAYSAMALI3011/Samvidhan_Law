@@ -28,21 +28,20 @@ _source_doc_store: Dict[str, Dict[str, Any]] = {}
 
 
 def _get_amendments_for_article(article_ref: str) -> List[AmendmentSummary]:
-    """Retrieve all Amendment Acts and sections touching this article."""
+    """Retrieve verified Amendment Acts and sections touching this article from database only."""
     results: List[AmendmentSummary] = []
     clean_ref = article_ref.strip().upper()
 
     supabase = get_supabase_admin_client()
     if supabase:
         try:
-            # Query amendment_sections containing clean_ref in article_refs array
             res = (
                 supabase.table("amendment_sections")
                 .select("amendment_number, section_number, action_type, amendment_acts(year, title)")
                 .contains("article_refs", [clean_ref])
                 .execute()
             )
-            if res.data:
+            if res and res.data:
                 for row in res.data:
                     act_info = row.get("amendment_acts") or {}
                     results.append(
@@ -58,36 +57,6 @@ def _get_amendments_for_article(article_ref: str) -> List[AmendmentSummary]:
                 return sorted(results, key=lambda x: x.amendmentNumber)
         except Exception:
             pass
-
-    # Fallback to backend/reports/parsed_amendments.json
-    candidates = [
-        REPO_ROOT / "reports" / "parsed_amendments.json",
-        REPO_ROOT / "backend" / "reports" / "parsed_amendments.json",
-        Path(__file__).resolve().parent.parent.parent / "reports" / "parsed_amendments.json",
-        Path(__file__).resolve().parent.parent.parent.parent / "backend" / "reports" / "parsed_amendments.json",
-    ]
-    for json_path in candidates:
-        if json_path.exists():
-            try:
-                with open(json_path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                for act in data.get("acts", []):
-                    for sec in act.get("sections", []):
-                        refs = [r.strip().upper() for r in sec.get("article_refs", [])]
-                        if clean_ref in refs:
-                            results.append(
-                                AmendmentSummary(
-                                    amendmentNumber=act["number"],
-                                    year=act.get("year"),
-                                    title=act.get("title", f"Amendment Act {act['number']}"),
-                                    sectionNumber=sec["section_number"],
-                                    actionType=sec["action_type"],
-                                    hasVerifiedHistory=False,
-                                )
-                            )
-                return sorted(results, key=lambda x: x.amendmentNumber)
-            except Exception:
-                pass
 
     return results
 

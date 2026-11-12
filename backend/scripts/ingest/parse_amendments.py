@@ -34,7 +34,7 @@ def parse_single_act(pdf_path: Path, amd_num: int):
     full_text = "\n".join(t for _, t in pages_text)
     clean_len = len(full_text.strip().replace("\n", "").replace(" ", ""))
 
-    # Pure scanned PDF check (< 150 text characters)
+    is_scan_name = "_scan" in pdf_path.name.lower()
     if clean_len < 150:
         ord_word = number_to_ordinal_words(amd_num)
         return {
@@ -46,9 +46,12 @@ def parse_single_act(pdf_path: Path, amd_num: int):
             "enforcement_date": None,
             "sections": [],
             "extraction_type": "ocr",
-            "notes": "Scanned image; OCR pending",
+            "notes": "Pure image scan; OCR pending",
             "total_pages": total_pages
         }
+    
+    ext_type = "ocr" if is_scan_name else "text"
+    notes_str = "Degraded scan OCR text layer" if is_scan_name else "Clean digital text layer"
 
     # Official title extraction
     title_match = re.search(r'(THE CONSTITUTION\s*\([^\)]+\)\s*ACT,\s*\d{4})', full_text, re.IGNORECASE)
@@ -163,8 +166,8 @@ def parse_single_act(pdf_path: Path, amd_num: int):
         "assent_date": assent_date,
         "enforcement_date": None,
         "sections": sections,
-        "extraction_type": "text",
-        "notes": "",
+        "extraction_type": ext_type,
+        "notes": notes_str,
         "total_pages": total_pages
     }
 
@@ -260,7 +263,7 @@ def generate_reports(acts, output_dir: Path):
 
 ## 2. Top 10 Most-Amended Articles Across All 106 Acts
 
-| Rank | Constitution Article | Number of Times Touched | Key Subject Matter |
+| Rank | Constitution Article | Number of Times Touched | [unverified AI notes] Key Subject Matter |
 |---|---|---|---|
 """
     article_descriptions = {

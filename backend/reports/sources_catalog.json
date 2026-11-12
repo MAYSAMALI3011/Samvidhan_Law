@@ -1,25 +1,15 @@
 {
-  "generated_at": "2026-11-11T16:35:53.519400+00:00",
-  "total_documents": 119,
-  "text_count": 107,
-  "ocr_count": 12,
+  "generated_at": "2026-11-12T05:44:25.038353+00:00",
+  "total_documents": 118,
+  "text_count": 98,
+  "ocr_count": 20,
   "kinds": {
-    "constitution": 3,
+    "constitution": 2,
     "amendment_act": 108,
     "preamble": 3,
     "statement_of_objects_and_reasons": 5
   },
   "records": [
-    {
-      "file_path": "content-sources/575648bd8ecb7654db902b93115d35e4.pdf",
-      "kind": "constitution",
-      "amendment_number": null,
-      "sha256": "f1dd6521f4126323a2d50ae6079c0dada5fb4dcae96b5d15786dde9f989ceea2",
-      "page_count": 803,
-      "extraction_type": "text",
-      "verification_status": "unverified",
-      "notes": "Bilingual edition"
-    },
     {
       "file_path": "content-sources/95ef471035ee0b5e4e5b1cac3d3584c1.pdf",
       "kind": "constitution",
@@ -28,7 +18,7 @@
       "page_count": 402,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": "English edition"
+      "notes": "Constitution of India (English pocket edition, updated up to 106th Amendment Act, 2023)"
     },
     {
       "file_path": "content-sources/amendment_acts/001_1st_Amendment_Act_1951.pdf",
@@ -706,7 +696,7 @@
       "amendment_number": 66,
       "sha256": "8c792f2de965c9d846624b185647b52e5aad3daf216577c1344933909228ae4d",
       "page_count": 4,
-      "extraction_type": "text",
+      "extraction_type": "ocr",
       "verification_status": "unverified",
       "notes": ""
     },
@@ -736,7 +726,7 @@
       "amendment_number": 69,
       "sha256": "57355bd11bcf776bbfcb7a8c4eaa70e56bb2763929f0780a322bb6a58809df5f",
       "page_count": 3,
-      "extraction_type": "text",
+      "extraction_type": "ocr",
       "verification_status": "unverified",
       "notes": ""
     },
@@ -766,7 +756,7 @@
       "amendment_number": 72,
       "sha256": "48f5f504cac6a9c5da8221c58ca33807b6eff3780f8fd108eaf9eb0f0a720aba",
       "page_count": 2,
-      "extraction_type": "text",
+      "extraction_type": "ocr",
       "verification_status": "unverified",
       "notes": ""
     },
@@ -796,7 +786,7 @@
       "amendment_number": 75,
       "sha256": "69b64479d61a6512ef32cc075e7d418f107930a38ba4124fce76a205740d1d6a",
       "page_count": 2,
-      "extraction_type": "text",
+      "extraction_type": "ocr",
       "verification_status": "unverified",
       "notes": ""
     },
@@ -1118,7 +1108,7 @@
       "page_count": 402,
       "extraction_type": "text",
       "verification_status": "unverified",
-      "notes": "English edition"
+      "notes": "Constitution of India (English pocket edition, updated up to 106th Amendment Act, 2023)"
     },
     {
       "file_path": "content-sources/preamble/Preamble_Hindi_text_with_42nd_footnotes.pdf",
@@ -1156,7 +1146,7 @@
       "amendment_number": null,
       "sha256": "aeae5aa3e8a5ed716f0f86191c01a48a55dec9c809d3a8ee3b4ab42c9c39f738",
       "page_count": 1,
-      "extraction_type": "text",
+      "extraction_type": "ocr",
       "verification_status": "unverified",
       "notes": "Statement of Objects and Reasons"
     },
@@ -1166,7 +1156,7 @@
       "amendment_number": null,
       "sha256": "5c534e8bd7db3ddca45197eca3ddb509ca6e89a2d6b934d81a68f75d8c94793a",
       "page_count": 1,
-      "extraction_type": "text",
+      "extraction_type": "ocr",
       "verification_status": "unverified",
       "notes": "Statement of Objects and Reasons"
     },
@@ -1176,7 +1166,7 @@
       "amendment_number": null,
       "sha256": "af4d33ad777a857efb3a002344dfd44af9fcaced21906b5317f4de0dd5f992ad",
       "page_count": 1,
-      "extraction_type": "text",
+      "extraction_type": "ocr",
       "verification_status": "unverified",
       "notes": "Statement of Objects and Reasons"
     },
@@ -1186,7 +1176,7 @@
       "amendment_number": null,
       "sha256": "8c71690f3672404cb4f728d8c21375d40e7f16c4b4ed676143b315198693902a",
       "page_count": 2,
-      "extraction_type": "text",
+      "extraction_type": "ocr",
       "verification_status": "unverified",
       "notes": "Statement of Objects and Reasons"
     },

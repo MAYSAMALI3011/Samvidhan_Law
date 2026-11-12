@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-11T16:57:13.044651+00:00",
+  "generated_at": "2026-11-12T05:45:54.066010+00:00",
   "total_acts": 106,
-  "text_acts_count": 98,
-  "scanned_acts_count": 8,
+  "text_acts_count": 94,
+  "scanned_acts_count": 12,
   "total_sections": 1179,
   "top_10_amended_articles": {
     "356": 14,
@@ -17,6 +17,22 @@
     "334": 8
   },
   "scanned_acts": [
+    {
+      "number": 66,
+      "filename": "066_66th_Amendment_Act_1990_SCAN.pdf"
+    },
+    {
+      "number": 69,
+      "filename": "069_69th_Amendment_Act_1991_SCAN.pdf"
+    },
+    {
+      "number": 72,
+      "filename": "072_72nd_Amendment_Act_1992_SCAN.pdf"
+    },
+    {
+      "number": 75,
+      "filename": "075_75th_Amendment_Act_1993_SCAN.pdf"
+    },
     {
       "number": 94,
       "filename": "094_94th_Amendment_Act_2006_SCAN.pdf"
@@ -316,7 +332,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 6
     },
     {
@@ -347,7 +363,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -376,7 +392,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -495,7 +511,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 7
     },
     {
@@ -526,7 +542,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -591,7 +607,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -1200,7 +1216,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 26
     },
     {
@@ -1299,7 +1315,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 4
     },
     {
@@ -1408,7 +1424,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 7
     },
     {
@@ -1465,7 +1481,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 5
     },
     {
@@ -1506,7 +1522,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -1561,7 +1577,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -1616,7 +1632,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 5
     },
     {
@@ -1692,7 +1708,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -1827,7 +1843,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 4
     },
     {
@@ -1886,7 +1902,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -2295,7 +2311,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 5
     },
     {
@@ -2326,7 +2342,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -2357,7 +2373,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -2397,7 +2413,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -2426,7 +2442,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -2480,7 +2496,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -2559,7 +2575,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -2611,7 +2627,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -2711,7 +2727,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -2760,7 +2776,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -2823,7 +2839,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 4
     },
     {
@@ -2873,7 +2889,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -2928,7 +2944,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -2969,7 +2985,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -3105,7 +3121,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 4
     },
     {
@@ -3172,7 +3188,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 6
     },
     {
@@ -3221,7 +3237,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -3420,7 +3436,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -3537,7 +3553,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 5
     },
     {
@@ -3659,7 +3675,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 5
     },
     {
@@ -3710,7 +3726,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -3861,7 +3877,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 4
     },
     {
@@ -4242,7 +4258,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 6
     },
     {
@@ -4515,7 +4531,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 6
     },
     {
@@ -4594,7 +4610,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -5882,7 +5898,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 27
     },
     {
@@ -6045,7 +6061,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 4
     },
     {
@@ -6937,7 +6953,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 18
     },
     {
@@ -6976,7 +6992,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -7153,7 +7169,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 8
     },
     {
@@ -7198,7 +7214,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7229,7 +7245,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7300,7 +7316,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -7331,7 +7347,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7380,7 +7396,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7531,7 +7547,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 7
     },
     {
@@ -7587,7 +7603,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7660,7 +7676,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7700,7 +7716,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7740,7 +7756,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7796,7 +7812,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -7852,7 +7868,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7894,7 +7910,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -7951,7 +7967,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -7990,7 +8006,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -8029,7 +8045,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -8098,7 +8114,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -8129,7 +8145,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -8168,7 +8184,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -8220,8 +8236,8 @@
           "source_page": 4
         }
       ],
-      "extraction_type": "text",
-      "notes": "",
+      "extraction_type": "ocr",
+      "notes": "Degraded scan OCR text layer",
       "total_pages": 4
     },
     {
@@ -8260,7 +8276,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -8307,7 +8323,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -8337,8 +8353,8 @@
           "source_page": 1
         }
       ],
-      "extraction_type": "text",
-      "notes": "",
+      "extraction_type": "ocr",
+      "notes": "Degraded scan OCR text layer",
       "total_pages": 3
     },
     {
@@ -8405,7 +8421,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -8458,7 +8474,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -8505,8 +8521,8 @@
           "source_page": 1
         }
       ],
-      "extraction_type": "text",
-      "notes": "",
+      "extraction_type": "ocr",
+      "notes": "Degraded scan OCR text layer",
       "total_pages": 2
     },
     {
@@ -8793,7 +8809,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 11
     },
     {
@@ -9012,7 +9028,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 13
     },
     {
@@ -9040,8 +9056,8 @@
           "source_page": 1
         }
       ],
-      "extraction_type": "text",
-      "notes": "",
+      "extraction_type": "ocr",
+      "notes": "Degraded scan OCR text layer",
       "total_pages": 2
     },
     {
@@ -9175,7 +9191,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -9214,7 +9230,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -9267,7 +9283,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -9298,7 +9314,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -9349,7 +9365,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 4
     },
     {
@@ -9380,7 +9396,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -9411,7 +9427,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -9443,7 +9459,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -9556,7 +9572,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 4
     },
     {
@@ -9585,7 +9601,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -9663,7 +9679,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -9756,7 +9772,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -9801,7 +9817,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -9859,7 +9875,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -9906,7 +9922,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -9997,7 +10013,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -10042,7 +10058,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -10095,7 +10111,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -10107,7 +10123,7 @@
       "enforcement_date": null,
       "sections": [],
       "extraction_type": "ocr",
-      "notes": "Scanned image; OCR pending",
+      "notes": "Pure image scan; OCR pending",
       "total_pages": 1
     },
     {
@@ -10130,7 +10146,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 1
     },
     {
@@ -10142,7 +10158,7 @@
       "enforcement_date": null,
       "sections": [],
       "extraction_type": "ocr",
-      "notes": "Scanned image; OCR pending",
+      "notes": "Pure image scan; OCR pending",
       "total_pages": 1
     },
     {
@@ -10154,7 +10170,7 @@
       "enforcement_date": null,
       "sections": [],
       "extraction_type": "ocr",
-      "notes": "Scanned image; OCR pending",
+      "notes": "Pure image scan; OCR pending",
       "total_pages": 5
     },
     {
@@ -10166,7 +10182,7 @@
       "enforcement_date": null,
       "sections": [],
       "extraction_type": "ocr",
-      "notes": "Scanned image; OCR pending",
+      "notes": "Pure image scan; OCR pending",
       "total_pages": 2
     },
     {
@@ -10283,7 +10299,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     },
     {
@@ -11616,7 +11632,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 14
     },
     {
@@ -11628,7 +11644,7 @@
       "enforcement_date": null,
       "sections": [],
       "extraction_type": "ocr",
-      "notes": "Scanned image; OCR pending",
+      "notes": "Pure image scan; OCR pending",
       "total_pages": 6
     },
     {
@@ -11640,7 +11656,7 @@
       "enforcement_date": null,
       "sections": [],
       "extraction_type": "ocr",
-      "notes": "Scanned image; OCR pending",
+      "notes": "Pure image scan; OCR pending",
       "total_pages": 3
     },
     {
@@ -11652,7 +11668,7 @@
       "enforcement_date": null,
       "sections": [],
       "extraction_type": "ocr",
-      "notes": "Scanned image; OCR pending",
+      "notes": "Pure image scan; OCR pending",
       "total_pages": 2
     },
     {
@@ -11683,7 +11699,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 2
     },
     {
@@ -11695,7 +11711,7 @@
       "enforcement_date": null,
       "sections": [],
       "extraction_type": "ocr",
-      "notes": "Scanned image; OCR pending",
+      "notes": "Pure image scan; OCR pending",
       "total_pages": 2
     },
     {
@@ -11774,7 +11790,7 @@
         }
       ],
       "extraction_type": "text",
-      "notes": "",
+      "notes": "Clean digital text layer",
       "total_pages": 3
     }
   ]

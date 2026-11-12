@@ -8,7 +8,7 @@ from app.errors import (
     unhandled_exception_handler,
     validation_exception_handler,
 )
-from app.routers import assistant, auth, health, law_history, user
+from app.routers import assistant, auth, constitution, health, law_history, user
 
 app = FastAPI(
     title="Samvidhan API",
@@ -55,4 +55,5 @@ app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(user.router)
 app.include_router(assistant.router)
+app.include_router(constitution.router, prefix="/api")
 app.include_router(law_history.router, prefix="/api")

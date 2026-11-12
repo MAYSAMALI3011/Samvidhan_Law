@@ -1,6 +1,6 @@
 # Constitution of India: Amendment Acts Ingestion Report (Phase B3)
 
-**Generated:** 2026-11-11 16:57:13 UTC  
+**Generated:** 2026-11-12 05:45:54 UTC  
 **Source Directory:** `content-sources/amendment_acts/`  
 **Total Acts Evaluated:** 106 Amendment Acts (1951–2023)
 
@@ -11,15 +11,15 @@
 | Metric | Value | Notes |
 |---|---|---|
 | **Total Amendment Acts Parsed** | **106** | Complete historical range 1 to 106 |
-| **Acts with Copyable Text Extracted** | **98** | Full section text and article mappings |
-| **Pure Scanned Acts (OCR Pending)** | **8** | Document metadata registered; awaiting OCR |
+| **Acts with Copyable Text Extracted** | **94** | Full section text and article mappings |
+| **Pure Scanned Acts (OCR Pending)** | **12** | Document metadata registered; awaiting OCR |
 | **Total Operative Sections Extracted** | **1179** | Distinct amendatory sections |
 
 ---
 
 ## 2. Top 10 Most-Amended Articles Across All 106 Acts
 
-| Rank | Constitution Article | Number of Times Touched | Key Subject Matter |
+| Rank | Constitution Article | Number of Times Touched | [unverified AI notes] Key Subject Matter |
 |---|---|---|---|
 | 1 | **Article 356** | 14 | Provisions in case of failure of constitutional machinery in States (President's Rule) |
 | 2 | **Article 81** | 13 | Composition of the House of the People (Lok Sabha seats) |
@@ -36,8 +36,12 @@
 
 ## 3. Pure Scanned Acts (OCR Pending)
 
-The following 8 Acts are scanned gazette images with no embedded text layer. They have been registered with `extraction_type='ocr'` and notes `'OCR pending'`:
+The following 12 Acts are scanned gazette images with no embedded text layer. They have been registered with `extraction_type='ocr'` and notes `'OCR pending'`:
 
+- **66th Amendment Act** (`066_66th_Amendment_Act_1990_SCAN.pdf`, 4 pages)
+- **69th Amendment Act** (`069_69th_Amendment_Act_1991_SCAN.pdf`, 3 pages)
+- **72nd Amendment Act** (`072_72nd_Amendment_Act_1992_SCAN.pdf`, 2 pages)
+- **75th Amendment Act** (`075_75th_Amendment_Act_1993_SCAN.pdf`, 2 pages)
 - **94th Amendment Act** (`094_94th_Amendment_Act_2006_SCAN.pdf`, 1 pages)
 - **96th Amendment Act** (`096_96th_Amendment_Act_2011_SCAN.pdf`, 1 pages)
 - **97th Amendment Act** (`097_97th_Amendment_Act_2011_SCAN.pdf`, 5 pages)
