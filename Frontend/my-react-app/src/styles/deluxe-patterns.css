@@ -55,6 +55,12 @@ html[data-theme='dark'] .samvidhan-glow-card:hover {
   will-change: transform;
 }
 
+@media (max-width: 768px) {
+  .hero-codex-card {
+    min-height: auto !important;
+  }
+}
+
 /* Tabs Header */
 .codex-nav-tabs {
   display: flex;

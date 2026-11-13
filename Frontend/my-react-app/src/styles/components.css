@@ -1341,6 +1341,12 @@
   gap: 10px;
 }
 
+@media (max-width: 900px) {
+  .ask-samvidhan-launcher-root {
+    display: none !important;
+  }
+}
+
 .ask-launcher-nudge {
   background: #0B1526;
   border: 1px solid rgba(176, 141, 87, 0.45);
