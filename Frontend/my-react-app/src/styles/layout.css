@@ -13,6 +13,19 @@
   z-index: 1;
 }
 
+@media (max-width: 900px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  .site-shell, .site-main {
+    max-width: 100vw;
+    overflow-x: clip;
+  }
+}
+
 .container-narrow {
   max-width: var(--container-narrow);
 }

@@ -11,6 +11,7 @@ import { RouteProgressBar } from '../components/feedback/RouteProgressBar'
 import { GlobalCursorGlow } from '../components/brand/GlobalCursorGlow'
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts'
 import { OfflineBanner } from '../ui/feedback/OfflineBanner'
+import { ColdStartBanner } from '../ui/feedback/ColdStartBanner'
 import { ErrorBoundary } from '../ui/feedback/ErrorBoundary'
 
 export function SiteLayout() {
@@ -55,6 +56,9 @@ export function SiteLayout() {
 
   return (
     <div className={`site-shell ${isAuthRoute ? 'is-auth-page-shell' : ''}`}>
+      {/* Cold start wake-up banner for free-tier backend */}
+      <ColdStartBanner />
+
       {/* Pattern 20: Offline Banner with automatic sync indicator */}
       <OfflineBanner />
 

@@ -121,6 +121,10 @@ async function executeRequest<T>(endpoint: string, options: RequestOptions = {})
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), timeoutMs)
 
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('samvidhan:fetch-start', { detail: { url } }))
+  }
+
   try {
     const res = await fetch(url, {
       method,
@@ -132,6 +136,9 @@ async function executeRequest<T>(endpoint: string, options: RequestOptions = {})
     })
 
     clearTimeout(timer)
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('samvidhan:fetch-end', { detail: { url } }))
+    }
 
     if (res.status === 401) {
       if (isAuthEntryEndpoint(endpoint)) {

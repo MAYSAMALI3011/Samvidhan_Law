@@ -58,7 +58,7 @@ export function HomePage() {
             </p>
 
             <div className="hero-cta-group">
-              <Link to="/learn/constitutional-foundations/preamble-philosophy" className="btn btn-primary hero-primary-btn">
+              <Link to="/learn/foundations-of-the-republic/preamble-we-the-people" className="btn btn-primary hero-primary-btn">
                 <span>Start a free lesson</span>
                 <ArrowRight size={17} aria-hidden="true" />
               </Link>
@@ -70,7 +70,7 @@ export function HomePage() {
             <div className="hero-trust-row" aria-label="Key platform assurances">
               <div className="hero-trust-item">
                 <CheckCircle size={16} className="hero-trust-icon" aria-hidden="true" />
-                <span>Verified statutory citations</span>
+                <span>Structured legal curriculum</span>
               </div>
               <div className="hero-trust-item">
                 <CheckCircle size={16} className="hero-trust-icon" aria-hidden="true" />

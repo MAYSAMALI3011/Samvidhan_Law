@@ -207,6 +207,7 @@ export interface DemoUser {
   role?: UserRole
   tier?: UserTier
   aiUsageToday?: number
+  isDemoUser?: boolean
 }
 
 export interface ProgressState {

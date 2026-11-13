@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   const isGithubPages = env.GITHUB_PAGES === 'true'
 
   return {
-    base: isGithubPages ? '/Samvidhan_Law/' : '/',
+    base: env.VITE_BASE_PATH || (isGithubPages ? '/Samvidhan_Law/' : '/'),
     plugins: [
       react(),
       babel({ presets: [reactCompilerPreset()] }),

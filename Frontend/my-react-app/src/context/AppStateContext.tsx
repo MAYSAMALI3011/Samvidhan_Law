@@ -48,10 +48,6 @@ function uid(): string {
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<DemoUser | null>(() => {
-    // In live mode, user is hydrated exclusively from server session (/api/auth/me)
-    if (!isMockMode()) {
-      return null
-    }
     const saved = readJson<DemoUser | null>('user', null)
     if (saved) {
       let changed = false
@@ -97,16 +93,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       aiUsageToday: typeof next.aiUsageToday === 'number' ? next.aiUsageToday : 0,
     }
     setUser(normalized)
-    if (isMockMode()) {
-      writeJson('user', normalized)
-    }
+    writeJson('user', normalized)
   }, [])
 
   const demoSignOut = useCallback(() => {
     setUser(null)
-    if (isMockMode()) {
-      removeKey('user')
-    }
+    removeKey('user')
   }, [])
 
   const playSound = useCallback(
@@ -177,10 +169,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     }
 
     const handleUnauthorized = () => {
-      setUser(null)
-      if (isMockMode()) {
-        removeKey('user')
+      const currentUser = readJson<DemoUser | null>('user', null)
+      if (currentUser?.isDemoUser) {
+        return
       }
+      setUser(null)
+      removeKey('user')
     }
     window.addEventListener('samvidhan:unauthorized', handleUnauthorized)
     return () => window.removeEventListener('samvidhan:unauthorized', handleUnauthorized)
