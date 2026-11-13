@@ -22,6 +22,7 @@ export function SocialAuthButtons({ mode }: SocialAuthButtonsProps) {
         tier: 'free',
         interests: ['Preamble & Fundamental Rights', 'Consumer Protection'],
         role: 'learner',
+        isDemoUser: true,
       })
       pushToast(
         mode === 'signup'

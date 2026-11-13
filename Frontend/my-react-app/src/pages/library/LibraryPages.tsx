@@ -352,9 +352,9 @@ export function LibraryDocumentPage() {
           {doc.summary}
         </p>
 
-        <div className="banner warn" style={{ marginTop: '1.5rem' }}>
+        <div className="banner info" style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           <ShieldCheck size={20} style={{ flexShrink: 0 }} aria-hidden="true" />
-          <span>{doc.sourceLabel}</span>
+          <span>Educational Reference: {doc.sourceLabel}. Demonstration text for civic literacy; verify against official Gazette publications for legal proceedings.</span>
         </div>
       </header>
 
