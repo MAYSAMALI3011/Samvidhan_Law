@@ -1996,13 +1996,19 @@
 .ask-page-card {
   height: 75vh;
   min-height: 580px;
-  background: #080E1A !important;
-  border: 1px solid rgba(176, 141, 87, 0.35) !important;
+  background: var(--card-bg, #080E1A);
+  border: 1px solid rgba(176, 141, 87, 0.35);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='light'] .ask-page-card {
+  background: #ffffff !important;
+  border-color: rgba(176, 141, 87, 0.35) !important;
+  box-shadow: 0 16px 40px rgba(10, 22, 40, 0.08) !important;
 }
 
 .ask-page-header {
@@ -2343,7 +2349,7 @@
   color: #64748b !important;
 }
 
-/* Ask Samvidhan Header & Disclaimer */
+/* Ask Samvidhan Header, Messages & Input in Light Mode */
 [data-theme='light'] .ask-page-header,
 [data-theme='light'] .ask-page-input-area {
   background: #ffffff !important;
@@ -2354,10 +2360,79 @@
   color: #0f172a !important;
 }
 
+[data-theme='light'] .ask-page-subtitle {
+  color: #b08d57 !important;
+}
+
 [data-theme='light'] .ask-disclaimer-banner {
-  background: rgba(176, 141, 87, 0.1) !important;
+  background: rgba(176, 141, 87, 0.08) !important;
   color: #334155 !important;
-  border-bottom-color: rgba(176, 141, 87, 0.25) !important;
+  border-bottom-color: rgba(176, 141, 87, 0.22) !important;
+}
+
+[data-theme='light'] .ask-page-messages-area,
+[data-theme='light'] .ask-page-messages {
+  background: #ffffff !important;
+}
+
+[data-theme='light'] .ask-empty-greeting {
+  color: #0f172a !important;
+}
+
+[data-theme='light'] .ask-empty-desc {
+  color: #475569 !important;
+}
+
+[data-theme='light'] .ask-suggested-label {
+  color: #475569 !important;
+}
+
+[data-theme='light'] .ask-prompt-chip {
+  background: #f8fafc !important;
+  border-color: rgba(176, 141, 87, 0.35) !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 6px rgba(10, 22, 40, 0.04);
+}
+
+[data-theme='light'] .ask-prompt-chip:hover {
+  background: rgba(176, 141, 87, 0.12) !important;
+  border-color: #b08d57 !important;
+  color: #9c7b46 !important;
+}
+
+[data-theme='light'] .ask-input-box {
+  background: #ffffff !important;
+  border-color: rgba(176, 141, 87, 0.4) !important;
+  color: #0f172a !important;
+}
+
+[data-theme='light'] .ask-input-box::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Home Hero Dark Navy Protection in Light Mode */
+.home-hero .hero-title,
+[data-theme='light'] .home-hero .hero-title,
+.home-hero h1,
+[data-theme='light'] .home-hero h1 {
+  color: #ffffff !important;
+}
+
+.home-hero .hero-title-italic,
+[data-theme='light'] .home-hero .hero-title-italic {
+  color: #dfba73 !important;
+}
+
+.home-hero .hero-subtitle,
+[data-theme='light'] .home-hero .hero-subtitle {
+  color: #cbd5e1 !important;
+}
+
+.home-hero .hero-trust-item,
+[data-theme='light'] .home-hero .hero-trust-item,
+.home-hero .hero-trust-row span,
+[data-theme='light'] .home-hero .hero-trust-row span {
+  color: #cbd5e1 !important;
 }
 
 [data-theme='light'] .ask-floating-circle-btn {

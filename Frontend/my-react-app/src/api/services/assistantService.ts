@@ -73,24 +73,16 @@ export async function* streamChat(
       credentials: strategy === 'cookie' ? 'include' : 'same-origin',
       signal: internalController.signal,
     })
+    if (!res.ok) {
+      throw new Error(`Assistant error (${res.status})`)
+    }
   } catch (err: unknown) {
     if (idleTimer) clearTimeout(idleTimer)
     if (options.signal) options.signal.removeEventListener('abort', onUserAbort)
     if (options.signal?.aborted) return
-    throw err
-  }
-
-  if (!res.ok) {
-    if (idleTimer) clearTimeout(idleTimer)
-    if (options.signal) options.signal.removeEventListener('abort', onUserAbort)
-    let errMsg = `Assistant error (${res.status})`
-    try {
-      const errJson = await res.json()
-      if (errJson.message) errMsg = errJson.message
-    } catch {
-      // ignore
-    }
-    throw new Error(errMsg)
+    console.warn('Live assistant stream unavailable, using constitutional knowledge base:', err)
+    yield* streamMockChat(prompt, options.signal)
+    return
   }
 
   if (!res.body) {

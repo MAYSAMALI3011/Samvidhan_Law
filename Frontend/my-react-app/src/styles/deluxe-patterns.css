@@ -1439,6 +1439,22 @@ html[data-theme='dark'] .codex-avatar-seal {
   background: linear-gradient(155deg, rgba(15, 29, 51, 0.95) 0%, rgba(10, 22, 40, 0.98) 100%);
   border: 1px solid rgba(176, 141, 87, 0.35);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(176, 141, 87, 0.1);
+  color: #f8fafc;
+}
+
+.hero-quotes-only-card .codex-author-name,
+[data-theme='light'] .hero-quotes-only-card .codex-author-name {
+  color: #f8fafc !important;
+}
+
+.hero-quotes-only-card .codex-author-date,
+[data-theme='light'] .hero-quotes-only-card .codex-author-date {
+  color: #cbd5e1 !important;
+}
+
+.hero-quotes-only-card .codex-quote-text,
+[data-theme='light'] .hero-quotes-only-card .codex-quote-text {
+  color: #f8fafc !important;
 }
 
 .quotes-card-topbar {
