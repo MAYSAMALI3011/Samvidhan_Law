@@ -175,7 +175,11 @@ export function AskPage() {
                       <p className="ask-user-text">{msg.content}</p>
                     ) : (
                       <div className="ask-assistant-content">
-                        {msg.isThinking ? (
+                        {msg.error ? (
+                          <div className="ask-msg-error-banner" style={{ padding: '0.75rem 1rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', color: '#f87171' }}>
+                            <p style={{ margin: 0, fontSize: '0.88rem' }}>{msg.error}</p>
+                          </div>
+                        ) : msg.isThinking ? (
                           <ThinkingIndicator />
                         ) : (
                           <>

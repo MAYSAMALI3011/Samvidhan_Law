@@ -159,6 +159,30 @@ export function LoginForm({ onSwitchToSignup, isActive }: LoginFormProps) {
           successLabel="Logged in!"
         />
 
+        {/* Instant Guest / Demo Access */}
+        <div className="auth-guest-access-wrap" style={{ marginTop: '0.65rem' }}>
+          <button
+            type="button"
+            className="btn btn-secondary auth-guest-btn"
+            style={{ width: '100%', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem 1rem' }}
+            onClick={() => {
+              demoSignIn({
+                id: 'usr_guest_demo',
+                name: 'Guest Citizen',
+                email: 'citizen.guest@samvidhan.law',
+                tier: 'free',
+                interests: ['Preamble & Fundamental Rights', 'Practical Police Rights'],
+                role: 'learner',
+                isDemoUser: true,
+              })
+              pushToast('Welcome, Citizen! Exploring in Guest Demo Mode.', 'info')
+              navigate('/dashboard')
+            }}
+          >
+            <span>Explore as Guest (Instant Access)</span>
+          </button>
+        </div>
+
         {/* Honest Notice */}
         <div className="auth-honest-notice">
           <ShieldCheck size={14} aria-hidden="true" />

@@ -9,6 +9,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { Mor } from '../../components/mascot/Mor'
 import { Accordion } from '../../components/common/Disclosure'
 import { CourseCard } from '../../components/learning/CourseCard'
 import { HeroReveal } from '../../components/animations/HeroReveal'
@@ -52,6 +53,22 @@ export function HomePage() {
             <h1 className="hero-title">
               Know your rights. <span className="hero-title-italic">Understand the law.</span>
             </h1>
+
+            {/* Featured Mor Mascot Guide Welcome */}
+            <div className="hero-mor-badge" aria-label="Meet Mor, your constitutional guide">
+              <div className="hero-mor-avatar">
+                <Mor mood="wave" size={54} animate decorative />
+              </div>
+              <div className="hero-mor-text-wrap">
+                <span className="hero-mor-label">
+                  <Sparkles size={12} className="text-gold" aria-hidden="true" />
+                  MEET MOR &bull; CONSTITUTIONAL GUIDE
+                </span>
+                <p className="hero-mor-tagline">
+                  &ldquo;Namaste! I explain laws in bite-sized lessons with real citizen examples.&rdquo;
+                </p>
+              </div>
+            </div>
 
             <p className="hero-subtitle">
               A structured, accessible platform to master the Constitution of India, practical citizen safeguards, and everyday legal procedures with verified statutory citations.

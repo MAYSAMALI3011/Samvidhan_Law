@@ -340,6 +340,30 @@ export function SignupForm({ onSwitchToLogin, isActive }: SignupFormProps) {
           disabled={!isPasswordAdequate || !agreeTerms || !name || !email}
         />
 
+        {/* Instant Guest / Demo Access */}
+        <div className="auth-guest-access-wrap" style={{ marginTop: '0.65rem' }}>
+          <button
+            type="button"
+            className="btn btn-secondary auth-guest-btn"
+            style={{ width: '100%', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem 1rem' }}
+            onClick={() => {
+              demoSignIn({
+                id: 'usr_guest_demo',
+                name: 'Guest Citizen',
+                email: 'citizen.guest@samvidhan.law',
+                tier: 'free',
+                interests: ['Preamble & Fundamental Rights', 'Practical Police Rights'],
+                role: 'learner',
+                isDemoUser: true,
+              })
+              pushToast('Welcome, Citizen! Exploring in Guest Demo Mode.', 'info')
+              navigate('/dashboard')
+            }}
+          >
+            <span>Explore as Guest (Instant Access)</span>
+          </button>
+        </div>
+
         {!isPasswordAdequate && password.length > 0 && (
           <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textAlign: 'center', margin: '4px 0 0' }}>
             Submit is unlocked when password reaches at least <strong>Good</strong> strength.
