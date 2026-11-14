@@ -80,58 +80,60 @@ async def get_search_citations(query: str) -> List[Dict[str, Any]]:
             art_no = art_match.group(1).upper()
             res = (
                 supabase.table("constitution_provisions")
-                .select("id, article_no, title, body, status")
-                .eq("status", "Published")
+                .select("id, article_no, heading, content, body_raw, status")
                 .ilike("article_no", art_no)
                 .limit(1)
                 .execute()
             )
             if res and res.data:
                 row = res.data[0]
+                heading = row.get("heading") or f"Article {art_no}"
+                text = row.get("content") or row.get("body_raw") or ""
                 results.append({
-                    "label": f"Article {row.get('article_no', art_no)} — {row.get('title', 'Constitution of India')}",
-                    "url": f"/constitution/part-iii",
-                    "summary": (row.get("body") or row.get("title") or "")[:150],
-                    "text": (row.get("body") or "")[:500],
+                    "label": f"Article {row.get('article_no', art_no)} — {heading}",
+                    "url": "/constitution",
+                    "summary": text[:150],
+                    "text": text[:1000],
                 })
         elif is_preamble:
             res = (
                 supabase.table("constitution_provisions")
-                .select("id, article_no, title, body, status")
-                .eq("status", "Published")
-                .ilike("title", "%preamble%")
+                .select("id, article_no, heading, content, body_raw, status")
+                .ilike("article_no", "Preamble")
                 .limit(1)
                 .execute()
             )
             if res and res.data:
                 row = res.data[0]
+                text = row.get("content") or row.get("body_raw") or ""
                 results.append({
                     "label": "Preamble — Constitution of India",
                     "url": "/constitution",
-                    "summary": (row.get("body") or row.get("title") or "")[:150],
-                    "text": (row.get("body") or "")[:500],
+                    "summary": text[:150],
+                    "text": text[:1000],
                 })
 
-        # 2. General keyword search across published provisions
+        # 2. General keyword search across provisions
         if not results:
-            words = [w for w in re.findall(r"\b[a-zA-Z]{4,}\b", clean_q) if w.lower() not in {"what", "when", "where", "does", "protect", "under", "about"}]
+            words = [w for w in re.findall(r"\b[a-zA-Z]{4,}\b", clean_q) if w.lower() not in {"what", "when", "where", "does", "protect", "under", "about", "which", "tell", "explain"}]
             if words:
                 keyword = words[0]
                 res = (
                     supabase.table("constitution_provisions")
-                    .select("id, article_no, title, body, status")
-                    .eq("status", "Published")
-                    .ilike("title", f"%{keyword}%")
+                    .select("id, article_no, heading, content, body_raw, status")
+                    .ilike("heading", f"%{keyword}%")
                     .limit(2)
                     .execute()
                 )
                 if res and res.data:
                     for row in res.data:
+                        heading = row.get("heading") or "Constitution"
+                        text = row.get("content") or row.get("body_raw") or ""
                         results.append({
-                            "label": f"Article {row.get('article_no', '')} — {row.get('title', 'Constitution')}",
+                            "label": f"Article {row.get('article_no', '')} — {heading}",
                             "url": "/constitution",
-                            "summary": (row.get("body") or row.get("title") or "")[:150],
-                            "text": (row.get("body") or "")[:400],
+                            "summary": text[:150],
+                            "text": text[:800],
                         })
     except Exception as e:
         logger.warning("Database grounding search encountered: %s", type(e).__name__)

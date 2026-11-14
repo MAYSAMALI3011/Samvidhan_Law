@@ -40,7 +40,7 @@ class Settings(BaseSettings):
 
     # Free AI Providers
     GEMINI_API_KEY: str = ""
-    GEMINI_MODEL: str = "gemini-2.5-flash"
+    GEMINI_MODEL: str = "gemini-flash-lite-latest"
     GEMINI_RPM: Optional[int] = None
     GEMINI_RPD: Optional[int] = None
 
