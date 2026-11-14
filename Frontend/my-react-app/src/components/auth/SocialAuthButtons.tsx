@@ -14,9 +14,9 @@ export function SocialAuthButtons({ mode }: SocialAuthButtonsProps) {
   const handleGoogleAuth = () => {
     setLoading(true)
 
-    // Check for configured Supabase URL from environment
+    // Check for configured Supabase URL from environment or default to project's official Supabase instance
     const rawSupabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined
-    const supabaseUrl = rawSupabaseUrl?.trim()?.replace(/\/$/, '')
+    const supabaseUrl = rawSupabaseUrl?.trim()?.replace(/\/$/, '') || 'https://bdtdynsmwgshmmzahmtt.supabase.co'
 
     if (supabaseUrl && supabaseUrl.startsWith('https://') && !supabaseUrl.includes('ihjckqfyljocgmnjfxrv')) {
       const redirectTo = encodeURIComponent(window.location.origin + '/dashboard')
