@@ -16,6 +16,9 @@ const TermsPage = lazy(() => import('./pages/public/SimplePages').then((m) => ({
 const DisclaimerPage = lazy(() =>
   import('./pages/public/SimplePages').then((m) => ({ default: m.DisclaimerPage })),
 )
+const ComingSoonPage = lazy(() =>
+  import('./pages/public/SimplePages').then((m) => ({ default: m.ComingSoonPage })),
+)
 const NotFoundPage = lazy(() => import('./pages/public/SimplePages').then((m) => ({ default: m.NotFoundPage })))
 const AuthPage = lazy(() => import('./pages/auth/AuthPages').then((m) => ({ default: m.AuthPage })))
 const ForgotPasswordPage = lazy(() =>
@@ -120,6 +123,9 @@ export default function App() {
           <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
           <Route path="/refer" element={<RequireAuth><ReferralPage /></RequireAuth>} />
           <Route path="/affiliates" element={<AffiliatePage />} />
+          <Route path="/blog" element={<ComingSoonPage topic="Civic Gazette Blog" />} />
+          <Route path="/careers" element={<ComingSoonPage topic="Civic Education Careers" />} />
+          <Route path="/pricing" element={<ComingSoonPage topic="Civic Education & Community Access" />} />
           {import.meta.env.DEV && (
             <>
               <Route path="/dev/loaders" element={<DevLoadersPage />} />

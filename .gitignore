@@ -1,4 +1,9 @@
-# Dependencies & Builds
+# Testing & Playwright
+test-results/
+playwright-report/
+Frontend/my-react-app/test-results/
+Frontend/my-react-app/playwright-report/
+
 node_modules/
 dist/
 dist-ssr/

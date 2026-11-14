@@ -110,8 +110,8 @@ export function SiteFooter() {
               Understand Indian law. Master your constitutional safeguards. Build civic confidence with verified statutory citations.
             </p>
             <div className="footer-social-wrapper">
-              <span className="footer-social-label">Connect with our civic initiative</span>
-              <SocialIcons variant="glass" />
+              <span className="footer-social-label">Connect</span>
+              <SocialIcons variant="glass" showLabels={true} />
             </div>
           </div>
 
