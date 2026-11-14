@@ -1,3 +1,5 @@
+import logging
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,12 +11,27 @@ from app.errors import (
     validation_exception_handler,
 )
 from app.routers import assistant, auth, constitution, health, law_history, user
+from app.services.providers import validate_provider_models
+
+logger = logging.getLogger(__name__)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Validate provider models on startup without crashing
+    try:
+        await validate_provider_models()
+    except Exception as e:
+        logger.warning("Startup provider models check skipped: %s", type(e).__name__)
+    yield
+
 
 app = FastAPI(
     title="Samvidhan API",
     version="1.0.0",
     docs_url="/docs" if settings.APP_ENV != "production" else None,
     redoc_url=None,
+    lifespan=lifespan,
 )
 
 # Exception Handlers enforcing client contract: {success: false, message: "...", errors: ...}

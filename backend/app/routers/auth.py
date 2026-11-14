@@ -15,6 +15,7 @@ from app.supabase_client import (
     call_gotrue_login,
     call_gotrue_logout,
     call_gotrue_recover,
+    call_gotrue_resend_otp,
     call_gotrue_signup,
     call_gotrue_verify_otp,
     get_supabase_admin_client,
@@ -49,10 +50,32 @@ async def signup(payload: SignupRequest, response: Response):
 
 @router.post("/verify-otp")
 async def verify_otp(payload: VerifyOtpRequest, response: Response):
-    status_code, data = await call_gotrue_verify_otp(payload.email, payload.code)
+    clean_email = payload.email.strip().lower()
+    clean_code = payload.code.strip()
+    status_code, data = await call_gotrue_verify_otp(clean_email, clean_code)
     if status_code != 200:
-        msg = data.get("msg") or data.get("error_description") or "Invalid or expired verification code."
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=msg)
+        msg = (data.get("msg") or data.get("error_description") or data.get("message") or "").lower()
+
+        if status_code == 429 or "rate limit" in msg or "too many" in msg:
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="Too many verification attempts. Please try again in a few minutes.",
+                headers={"Retry-After": "60"},
+            )
+        if "expired" in msg:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Verification code has expired. Please request a new code.",
+            )
+        if "already" in msg and ("verified" in msg or "confirmed" in msg or "registered" in msg):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email is already verified. You can log in directly.",
+            )
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid verification code. Please check the 6-digit code and try again.",
+        )
 
     access_token = data.get("access_token")
     refresh_token = data.get("refresh_token")
@@ -62,28 +85,46 @@ async def verify_otp(payload: VerifyOtpRequest, response: Response):
     raw_user = data.get("user", {})
     user_obj = UserProfile(
         id=raw_user.get("id", ""),
-        name=raw_user.get("user_metadata", {}).get("name", payload.email.split("@")[0]),
-        email=payload.email,
+        name=raw_user.get("user_metadata", {}).get("name", clean_email.split("@")[0]),
+        email=clean_email,
         interests=[],
         role="learner",
         tier="free",
         aiUsageToday=0,
     )
-    return {"success": True, "token": access_token, "user": user_obj}
+    return {"success": True, "token": access_token, "user": user_obj, "message": "Email verified successfully."}
 
 
 @router.post("/resend-otp")
 async def resend_otp(payload: ResendOtpRequest):
+    clean_email = payload.email.strip().lower()
+    status_code, data = await call_gotrue_resend_otp(clean_email)
+    msg = (data.get("msg") or data.get("error_description") or data.get("message") or "").lower()
+
+    if status_code == 429 or "rate limit" in msg or "over_email_send_rate_limit" in msg or "security purposes" in msg:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Too many emails requested, try again in about an hour",
+            headers={"Retry-After": "3600"},
+        )
+
     # Always return success to prevent user enumeration
-    return {"success": True, "message": "Verification code resent if account exists."}
+    return {"success": True, "message": "If an account exists for this email, a new verification code has been sent."}
 
 
 @router.post("/login")
 async def login(payload: LoginRequest, response: Response):
-    status_code, data = await call_gotrue_login(payload.email, payload.password)
+    clean_email = payload.email.strip().lower()
+    status_code, data = await call_gotrue_login(clean_email, payload.password)
     if status_code != 200:
-        msg = data.get("msg") or data.get("error_description") or "Invalid email or password."
-        if "email not confirmed" in msg.lower():
+        msg = (data.get("msg") or data.get("error_description") or data.get("message") or "").lower()
+        if status_code == 429 or "rate limit" in msg:
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="Too many login attempts. Please wait a few moments before trying again.",
+                headers={"Retry-After": "60"},
+            )
+        if "email not confirmed" in msg or "unconfirmed" in msg:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Please verify your email first before logging in.",
@@ -100,12 +141,12 @@ async def login(payload: LoginRequest, response: Response):
 
     raw_user = data.get("user", {})
     user_id = raw_user.get("id", "")
-    name = raw_user.get("user_metadata", {}).get("name", payload.email.split("@")[0])
+    name = raw_user.get("user_metadata", {}).get("name", clean_email.split("@")[0])
 
     user_obj = UserProfile(
         id=user_id,
         name=name,
-        email=payload.email,
+        email=clean_email,
         interests=[],
         role="learner",
         tier="free",

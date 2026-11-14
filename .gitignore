@@ -41,6 +41,8 @@ venv/
 UNVERIFIED_full_constitution/
 content-sources/575648bd8ecb7654db902b93115d35e4.pdf
 .scratch/
+.wrangler/
+Frontend/my-react-app/.wrangler/
 backend/scripts/writer.py
 inspect_*.py
 test_wf.py

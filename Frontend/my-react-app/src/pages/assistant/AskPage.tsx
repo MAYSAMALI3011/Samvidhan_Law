@@ -12,6 +12,10 @@ import {
   ShieldAlert,
   Plus,
   Landmark,
+  RotateCcw,
+  BookOpen,
+  Scale,
+  Clock,
 } from 'lucide-react'
 import { FeatherMark } from '../../components/chatbot/FeatherMark'
 import { FeatherAvatar } from '../../components/chatbot/FeatherAvatar'
@@ -31,7 +35,7 @@ const suggestedQuestions = [
 ]
 
 export function AskPage() {
-  const { messages, isGenerating, sendMessage, stopGeneration, clearChat } = useChatStream()
+  const { messages, isGenerating, sendMessage, retryLastMessage, stopGeneration, clearChat } = useChatStream()
   const [inputText, setInputText] = useState('')
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [ratedMessages, setRatedMessages] = useState<Record<string, 'up' | 'down'>>({})
@@ -175,13 +179,52 @@ export function AskPage() {
                       <p className="ask-user-text">{msg.content}</p>
                     ) : (
                       <div className="ask-assistant-content">
-                        {msg.isThinking ? (
+                        {msg.error ? (
+                          <div className="ask-msg-error-banner" style={{ padding: '0.85rem 1rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '10px' }}>
+                            <p style={{ margin: '0 0 0.5rem 0', color: '#f87171', fontSize: '0.88rem' }}>{msg.error}</p>
+                            <button type="button" className="btn btn-secondary btn-sm" onClick={retryLastMessage} style={{ gap: '0.35rem' }}>
+                              <RotateCcw size={13} />
+                              <span>Retry Question</span>
+                            </button>
+                          </div>
+                        ) : msg.isWakingUp ? (
+                          <div className="ask-waking-banner" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', padding: '0.65rem 1rem', background: 'rgba(176, 141, 87, 0.12)', border: '1px solid rgba(176, 141, 87, 0.35)', borderRadius: '10px' }}>
+                            <Clock size={15} className="text-gold" />
+                            <span style={{ fontSize: '0.85rem', color: 'var(--text, #f8fafc)' }}>
+                              Waking up the server, this can take up to a minute...
+                            </span>
+                          </div>
+                        ) : msg.isThinking ? (
                           <ThinkingIndicator />
                         ) : (
                           <>
                             <StreamingMarkdown content={msg.content} />
                             {msg.isStreaming && <FeatherPen isWriting={true} />}
                           </>
+                        )}
+
+                        {/* Quick links when no verified source found */}
+                        {!msg.isStreaming && !msg.isThinking && msg.content && msg.content.includes("don't have a verified source") && (
+                          <div className="ask-no-source-links" style={{ marginTop: '0.85rem', display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
+                            <Link to="/constitution" className="btn btn-secondary btn-sm" style={{ gap: '0.4rem', textDecoration: 'none' }}>
+                              <BookOpen size={13} className="text-gold" />
+                              <span>Browse Constitution</span>
+                            </Link>
+                            <Link to="/library" className="btn btn-secondary btn-sm" style={{ gap: '0.4rem', textDecoration: 'none' }}>
+                              <Scale size={13} className="text-gold" />
+                              <span>Browse Legal Library</span>
+                            </Link>
+                          </div>
+                        )}
+
+                        {/* Retry hint when assistant is busy */}
+                        {!msg.isStreaming && !msg.isThinking && msg.content && msg.content.includes("busy right now") && (
+                          <div className="ask-busy-retry-hint" style={{ marginTop: '0.75rem' }}>
+                            <button type="button" className="btn btn-secondary btn-sm" onClick={retryLastMessage} style={{ gap: '0.35rem' }}>
+                              <RotateCcw size={13} />
+                              <span>Retry Now</span>
+                            </button>
+                          </div>
                         )}
 
                         {/* Citations Row */}
@@ -299,6 +342,10 @@ export function AskPage() {
                 <Send size={15} />
               </button>
             )}
+          </div>
+
+          <div className="ask-legal-disclaimer-subtext" style={{ textAlign: 'center', marginTop: '0.5rem', fontSize: '0.74rem', color: 'var(--text-tertiary, #94a3b8)' }}>
+            General information, not legal advice.
           </div>
         </div>
       </div>

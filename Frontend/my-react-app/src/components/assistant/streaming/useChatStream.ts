@@ -9,6 +9,7 @@ export interface ChatMessage {
   followUps?: string[]
   isStreaming?: boolean
   isThinking?: boolean
+  isWakingUp?: boolean
   isStopped?: boolean
   error?: string
 }
@@ -18,6 +19,7 @@ export function useChatStream() {
   const [isGenerating, setIsGenerating] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
   const conversationIdRef = useRef<string | undefined>(undefined)
+  const lastPromptRef = useRef<string>('')
 
   const stopGeneration = useCallback(() => {
     if (abortControllerRef.current) {
@@ -31,6 +33,7 @@ export function useChatStream() {
       if (last && last.role === 'assistant' && last.isStreaming) {
         last.isStreaming = false
         last.isStopped = true
+        last.isWakingUp = false
       }
       return copy
     })
@@ -39,6 +42,7 @@ export function useChatStream() {
   const sendMessage = useCallback(async (promptText: string) => {
     if (!promptText.trim() || isGenerating) return
 
+    lastPromptRef.current = promptText.trim()
     const userMsgId = 'u-' + Date.now()
     const assistantMsgId = 'a-' + Date.now()
 
@@ -53,6 +57,7 @@ export function useChatStream() {
       role: 'assistant',
       content: '',
       isThinking: true,
+      isWakingUp: false,
       isStreaming: true,
       citations: [],
       followUps: [],
@@ -64,23 +69,27 @@ export function useChatStream() {
     const controller = new AbortController()
     abortControllerRef.current = controller
 
-    try {
-      // Simulate brief thinking period (600ms)
-      await new Promise((resolve) => setTimeout(resolve, 600))
-      if (controller.signal.aborted) return
-
-      // Transition thinking to streaming
+    // Cold-start timer: if first byte takes longer than 5 seconds, notify user
+    const wakeTimer = setTimeout(() => {
       setMessages((prev) =>
-        prev.map((m) => (m.id === assistantMsgId ? { ...m, isThinking: false } : m))
+        prev.map((m) =>
+          m.id === assistantMsgId && m.isStreaming && !m.content
+            ? { ...m, isWakingUp: true }
+            : m
+        )
       )
+    }, 5000)
 
-      // Consume mock or real SSE stream
+    try {
+      // Consume SSE stream with 75s timeout
       const stream = streamChat(promptText, {
         signal: controller.signal,
         conversationId: conversationIdRef.current,
+        idleTimeoutMs: 75000,
       })
 
       for await (const chunk of stream) {
+        clearTimeout(wakeTimer)
         if (controller.signal.aborted) break
 
         if (chunk.conversationId) {
@@ -92,6 +101,8 @@ export function useChatStream() {
             if (m.id !== assistantMsgId) return m
             return {
               ...m,
+              isThinking: false,
+              isWakingUp: false,
               content: chunk.token ? m.content + chunk.token : m.content,
               citations: chunk.citation
                 ? [...(m.citations || []), chunk.citation]
@@ -103,6 +114,7 @@ export function useChatStream() {
         )
       }
     } catch (err: unknown) {
+      clearTimeout(wakeTimer)
       if (!controller.signal.aborted) {
         const message =
           err instanceof Error && err.message?.trim()
@@ -113,7 +125,7 @@ export function useChatStream() {
                 typeof (err as { message: unknown }).message === 'string' &&
                 (err as { message: string }).message.trim()
               ? (err as { message: string }).message.trim()
-              : 'Connection lost. Please retry your query.'
+              : 'Unable to connect to assistant. Please retry.'
 
         setMessages((prev) =>
           prev.map((m) =>
@@ -121,6 +133,8 @@ export function useChatStream() {
               ? {
                   ...m,
                   isStreaming: false,
+                  isThinking: false,
+                  isWakingUp: false,
                   error: message,
                 }
               : m
@@ -128,15 +142,24 @@ export function useChatStream() {
         )
       }
     } finally {
+      clearTimeout(wakeTimer)
       setIsGenerating(false)
       abortControllerRef.current = null
       setMessages((prev) =>
         prev.map((m) =>
-          m.id === assistantMsgId ? { ...m, isStreaming: false, isThinking: false } : m
+          m.id === assistantMsgId
+            ? { ...m, isStreaming: false, isThinking: false, isWakingUp: false }
+            : m
         )
       )
     }
   }, [isGenerating])
+
+  const retryLastMessage = useCallback(() => {
+    if (lastPromptRef.current && !isGenerating) {
+      sendMessage(lastPromptRef.current)
+    }
+  }, [sendMessage, isGenerating])
 
   const clearChat = useCallback(() => {
     stopGeneration()
@@ -148,6 +171,7 @@ export function useChatStream() {
     messages,
     isGenerating,
     sendMessage,
+    retryLastMessage,
     stopGeneration,
     clearChat,
   }
