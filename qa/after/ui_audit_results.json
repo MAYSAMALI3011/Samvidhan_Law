@@ -1,0 +1,1014 @@
+{
+  "timestamp": "2026-11-13T18:08:16.497Z",
+  "target": "http://localhost:4173",
+  "audits": [
+    {
+      "route": "home",
+      "viewport": "360x800",
+      "screenshot": "home-360x800.png",
+      "pageAudit": {
+        "windowWidth": 360,
+        "maxScrollWidth": 360,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "constitution",
+      "viewport": "360x800",
+      "screenshot": "constitution-360x800.png",
+      "pageAudit": {
+        "windowWidth": 360,
+        "maxScrollWidth": 360,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "library",
+      "viewport": "360x800",
+      "screenshot": "library-360x800.png",
+      "pageAudit": {
+        "windowWidth": 360,
+        "maxScrollWidth": 360,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 1,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "learn",
+      "viewport": "360x800",
+      "screenshot": "learn-360x800.png",
+      "pageAudit": {
+        "windowWidth": 360,
+        "maxScrollWidth": 360,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "ask",
+      "viewport": "360x800",
+      "screenshot": "ask-360x800.png",
+      "pageAudit": {
+        "windowWidth": 360,
+        "maxScrollWidth": 360,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "login",
+      "viewport": "360x800",
+      "screenshot": "login-360x800.png",
+      "pageAudit": {
+        "windowWidth": 360,
+        "maxScrollWidth": 360,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "signup",
+      "viewport": "360x800",
+      "screenshot": "signup-360x800.png",
+      "pageAudit": {
+        "windowWidth": 360,
+        "maxScrollWidth": 360,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "lesson",
+      "viewport": "360x800",
+      "screenshot": "lesson-360x800.png",
+      "pageAudit": {
+        "windowWidth": 360,
+        "maxScrollWidth": 360,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "home",
+      "viewport": "390x844",
+      "screenshot": "home-390x844.png",
+      "pageAudit": {
+        "windowWidth": 390,
+        "maxScrollWidth": 390,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "constitution",
+      "viewport": "390x844",
+      "screenshot": "constitution-390x844.png",
+      "pageAudit": {
+        "windowWidth": 390,
+        "maxScrollWidth": 390,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "library",
+      "viewport": "390x844",
+      "screenshot": "library-390x844.png",
+      "pageAudit": {
+        "windowWidth": 390,
+        "maxScrollWidth": 390,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 1,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "learn",
+      "viewport": "390x844",
+      "screenshot": "learn-390x844.png",
+      "pageAudit": {
+        "windowWidth": 390,
+        "maxScrollWidth": 390,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "ask",
+      "viewport": "390x844",
+      "screenshot": "ask-390x844.png",
+      "pageAudit": {
+        "windowWidth": 390,
+        "maxScrollWidth": 390,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "login",
+      "viewport": "390x844",
+      "screenshot": "login-390x844.png",
+      "pageAudit": {
+        "windowWidth": 390,
+        "maxScrollWidth": 390,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "signup",
+      "viewport": "390x844",
+      "screenshot": "signup-390x844.png",
+      "pageAudit": {
+        "windowWidth": 390,
+        "maxScrollWidth": 390,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "lesson",
+      "viewport": "390x844",
+      "screenshot": "lesson-390x844.png",
+      "pageAudit": {
+        "windowWidth": 390,
+        "maxScrollWidth": 390,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "home",
+      "viewport": "412x915",
+      "screenshot": "home-412x915.png",
+      "pageAudit": {
+        "windowWidth": 412,
+        "maxScrollWidth": 412,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "constitution",
+      "viewport": "412x915",
+      "screenshot": "constitution-412x915.png",
+      "pageAudit": {
+        "windowWidth": 412,
+        "maxScrollWidth": 412,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "library",
+      "viewport": "412x915",
+      "screenshot": "library-412x915.png",
+      "pageAudit": {
+        "windowWidth": 412,
+        "maxScrollWidth": 412,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 1,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "learn",
+      "viewport": "412x915",
+      "screenshot": "learn-412x915.png",
+      "pageAudit": {
+        "windowWidth": 412,
+        "maxScrollWidth": 412,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "ask",
+      "viewport": "412x915",
+      "screenshot": "ask-412x915.png",
+      "pageAudit": {
+        "windowWidth": 412,
+        "maxScrollWidth": 412,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "login",
+      "viewport": "412x915",
+      "screenshot": "login-412x915.png",
+      "pageAudit": {
+        "windowWidth": 412,
+        "maxScrollWidth": 412,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "signup",
+      "viewport": "412x915",
+      "screenshot": "signup-412x915.png",
+      "pageAudit": {
+        "windowWidth": 412,
+        "maxScrollWidth": 412,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "lesson",
+      "viewport": "412x915",
+      "screenshot": "lesson-412x915.png",
+      "pageAudit": {
+        "windowWidth": 412,
+        "maxScrollWidth": 412,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "home",
+      "viewport": "768x1024",
+      "screenshot": "home-768x1024.png",
+      "pageAudit": {
+        "windowWidth": 768,
+        "maxScrollWidth": 768,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "constitution",
+      "viewport": "768x1024",
+      "screenshot": "constitution-768x1024.png",
+      "pageAudit": {
+        "windowWidth": 768,
+        "maxScrollWidth": 768,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "library",
+      "viewport": "768x1024",
+      "screenshot": "library-768x1024.png",
+      "pageAudit": {
+        "windowWidth": 768,
+        "maxScrollWidth": 768,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 1,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "learn",
+      "viewport": "768x1024",
+      "screenshot": "learn-768x1024.png",
+      "pageAudit": {
+        "windowWidth": 768,
+        "maxScrollWidth": 768,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "ask",
+      "viewport": "768x1024",
+      "screenshot": "ask-768x1024.png",
+      "pageAudit": {
+        "windowWidth": 768,
+        "maxScrollWidth": 768,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "login",
+      "viewport": "768x1024",
+      "screenshot": "login-768x1024.png",
+      "pageAudit": {
+        "windowWidth": 768,
+        "maxScrollWidth": 768,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "signup",
+      "viewport": "768x1024",
+      "screenshot": "signup-768x1024.png",
+      "pageAudit": {
+        "windowWidth": 768,
+        "maxScrollWidth": 768,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "lesson",
+      "viewport": "768x1024",
+      "screenshot": "lesson-768x1024.png",
+      "pageAudit": {
+        "windowWidth": 768,
+        "maxScrollWidth": 768,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "home",
+      "viewport": "1280x800",
+      "screenshot": "home-1280x800.png",
+      "pageAudit": {
+        "windowWidth": 1280,
+        "maxScrollWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "constitution",
+      "viewport": "1280x800",
+      "screenshot": "constitution-1280x800.png",
+      "pageAudit": {
+        "windowWidth": 1280,
+        "maxScrollWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "library",
+      "viewport": "1280x800",
+      "screenshot": "library-1280x800.png",
+      "pageAudit": {
+        "windowWidth": 1280,
+        "maxScrollWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 1,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "learn",
+      "viewport": "1280x800",
+      "screenshot": "learn-1280x800.png",
+      "pageAudit": {
+        "windowWidth": 1280,
+        "maxScrollWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "ask",
+      "viewport": "1280x800",
+      "screenshot": "ask-1280x800.png",
+      "pageAudit": {
+        "windowWidth": 1280,
+        "maxScrollWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "login",
+      "viewport": "1280x800",
+      "screenshot": "login-1280x800.png",
+      "pageAudit": {
+        "windowWidth": 1280,
+        "maxScrollWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "signup",
+      "viewport": "1280x800",
+      "screenshot": "signup-1280x800.png",
+      "pageAudit": {
+        "windowWidth": 1280,
+        "maxScrollWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "lesson",
+      "viewport": "1280x800",
+      "screenshot": "lesson-1280x800.png",
+      "pageAudit": {
+        "windowWidth": 1280,
+        "maxScrollWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "home",
+      "viewport": "1440x900",
+      "screenshot": "home-1440x900.png",
+      "pageAudit": {
+        "windowWidth": 1440,
+        "maxScrollWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "constitution",
+      "viewport": "1440x900",
+      "screenshot": "constitution-1440x900.png",
+      "pageAudit": {
+        "windowWidth": 1440,
+        "maxScrollWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "library",
+      "viewport": "1440x900",
+      "screenshot": "library-1440x900.png",
+      "pageAudit": {
+        "windowWidth": 1440,
+        "maxScrollWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 1,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "learn",
+      "viewport": "1440x900",
+      "screenshot": "learn-1440x900.png",
+      "pageAudit": {
+        "windowWidth": 1440,
+        "maxScrollWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "ask",
+      "viewport": "1440x900",
+      "screenshot": "ask-1440x900.png",
+      "pageAudit": {
+        "windowWidth": 1440,
+        "maxScrollWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "login",
+      "viewport": "1440x900",
+      "screenshot": "login-1440x900.png",
+      "pageAudit": {
+        "windowWidth": 1440,
+        "maxScrollWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "signup",
+      "viewport": "1440x900",
+      "screenshot": "signup-1440x900.png",
+      "pageAudit": {
+        "windowWidth": 1440,
+        "maxScrollWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "lesson",
+      "viewport": "1440x900",
+      "screenshot": "lesson-1440x900.png",
+      "pageAudit": {
+        "windowWidth": 1440,
+        "maxScrollWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "htmlOverflowY": "scroll",
+        "bodyOverflowY": "visible",
+        "hasBodyScrollbar": false,
+        "smallInputs": 0,
+        "undersizedButtons": 0,
+        "launcherVisible": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    }
+  ]
+}

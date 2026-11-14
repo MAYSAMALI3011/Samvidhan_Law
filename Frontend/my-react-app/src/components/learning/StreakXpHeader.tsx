@@ -4,10 +4,10 @@ import { Tooltip } from '../animations/Tooltip'
 
 export function StreakXpHeader() {
   const { progress, toggleSound } = useAppState()
-  const streak = progress.streak || 1
-  const xp = progress.xp || 0
-  const dailyGoal = progress.dailyGoal || 30
-  const progressRatio = Math.min(1, (xp % dailyGoal || xp) / dailyGoal)
+  const streak = progress.streak ?? 0
+  const xp = progress.xp ?? 0
+  const dailyGoal = progress.dailyGoal && progress.dailyGoal > 0 ? progress.dailyGoal : 3
+  const progressRatio = dailyGoal > 0 ? Math.min(1, (xp % dailyGoal || xp) / dailyGoal) : 0
   const radius = 12
   const circumference = 2 * Math.PI * radius
   const strokeDashoffset = circumference - progressRatio * circumference

@@ -36,11 +36,15 @@ export function DashboardPage() {
   })
 
   const next = continueLesson(progress.completedLessonIds)
-  const completedCount = progress.completedLessonIds.length
-  const streakDays = progress.streak || 3
-  const totalXp = progress.xp || 145
-  const dailyTarget = progress.dailyGoal || 3
+  const completedCount = progress.completedLessonIds?.length || 0
+  const streakDays = progress.streak ?? 0
+  const totalXp = progress.xp ?? 0
+  const dailyTarget = progress.dailyGoal && progress.dailyGoal > 0 ? progress.dailyGoal : 3
   const todayProgress = Math.min(completedCount, dailyTarget)
+  const quizScores = Object.values(progress.quizScores || {})
+  const accuracy = quizScores.length > 0
+    ? Math.round(quizScores.reduce((sum, s) => sum + s, 0) / quizScores.length)
+    : 0
   const firstName = user?.name ? user.name.split(' ')[0] : 'Citizen'
 
   return (
@@ -108,7 +112,7 @@ export function DashboardPage() {
             </div>
             <div className="stat-text-meta">
               <span className="duo-stat-label">Quiz score</span>
-              <strong className="duo-stat-value">94% Accuracy</strong>
+              <strong className="duo-stat-value">{accuracy}% Accuracy</strong>
             </div>
           </div>
         </section>

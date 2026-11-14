@@ -1,4 +1,4 @@
-import { Command, Search, Menu, X, LayoutDashboard } from 'lucide-react'
+import { Command, Search, Menu, X, LayoutDashboard, LogOut } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { BrandMark } from '../brand/BrandMark'
@@ -13,7 +13,7 @@ interface SiteNavbarProps {
 
 export function SiteNavbar({ onOpenSearch }: SiteNavbarProps) {
   const location = useLocation()
-  const { user } = useAppState()
+  const { user, demoSignOut, pushToast } = useAppState()
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [prevPath, setPrevPath] = useState(location.pathname)
@@ -137,12 +137,28 @@ export function SiteNavbar({ onOpenSearch }: SiteNavbarProps) {
             <div className="mobile-drawer-auth">
               {user ? (
                 <div className="mobile-auth-logged">
+                  <div className="mobile-user-greeting" style={{ padding: '0.5rem 0', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                    Signed in as <strong style={{ color: 'var(--text-primary)' }}>{user.name}</strong>
+                  </div>
                   <Link to="/dashboard" className="btn btn-primary mobile-full-btn" onClick={() => setMobileMenuOpen(false)}>
                     Go to Dashboard
                   </Link>
                   <Link to="/settings" className="btn btn-secondary mobile-full-btn" onClick={() => setMobileMenuOpen(false)}>
                     Settings
                   </Link>
+                  <button
+                    type="button"
+                    className="btn btn-outline mobile-full-btn mobile-logout-btn"
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '0.25rem', borderColor: 'rgba(239, 68, 68, 0.4)', color: '#ef4444' }}
+                    onClick={() => {
+                      setMobileMenuOpen(false)
+                      demoSignOut()
+                      pushToast('You have been logged out successfully.', 'info')
+                    }}
+                  >
+                    <LogOut size={16} />
+                    <span>Log out</span>
+                  </button>
                 </div>
               ) : (
                 <div className="mobile-auth-buttons">

@@ -141,7 +141,7 @@ export async function getCurrentUser(): Promise<DemoUser | null> {
   }
 
   try {
-    const raw = await apiClient.get<unknown>('/api/auth/me')
+    const raw = await apiClient.get<unknown>('/api/auth/me', { retry: false })
     const user = safeValidate(userProfileSchema, raw, 'authService.getCurrentUser')
     return user as DemoUser
   } catch {
@@ -152,34 +152,32 @@ export async function getCurrentUser(): Promise<DemoUser | null> {
 export async function verifyEmailOtp(email: string, code: string): Promise<boolean> {
   if (isMockMode()) {
     await new Promise((resolve) => setTimeout(resolve, 450))
-    return /^\d{6}$/.test(code) && code !== '000000'
-  }
-
-  try {
-    const res = await apiClient.post<{ success: boolean }>('/api/auth/verify-otp', {
-      email: email.trim().toLowerCase(),
-      code: code.trim(),
-    })
-    return Boolean(res?.success)
-  } catch {
-    return false
-  }
-}
-
-export async function resendVerificationCode(email: string): Promise<boolean> {
-  if (isMockMode()) {
-    await new Promise((resolve) => setTimeout(resolve, 350))
+    if (!/^\d{6}$/.test(code) || code === '000000') {
+      throw new ApiError('Invalid verification code. Please check the 6-digit code and try again.', 400)
+    }
     return true
   }
 
-  try {
-    const res = await apiClient.post<{ success: boolean }>('/api/auth/resend-otp', {
-      email: email.trim().toLowerCase(),
-    })
-    return Boolean(res?.success)
-  } catch {
-    return false
+  const res = await apiClient.post<{ success: boolean; token?: string; user?: unknown }>('/api/auth/verify-otp', {
+    email: email.trim().toLowerCase(),
+    code: code.trim(),
+  })
+  if (res?.token) {
+    setAuthToken(res.token)
   }
+  return Boolean(res?.success)
+}
+
+export async function resendVerificationCode(email: string): Promise<string> {
+  if (isMockMode()) {
+    await new Promise((resolve) => setTimeout(resolve, 350))
+    return 'Verification code resent if account exists.'
+  }
+
+  const res = await apiClient.post<{ success: boolean; message?: string }>('/api/auth/resend-otp', {
+    email: email.trim().toLowerCase(),
+  })
+  return res?.message || 'Verification code resent if account exists.'
 }
 
 export async function forgotPassword(email: string): Promise<boolean> {

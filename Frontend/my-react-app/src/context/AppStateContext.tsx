@@ -6,7 +6,7 @@ import type { ActivityItem, DemoUser, ProgressState, UserTier } from '../types'
 import { AppStateContext } from './AppState'
 import type { ToastItem } from './AppState'
 import { isMockMode } from '../api/config'
-import { getCurrentUser } from '../api/services/authService'
+import { getCurrentUser, logoutUser } from '../api/services/authService'
 import {
   completeLessonEvent,
   submitQuizEvent,
@@ -14,6 +14,7 @@ import {
   activateStreakFreezeEvent,
   setDailyGoalEvent,
   fetchProgress,
+  cleanseLegacyProgress,
 } from '../api/services/progressService'
 import { toggleBookmarkApi, toggleSavedApi } from '../api/services/bookmarksService'
 
@@ -23,18 +24,18 @@ const emptyProgress: ProgressState = {
   bookmarks: [],
   savedLessonIds: [],
   history: [],
-  xp: 45,
-  streak: 3,
-  dailyGoal: 30,
+  xp: 0,
+  streak: 0,
+  dailyGoal: 3,
   soundEnabled: true,
   mascotEnabled: true,
-  streakFreezes: 1,
-  badges: ['first-step'],
+  streakFreezes: 0,
+  badges: [],
   chestsOpened: [],
   weeklyHistory: [
-    { day: 'M', xp: 30, completed: true },
-    { day: 'T', xp: 45, completed: true },
-    { day: 'W', xp: 15, completed: true },
+    { day: 'M', xp: 0, completed: false },
+    { day: 'T', xp: 0, completed: false },
+    { day: 'W', xp: 0, completed: false },
     { day: 'T', xp: 0, completed: false },
     { day: 'F', xp: 0, completed: false },
     { day: 'S', xp: 0, completed: false },
@@ -73,10 +74,11 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   })
   const [progress, setProgress] = useState<ProgressState>(() => {
     const saved = readJson<ProgressState>('progress', emptyProgress)
-    return {
+    const merged = cleanseLegacyProgress({
       ...emptyProgress,
       ...saved,
-    }
+    })
+    return merged
   })
   const [toasts, setToasts] = useState<ToastItem[]>([])
 
@@ -99,6 +101,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const demoSignOut = useCallback(() => {
     setUser(null)
     removeKey('user')
+    logoutUser().catch(() => {})
   }, [])
 
   const playSound = useCallback(
@@ -184,8 +187,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     if (user && !isMockMode()) {
       fetchProgress()
         .then((serverProgress) => {
-          setProgress(serverProgress)
-          writeJson('progress', serverProgress)
+          const cleansed = cleanseLegacyProgress(serverProgress)
+          setProgress(cleansed)
+          writeJson('progress', cleansed)
         })
         .catch(() => {})
     }

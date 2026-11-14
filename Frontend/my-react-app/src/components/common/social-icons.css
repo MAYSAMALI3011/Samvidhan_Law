@@ -75,8 +75,10 @@
 }
 
 .uiverse-social-icons.size-sm .icon-content a {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 /* Glass Variant (For Site Footer) */
@@ -133,6 +135,41 @@
 
 .uiverse-social-icons .icon-content a:hover .filled {
   transform: scaleY(1);
+}
+
+/* Labels Support (Icons + Text Labels with minimum 44px tap target) */
+.uiverse-social-icons.with-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.uiverse-social-icons.with-labels .icon-content a {
+  width: auto;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  gap: 0.55rem;
+}
+
+.uiverse-social-icons.with-labels .icon-content a .filled {
+  border-radius: 9999px;
+}
+
+.uiverse-social-icons.with-labels .social-text-label {
+  position: relative;
+  z-index: 2;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: inherit;
+}
+
+.uiverse-social-icons.with-labels .icon-content:hover .social-text-label {
+  color: #ffffff;
 }
 
 /* Accessibility Keyboard Focus */

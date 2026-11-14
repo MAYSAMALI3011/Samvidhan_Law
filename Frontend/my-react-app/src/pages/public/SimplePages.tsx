@@ -231,6 +231,12 @@ export function PrivacyPage() {
 
   return (
     <div className="container page-hero reading-layout">
+      <div className="banner info" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <ShieldCheck size={20} className="text-gold" aria-hidden="true" />
+        <span style={{ fontSize: '0.9rem' }}>
+          <strong>Draft for Civic Educational Platform</strong> • Subject to formal legal counsel review. Local storage first, zero tracking.
+        </span>
+      </div>
       <p className="kicker">Transparency</p>
       <h1>Privacy Policy</h1>
       <div className="reading">
@@ -258,6 +264,12 @@ export function TermsPage() {
 
   return (
     <div className="container page-hero reading-layout">
+      <div className="banner info" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <ShieldCheck size={20} className="text-gold" aria-hidden="true" />
+        <span style={{ fontSize: '0.9rem' }}>
+          <strong>Draft Terms</strong> • Educational platform framework. Always verify with the Official Gazette of India.
+        </span>
+      </div>
       <p className="kicker">Legal Terms</p>
       <h1>Terms of Use</h1>
       <div className="reading">
@@ -267,6 +279,37 @@ export function TermsPage() {
         <p>
           Authentication, consultation, and interactive features depicted across this site are educational demonstrations. Always verify provisions with the Official Gazette of India.
         </p>
+      </div>
+    </div>
+  )
+}
+
+export function ComingSoonPage({ topic = 'This Feature' }: { topic?: string }) {
+  usePageMeta({
+    title: `${topic} — Coming Soon`,
+    description: 'This section is currently being researched and authored.',
+  })
+
+  return (
+    <div className="container page-hero not-found-wrapper" style={{ textAlign: 'center', maxWidth: '42rem' }}>
+      <div style={{ display: 'inline-flex', marginBottom: '1.25rem' }}>
+        <MorMascot mood="reading" size={100} />
+      </div>
+      <p className="kicker">Under Research &amp; Development</p>
+      <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.2rem', margin: '0.25rem 0 0.75rem' }}>
+        {topic} is Arriving Soon
+      </h1>
+      <p style={{ fontSize: '1.05rem', color: '#94A3B8', margin: '0 0 2rem' }}>
+        Our civic research team is actively compiling verified statutory breakdowns and learning tracks for this section. In the meantime, explore our foundational curriculum.
+      </p>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+        <ButtonLink to="/learn" variant="gold">
+          <span>Explore Curriculum</span>
+          <ArrowRight size={16} aria-hidden="true" />
+        </ButtonLink>
+        <ButtonLink to="/" variant="secondary">
+          <span>Return Home</span>
+        </ButtonLink>
       </div>
     </div>
   )

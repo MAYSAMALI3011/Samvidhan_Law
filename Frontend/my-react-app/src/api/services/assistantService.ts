@@ -31,7 +31,7 @@ export async function* streamChat(
   const url = base ? `${base}/api/assistant/chat` : '/api/assistant/chat'
   const strategy = getAuthStrategy()
   const token = getAuthToken()
-  const idleLimit = options.idleTimeoutMs ?? 30000
+  const idleLimit = options.idleTimeoutMs ?? 75000
 
   const internalController = new AbortController()
   const onUserAbort = () => internalController.abort()
@@ -46,7 +46,7 @@ export async function* streamChat(
   const resetIdleTimer = () => {
     if (idleTimer) clearTimeout(idleTimer)
     idleTimer = setTimeout(() => {
-      internalController.abort(new Error('Chat stream timed out: No data received for 30 seconds.'))
+      internalController.abort(new Error('Server took too long to respond (>75s). Please retry.'))
     }, idleLimit)
   }
 

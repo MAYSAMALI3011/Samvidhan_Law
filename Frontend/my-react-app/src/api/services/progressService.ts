@@ -23,18 +23,18 @@ const emptyProgress: ProgressState = {
   bookmarks: [],
   savedLessonIds: [],
   history: [],
-  xp: 45,
-  streak: 3,
-  dailyGoal: 30,
+  xp: 0,
+  streak: 0,
+  dailyGoal: 3,
   soundEnabled: true,
   mascotEnabled: true,
-  streakFreezes: 1,
-  badges: ['first-step'],
+  streakFreezes: 0,
+  badges: [],
   chestsOpened: [],
   weeklyHistory: [
-    { day: 'M', xp: 30, completed: true },
-    { day: 'T', xp: 45, completed: true },
-    { day: 'W', xp: 15, completed: true },
+    { day: 'M', xp: 0, completed: false },
+    { day: 'T', xp: 0, completed: false },
+    { day: 'W', xp: 0, completed: false },
     { day: 'T', xp: 0, completed: false },
     { day: 'F', xp: 0, completed: false },
     { day: 'S', xp: 0, completed: false },
@@ -46,10 +46,30 @@ function uid(): string {
   return Math.random().toString(36).slice(2, 9)
 }
 
+export function cleanseLegacyProgress(p: ProgressState): ProgressState {
+  const next = { ...p }
+  if (
+    (!next.completedLessonIds || next.completedLessonIds.length === 0) &&
+    Object.keys(next.quizScores || {}).length === 0
+  ) {
+    if (next.xp === 45) next.xp = 0
+    if (next.streak === 3) next.streak = 0
+    if (next.dailyGoal === 30) next.dailyGoal = 3
+    if (next.badges?.length === 1 && next.badges[0] === 'first-step') {
+      next.badges = []
+    }
+    if (next.streakFreezes === 1) next.streakFreezes = 0
+    if (next.weeklyHistory && next.weeklyHistory.some((d) => d.completed)) {
+      next.weeklyHistory = next.weeklyHistory.map((d) => ({ ...d, xp: 0, completed: false }))
+    }
+  }
+  return next
+}
+
 export async function fetchProgress(): Promise<ProgressState> {
   if (isMockMode()) {
     const saved = readJson<ProgressState>('progress', emptyProgress)
-    return { ...emptyProgress, ...saved }
+    return cleanseLegacyProgress({ ...emptyProgress, ...saved })
   }
 
   try {
@@ -57,7 +77,7 @@ export async function fetchProgress(): Promise<ProgressState> {
     return safeValidate(progressStateSchema, raw, 'progressService.fetchProgress', emptyProgress)
   } catch {
     const saved = readJson<ProgressState>('progress', emptyProgress)
-    return { ...emptyProgress, ...saved }
+    return cleanseLegacyProgress({ ...emptyProgress, ...saved })
   }
 }
 

@@ -141,15 +141,21 @@ async function executeRequest<T>(endpoint: string, options: RequestOptions = {})
     }
 
     if (res.status === 401) {
+      let errorBody: { message?: string; errors?: unknown; detail?: string } = {}
+      try {
+        errorBody = await res.json()
+      } catch {
+        // Fall back to default
+      }
+      const message = errorBody.detail || errorBody.message || 'Invalid email or password.'
+
       if (isAuthEntryEndpoint(endpoint)) {
-        let errorBody: { message?: string; errors?: unknown } = {}
-        try {
-          errorBody = await res.json()
-        } catch {
-          // Fall back to default
-        }
-        const message = errorBody.message || 'Invalid email or password.'
         throw new ApiError(message, 401, errorBody.errors)
+      }
+
+      if (endpoint === '/api/auth/me' || endpoint.endsWith('/api/auth/me')) {
+        // A visitor's 401 on GET /api/auth/me is normal: do not treat as an active session error
+        throw new ApiError('Not authenticated', 401)
       }
 
       handleUnauthorized()
@@ -157,14 +163,14 @@ async function executeRequest<T>(endpoint: string, options: RequestOptions = {})
     }
 
     if (!res.ok) {
-      let errorBody: { message?: string; errors?: unknown } = {}
+      let errorBody: { message?: string; errors?: unknown; detail?: string } = {}
       try {
         errorBody = await res.json()
       } catch {
         // Fall back to status text
       }
 
-      const message = errorBody.message || `Request failed with status ${res.status}: ${res.statusText}`
+      const message = errorBody.detail || errorBody.message || `Request failed with status ${res.status}: ${res.statusText}`
       throw new ApiError(message, res.status, errorBody.errors)
     }
 

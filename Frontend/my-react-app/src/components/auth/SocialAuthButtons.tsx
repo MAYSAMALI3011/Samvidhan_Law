@@ -1,37 +1,18 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAppState } from '../../context/useAppState'
 
 interface SocialAuthButtonsProps {
   mode: 'signup' | 'login'
 }
 
 export function SocialAuthButtons({ mode }: SocialAuthButtonsProps) {
-  const { demoSignIn, pushToast } = useAppState()
-  const navigate = useNavigate()
   const [loadingProvider, setLoadingProvider] = useState<'Google' | 'Apple' | null>(null)
 
   const handleProviderAuth = (provider: 'Google' | 'Apple') => {
     setLoadingProvider(provider)
-    setTimeout(() => {
-      setLoadingProvider(null)
-      demoSignIn({
-        id: `usr_${provider.toLowerCase()}_${Date.now()}`,
-        name: `${provider} Citizen`,
-        email: `citizen.${provider.toLowerCase()}@samvidhan.law`,
-        tier: 'free',
-        interests: ['Preamble & Fundamental Rights', 'Consumer Protection'],
-        role: 'learner',
-        isDemoUser: true,
-      })
-      pushToast(
-        mode === 'signup'
-          ? `Welcome to Samvidhan! Account created with ${provider}.`
-          : `Welcome back! Logged in with ${provider}.`,
-        'success'
-      )
-      navigate('/dashboard')
-    }, 550)
+    const supabaseUrl = 'https://ihjckqfyljocgmnjfxrv.supabase.co'
+    const redirectTo = encodeURIComponent(window.location.origin + '/dashboard')
+    // Direct browser redirect to Supabase GoTrue OAuth provider
+    window.location.href = `${supabaseUrl}/auth/v1/authorize?provider=${provider.toLowerCase()}&redirect_to=${redirectTo}`
   }
 
   const actionText = mode === 'signup' ? 'Sign up' : 'Continue'

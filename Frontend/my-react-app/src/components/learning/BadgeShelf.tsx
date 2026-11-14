@@ -70,7 +70,7 @@ export function BadgeShelf() {
   const { progress, playSound } = useAppState()
   const [activeBadge, setActiveBadge] = useState<BadgeItem | null>(null)
 
-  const unlocked = progress.badges || ['first-step']
+  const unlocked = progress.badges ?? []
 
   return (
     <div className="badge-shelf-container" role="region" aria-label="Constitutional Badges">

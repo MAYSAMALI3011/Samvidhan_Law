@@ -123,36 +123,47 @@ export function SignupForm({ onSwitchToLogin, isActive }: SignupFormProps) {
 
   // Handle OTP completion via apiClient
   const handleVerifyOtp = async (code: string): Promise<boolean> => {
-    const verified = await verifyEmailOtp(email, code)
+    try {
+      const verified = await verifyEmailOtp(email, code)
 
-    if (verified) {
-      setIsSuccess(true)
-      setTimeout(() => {
-        demoSignIn({
-          name: name.trim(),
-          email: email.trim().toLowerCase(),
-          interests: ['Constitutional Law', 'Citizen Rights'],
-          role: 'learner',
-          tier: 'free',
-          aiUsageToday: 0,
-        })
-        pushToast('Email verified! Welcome to Samvidhan.', 'success')
+      if (verified) {
+        setIsSuccess(true)
         setTimeout(() => {
-          navigate('/onboarding')
-        }, 500)
-      }, 600)
-      return true
-    }
+          demoSignIn({
+            name: name.trim(),
+            email: email.trim().toLowerCase(),
+            interests: ['Constitutional Law', 'Citizen Rights'],
+            role: 'learner',
+            tier: 'free',
+            aiUsageToday: 0,
+          })
+          pushToast('Email verified! Welcome to Samvidhan.', 'success')
+          setTimeout(() => {
+            navigate('/onboarding')
+          }, 500)
+        }, 600)
+        return true
+      }
 
-    pushToast('Invalid code. Please try again.', 'error')
-    return false
+      pushToast('Invalid verification code. Please try again.', 'error')
+      return false
+    } catch (err: unknown) {
+      const msg = err instanceof Error && err.message ? err.message : 'Invalid code. Please try again.'
+      pushToast(msg, 'error')
+      return false
+    }
   }
 
   const handleResendCode = async () => {
     if (resendCooldown > 0) return
-    await resendVerificationCode(email)
-    setResendCooldown(30)
-    pushToast(`A fresh verification code was sent to ${email}`, 'success')
+    try {
+      const message = await resendVerificationCode(email)
+      setResendCooldown(60)
+      pushToast(message || `A fresh verification code was sent to ${email}`, 'success')
+    } catch (err: unknown) {
+      const msg = err instanceof Error && err.message ? err.message : 'Unable to resend code.'
+      pushToast(msg, 'error')
+    }
   }
 
   // OTP Verification View
