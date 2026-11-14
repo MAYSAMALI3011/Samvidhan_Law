@@ -6,20 +6,19 @@ import { Mor } from '../mascot/Mor'
 
 export function DailyPracticeWidget() {
   const { progress } = useAppState()
-  const streak = progress.streak || 3
+  const streak = progress.streak ?? 0
   const [streakFrozen, setStreakFrozen] = useState(false)
 
-  // 7 days of the week: Mon=0, Tue=1, Wed=2 (today), Thu=3, Fri=4, Sat=5, Sun=6
-  const isStreakAtRisk = (progress.completedLessonIds.length === 0) && !streakFrozen
-  const days = [
-    { day: 'M', completed: true, isToday: false },
-    { day: 'T', completed: true, isToday: false },
-    { day: 'W', completed: true, isToday: true },
-    { day: 'T', completed: false, isToday: false },
-    { day: 'F', completed: false, isToday: false },
-    { day: 'S', completed: false, isToday: false },
-    { day: 'S', completed: false, isToday: false },
-  ]
+  // 7 days of the week: Mon=0, Tue=1, Wed=2, Thu=3, Fri=4, Sat=5, Sun=6
+  const isStreakAtRisk = (streak > 0 && progress.completedLessonIds.length === 0) && !streakFrozen
+  const dayLetters = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+  const todayIdx = (new Date().getDay() + 6) % 7
+  const weekly = progress.weeklyHistory || []
+  const days = dayLetters.map((day, idx) => ({
+    day,
+    completed: Boolean(weekly[idx]?.completed),
+    isToday: idx === todayIdx,
+  }))
 
   return (
     <div className="daily-practice-container" role="region" aria-label="Daily Practice and Habit Dashboard">

@@ -138,11 +138,11 @@ export function ProgressPage() {
             <div className="stat-box-label">Lessons Mastered</div>
           </div>
           <div className="panel profile-stat-box">
-            <div className="stat-box-num">{progress.xp || 45}</div>
+            <div className="stat-box-num">{progress.xp ?? 0}</div>
             <div className="stat-box-label">Total XP Earned</div>
           </div>
           <div className="panel profile-stat-box">
-            <div className="stat-box-num">🔥 {progress.streak || 3}</div>
+            <div className="stat-box-num">🔥 {progress.streak ?? 0}</div>
             <div className="stat-box-label">Day Streak</div>
           </div>
         </div>

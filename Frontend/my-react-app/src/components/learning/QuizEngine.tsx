@@ -229,7 +229,7 @@ export function QuizEngine({
           title={quizTitle}
           xpEarned={earnedXp}
           accuracy={accuracy}
-          streak={progress.streak || 3}
+          streak={progress.streak ?? 0}
           onContinue={onExit}
         />
       </div>

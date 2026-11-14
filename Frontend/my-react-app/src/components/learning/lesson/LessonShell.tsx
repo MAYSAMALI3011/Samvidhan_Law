@@ -35,7 +35,7 @@ export function LessonShell({
   const [isHelpOpen, setIsHelpOpen] = useState(false)
   const { playSound, progress } = useAppState()
 
-  const currentStreak = streak ?? (progress?.streak || 3)
+  const currentStreak = streak ?? (progress?.streak ?? 0)
   const currentCard = cards[cardIndex] || cards[0]
   const totalCards = cards.length
 
