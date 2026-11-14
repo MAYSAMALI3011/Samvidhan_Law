@@ -1,0 +1,1898 @@
+{
+  "timestamp": "2026-11-13T17:31:09.555Z",
+  "target": "https://samvidhan-law.pages.dev",
+  "pages": [
+    {
+      "route": "home",
+      "path": "/",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/",
+      "screenshot": "home-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 5970,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 5994,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "div",
+            "className": "trust-marquee-track",
+            "id": "",
+            "rect": {
+              "left": -1831.33056640625,
+              "right": 2276.48193359375,
+              "width": 4107.8125
+            }
+          },
+          {
+            "tag": "div",
+            "className": "trust-marquee-item",
+            "id": "",
+            "rect": {
+              "left": -1831.33056640625,
+              "right": -1433.29931640625,
+              "width": 398.03125
+            }
+          },
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1831.33056640625,
+              "right": -1815.33056640625,
+              "width": 16
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1823.33056640625,
+              "right": -1823.33056640625,
+              "width": 0
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1820.6639404296875,
+              "right": -1816.6639404296875,
+              "width": 4
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1829.33056640625,
+              "right": -1817.33056640625,
+              "width": 12
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1829.9971923828125,
+              "right": -1825.9971923828125,
+              "width": 4
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1826.6639404296875,
+              "right": -1819.9971923828125,
+              "width": 6.666748046875
+            }
+          },
+          {
+            "tag": "div",
+            "className": "trust-marquee-text",
+            "id": "",
+            "rect": {
+              "left": -1804.93994140625,
+              "right": -1469.68994140625,
+              "width": 335.25
+            }
+          },
+          {
+            "tag": "span",
+            "className": "trust-marquee-name",
+            "id": "",
+            "rect": {
+              "left": -1804.93994140625,
+              "right": -1649.86181640625,
+              "width": 155.078125
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "constitution",
+      "path": "/constitution",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/constitution",
+      "screenshot": "constitution-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/constitution\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 2622,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 2646,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1207.857177734375,
+              "right": 2839.630859375,
+              "width": 4047.488037109375
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -616.1849975585938,
+              "right": 2763.0149536132812,
+              "width": 3379.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1207.857177734375,
+              "right": 2171.3427734375,
+              "width": 3379.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -698.1912841796875,
+              "right": 2681.0089111328125,
+              "width": 3379.2001953125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -539.5690307617188,
+              "right": 2839.6309204101562,
+              "width": 3379.199951171875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "constitution-topic",
+      "path": "/constitution/preamble",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/constitution/preamble",
+      "screenshot": "constitution-topic-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/constitution/preamble\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 2268,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 2292,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1201.702880859375,
+              "right": 2842.3154296875,
+              "width": 4044.018310546875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -608.3685302734375,
+              "right": 2770.8316650390625,
+              "width": 3379.2001953125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1201.702880859375,
+              "right": 2177.4970703125,
+              "width": 3379.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -693.87841796875,
+              "right": 2685.32177734375,
+              "width": 3379.2001953125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -536.884521484375,
+              "right": 2842.3154296875,
+              "width": 3379.199951171875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "library",
+      "path": "/library",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/library",
+      "screenshot": "library-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/library\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 2943,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 2967,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1214.0081787109375,
+              "right": 2836.9429931640625,
+              "width": 4050.951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -624.0245971679688,
+              "right": 2755.1753540039062,
+              "width": 3379.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1214.0081787109375,
+              "right": 2165.1920166015625,
+              "width": 3379.2001953125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -702.5133666992188,
+              "right": 2676.6868286132812,
+              "width": 3379.2001953125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -542.2573852539062,
+              "right": 2836.9425659179688,
+              "width": 3379.199951171875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "learn",
+      "path": "/learn",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/learn",
+      "screenshot": "learn-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/learn\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 2054,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 2078,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1220.1322021484375,
+              "right": 2834.2603759765625,
+              "width": 4054.392578125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -631.8577270507812,
+              "right": 2747.3422241210938,
+              "width": 3379.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1220.1322021484375,
+              "right": 2159.0679931640625,
+              "width": 3379.2001953125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -706.828369140625,
+              "right": 2672.37158203125,
+              "width": 3379.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -544.9393920898438,
+              "right": 2834.2605590820312,
+              "width": 3379.199951171875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "lesson",
+      "path": "/learn/foundations/preamble",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/learn/foundations/preamble",
+      "screenshot": "lesson-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/learn/foundations/preamble\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 900,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 900,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "ask",
+      "path": "/ask",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/ask",
+      "screenshot": "ask-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/ask\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 1781,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 1805,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1195.5618896484375,
+              "right": 2844.9888916015625,
+              "width": 4040.55078125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -600.5956420898438,
+              "right": 2778.6045532226562,
+              "width": 3379.2001953125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1195.5618896484375,
+              "right": 2183.6383056640625,
+              "width": 3379.2001953125
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -689.5862426757812,
+              "right": 2689.6137084960938,
+              "width": 3379.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -534.2111206054688,
+              "right": 2844.9888305664062,
+              "width": 3379.199951171875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "login",
+      "path": "/login",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/login",
+      "screenshot": "login-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/login\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 900,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 900,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [],
+        "verticalScrollContainers": [
+          {
+            "tag": "div",
+            "className": "auth-slot-panel auth-slot-left is-slot-inactive",
+            "id": "panel-signup",
+            "scrollHeight": 912,
+            "clientHeight": 745,
+            "overflowY": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "route": "signup",
+      "path": "/signup",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/signup",
+      "screenshot": "signup-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/signup\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 900,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 900,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [],
+        "verticalScrollContainers": [
+          {
+            "tag": "div",
+            "className": "auth-slot-panel auth-slot-left is-slot-active",
+            "id": "panel-signup",
+            "scrollHeight": 912,
+            "clientHeight": 745,
+            "overflowY": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "route": "dashboard",
+      "path": "/dashboard",
+      "viewport": "desktop",
+      "url": "https://samvidhan-law.pages.dev/dashboard",
+      "screenshot": "dashboard-desktop.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/dashboard\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 1440,
+        "windowHeight": 900,
+        "docScrollWidth": 1440,
+        "docScrollHeight": 900,
+        "bodyScrollWidth": 1440,
+        "bodyScrollHeight": 900,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [],
+        "verticalScrollContainers": [
+          {
+            "tag": "div",
+            "className": "auth-slot-panel auth-slot-left is-slot-inactive",
+            "id": "panel-signup",
+            "scrollHeight": 912,
+            "clientHeight": 745,
+            "overflowY": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "route": "home",
+      "path": "/",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/",
+      "screenshot": "home-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 8745,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 8769,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "div",
+            "className": "trust-marquee-track",
+            "id": "",
+            "rect": {
+              "left": -1996.0587158203125,
+              "right": 2111.7537841796875,
+              "width": 4107.8125
+            }
+          },
+          {
+            "tag": "div",
+            "className": "trust-marquee-item",
+            "id": "",
+            "rect": {
+              "left": -1996.0587158203125,
+              "right": -1598.0274658203125,
+              "width": 398.03125
+            }
+          },
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1996.0587158203125,
+              "right": -1980.0587158203125,
+              "width": 16
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1988.0587158203125,
+              "right": -1988.0587158203125,
+              "width": 0
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1985.39208984375,
+              "right": -1981.39208984375,
+              "width": 4
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1994.0587158203125,
+              "right": -1982.0587158203125,
+              "width": 12
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1994.725341796875,
+              "right": -1990.725341796875,
+              "width": 4
+            }
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -1991.39208984375,
+              "right": -1984.725341796875,
+              "width": 6.666748046875
+            }
+          },
+          {
+            "tag": "div",
+            "className": "trust-marquee-text",
+            "id": "",
+            "rect": {
+              "left": -1969.6680908203125,
+              "right": -1634.4180908203125,
+              "width": 335.25
+            }
+          },
+          {
+            "tag": "span",
+            "className": "trust-marquee-name",
+            "id": "",
+            "rect": {
+              "left": -1969.6680908203125,
+              "right": -1814.5899658203125,
+              "width": 155.078125
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "constitution",
+      "path": "/constitution",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/constitution",
+      "screenshot": "constitution-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/constitution\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 4927,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 4951,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -322.9596862792969,
+              "right": 770.8823547363281,
+              "width": 1093.842041015625
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -161.6028289794922,
+              "right": 753.5971832275391,
+              "width": 915.2000122070312
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -322.9596862792969,
+              "right": 592.2402648925781,
+              "width": 915.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -186.1781005859375,
+              "right": 729.0219116210938,
+              "width": 915.2000122070312
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -144.31771850585938,
+              "right": 770.8823547363281,
+              "width": 915.2000732421875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "constitution-topic",
+      "path": "/constitution/preamble",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/constitution/preamble",
+      "screenshot": "constitution-topic-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/constitution/preamble\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 3361,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 3385,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -322.962890625,
+              "right": 770.880859375,
+              "width": 1093.84375
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -161.60687255859375,
+              "right": 753.5931396484375,
+              "width": 915.2000122070312
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -322.962890625,
+              "right": 592.2371215820312,
+              "width": 915.2000122070312
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -186.1803741455078,
+              "right": 729.0196380615234,
+              "width": 915.2000122070312
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -144.31912231445312,
+              "right": 770.8808288574219,
+              "width": 915.199951171875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "library",
+      "path": "/library",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/library",
+      "screenshot": "library-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/library\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 5227,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 5251,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -324.62835693359375,
+              "right": 770.1565551757812,
+              "width": 1094.784912109375
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -163.71141052246094,
+              "right": 751.4885406494141,
+              "width": 915.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -324.62835693359375,
+              "right": 590.5716552734375,
+              "width": 915.2000122070312
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -187.3428955078125,
+              "right": 727.8571166992188,
+              "width": 915.2000122070312
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -145.04348754882812,
+              "right": 770.1565856933594,
+              "width": 915.2000732421875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "learn",
+      "path": "/learn",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/learn",
+      "screenshot": "learn-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/learn\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 3693,
+        "bodyScrollWidth": 420,
+        "bodyScrollHeight": 3717,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": true,
+        "overflowingElements": [
+          {
+            "tag": "div",
+            "className": "",
+            "id": "",
+            "rect": {
+              "left": 20,
+              "right": 419.828125,
+              "width": 399.828125
+            }
+          },
+          {
+            "tag": "div",
+            "className": "",
+            "id": "",
+            "rect": {
+              "left": 20,
+              "right": 419.828125,
+              "width": 399.828125
+            }
+          },
+          {
+            "tag": "h1",
+            "className": "",
+            "id": "",
+            "rect": {
+              "left": 20,
+              "right": 419.828125,
+              "width": 399.828125
+            }
+          },
+          {
+            "tag": "p",
+            "className": "muted",
+            "id": "",
+            "rect": {
+              "left": 20,
+              "right": 419.828125,
+              "width": 399.828125
+            }
+          },
+          {
+            "tag": "div",
+            "className": "panel",
+            "id": "",
+            "rect": {
+              "left": 20,
+              "right": 419.828125,
+              "width": 399.828125
+            }
+          },
+          {
+            "tag": "div",
+            "className": "curriculum-pill-tabs",
+            "id": "",
+            "rect": {
+              "left": 20,
+              "right": 419.828125,
+              "width": 399.828125
+            }
+          },
+          {
+            "tag": "button",
+            "className": "curriculum-tab-pill ",
+            "id": "",
+            "rect": {
+              "left": 311.0625,
+              "right": 413.234375,
+              "width": 102.171875
+            }
+          },
+          {
+            "tag": "div",
+            "className": "grid-2",
+            "id": "",
+            "rect": {
+              "left": 20,
+              "right": 419.828125,
+              "width": 399.828125
+            }
+          },
+          {
+            "tag": "a",
+            "className": "course-card clickable-card",
+            "id": "",
+            "rect": {
+              "left": 20,
+              "right": 419.828125,
+              "width": 399.828125
+            }
+          },
+          {
+            "tag": "div",
+            "className": "course-card-top",
+            "id": "",
+            "rect": {
+              "left": 45,
+              "right": 394.828125,
+              "width": 349.828125
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "lesson",
+      "path": "/learn/foundations/preamble",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/learn/foundations/preamble",
+      "screenshot": "lesson-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/learn/foundations/preamble\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 844,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 844,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "ask",
+      "path": "/ask",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/ask",
+      "screenshot": "ask-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/ask\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 2835,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 2859,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "g",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -324.6311340332031,
+              "right": 770.1553649902344,
+              "width": 1094.7864990234375
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -163.71490478515625,
+              "right": 751.4850463867188,
+              "width": 915.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -324.6311340332031,
+              "right": 590.5688171386719,
+              "width": 915.199951171875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -187.3448486328125,
+              "right": 727.855224609375,
+              "width": 915.2000732421875
+            }
+          },
+          {
+            "tag": "use",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": -145.044677734375,
+              "right": 770.1553344726562,
+              "width": 915.2000122070312
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "login",
+      "path": "/login",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/login",
+      "screenshot": "login-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/login\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 1061,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 1061,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": 239.4114990234375,
+              "right": 399.7760009765625,
+              "width": 160.364501953125
+            }
+          },
+          {
+            "tag": "circle",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": 245.82608032226562,
+              "right": 393.3614196777344,
+              "width": 147.53533935546875
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "signup",
+      "path": "/signup",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/signup",
+      "screenshot": "signup-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/signup\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 1319,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 1319,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": 239.20863342285156,
+              "right": 399.9788818359375,
+              "width": 160.77024841308594
+            }
+          },
+          {
+            "tag": "circle",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": 245.6394500732422,
+              "right": 393.5480651855469,
+              "width": 147.9086151123047
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    },
+    {
+      "route": "dashboard",
+      "path": "/dashboard",
+      "viewport": "mobile",
+      "url": "https://samvidhan-law.pages.dev/dashboard",
+      "screenshot": "dashboard-mobile.png",
+      "navigationError": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://samvidhan-law.pages.dev/dashboard\", waiting until \"networkidle\"\u001b[22m\n",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 401 ()"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        },
+        {
+          "url": "https://samvidhan-law.onrender.com/api/auth/me",
+          "status": 401,
+          "contentType": "application/json"
+        }
+      ],
+      "layoutAudit": {
+        "windowWidth": 390,
+        "windowHeight": 844,
+        "docScrollWidth": 390,
+        "docScrollHeight": 1061,
+        "bodyScrollWidth": 390,
+        "bodyScrollHeight": 1061,
+        "htmlOverflowY": "auto",
+        "bodyOverflowY": "auto",
+        "hasHorizontalOverflow": false,
+        "overflowingElements": [
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": 238.11509704589844,
+              "right": 401.0723876953125,
+              "width": 162.95729064941406
+            }
+          },
+          {
+            "tag": "circle",
+            "className": "[object SVGAnimatedString]",
+            "id": "",
+            "rect": {
+              "left": 244.63339233398438,
+              "right": 394.5541076660156,
+              "width": 149.92071533203125
+            }
+          }
+        ],
+        "verticalScrollContainers": []
+      }
+    }
+  ]
+}

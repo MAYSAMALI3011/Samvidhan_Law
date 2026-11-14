@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     )
 
     APP_ENV: str = "development"
-    ALLOWED_ORIGINS: str = "http://localhost:5173,https://maysamali3011.github.io"
+    ALLOWED_ORIGINS: str = "http://localhost:5173,https://samvidhan-law.pages.dev,https://maysamali3011.github.io"
 
     # Supabase Configuration
     # Supports both anon/publishable and service_role/secret naming conventions
@@ -40,12 +40,12 @@ class Settings(BaseSettings):
 
     # Free AI Providers
     GEMINI_API_KEY: str = ""
-    GEMINI_MODEL: str = "gemini-2.0-flash"
+    GEMINI_MODEL: str = "gemini-flash-lite-latest"
     GEMINI_RPM: Optional[int] = None
     GEMINI_RPD: Optional[int] = None
 
     GROQ_API_KEY: str = ""
-    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    GROQ_MODEL: str = "qwen/qwen3.8-27b"
     GROQ_RPM: Optional[int] = None
     GROQ_RPD: Optional[int] = None
 
@@ -55,7 +55,7 @@ class Settings(BaseSettings):
     MISTRAL_RPD: Optional[int] = None
 
     OPENROUTER_API_KEY: str = ""
-    OPENROUTER_MODEL: str = "google/gemini-2.0-flash-exp:free"
+    OPENROUTER_MODEL: str = "inclusionai/ling-3.2-flash:free"
     OPENROUTER_RPM: Optional[int] = None
     OPENROUTER_RPD: Optional[int] = None
 

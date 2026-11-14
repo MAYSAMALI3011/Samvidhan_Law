@@ -1,0 +1,766 @@
+{
+  "timestamp": "2026-11-13T17:47:56.723Z",
+  "target": "http://localhost:4173",
+  "pages": [
+    {
+      "route": "home",
+      "path": "/",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/",
+      "screenshot": "home-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "constitution",
+      "path": "/constitution",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/constitution",
+      "screenshot": "constitution-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "constitution-topic",
+      "path": "/constitution/preamble",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/constitution/preamble",
+      "screenshot": "constitution-topic-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "library",
+      "path": "/library",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/library",
+      "screenshot": "library-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "learn",
+      "path": "/learn",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/learn",
+      "screenshot": "learn-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "lesson",
+      "path": "/learn/foundations/preamble",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/learn/foundations/preamble",
+      "screenshot": "lesson-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "ask",
+      "path": "/ask",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/ask",
+      "screenshot": "ask-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "login",
+      "path": "/login",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/login",
+      "screenshot": "login-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "signup",
+      "path": "/signup",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/signup",
+      "screenshot": "signup-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "dashboard",
+      "path": "/dashboard",
+      "viewport": "desktop",
+      "url": "http://localhost:4173/dashboard",
+      "screenshot": "dashboard-desktop.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "home",
+      "path": "/",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/",
+      "screenshot": "home-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "constitution",
+      "path": "/constitution",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/constitution",
+      "screenshot": "constitution-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "constitution-topic",
+      "path": "/constitution/preamble",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/constitution/preamble",
+      "screenshot": "constitution-topic-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "library",
+      "path": "/library",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/library",
+      "screenshot": "library-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "learn",
+      "path": "/learn",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/learn",
+      "screenshot": "learn-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "lesson",
+      "path": "/learn/foundations/preamble",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/learn/foundations/preamble",
+      "screenshot": "lesson-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "ask",
+      "path": "/ask",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/ask",
+      "screenshot": "ask-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "login",
+      "path": "/login",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/login",
+      "screenshot": "login-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "signup",
+      "path": "/signup",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/signup",
+      "screenshot": "signup-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    },
+    {
+      "route": "dashboard",
+      "path": "/dashboard",
+      "viewport": "mobile",
+      "url": "http://localhost:4173/dashboard",
+      "screenshot": "dashboard-mobile.png",
+      "logs": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "failedRequests": [
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        },
+        {
+          "url": "http://localhost:4173/api/auth/me",
+          "status": 404,
+          "contentType": ""
+        }
+      ]
+    }
+  ]
+}

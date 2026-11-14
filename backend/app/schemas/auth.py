@@ -9,6 +9,13 @@ class SignupRequest(BaseModel):
     email: EmailStr
     password: str = Field(..., min_length=8, max_length=128)
 
+    @field_validator("email", mode="before")
+    @classmethod
+    def normalize_email(cls, v: str) -> str:
+        if isinstance(v, str):
+            return v.strip().lower()
+        return v
+
     @field_validator("password")
     @classmethod
     def validate_password_complexity(cls, v: str) -> str:
@@ -31,18 +38,54 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str = Field(..., min_length=1, max_length=128)
 
+    @field_validator("email", mode="before")
+    @classmethod
+    def normalize_email(cls, v: str) -> str:
+        if isinstance(v, str):
+            return v.strip().lower()
+        return v
+
 
 class VerifyOtpRequest(BaseModel):
     email: EmailStr
     code: str = Field(..., min_length=6, max_length=6)
 
+    @field_validator("email", mode="before")
+    @classmethod
+    def normalize_email(cls, v: str) -> str:
+        if isinstance(v, str):
+            return v.strip().lower()
+        return v
+
+    @field_validator("code")
+    @classmethod
+    def validate_code(cls, v: str) -> str:
+        v = v.strip()
+        if not re.match(r"^\d{6}$", v):
+            raise ValueError("Verification code must be exactly 6 digits.")
+        return v
+
 
 class ResendOtpRequest(BaseModel):
     email: EmailStr
 
+    @field_validator("email", mode="before")
+    @classmethod
+    def normalize_email(cls, v: str) -> str:
+        if isinstance(v, str):
+            return v.strip().lower()
+        return v
+
 
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
+
+    @field_validator("email", mode="before")
+    @classmethod
+    def normalize_email(cls, v: str) -> str:
+        if isinstance(v, str):
+            return v.strip().lower()
+        return v
 
 
 class ResetPasswordRequest(BaseModel):

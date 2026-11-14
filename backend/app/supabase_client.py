@@ -79,50 +79,109 @@ async def refresh_user_token(refresh_token: str) -> Optional[Tuple[str, str]]:
 
 
 async def call_gotrue_signup(name: str, email: str, password: str) -> Tuple[int, Dict[str, Any]]:
+    clean_email = email.strip().lower()
     url = f"{settings.SUPABASE_URL.rstrip('/')}/auth/v1/signup"
     headers = {
         "apikey": settings.anon_key,
         "Content-Type": "application/json",
     }
     body = {
-        "email": email,
+        "email": clean_email,
         "password": password,
-        "data": {"name": name},
+        "data": {"name": name.strip()},
     }
     async with httpx.AsyncClient(timeout=15.0) as client:
         res = await client.post(url, headers=headers, json=body)
-        return res.status_code, res.json()
+        try:
+            data = res.json() if res.content else {}
+        except Exception:
+            data = {"message": res.text}
+        return res.status_code, data
 
 
 async def call_gotrue_verify_otp(email: str, code: str) -> Tuple[int, Dict[str, Any]]:
+    clean_email = email.strip().lower()
+    clean_code = code.strip()
     url = f"{settings.SUPABASE_URL.rstrip('/')}/auth/v1/verify"
+    headers = {
+        "apikey": settings.anon_key,
+        "Content-Type": "application/json",
+    }
+    # Attempt type "signup" first (standard Supabase email verification for signups)
+    body = {
+        "type": "signup",
+        "token": clean_code,
+        "email": clean_email,
+    }
+    async with httpx.AsyncClient(timeout=15.0) as client:
+        res = await client.post(url, headers=headers, json=body)
+        try:
+            data = res.json() if res.content else {}
+        except Exception:
+            data = {"message": res.text}
+
+        if res.status_code == 200:
+            return res.status_code, data
+
+        msg = (data.get("msg") or data.get("error_description") or data.get("message") or "").lower()
+        if "expired" in msg or "already" in msg or "rate" in msg or res.status_code == 429:
+            return res.status_code, data
+
+        # Fallback attempt type "email" (supported by some GoTrue OTP configs)
+        body["type"] = "email"
+        try:
+            res_email = await client.post(url, headers=headers, json=body)
+            if res_email.status_code == 200:
+                return res_email.status_code, res_email.json() if res_email.content else {}
+        except Exception:
+            pass
+
+        return res.status_code, data
+
+
+async def call_gotrue_resend_otp(email: str) -> Tuple[int, Dict[str, Any]]:
+    if not settings.SUPABASE_URL:
+        return 500, {"message": "Supabase URL not configured"}
+    clean_email = email.strip().lower()
+    url = f"{settings.SUPABASE_URL.rstrip('/')}/auth/v1/resend"
     headers = {
         "apikey": settings.anon_key,
         "Content-Type": "application/json",
     }
     body = {
         "type": "signup",
-        "token": code,
-        "email": email,
+        "email": clean_email,
     }
-    async with httpx.AsyncClient(timeout=15.0) as client:
-        res = await client.post(url, headers=headers, json=body)
-        return res.status_code, res.json()
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            res = await client.post(url, headers=headers, json=body)
+            try:
+                data = res.json() if res.content else {}
+            except Exception:
+                data = {"message": res.text}
+            return res.status_code, data
+    except Exception as e:
+        return 500, {"message": str(e)}
 
 
 async def call_gotrue_login(email: str, password: str) -> Tuple[int, Dict[str, Any]]:
+    clean_email = email.strip().lower()
     url = f"{settings.SUPABASE_URL.rstrip('/')}/auth/v1/token?grant_type=password"
     headers = {
         "apikey": settings.anon_key,
         "Content-Type": "application/json",
     }
     body = {
-        "email": email,
+        "email": clean_email,
         "password": password,
     }
     async with httpx.AsyncClient(timeout=15.0) as client:
         res = await client.post(url, headers=headers, json=body)
-        return res.status_code, res.json()
+        try:
+            data = res.json() if res.content else {}
+        except Exception:
+            data = {"message": res.text}
+        return res.status_code, data
 
 
 async def call_gotrue_recover(email: str) -> Tuple[int, Dict[str, Any]]:

@@ -6,7 +6,7 @@ import type { ActivityItem, DemoUser, ProgressState, UserTier } from '../types'
 import { AppStateContext } from './AppState'
 import type { ToastItem } from './AppState'
 import { isMockMode } from '../api/config'
-import { getCurrentUser } from '../api/services/authService'
+import { getCurrentUser, logoutUser } from '../api/services/authService'
 import {
   completeLessonEvent,
   submitQuizEvent,
@@ -99,6 +99,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const demoSignOut = useCallback(() => {
     setUser(null)
     removeKey('user')
+    logoutUser().catch(() => {})
   }, [])
 
   const playSound = useCallback(
