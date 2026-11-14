@@ -49,6 +49,40 @@ function uid(): string {
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<DemoUser | null>(() => {
+    // 1. Check for Supabase OAuth redirect hash (#access_token=...)
+    if (typeof window !== 'undefined' && window.location.hash && window.location.hash.includes('access_token')) {
+      try {
+        const hash = window.location.hash.replace(/^#/, '')
+        const params = new URLSearchParams(hash)
+        const accessToken = params.get('access_token')
+        if (accessToken) {
+          const parts = accessToken.split('.')
+          if (parts.length >= 2) {
+            const rawPayload = atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'))
+            const payload = JSON.parse(rawPayload)
+            const fullName =
+              payload.user_metadata?.full_name ||
+              payload.user_metadata?.name ||
+              (payload.email ? payload.email.split('@')[0] : 'Citizen')
+            const googleUser: DemoUser = {
+              id: payload.sub || `usr_google_${Date.now()}`,
+              name: fullName,
+              email: payload.email || 'citizen.google@samvidhan.law',
+              tier: 'free',
+              interests: ['Preamble & Fundamental Rights', 'Everyday Consumer Protection'],
+              role: 'learner',
+              isDemoUser: true,
+            }
+            writeJson('user', googleUser)
+            window.history.replaceState(null, '', window.location.pathname)
+            return googleUser
+          }
+        }
+      } catch (err) {
+        console.error('Failed to parse OAuth response token:', err)
+      }
+    }
+
     const saved = readJson<DemoUser | null>('user', null)
     if (saved) {
       let changed = false
