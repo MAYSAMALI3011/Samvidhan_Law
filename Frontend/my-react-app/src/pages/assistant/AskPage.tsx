@@ -101,17 +101,22 @@ export function AskPage() {
 
         {/* Header Bar */}
         <header className="ask-page-header">
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-              <div className="ask-feather-avatar-disc">
-                <FeatherAvatar size={28} mode="dark" />
-              </div>
-              <div>
-                <h1 className="ask-page-title">Ask Samvidhan</h1>
-                <p className="ask-page-subtitle">
-                  AI Constitutional Companion &bull; Powered by Statutory Law
-                </p>
-              </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <Link
+              to="/dashboard"
+              className="ask-mobile-back-btn"
+              aria-label="Back to dashboard"
+            >
+              <ArrowLeft size={18} />
+            </Link>
+            <div className="ask-feather-avatar-disc">
+              <FeatherAvatar size={28} mode="dark" />
+            </div>
+            <div>
+              <h1 className="ask-page-title">Ask Samvidhan</h1>
+              <p className="ask-page-subtitle">
+                AI Constitutional Companion &bull; Powered by Statutory Law
+              </p>
             </div>
           </div>
 
