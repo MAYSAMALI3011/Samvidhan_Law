@@ -205,5 +205,15 @@
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
+
+  /* Safe area and clearance on phone */
+  .site-main {
+    padding-top: calc(var(--header-h) + var(--safe-top));
+    padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 24px);
+  }
+
+  [id] {
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
 }
 

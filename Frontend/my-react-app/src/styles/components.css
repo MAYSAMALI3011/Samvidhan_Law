@@ -1233,6 +1233,8 @@
 @media (max-width: 900px) {
   .mobile-tab-bar {
     display: flex;
+    height: calc(var(--tabbar-h) + var(--safe-bottom));
+    padding-bottom: var(--safe-bottom);
   }
 }
 
