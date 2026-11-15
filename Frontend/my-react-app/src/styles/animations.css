@@ -483,27 +483,31 @@ html[data-theme='dark'] .curriculum-tab-pill.is-active {
   .quote-nav-btn {
     display: none !important;
   }
+}
 
+@media (max-width: 640px) {
   .curriculum-pill-tabs {
-    display: flex !important;
-    overflow-x: auto !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+    padding: 6px !important;
+    border-radius: 16px !important;
+    width: 100% !important;
     max-width: 100% !important;
-    scrollbar-width: none !important;
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
-    border-radius: var(--radius-full);
-    padding: 0.25rem !important;
-    gap: 0.25rem !important;
+    box-sizing: border-box !important;
     margin-bottom: 1.25rem !important;
   }
 
-  .curriculum-pill-tabs::-webkit-scrollbar {
-    display: none !important;
-  }
-
   .curriculum-tab-pill {
-    flex-shrink: 0;
-    padding: 0.45rem 0.85rem !important;
+    width: 100% !important;
+    text-align: center !important;
+    padding: 0.55rem 0.5rem !important;
     font-size: 0.82rem !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
   }
 }

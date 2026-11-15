@@ -33,3 +33,15 @@
   1. Converted `AskPage` input to a streamlined native auto-growing textarea and set `height: 100dvh` flex-column architecture so the messages area scrolls smoothly without cutting off.
   2. Fixed `.curriculum-pill-tabs` on `/learn` to horizontally scroll (`overflow-x: auto`) and gave `.learn-layout` `grid-template-columns: minmax(0, 1fr)` with `min-width: 0` safety.
 - **Reason**: User requested: "the ui of learn and ask chat on mobile is broken text didn't fit in it". Resolves 51 text blowout / horizontal overflow issues on small phone screens (360px - 412px).
+
+## D9: Torn & Burnt Parchment Codex Reveal
+- **Decision**: Replaced 3D card flip (`rotateY(180deg)`) on `InteractiveLab.tsx` and `FlipCard.tsx` with an authentic historical Codex Page-Tear & Ember Burn Reveal animation. The top parchment sheet tears diagonally with a warm glowing ember edge (`translate(-10%, -105%) rotate(-8deg)`), unsealing the statutory safeguard underneath. The underlay defines the card height dynamically, eliminating all card text clipping and bottom overflow on phones.
+- **Reason**: User requested: "change tap to flip to something other like tap to toring a page animation or burning a page animation for both mobile and desktop and text overflowing in website has increased very much so fix it tap to flip also have text overflowing".
+
+## D10: 2x2 Segment Layout for Curriculum Category Filters on Mobile
+- **Decision**: On mobile screens (`max-width: 640px`), `.curriculum-pill-tabs` transforms into a clean 2x2 grid (`grid-template-columns: 1fr 1fr; gap: 6px`) displaying `[All] [Foundations]` and `[Citizen Rights] [Everyday Law]` side-by-side with centered labels and active state styling.
+- **Reason**: User requested: "if all things in learning aren't fitting like all,everday law than do something to fix that". Guarantees 100% visibility for "Everyday Law" without horizontal scroll truncation.
+
+## D11: High-Frequency Grounded Citizen Queries for Chatbot
+- **Decision**: Configured the 6 most frequently asked practical legal queries in India (Police Detention Rights, FIR Refusal & Section 154/Zero FIR, RTI Filing & Section 6(1), Immediate Golden Hour Online/OTP Fraud & 1930 Helpline, Article 21 Scope, and Unlawful Tenant Eviction Safeguards) into `suggestedQuestions` and authored comprehensive, citation-backed statutory explanations in `mockStreamer.ts`.
+- **Reason**: User requested: "only put those question on suggestion of chatbot that we can answer and people ask them frequently".

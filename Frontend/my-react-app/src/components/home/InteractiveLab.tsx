@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { RotateCw, CheckCircle2, XCircle, ArrowRight, Sparkles, ShieldAlert, Award } from 'lucide-react'
+import { CheckCircle2, XCircle, ArrowRight, Sparkles, ShieldAlert, Award, Flame, RotateCcw } from 'lucide-react'
 import { Mor } from '../mascot/Mor'
 
 export function InteractiveLab() {
-  // Flip Card State
-  const [isFlipped, setIsFlipped] = useState(false)
+  // Torn Page Codex State
+  const [isTorn, setIsTorn] = useState(false)
 
   // Mini-Quiz State
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
@@ -45,76 +45,87 @@ export function InteractiveLab() {
       </header>
 
       <div className="interactive-lab-grid">
-        {/* TOUCHPOINT 1: TAP-TO-FLIP CARD */}
-        <div className="did-you-know-flip-wrap">
+        {/* TOUCHPOINT 1: TORN PARCHMENT REVEAL CARD */}
+        <div className="page-tear-card-wrap">
           <div
-            className={`flip-card-inner ${isFlipped ? 'is-flipped' : ''}`}
-            onClick={() => setIsFlipped(!isFlipped)}
+            className={`page-tear-card ${isTorn ? 'is-torn' : ''}`}
+            onClick={() => setIsTorn(!isTorn)}
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
-                setIsFlipped(!isFlipped)
+                setIsTorn(!isTorn)
               }
             }}
-            aria-label={`Did you know card. ${isFlipped ? 'Showing statutory answer. Tap to flip back.' : 'Showing question. Tap to flip and reveal safeguard.'}`}
+            aria-label={`Did you know card. ${isTorn ? 'Showing statutory answer. Tap to restore page.' : 'Showing question. Tap to tear page and unveil safeguard.'}`}
           >
-            {/* FRONT FACE */}
-            <div className="flip-card-face flip-card-front">
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                  <span className="flip-hint-badge">
-                    <ShieldAlert size={14} aria-hidden="true" />
-                    Citizen Safeguard
-                  </span>
-                  <span style={{ fontSize: '0.74rem', color: 'var(--gold, #dfba73)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <RotateCw size={12} aria-hidden="true" /> Tap to Flip
-                  </span>
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-serif)', lineHeight: 1.4, margin: '0 0 1rem' }}>
-                  Can the police keep an arrested citizen in custody for 3 days without a court order?
-                </h3>
-                <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                  Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this card to discover the strict constitutional deadline.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--gold, #dfba73)', fontSize: '0.82rem', fontWeight: 600 }}>
-                <span>Reveal 24-Hour Safeguard</span>
-                <ArrowRight size={14} aria-hidden="true" />
-              </div>
-            </div>
-
-            {/* BACK FACE */}
-            <div className="flip-card-face flip-card-back">
+            {/* UNDERLAY FACE (REVEALED ANSWER) */}
+            <div className="page-tear-underlay">
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                  <span className="flip-hint-badge" style={{ color: '#22c55e' }}>
+                  <span className="page-tear-badge text-success">
                     <CheckCircle2 size={14} aria-hidden="true" />
                     Article 22(2) Safeguard
                   </span>
-                  <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <RotateCw size={12} aria-hidden="true" /> Tap to Flip
+                  <span className="page-tear-action-hint">
+                    <RotateCcw size={12} aria-hidden="true" /> Restore Page
                   </span>
                 </div>
-                <h3 style={{ fontSize: '1.15rem', color: 'var(--gold, #dfba73)', margin: '0 0 0.5rem' }}>
+                <h3 className="page-tear-reveal-title">
                   Maximum 24 Hours Mandate
                 </h3>
-                <p style={{ fontSize: '0.88rem', lineHeight: 1.5, margin: '0 0 1rem' }}>
+                <p className="page-tear-reveal-desc">
                   Under <strong>Article 22(2)</strong> of the Constitution of India and Section 57 CrPC / BNSS, every arrested person must be produced before the nearest Magistrate within <strong>24 hours</strong> of arrest (excluding travel time). Detention beyond 24 hours without judicial sanction is unconstitutional.
                 </p>
               </div>
 
-              <Link
-                to="/constitution"
-                className="btn btn-outline btn-sm"
-                style={{ width: 'fit-content' }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <span>Read Article 22</span>
-                <ArrowRight size={13} aria-hidden="true" />
-              </Link>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginTop: '1rem' }}>
+                <Link
+                  to="/constitution"
+                  className="btn btn-outline btn-sm"
+                  style={{ width: 'fit-content' }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span>Read Article 22</span>
+                  <ArrowRight size={13} aria-hidden="true" />
+                </Link>
+                <span style={{ fontSize: '0.74rem', color: 'var(--text-tertiary)' }}>
+                  Tap card to close
+                </span>
+              </div>
+            </div>
+
+            {/* TOP OVERLAY FACE (PARCHMENT SHEET THAT TEARS / BURNS AWAY) */}
+            <div className="page-tear-overlay">
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                  <span className="page-tear-badge text-gold">
+                    <ShieldAlert size={14} aria-hidden="true" />
+                    Citizen Safeguard
+                  </span>
+                  <span className="page-tear-action-hint text-amber">
+                    <Flame size={13} aria-hidden="true" /> Tap to Tear & Reveal
+                  </span>
+                </div>
+                <h3 className="page-tear-prompt-title">
+                  Can the police keep an arrested citizen in custody for 3 days without a court order?
+                </h3>
+                <p className="page-tear-prompt-desc">
+                  Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this codex page to tear and uncover the strict constitutional deadline.
+                </p>
+              </div>
+
+              <div className="page-tear-bottom-row">
+                <span className="page-tear-cta-text" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>Tear Page to Reveal 24h Law</span>
+                  <ArrowRight size={14} aria-hidden="true" />
+                </span>
+                <span className="page-tear-tag">Constitutional Codex</span>
+              </div>
+
+              {/* Glowing Ember Burn Edge along bottom */}
+              <div className="page-tear-ember-edge" aria-hidden="true" />
             </div>
           </div>
         </div>

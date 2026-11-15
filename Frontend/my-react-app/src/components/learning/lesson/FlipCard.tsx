@@ -1,5 +1,5 @@
 import { useState, type KeyboardEvent } from 'react'
-import { Sparkles, RotateCw, CheckCircle2, History } from 'lucide-react'
+import { Sparkles, Flame, CheckCircle2, RotateCcw, History } from 'lucide-react'
 
 export interface FlipCardProps {
   prompt: string
@@ -37,49 +37,50 @@ export function FlipCard({
 
   return (
     <div
-      className={`flip-card-perspective-container ${className}`}
+      className={`flip-card-perspective-container page-tear-card-wrap ${className}`}
       onClick={handleFlip}
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
-      aria-label={`Did you know? ${isFlipped ? 'Showing answer' : 'Tap to flip and reveal answer'}`}
+      aria-label={`Did you know? ${isFlipped ? 'Showing answer' : 'Tap to tear page and reveal answer'}`}
     >
-      <div className={`flip-card-inner ${isFlipped ? 'is-flipped' : ''}`}>
-        {/* Front Face */}
-        <div className="flip-card-face flip-card-front">
-          <div className="flip-card-header">
-            <div className="flip-badge">
-              <Sparkles size={14} className="text-gold" aria-hidden="true" />
-              <span>DID YOU KNOW? (TAP TO FLIP)</span>
-            </div>
-            <div className="flip-action-hint">
-              <RotateCw size={14} className="rotate-icon" aria-hidden="true" />
-              <span>Flip</span>
-            </div>
-          </div>
-          <p className="flip-prompt-text">{prompt}</p>
-          <div className="flip-footer-hint">
-            <span>Tap card or press Space to reveal constitutional history</span>
-          </div>
-        </div>
-
-        {/* Back Face */}
-        <div className="flip-card-face flip-card-back">
+      <div className={`flip-card-inner page-tear-card ${isFlipped ? 'is-torn is-flipped' : ''}`}>
+        {/* Back Face (Revealed Insight) */}
+        <div className="flip-card-face flip-card-back page-tear-underlay">
           <div className="flip-card-header">
             <div className="flip-badge flip-badge-back">
               <History size={14} className="text-gold" aria-hidden="true" />
               <span>HISTORICAL CONSTITUTIONAL INSIGHT</span>
             </div>
             <div className="flip-action-hint">
-              <RotateCw size={14} className="rotate-icon" aria-hidden="true" />
-              <span>Flip back</span>
+              <RotateCcw size={14} aria-hidden="true" />
+              <span>Restore page</span>
             </div>
           </div>
-          <p className="flip-reveal-text">{reveal}</p>
+          <p className="flip-reveal-text page-tear-reveal-desc">{reveal}</p>
           <div className="flip-verified-stamp">
-            <CheckCircle2 size={14} className="stamp-icon" aria-hidden="true" />
+            <CheckCircle2 size={14} className="stamp-icon text-success" aria-hidden="true" />
             <span>Verified Historical Archive Record</span>
           </div>
+        </div>
+
+        {/* Front Face (Parchment Codex Page that tears away) */}
+        <div className="flip-card-face flip-card-front page-tear-overlay">
+          <div className="flip-card-header">
+            <div className="flip-badge">
+              <Sparkles size={14} className="text-gold" aria-hidden="true" />
+              <span>DID YOU KNOW? (TAP TO TEAR)</span>
+            </div>
+            <div className="flip-action-hint text-amber">
+              <Flame size={14} className="text-amber" aria-hidden="true" />
+              <span>Tear page</span>
+            </div>
+          </div>
+          <p className="flip-prompt-text page-tear-prompt-desc">{prompt}</p>
+          <div className="flip-footer-hint">
+            <span>Tap card or press Space to tear parchment and reveal insight</span>
+          </div>
+          <div className="page-tear-ember-edge" aria-hidden="true" />
         </div>
       </div>
     </div>

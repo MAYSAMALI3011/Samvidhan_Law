@@ -28,9 +28,11 @@ import '../../components/chatbot/chatbot.tokens.css'
 
 const suggestedQuestions = [
   'What are my constitutional rights if police detain me?',
+  'Can police refuse to register my FIR?',
   'How do I file an RTI application under Section 6(1)?',
-  'Can police search my phone without a warrant?',
+  'What should I do immediately after an online or OTP fraud?',
   'What does Article 21 protect under the Constitution?',
+  'Can a landlord evict a tenant without notice?',
 ]
 
 export function AskPage() {
