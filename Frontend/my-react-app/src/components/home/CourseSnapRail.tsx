@@ -410,7 +410,7 @@ export function CourseSnapRail() {
                     <span
                       style={{
                         fontSize: '0.8rem',
-                        color: '#94a3b8',
+                        color: 'var(--text-muted)',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '5px',
@@ -435,7 +435,7 @@ export function CourseSnapRail() {
                         display: 'flex',
                         justifyContent: 'space-between',
                         fontSize: '0.8rem',
-                        color: '#94a3b8',
+                        color: 'var(--text-muted)',
                         marginBottom: '0.45rem',
                         fontWeight: 500,
                       }}

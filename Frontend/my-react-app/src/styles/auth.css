@@ -435,13 +435,13 @@
   font-family: var(--font-heading, 'DM Serif Display', Georgia, serif);
   font-size: clamp(1.75rem, 2.2vw, 2.15rem);
   font-weight: 400;
-  color: #ffffff !important;
+  color: var(--text, #ffffff) !important;
   margin: 0 0 0.35rem 0;
   line-height: 1.2;
 }
 
 .auth-form-subtitle {
-  color: var(--muted, #94a3b8);
+  color: var(--text-muted, #94a3b8);
   font-size: 0.9rem;
   margin: 0;
 }
@@ -633,7 +633,7 @@
 
 .auth-checkbox-text {
   font-size: 0.82rem;
-  color: var(--muted, #94a3b8);
+  color: var(--text-muted, #94a3b8);
   line-height: 1.4;
 }
 
@@ -946,7 +946,7 @@
   font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
   font-weight: 600;
 }
 

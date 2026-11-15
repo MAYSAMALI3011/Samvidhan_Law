@@ -199,6 +199,10 @@
   letter-spacing: 0.06em;
 }
 
+[data-theme='light'] .flip-hint-badge {
+  color: #825e24;
+}
+
 /* 1-Question Interactive Mini-Quiz */
 .mini-quiz-card {
   border-radius: 16px;

@@ -75,7 +75,7 @@ export function InteractiveLab() {
                 <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-serif)', lineHeight: 1.4, margin: '0 0 1rem' }}>
                   Can the police keep an arrested citizen in custody for 3 days without a court order?
                 </h3>
-                <p style={{ fontSize: '0.92rem', color: '#94a3b8', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
                   Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this card to discover the strict constitutional deadline.
                 </p>
               </div>
@@ -94,7 +94,7 @@ export function InteractiveLab() {
                     <CheckCircle2 size={14} aria-hidden="true" />
                     Article 22(2) Safeguard
                   </span>
-                  <span style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <RotateCw size={12} aria-hidden="true" /> Tap to Flip
                   </span>
                 </div>

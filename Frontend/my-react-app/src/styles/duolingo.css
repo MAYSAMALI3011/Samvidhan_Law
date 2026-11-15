@@ -790,6 +790,15 @@
   cursor: not-allowed;
 }
 
+[data-theme='light'] .duo-path-node.is-locked {
+  background: #e2e8f0;
+  border: 2px solid #cbd5e1;
+}
+
+[data-theme='light'] .duo-path-node.is-locked .node-icon {
+  color: #64748b;
+}
+
 .duo-pulse-ring {
   position: absolute;
   inset: -8px;

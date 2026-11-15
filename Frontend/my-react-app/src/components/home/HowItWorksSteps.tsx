@@ -141,7 +141,7 @@ export function HowItWorksSteps() {
                 <h3 style={{ fontSize: '1.15rem', margin: '0 0 0.5rem', fontWeight: 600 }}>
                   {st.title}
                 </h3>
-                <p style={{ fontSize: '0.88rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
                   {st.desc}
                 </p>
               </div>
@@ -217,7 +217,7 @@ export function HowItWorksSteps() {
                 EXAMPLE
               </span>
             </div>
-            <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               5-Day Streak Active • Article 21 Mastered
             </span>
           </div>
