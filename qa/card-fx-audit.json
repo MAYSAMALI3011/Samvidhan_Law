@@ -1,0 +1,30 @@
+{
+  "contactSheets": [
+    "tear-phone-dark",
+    "tear-reassemble-phone-dark",
+    "burn-phone-dark",
+    "burn-rewind-phone-dark",
+    "tear-phone-light",
+    "tear-reassemble-phone-light",
+    "burn-phone-light",
+    "burn-rewind-phone-light",
+    "tear-desktop-dark",
+    "tear-reassemble-desktop-dark",
+    "burn-desktop-dark",
+    "burn-rewind-desktop-dark",
+    "tear-desktop-light",
+    "tear-reassemble-desktop-light",
+    "burn-desktop-light",
+    "burn-rewind-desktop-light"
+  ],
+  "tests": {
+    "touchTap": true,
+    "dragToTear": true,
+    "keyboardAccess": true,
+    "fiveCyclesCleanDOM": true,
+    "midAnimationReassemble": true,
+    "longestAnswerNoClip": true,
+    "noGhosting": true
+  },
+  "videos": []
+}

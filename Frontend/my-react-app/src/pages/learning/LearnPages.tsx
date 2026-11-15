@@ -74,7 +74,7 @@ export function LearnIndexPage() {
                 {completedCount} of {totalLessons} Lessons Completed ({percent(completedCount, totalLessons)}%)
               </h3>
             </div>
-            <div style={{ minWidth: '200px', flex: 1, maxWidth: '320px' }}>
+            <div style={{ width: '100%', minWidth: 0, flex: 1, maxWidth: '320px' }}>
               <ProgressBar value={percent(completedCount, totalLessons)} />
             </div>
           </div>

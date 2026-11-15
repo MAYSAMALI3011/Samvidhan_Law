@@ -435,9 +435,13 @@ html[data-theme='dark'] .codex-article-impact {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-text, var(--gold));
   margin-bottom: 0.75rem;
   display: block;
+}
+
+[data-theme='light'] .section-eyebrow {
+  color: #825e24;
 }
 
 .section-title {

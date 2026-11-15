@@ -30,6 +30,14 @@ export function LessonCardStage({
   const [selectedScenario, setSelectedScenario] = useState<ScenarioChoice | null>(null)
   const [reportModalOpen, setReportModalOpen] = useState(false)
   const [reportSubmitted, setReportSubmitted] = useState(false)
+  const [isDidYouKnowFlipped, setIsDidYouKnowFlipped] = useState(false)
+
+  // Reset card flipped state when advancing to next lesson card
+  const [prevCardId, setPrevCardId] = useState(card.id)
+  if (card.id !== prevCardId) {
+    setPrevCardId(card.id)
+    setIsDidYouKnowFlipped(false)
+  }
 
   const summaryToDisplay =
     isSimplified && card.simplifiedSummary ? card.simplifiedSummary : card.summary
@@ -120,8 +128,11 @@ export function LessonCardStage({
         {/* Did You Know? Flip Card */}
         {card.didYouKnow && (
           <FlipCard
+            key={`did-you-know-${card.id || cardIndex}`}
             prompt={card.didYouKnow.front}
             reveal={card.didYouKnow.back}
+            isFlipped={isDidYouKnowFlipped}
+            onFlipChange={setIsDidYouKnowFlipped}
           />
         )}
 

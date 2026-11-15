@@ -30,6 +30,11 @@ export function SiteLayout() {
     location.pathname.startsWith('/quiz/')
   const hideChrome = isAuthRoute || isFocusModeRoute
 
+  // Scroll restoration: reset window scroll to top whenever route changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [location.pathname])
+
   // Global Ctrl+K / Cmd+K and custom event listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

@@ -1,10 +1,12 @@
 import type { AskConversation } from '../../types'
 
 export const suggestedQuestions = [
-  'What is the Preamble for, in study terms?',
-  'How should I start a consumer complaint?',
-  'What is a Fundamental Right in Part III?',
-  'Someone asked for my OTP. What should I know?',
+  'What are my constitutional rights if police detain me?',
+  'Can police refuse to register my FIR?',
+  'How do I file an RTI application under Section 6(1)?',
+  'What should I do immediately after an online or OTP fraud?',
+  'What does Article 21 protect under the Constitution?',
+  'Can a landlord evict a tenant without notice?',
 ]
 
 export const mockConversations: AskConversation[] = [

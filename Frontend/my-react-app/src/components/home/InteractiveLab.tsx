@@ -1,11 +1,18 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { RotateCw, CheckCircle2, XCircle, ArrowRight, Sparkles, ShieldAlert, Award } from 'lucide-react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { CheckCircle2, XCircle, ArrowRight, Sparkles, Award } from 'lucide-react'
 import { Mor } from '../mascot/Mor'
+import { FlipCard } from '../learning/lesson/FlipCard'
 
 export function InteractiveLab() {
-  // Flip Card State
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [searchParams] = useSearchParams()
+  // FIX B: Landing page "Try it" card uses variant="burn" by default; supports dev ?fx= override
+  const cardVariant =
+    import.meta.env.DEV && searchParams.get('fx')
+      ? (searchParams.get('fx') === 'tear' ? 'tear' : 'burn')
+      : (searchParams.get('variant') === 'tear' ? 'tear' : 'burn')
+
+  const [isCardFlipped, setIsCardFlipped] = useState(false)
 
   // Mini-Quiz State
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
@@ -45,79 +52,16 @@ export function InteractiveLab() {
       </header>
 
       <div className="interactive-lab-grid">
-        {/* TOUCHPOINT 1: TAP-TO-FLIP CARD */}
-        <div className="did-you-know-flip-wrap">
-          <div
-            className={`flip-card-inner ${isFlipped ? 'is-flipped' : ''}`}
-            onClick={() => setIsFlipped(!isFlipped)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                setIsFlipped(!isFlipped)
-              }
-            }}
-            aria-label={`Did you know card. ${isFlipped ? 'Showing statutory answer. Tap to flip back.' : 'Showing question. Tap to flip and reveal safeguard.'}`}
-          >
-            {/* FRONT FACE */}
-            <div className="flip-card-face flip-card-front">
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                  <span className="flip-hint-badge">
-                    <ShieldAlert size={14} aria-hidden="true" />
-                    Citizen Safeguard
-                  </span>
-                  <span style={{ fontSize: '0.74rem', color: 'var(--gold, #dfba73)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <RotateCw size={12} aria-hidden="true" /> Tap to Flip
-                  </span>
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-serif)', lineHeight: 1.4, margin: '0 0 1rem' }}>
-                  Can the police keep an arrested citizen in custody for 3 days without a court order?
-                </h3>
-                <p style={{ fontSize: '0.92rem', color: '#94a3b8', lineHeight: 1.5 }}>
-                  Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this card to discover the strict constitutional deadline.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--gold, #dfba73)', fontSize: '0.82rem', fontWeight: 600 }}>
-                <span>Reveal 24-Hour Safeguard</span>
-                <ArrowRight size={14} aria-hidden="true" />
-              </div>
-            </div>
-
-            {/* BACK FACE */}
-            <div className="flip-card-face flip-card-back">
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                  <span className="flip-hint-badge" style={{ color: '#22c55e' }}>
-                    <CheckCircle2 size={14} aria-hidden="true" />
-                    Article 22(2) Safeguard
-                  </span>
-                  <span style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <RotateCw size={12} aria-hidden="true" /> Tap to Flip
-                  </span>
-                </div>
-                <h3 style={{ fontSize: '1.15rem', color: 'var(--gold, #dfba73)', margin: '0 0 0.5rem' }}>
-                  Maximum 24 Hours Mandate
-                </h3>
-                <p style={{ fontSize: '0.88rem', lineHeight: 1.5, margin: '0 0 1rem' }}>
-                  Under <strong>Article 22(2)</strong> of the Constitution of India and Section 57 CrPC / BNSS, every arrested person must be produced before the nearest Magistrate within <strong>24 hours</strong> of arrest (excluding travel time). Detention beyond 24 hours without judicial sanction is unconstitutional.
-                </p>
-              </div>
-
-              <Link
-                to="/constitution"
-                className="btn btn-outline btn-sm"
-                style={{ width: 'fit-content' }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <span>Read Article 22</span>
-                <ArrowRight size={13} aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </div>
+        {/* TOUCHPOINT 1: INTERACTIVE CITIZEN SAFEGUARD CARD */}
+        <FlipCard
+          variant={cardVariant}
+          className="interactive-lab-card"
+          isFlipped={isCardFlipped}
+          onFlipChange={setIsCardFlipped}
+          prompt="Can the police keep an arrested citizen in custody for 3 days without a court order? Many citizens believe custody can extend indefinitely during questioning."
+          reveal="Under Article 22(2) of the Constitution of India and Section 57 CrPC / BNSS, every arrested person must be produced before the nearest Magistrate within 24 hours of arrest (excluding travel time). Detention beyond 24 hours without judicial sanction is unconstitutional."
+          source="Article 22(2) & Section 57 CrPC / BNSS"
+        />
 
         {/* TOUCHPOINT 2: 1-QUESTION INTERACTIVE MINI-QUIZ */}
         <div className="mini-quiz-card" role="region" aria-label="Interactive mini-quiz">

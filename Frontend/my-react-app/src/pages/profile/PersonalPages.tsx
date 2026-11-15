@@ -426,7 +426,14 @@ export function SettingsPage() {
           <div className="settings-divider" />
 
           {/* 2. Guide Character Toggle */}
-          <div className="settings-row-item">
+          <div
+            className="settings-row-item settings-interactive-row"
+            style={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              if ((e.target as HTMLElement).closest('button')) return
+              toggleMascot()
+            }}
+          >
             <div className="settings-text-meta">
               <strong className="settings-item-title">
                 <Sparkles size={18} className="text-gold" aria-hidden="true" />
@@ -446,7 +453,14 @@ export function SettingsPage() {
           <div className="settings-divider" />
 
           {/* 3. Audio Chimes & Sound Effects */}
-          <div className="settings-row-item">
+          <div
+            className="settings-row-item settings-interactive-row"
+            style={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              if ((e.target as HTMLElement).closest('button')) return
+              toggleSound()
+            }}
+          >
             <div className="settings-text-meta">
               <strong className="settings-item-title">
                 {progress.soundEnabled ? <Volume2 size={18} aria-hidden="true" /> : <VolumeX size={18} aria-hidden="true" />}
@@ -496,7 +510,14 @@ export function SettingsPage() {
           <div className="settings-divider" />
 
           {/* 5. Reduced Motion Toggle */}
-          <div className="settings-row-item">
+          <div
+            className="settings-row-item settings-interactive-row"
+            style={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              if ((e.target as HTMLElement).closest('button')) return
+              setReduceMotion(!reduceMotion)
+            }}
+          >
             <div className="settings-text-meta">
               <strong className="settings-item-title">Respect Reduced Motion</strong>
               <p className="settings-item-desc">
@@ -513,7 +534,14 @@ export function SettingsPage() {
           <div className="settings-divider" />
 
           {/* 6. Compact Reading Layout */}
-          <div className="settings-row-item">
+          <div
+            className="settings-row-item settings-interactive-row"
+            style={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              if ((e.target as HTMLElement).closest('button')) return
+              setCompact(!compact)
+            }}
+          >
             <div className="settings-text-meta">
               <strong className="settings-item-title">Compact Reading View</strong>
               <p className="settings-item-desc">

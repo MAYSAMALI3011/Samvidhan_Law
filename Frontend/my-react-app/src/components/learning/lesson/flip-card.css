@@ -1,0 +1,467 @@
+/* ==========================================================================
+   INTERACTIVE TEAR & BURN CARD SYSTEM ("DID YOU KNOW?")
+   Universal styles bundled wherever FlipCard is imported
+   ========================================================================== */
+
+:root {
+  --tear-fibre-color: rgba(255, 255, 255, 0.75);
+}
+
+[data-theme='light'] {
+  --tear-fibre-color: rgba(255, 255, 255, 0.95);
+}
+
+.flip-card-perspective-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 28px;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  touch-action: pan-y;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .flip-card-perspective-container:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.flip-card-perspective-container:focus-visible .flip-card-grid-container {
+  box-shadow: 0 0 0 2px var(--brand-gold, #D4AF37);
+}
+
+/* Base Card Grid Container: min-height 240px desktop, 200px mobile */
+.flip-card-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  position: relative;
+  width: 100%;
+  min-height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  background: #0b111e;
+}
+
+@media (max-width: 767px) {
+  .flip-card-grid-container {
+    min-height: 200px;
+  }
+}
+
+[data-theme='light'] .flip-card-grid-container {
+  box-shadow: 0 4px 16px rgba(10, 22, 40, 0.08);
+  background: #FAF7F0;
+}
+
+.flip-card-layer {
+  grid-area: 1 / 1;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+
+/* 1. UNDERLAY REVEALED ANSWER LAYER (IN NORMAL FLOW TO SET CONTAINER HEIGHT) */
+.flip-card-underlay {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(20, 30, 50, 0.98), rgba(10, 18, 30, 0.99));
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.12);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-height: 240px;
+}
+
+@media (max-width: 767px) {
+  .flip-card-underlay {
+    min-height: 200px;
+    padding: 20px 20px;
+  }
+}
+
+[data-theme='light'] .flip-card-underlay {
+  background: linear-gradient(135deg, #FFFDF8, #F7F3E8);
+  border-color: rgba(176, 141, 87, 0.4);
+  box-shadow: 0 4px 14px rgba(176, 141, 87, 0.08);
+}
+
+.flip-card-underlay.is-active {
+  cursor: pointer;
+}
+
+.flip-card-face-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 16px;
+}
+
+/* 2. TEAR VARIANT: FRONT SURFACE & DUAL COPIES */
+.flip-card-tear-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.tear-half {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: #111a2e;
+  background-image: 
+    radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.99));
+  background-size: 10px 10px, 100% 100%;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+[data-theme='light'] .tear-half {
+  background-color: #FAF8F5;
+  background-image: 
+    radial-gradient(rgba(176, 141, 87, 0.06) 1px, transparent 1px),
+    linear-gradient(135deg, #FAF7F0, #F3ECE0);
+  background-size: 10px 10px, 100% 100%;
+  border-color: rgba(176, 141, 87, 0.35);
+}
+
+.tear-half-inner {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 24px 28px;
+}
+
+@media (max-width: 767px) {
+  .tear-half-inner {
+    padding: 20px 20px;
+  }
+}
+
+.tear-fibre-edge-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8));
+}
+
+.tear-gold-seam-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.9));
+}
+
+/* 3. BURN VARIANT: FRONT SURFACE & 4 EDGE LAYERS */
+.flip-card-burn-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 16px;
+  box-sizing: border-box;
+  background-color: #111a2e;
+  background-image: 
+    radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.99));
+  background-size: 10px 10px, 100% 100%;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  pointer-events: auto;
+  will-change: clip-path;
+}
+
+[data-theme='light'] .flip-card-burn-wrapper {
+  background-color: #FAF8F5;
+  background-image: 
+    radial-gradient(rgba(176, 141, 87, 0.06) 1px, transparent 1px),
+    linear-gradient(135deg, #FAF7F0, #F3ECE0);
+  background-size: 10px 10px, 100% 100%;
+  border-color: rgba(176, 141, 87, 0.35);
+}
+
+.burn-front-inner {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 24px 28px;
+}
+
+@media (max-width: 767px) {
+  .burn-front-inner {
+    padding: 20px 20px;
+  }
+}
+
+.burn-flame-edge-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  will-change: opacity;
+}
+
+@keyframes burnEmberRise {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: var(--ember-opacity, 0.9);
+  }
+  50% {
+    transform: translate(calc(var(--drift-x, 0px) * 0.5 + var(--sway, 6px)), calc(-0.5 * var(--drift-y, 60px))) scale(0.85);
+    opacity: calc(var(--ember-opacity, 0.9) * 0.85);
+  }
+  100% {
+    transform: translate(calc(var(--drift-x, 0px) - var(--sway, 6px)), calc(-1 * var(--drift-y, 60px))) scale(0.35);
+    opacity: 0;
+  }
+}
+
+@keyframes burnEmberRewind {
+  0% {
+    transform: translate(calc(var(--drift-x, 0px) - var(--sway, 6px)), calc(-1 * var(--drift-y, 60px))) scale(0.35);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(calc(var(--drift-x, 0px) * 0.5 + var(--sway, 6px)), calc(-0.5 * var(--drift-y, 60px))) scale(0.85);
+    opacity: calc(var(--ember-opacity, 0.9) * 0.85);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+}
+
+.burn-ember-speck {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 15%, #fff2a8 40%, #ff7700 75%, #d93800 100%);
+  box-shadow: 0 0 6px #ff5a1f, 0 0 12px #ffaa00, 0 0 18px rgba(255, 69, 0, 0.6);
+  pointer-events: none;
+  z-index: 12;
+  will-change: transform, opacity;
+  animation: burnEmberRise var(--anim-dur, 2.3s) ease-out forwards;
+}
+
+.burn-ember-speck.is-rewind {
+  animation: burnEmberRewind var(--anim-dur, 1.4s) ease-in forwards;
+}
+
+@keyframes burnSmokeRise {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: var(--smoke-opacity, 0.2);
+  }
+  100% {
+    transform: translate(6px, calc(-1 * var(--drift-y, 45px))) scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes burnSmokeRewind {
+  0% {
+    transform: translate(6px, calc(-1 * var(--drift-y, 45px))) scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+}
+
+.burn-smoke-puff {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(180, 180, 180, 0.22) 0%, rgba(120, 120, 120, 0.08) 55%, transparent 100%);
+  filter: blur(5px);
+  pointer-events: none;
+  z-index: 11;
+  will-change: transform, opacity;
+  animation: burnSmokeRise var(--anim-dur, 2.3s) ease-out forwards;
+}
+
+.burn-smoke-puff.is-rewind {
+  animation: burnSmokeRewind var(--anim-dur, 1.4s) ease-in forwards;
+}
+
+/* 4. CARD TYPOGRAPHY & INTERACTIVE CONTROLS */
+.flip-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.flip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--brand-gold, #D4AF37);
+}
+
+[data-theme='light'] .flip-badge {
+  color: #8C6D3B;
+}
+
+.flip-badge-back {
+  color: var(--brand-gold, #D4AF37);
+}
+
+/* Question Prompt: vertically centered in free space, 1.35rem mobile, 1.6rem desktop, line-height 1.55 */
+.flip-prompt-text {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--text-primary, #F8FAFC);
+  margin: auto 0;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .flip-prompt-text {
+    font-size: 1.35rem;
+  }
+}
+
+[data-theme='light'] .flip-prompt-text {
+  color: #0F172A;
+}
+
+/* Answer Reveal: vertically centered in free space, 1.0625rem mobile, 1.1875rem desktop, line-height 1.55 */
+.flip-reveal-text {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--text-primary, #F8FAFC);
+  margin: auto 0;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .flip-reveal-text {
+    font-size: 1.0625rem;
+  }
+}
+
+[data-theme='light'] .flip-reveal-text {
+  color: #0F172A;
+}
+
+/* EXACTLY ONE HINT AT BOTTOM CENTER */
+.flip-footer-hint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted, #94A3B8);
+  font-style: italic;
+  margin-top: auto;
+  width: 100%;
+}
+
+[data-theme='light'] .flip-footer-hint {
+  color: #64748B;
+}
+
+/* Answer Footer: Source line + 44px min restore button */
+.flip-card-answer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.flip-source-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #10B981;
+}
+
+[data-theme='light'] .flip-source-line {
+  color: #0F766E;
+}
+
+/* 44px minimum height touch target button */
+.flip-restore-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--brand-gold, #D4AF37);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.flip-restore-btn:hover {
+  background: rgba(212, 175, 55, 0.22);
+  border-color: var(--brand-gold, #D4AF37);
+  transform: scale(1.02);
+}
+
+.flip-restore-btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--brand-gold, #D4AF37);
+}
+
+[data-theme='light'] .flip-restore-btn {
+  background: #F4ECDC;
+  border-color: rgba(176, 141, 87, 0.45);
+  color: #825E24;
+}
+
+[data-theme='light'] .flip-restore-btn:hover {
+  background: #EDE1CB;
+  border-color: #B08D57;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

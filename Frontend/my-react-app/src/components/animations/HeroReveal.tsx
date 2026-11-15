@@ -9,16 +9,22 @@ interface HeroRevealProps {
 
 export function HeroReveal({ children, delay = 0, className = '' }: HeroRevealProps) {
   const shouldReduceMotion = useReducedMotion()
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
   if (shouldReduceMotion) {
     return <div className={className}>{children}</div>
   }
 
+  // On phone, skip blur animations entirely to save GPU and prevent stuck blur
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={isMobile ? { opacity: 0, y: 14 } : { opacity: 0, y: 14, filter: 'blur(8px)' }}
+      animate={
+        isMobile
+          ? { opacity: 1, y: 0 }
+          : { opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }
+      }
       transition={{
         duration: 0.65,
         delay,
@@ -72,6 +78,7 @@ export function StaggerContainer({
 
 export function StaggerItem({ children, className = '' }: { children: ReactNode; className?: string }) {
   const shouldReduceMotion = useReducedMotion()
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
   if (shouldReduceMotion) {
     return <div className={className}>{children}</div>
@@ -81,11 +88,12 @@ export function StaggerItem({ children, className = '' }: { children: ReactNode;
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 16, filter: 'blur(6px)' },
+        hidden: isMobile ? { opacity: 0, y: 16 } : { opacity: 0, y: 16, filter: 'blur(6px)' },
         visible: {
           opacity: 1,
           y: 0,
-          filter: 'blur(0px)',
+          filter: isMobile ? 'none' : 'blur(0px)',
+          transitionEnd: { filter: 'none' },
           transition: {
             duration: 0.5,
             ease: [0.22, 1, 0.36, 1],

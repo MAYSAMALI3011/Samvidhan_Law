@@ -2085,6 +2085,14 @@ html[data-theme='dark'] .codex-avatar-seal {
   }
 }
 
+@media (max-width: 768px) {
+  .carousel-nav-arrows,
+  .carousel-arrow-btn,
+  .codex-arrow-btn {
+    display: none !important;
+  }
+}
+
 @media (max-width: 680px) {
   .situation-uniform-card {
     flex: 0 0 100%;

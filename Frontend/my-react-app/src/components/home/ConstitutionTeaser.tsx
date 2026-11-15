@@ -54,7 +54,7 @@ export function ConstitutionTeaser() {
 
           {/* Landmark Quick Pills */}
           <div>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: '0.65rem' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: '0.65rem' }}>
               Landmark Provisions
             </span>
             <div className="constitution-pills-row">
@@ -69,7 +69,7 @@ export function ConstitutionTeaser() {
         </div>
 
         <div style={{ marginTop: '1.75rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(176, 141, 87, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-          <span style={{ fontSize: '0.84rem', color: '#94a3b8' }}>
+          <span style={{ fontSize: '0.84rem', color: 'var(--text-muted)' }}>
             All 395 Articles &amp; 12 Schedules organized by Part and Subject
           </span>
           <Link to="/constitution" className="btn btn-outline btn-sm">

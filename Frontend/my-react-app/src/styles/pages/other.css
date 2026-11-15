@@ -112,7 +112,13 @@
 
 @media (max-width: 860px) {
   .learn-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0 !important;
+    gap: 1.5rem !important;
+  }
+  .learn-layout > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
   }
 }
 

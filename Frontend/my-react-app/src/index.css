@@ -8,6 +8,7 @@
 @import './styles/base.css';
 @import './styles/layout.css';
 @import './styles/components.css';
+@import './components/learning/lesson/flip-card.css';
 @import './styles/animations.css';
 @import './styles/reference-patterns.css';
 @import './styles/deluxe-patterns.css';

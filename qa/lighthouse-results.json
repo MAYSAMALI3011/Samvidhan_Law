@@ -1,0 +1,74 @@
+{
+  "Home": {
+    "performance": 100,
+    "accessibility": 95,
+    "bestPractices": 95,
+    "seo": 100,
+    "metrics": {
+      "fcp": 780,
+      "domContentLoaded": 201,
+      "loadEventEnd": 202,
+      "duration": 202
+    },
+    "seoData": {
+      "title": "Samvidhan — Learn the Constitution & Practical Citizen Rights · Samvidhan",
+      "metaDesc": "Empowering citizens with plain-English constitutional education, practical legal guides, and verified statutory citations.",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "h1Count": 1
+    }
+  },
+  "Learn": {
+    "performance": 100,
+    "accessibility": 95,
+    "bestPractices": 95,
+    "seo": 100,
+    "metrics": {
+      "fcp": 256,
+      "domContentLoaded": 163,
+      "loadEventEnd": 515,
+      "duration": 515
+    },
+    "seoData": {
+      "title": "Curriculum & Courses · Samvidhan",
+      "metaDesc": "Explore the structured Samvidhan legal literacy curriculum.",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "h1Count": 1
+    }
+  },
+  "Lesson": {
+    "performance": 100,
+    "accessibility": 95,
+    "bestPractices": 95,
+    "seo": 100,
+    "metrics": {
+      "fcp": 276,
+      "domContentLoaded": 176,
+      "loadEventEnd": 312,
+      "duration": 312
+    },
+    "seoData": {
+      "title": "The Preamble as a key to reading the Constitution · Samvidhan",
+      "metaDesc": "What the Preamble states, and how learners can use it as a map rather than a slogan.",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "h1Count": 1
+    }
+  },
+  "Ask": {
+    "performance": 100,
+    "accessibility": 95,
+    "bestPractices": 95,
+    "seo": 100,
+    "metrics": {
+      "fcp": 304,
+      "domContentLoaded": 176,
+      "loadEventEnd": 272,
+      "duration": 272
+    },
+    "seoData": {
+      "title": "Ask Samvidhan — AI Constitutional Companion · Samvidhan",
+      "metaDesc": "Ask any question on Indian constitutional law and civic rights with instant statutory citations.",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "h1Count": 1
+    }
+  }
+}

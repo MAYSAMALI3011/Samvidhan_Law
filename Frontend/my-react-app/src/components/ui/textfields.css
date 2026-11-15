@@ -22,7 +22,7 @@ html[data-theme="light"] .tf,
   --tf-surface: #ffffff; 
   --tf-border: rgba(176, 141, 87, 0.3); 
   --tf-text: #0f172a; 
-  --tf-muted: #475569; 
+  --tf-muted: #334155; 
 }
 .tf__label { font-size: .85rem; color: var(--tf-muted); font-weight: 500; }
 .tf__label:empty { display: none; }

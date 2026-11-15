@@ -6,8 +6,8 @@ export function MobileTabBar() {
   const { user } = useAppState()
   const location = useLocation()
 
-  // Hide on quiz pages to avoid distraction
-  if (location.pathname.startsWith('/quiz')) {
+  // Hide on quiz and ask pages to avoid covering full-screen flows
+  if (location.pathname.startsWith('/quiz') || location.pathname === '/ask') {
     return null
   }
 

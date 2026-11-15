@@ -1,0 +1,104 @@
+{
+  "viewportsTested": [
+    {
+      "viewport": "phone-360",
+      "width": 360,
+      "height": 740,
+      "theme": "dark",
+      "tearCardFound": true,
+      "hasHorizontalOverflow": false,
+      "textClipped": false
+    },
+    {
+      "viewport": "phone-360",
+      "width": 360,
+      "height": 740,
+      "theme": "light",
+      "tearCardFound": true,
+      "hasHorizontalOverflow": false,
+      "textClipped": false
+    },
+    {
+      "viewport": "phone-390",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "tearCardFound": true,
+      "hasHorizontalOverflow": false,
+      "textClipped": false
+    },
+    {
+      "viewport": "phone-390",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "tearCardFound": true,
+      "hasHorizontalOverflow": false,
+      "textClipped": false
+    },
+    {
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 1024,
+      "theme": "dark",
+      "tearCardFound": true,
+      "hasHorizontalOverflow": false,
+      "textClipped": false
+    },
+    {
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 1024,
+      "theme": "light",
+      "tearCardFound": true,
+      "hasHorizontalOverflow": false,
+      "textClipped": false
+    },
+    {
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "tearCardFound": true,
+      "hasHorizontalOverflow": false,
+      "textClipped": false
+    },
+    {
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "tearCardFound": true,
+      "hasHorizontalOverflow": false,
+      "textClipped": false
+    }
+  ],
+  "clippingIssues": [],
+  "horizontalOverflow": [],
+  "interactionsTested": {
+    "tearTap": true,
+    "tearDrag": true,
+    "tearRestore": true,
+    "burnTap": true,
+    "burnRestore": true
+  },
+  "longestAnswerAudit": {
+    "containerHeight": 465,
+    "underlayHeight": 465,
+    "textScrollHeight": 276,
+    "textClientHeight": 276,
+    "btnHeight": 59,
+    "isZeroClipped": true,
+    "heightMatched": true
+  },
+  "screenshots": [
+    "C:\\Users\\MAYSAMALI MASU\\Projects\\samvidhan-ui-polish\\qa\\screenshots\\tear-burn\\tear-0-intact.png",
+    "C:\\Users\\MAYSAMALI MASU\\Projects\\samvidhan-ui-polish\\qa\\screenshots\\tear-burn\\tear-30-mid.png",
+    "C:\\Users\\MAYSAMALI MASU\\Projects\\samvidhan-ui-polish\\qa\\screenshots\\tear-burn\\tear-60-almost.png",
+    "C:\\Users\\MAYSAMALI MASU\\Projects\\samvidhan-ui-polish\\qa\\screenshots\\tear-burn\\tear-100-revealed.png",
+    "C:\\Users\\MAYSAMALI MASU\\Projects\\samvidhan-ui-polish\\qa\\screenshots\\tear-burn\\burn-0-intact.png",
+    "C:\\Users\\MAYSAMALI MASU\\Projects\\samvidhan-ui-polish\\qa\\screenshots\\tear-burn\\burn-30-mid.png",
+    "C:\\Users\\MAYSAMALI MASU\\Projects\\samvidhan-ui-polish\\qa\\screenshots\\tear-burn\\burn-60-almost.png",
+    "C:\\Users\\MAYSAMALI MASU\\Projects\\samvidhan-ui-polish\\qa\\screenshots\\tear-burn\\burn-100-revealed.png"
+  ]
+}

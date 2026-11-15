@@ -11,9 +11,13 @@
             resolved = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
           }
           document.documentElement.setAttribute('data-theme', resolved);
+          document.documentElement.classList.remove('light', 'dark');
+          document.documentElement.classList.add(resolved);
           document.documentElement.style.colorScheme = resolved;
+          document.documentElement.style.backgroundColor = resolved === 'dark' ? '#070d18' : '#faf8f5';
         } catch (e) {
           document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.style.backgroundColor = '#faf8f5';
         }
       })();
     </script>

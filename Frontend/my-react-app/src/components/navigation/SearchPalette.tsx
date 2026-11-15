@@ -78,16 +78,22 @@ export function SearchPalette({ isOpen, onClose, onAskSamvidhan }: SearchPalette
   const { toggleTheme, theme } = useTheme()
   const inputId = useId()
 
-  // Reset & focus on open
+  // Reset, focus & lock body scroll on open
   useEffect(() => {
     if (isOpen) {
+      document.body.style.overflow = 'hidden'
       const timer = setTimeout(() => {
         setQuery('')
         setResults([])
         setSelectedIndex(0)
         inputRef.current?.focus()
       }, 20)
-      return () => clearTimeout(timer)
+      return () => {
+        clearTimeout(timer)
+        document.body.style.overflow = ''
+      }
+    } else {
+      document.body.style.overflow = ''
     }
   }, [isOpen])
 

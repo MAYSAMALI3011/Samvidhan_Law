@@ -1223,7 +1223,7 @@
   border-top: 1px solid rgba(176, 141, 87, 0.28);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  z-index: 1000;
+  z-index: var(--z-tabbar, 40);
   align-items: center;
   justify-content: space-around;
   padding: 0 0.5rem;
@@ -1233,6 +1233,8 @@
 @media (max-width: 900px) {
   .mobile-tab-bar {
     display: flex;
+    height: calc(var(--tabbar-h) + var(--safe-bottom));
+    padding-bottom: var(--safe-bottom);
   }
 }
 
@@ -1580,15 +1582,22 @@
 }
 
 .ask-message-row.is-assistant .ask-msg-bubble {
-  background: #0B1526;
+  background: var(--surface, #0B1526);
   border: 1px solid rgba(176, 141, 87, 0.32);
-  color: #f1f5f9;
+  color: var(--text, #f1f5f9);
   border-bottom-left-radius: 4px;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
+[data-theme='light'] .ask-message-row.is-assistant .ask-msg-bubble {
+  background: #ffffff;
+  border: 1px solid rgba(176, 141, 87, 0.28);
+  color: #0f172a;
+  box-shadow: 0 4px 16px rgba(10, 22, 40, 0.06);
+}
+
 .ask-assistant-content {
-  color: #f1f5f9;
+  color: inherit;
 }
 
 /* 4. Feather-Leads-The-Words Streaming Pen Effect */
@@ -1954,8 +1963,25 @@
 
 /* 8. Full Page Ask View (/ask) */
 .ask-page-full-viewport {
-  min-height: calc(100vh - 120px);
-  padding: 2rem 0;
+  max-width: 840px;
+  margin: 0 auto;
+  min-height: calc(100dvh - 110px);
+  padding: 1.5rem 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ask-mobile-back-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
 }
 
 .ask-page-top-nav {
@@ -1994,8 +2020,9 @@
 }
 
 .ask-page-card {
-  height: 75vh;
-  min-height: 580px;
+  flex: 1;
+  min-height: calc(100dvh - 200px);
+  max-height: calc(100dvh - 200px);
   background: var(--card-bg, #080E1A);
   border: 1px solid rgba(176, 141, 87, 0.35);
   border-radius: 20px;
@@ -2009,6 +2036,105 @@
   background: #ffffff !important;
   border-color: rgba(176, 141, 87, 0.35) !important;
   box-shadow: 0 16px 40px rgba(10, 22, 40, 0.08) !important;
+}
+
+@media (max-width: 767px) {
+  .ask-page-full-viewport {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100vw !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: var(--bg);
+  }
+
+  .ask-mobile-back-btn {
+    display: inline-flex;
+  }
+
+  .ask-page-top-nav {
+    display: none;
+  }
+
+  .ask-page-card {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    min-height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    background: var(--bg) !important;
+  }
+
+  .ask-page-header {
+    flex-shrink: 0 !important;
+    height: 56px;
+    padding: 0 1rem !important;
+    border-bottom: 1px solid var(--border);
+    position: relative !important;
+    z-index: 20;
+    background: var(--surface) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ask-disclaimer-banner {
+    flex-shrink: 0 !important;
+    padding: 0.4rem 1rem !important;
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .ask-page-title {
+    font-size: 1.05rem !important;
+  }
+
+  .ask-page-subtitle {
+    display: none;
+  }
+
+  .ask-page-messages-area {
+    flex: 1 1 0% !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
+    padding: 1rem !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ask-msg-bubble {
+    max-width: 90% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
+  .ask-prompt-chip {
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .ask-page-input-container {
+    flex-shrink: 0 !important;
+    position: relative !important;
+    bottom: 0 !important;
+    z-index: 20;
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border);
+    padding: 0.5rem 1rem calc(var(--safe-bottom) + 0.5rem) !important;
+  }
+
+  .ask-input-box-wrapper {
+    gap: 8px;
+    align-items: center;
+    padding: 0.45rem 0.65rem;
+  }
 }
 
 .ask-page-header {
@@ -2406,8 +2532,18 @@
   color: #0f172a !important;
 }
 
-[data-theme='light'] .ask-input-box::placeholder {
-  color: #94a3b8 !important;
+[data-theme='light'] .ask-input-box::placeholder,
+[data-theme='light'] .ask-input-textarea::placeholder {
+  color: #64748b !important;
+}
+
+[data-theme='light'] .ask-input-box-wrapper {
+  background: #ffffff !important;
+  border-color: rgba(176, 141, 87, 0.45) !important;
+}
+
+[data-theme='light'] .ask-input-textarea {
+  color: #0f172a !important;
 }
 
 /* Home Hero Dark Navy Protection in Light Mode */
@@ -2458,4 +2594,20 @@
 
 [data-theme='light'] .trust-marquee-dot {
   color: rgba(176, 141, 87, 0.6) !important;
+}
+
+/* High Contrast Eyebrow */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-text, #825e24);
+}
+
+[data-theme='dark'] .section-eyebrow {
+  color: #f2d499 !important;
 }

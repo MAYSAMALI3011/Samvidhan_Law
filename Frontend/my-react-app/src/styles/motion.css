@@ -127,66 +127,107 @@
    ========================================================================== */
 .interactive-lab-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
+  min-width: 0;
 }
 
-/* 3D Flip Card */
-.did-you-know-flip-wrap {
-  perspective: 1000px;
-  min-height: 280px;
-  height: 100%;
-}
-
-.flip-card-inner {
+/* ==========================================================================
+   REALISTIC CANVAS FIRE BURN PARCHMENT CARD (MOBILE & DESKTOP)
+   Burns open with real fiery glowing ember rim, sparks, and tap-to-restore
+   ========================================================================== */
+.burn-card-container {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 280px;
-  text-align: left;
-  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform-style: preserve-3d;
+  min-height: 290px !important;
+  border-radius: 20px;
+  overflow: hidden;
   cursor: pointer;
+  outline: none;
+  border: 1px solid rgba(176, 141, 87, 0.35);
+  background: var(--surface, #0b1526);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.08);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.flip-card-inner.is-flipped {
-  transform: rotateY(180deg);
+.burn-card-container:hover {
+  border-color: rgba(245, 158, 11, 0.6);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.18);
 }
 
-.flip-card-face {
-  position: absolute;
-  top: 0;
-  left: 0;
+.burn-card-face {
   width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 16px;
-  padding: 1.75rem;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid rgba(176, 141, 87, 0.3);
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
-[data-theme='light'] .flip-card-face {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(176, 141, 87, 0.35);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+.burn-card-underlay {
+  position: relative;
+  min-height: 290px;
+  padding: clamp(1.25rem, 3.5vw, 1.75rem);
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(20, 30, 48, 0.98), rgba(11, 21, 38, 0.98));
+  color: var(--text, #ffffff);
 }
 
-.flip-card-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(135deg, rgba(20, 30, 48, 0.95), rgba(15, 23, 42, 0.95));
-  border-color: var(--gold, #dfba73);
+[data-theme='light'] .burn-card-underlay {
+  background: linear-gradient(135deg, #fffdf8, #f7f2ea);
+  color: #0f172a;
 }
 
-[data-theme='light'] .flip-card-back {
-  background: linear-gradient(135deg, #fdfbf7, #f7f2ea);
+.burn-card-front {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  padding: clamp(1.25rem, 3.5vw, 1.75rem);
+  z-index: 2;
+  background: linear-gradient(145deg, #16243b 0%, #0c1524 100%);
+  color: var(--text, #ffffff);
+  border: 1px solid rgba(176, 141, 87, 0.25);
+  transition: opacity 0.4s ease;
 }
+
+[data-theme='light'] .burn-card-front {
+  background: linear-gradient(145deg, #ffffff 0%, #f7f2e6 100%);
+  border: 1px solid rgba(176, 141, 87, 0.35);
+  color: #0f172a;
+}
+
+.burn-card-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Button & Hint styling */
+.burn-action-btn { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); padding: 0.25rem 0.6rem; border-radius: 999px; color: #fbbf24 !important; transition: all 0.2s ease; }
+.burn-action-btn:hover { background: rgba(245, 158, 11, 0.28); border-color: #f59e0b; transform: scale(1.04); }
+.restore-hint { background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.35); padding: 0.25rem 0.6rem; border-radius: 999px; color: #4ade80 !important; transition: all 0.2s ease; }
+.restore-hint:hover { background: rgba(34, 197, 94, 0.22); transform: scale(1.04); }
+.flame-flicker-icon { color: #f97316; animation: flamePulse 1.2s infinite ease-in-out; }
+
+@keyframes flamePulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #f97316); }
+  50% { transform: scale(1.2); filter: drop-shadow(0 0 6px #fbbf24); }
+}
+
+.page-tear-badge { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.page-tear-action-hint { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.76rem; font-weight: 600; cursor: pointer; }
+.page-tear-prompt-title { font-family: var(--font-serif); font-size: clamp(1.1rem, 2.2vw, 1.25rem); line-height: 1.35; margin: 0 0 0.5rem; overflow-wrap: break-word; }
+.page-tear-prompt-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.45; margin: 0; overflow-wrap: break-word; }
+.page-tear-reveal-title { font-size: clamp(1.1rem, 2.2vw, 1.25rem); color: var(--gold, #dfba73); margin: 0 0 0.5rem; overflow-wrap: break-word; }
+.page-tear-reveal-desc { font-size: 0.88rem; line-height: 1.5; margin: 0 0 1rem; overflow-wrap: break-word; }
+.page-tear-bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--gold, #dfba73); margin-top: auto; }
+.page-tear-tag { font-size: 0.72rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
 
 .flip-hint-badge {
   display: inline-flex;
@@ -197,6 +238,10 @@
   color: var(--gold, #dfba73);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+[data-theme='light'] .flip-hint-badge {
+  color: #825e24;
 }
 
 /* 1-Question Interactive Mini-Quiz */
@@ -679,7 +724,8 @@
     margin: 3.5rem auto 2.5rem;
   }
   .rail-course-card {
-    flex: 0 0 82%;
+    flex: 0 0 84vw;
+    max-width: 340px;
     min-width: 280px;
     min-height: 360px;
   }

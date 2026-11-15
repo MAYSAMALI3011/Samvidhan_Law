@@ -831,9 +831,15 @@ html[data-theme='dark'] .chat-bubble-user {
   padding: 0.18rem 0.55rem;
   border-radius: var(--radius-full);
   background: var(--gold-light);
-  color: var(--gold);
+  color: var(--gold-text, var(--gold));
   border: 1px solid var(--gold-border);
   text-decoration: none;
+}
+
+[data-theme='light'] .citation-pill {
+  background: #fdfaf3;
+  color: #825e24;
+  border-color: rgba(176, 141, 87, 0.4);
 }
 
 .citation-pill:hover {
