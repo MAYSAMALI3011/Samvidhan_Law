@@ -5,14 +5,14 @@ export function AskPreviewCard() {
   return (
     <section className="ask-preview-section container" aria-labelledby="ask-preview-title" style={{ margin: '3.5rem auto' }}>
       <div
+        className="ask-preview-grid-container"
         style={{
           background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(20, 30, 48, 0.85))',
           border: '1px solid rgba(176, 141, 87, 0.35)',
           borderRadius: '20px',
-          padding: '2.25rem',
           backdropFilter: 'blur(10px)',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
           gap: '2rem',
           alignItems: 'center',
         }}

@@ -148,3 +148,62 @@
   max-width: 100% !important;
   min-height: 100vh;
 }
+
+.ask-preview-grid-container {
+  padding: 2.25rem;
+}
+
+/* ==========================================================================
+   MOBILE OVERFLOW & SAFE GUTTERS (Phone 360px - 767px)
+   ========================================================================== */
+@media (max-width: 767px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  /* Flex and Grid text container safety */
+  .grid-12, .grid-2, .grid-3, .grid-4,
+  [class*="flex"], [class*="grid"],
+  .card, .deluxe-card, .situation-card, .quiz-card {
+    min-width: 0;
+  }
+
+  /* Universal text wrap safety on phones */
+  h1, h2, h3, h4, h5, h6, p, span, a, label, li {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  /* Media bounds */
+  img, svg, video, canvas, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Scrollable code blocks, pre and tables if wider */
+  pre, code, table {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ask preview card spacing on phone */
+  .ask-preview-grid-container {
+    padding: 1.25rem !important;
+    gap: 1.25rem !important;
+  }
+
+  .ask-preview-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
