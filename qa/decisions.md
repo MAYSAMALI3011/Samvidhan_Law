@@ -23,3 +23,13 @@
 ## D6: Global Route Scroll Restoration
 - **Decision**: Added `window.scrollTo({ top: 0, left: 0, behavior: 'instant' })` on `location.pathname` change in `SiteLayout.tsx` and tap-to-top on `MobileTabBar.tsx`.
 - **Reason**: In SPAs without scroll restoration, scrolling down on one page preserves `scrollY` across navigation, dumping users at the footer of subsequent pages.
+
+## D7: Mobile Swipe-Only Carousel Navigation
+- **Decision**: Arrow buttons (`.carousel-nav-arrows`, `.carousel-arrow-btn`, `.codex-arrow-btn`, `.quote-nav-btn`, `.rail-nav-btn`) are hidden (`display: none !important;`) on mobile screens (`@media (max-width: 768px)`), leaving touch swipe and auto-advance as the exclusive navigation mechanism on phones while retaining desktop arrows. Added touch swipe handling to `QuoteCard.tsx` matching `HeroCodexCard.tsx` and `SituationsCarousel.tsx`.
+- **Reason**: User requested: "card carousel should only have swipe option no button to move left or right in mobile".
+
+## D8: Mobile Chat & Learn Layout Text Wrap Containment
+- **Decision**: 
+  1. Converted `AskPage` input to a streamlined native auto-growing textarea and set `height: 100dvh` flex-column architecture so the messages area scrolls smoothly without cutting off.
+  2. Fixed `.curriculum-pill-tabs` on `/learn` to horizontally scroll (`overflow-x: auto`) and gave `.learn-layout` `grid-template-columns: minmax(0, 1fr)` with `min-width: 0` safety.
+- **Reason**: User requested: "the ui of learn and ask chat on mobile is broken text didn't fit in it". Resolves 51 text blowout / horizontal overflow issues on small phone screens (360px - 412px).

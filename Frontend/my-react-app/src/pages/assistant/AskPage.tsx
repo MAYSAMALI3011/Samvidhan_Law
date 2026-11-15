@@ -24,7 +24,6 @@ import { ThinkingIndicator } from '../../components/chatbot/ThinkingIndicator'
 import { StreamingMarkdown } from '../../components/assistant/streaming/StreamingMarkdown'
 import { useChatStream } from '../../components/assistant/streaming/useChatStream'
 import { usePageMeta } from '../../hooks/usePageMeta'
-import { AutoGrowTextarea } from '../../components/ui/TextFields.jsx'
 import '../../components/chatbot/chatbot.tokens.css'
 
 const suggestedQuestions = [
@@ -314,16 +313,19 @@ export function AskPage() {
         {/* Input Area */}
         <div className="ask-page-input-container">
           <div className="ask-input-box-wrapper">
-            <div style={{ flex: 1 }}>
-              <AutoGrowTextarea
-                label=""
-                placeholder="Ask anything about rights, police, FIR, RTI, or constitutional articles..."
-                value={inputText}
-                onChange={setInputText}
-                onKeyDown={handleKeyDown}
-                maxRows={5}
-              />
-            </div>
+            <textarea
+              ref={textareaRef}
+              className="ask-input-textarea"
+              rows={1}
+              value={inputText}
+              placeholder="Ask about rights, police, FIR, RTI, articles..."
+              onChange={(e) => {
+                setInputText(e.target.value)
+                e.target.style.height = 'auto'
+                e.target.style.height = `${Math.min(e.target.scrollHeight, 120)}px`
+              }}
+              onKeyDown={handleKeyDown}
+            />
 
             {isGenerating ? (
               <button

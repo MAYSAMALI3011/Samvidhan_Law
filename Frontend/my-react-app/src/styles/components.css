@@ -2064,23 +2064,33 @@
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    height: 100% !important;
-    max-height: 100% !important;
-    min-height: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    min-height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
     background: var(--bg) !important;
   }
 
   .ask-page-header {
+    flex-shrink: 0 !important;
     height: 56px;
     padding: 0 1rem !important;
     border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
+    position: relative !important;
     z-index: 20;
     background: var(--surface) !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .ask-disclaimer-banner {
+    flex-shrink: 0 !important;
+    padding: 0.4rem 1rem !important;
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
   }
 
   .ask-page-title {
@@ -2092,24 +2102,38 @@
   }
 
   .ask-page-messages-area {
+    flex: 1 1 0% !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
     padding: 1rem !important;
+    -webkit-overflow-scrolling: touch;
   }
 
   .ask-msg-bubble {
     max-width: 90% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
+  .ask-prompt-chip {
+    white-space: normal !important;
+    word-break: break-word !important;
   }
 
   .ask-page-input-container {
-    position: sticky;
-    bottom: 0;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    bottom: 0 !important;
     z-index: 20;
     background: var(--surface) !important;
     border-top: 1px solid var(--border);
-    padding: 0.65rem 1rem calc(var(--safe-bottom) + 0.5rem) !important;
+    padding: 0.5rem 1rem calc(var(--safe-bottom) + 0.5rem) !important;
   }
 
   .ask-input-box-wrapper {
     gap: 8px;
+    align-items: center;
+    padding: 0.45rem 0.65rem;
   }
 }
 
@@ -2508,8 +2532,18 @@
   color: #0f172a !important;
 }
 
-[data-theme='light'] .ask-input-box::placeholder {
-  color: #94a3b8 !important;
+[data-theme='light'] .ask-input-box::placeholder,
+[data-theme='light'] .ask-input-textarea::placeholder {
+  color: #64748b !important;
+}
+
+[data-theme='light'] .ask-input-box-wrapper {
+  background: #ffffff !important;
+  border-color: rgba(176, 141, 87, 0.45) !important;
+}
+
+[data-theme='light'] .ask-input-textarea {
+  color: #0f172a !important;
 }
 
 /* Home Hero Dark Navy Protection in Light Mode */

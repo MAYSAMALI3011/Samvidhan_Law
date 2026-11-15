@@ -11,6 +11,7 @@ export function QuoteCard({ variant = 'prominent', autoRotateInterval = 8000 }: 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const timerRef = useRef<number | null>(null)
+  const touchStartX = useRef<number | null>(null)
 
   const currentQuote = ambedkarQuotes[currentIndex]
 
@@ -20,6 +21,24 @@ export function QuoteCard({ variant = 'prominent', autoRotateInterval = 8000 }: 
 
   const prevQuote = () => {
     setCurrentIndex((prev) => (prev - 1 + ambedkarQuotes.length) % ambedkarQuotes.length)
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+    setIsPaused(true)
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const touchEndX = e.changedTouches[0].clientX
+    const diff = touchStartX.current - touchEndX
+    if (diff > 40) {
+      nextQuote()
+    } else if (diff < -40) {
+      prevQuote()
+    }
+    touchStartX.current = null
+    setIsPaused(false)
   }
 
   useEffect(() => {
@@ -41,6 +60,8 @@ export function QuoteCard({ variant = 'prominent', autoRotateInterval = 8000 }: 
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       aria-label="Constituent Assembly Debates historical quote"
     >
       <div className="quote-card-inner">
