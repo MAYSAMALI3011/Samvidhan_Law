@@ -34,9 +34,9 @@
   2. Fixed `.curriculum-pill-tabs` on `/learn` to horizontally scroll (`overflow-x: auto`) and gave `.learn-layout` `grid-template-columns: minmax(0, 1fr)` with `min-width: 0` safety.
 - **Reason**: User requested: "the ui of learn and ask chat on mobile is broken text didn't fit in it". Resolves 51 text blowout / horizontal overflow issues on small phone screens (360px - 412px).
 
-## D9: Torn & Burnt Parchment Codex Reveal
-- **Decision**: Replaced 3D card flip (`rotateY(180deg)`) on `InteractiveLab.tsx` and `FlipCard.tsx` with an authentic historical Codex Page-Tear & Ember Burn Reveal animation. The top parchment sheet tears diagonally with a warm glowing ember edge (`translate(-10%, -105%) rotate(-8deg)`), unsealing the statutory safeguard underneath. The underlay defines the card height dynamically, eliminating all card text clipping and bottom overflow on phones.
-- **Reason**: User requested: "change tap to flip to something other like tap to toring a page animation or burning a page animation for both mobile and desktop and text overflowing in website has increased very much so fix it tap to flip also have text overflowing".
+## D9: Realistic Torn & Burnt Parchment Codex Reveal with Tap-to-Restore
+- **Decision**: Upgraded the codex reveal with realistic jagged paper deckling (`torn-edge-svg`), charred ash tint (`page-char-tint`), an active glowing ember fire seam (`ember-fire-glow-line`), and floating ash sparks (`burn-sparks`). Clicking triggers a 3D curling tear animation (`perspective(1000px) rotateX(24deg) rotateZ(-12deg) translateY(-115%) scale(0.9)`) with fire flare, revealing the underlying constitutional safeguard. Clicking again restores the parchment smoothly back into place.
+- **Reason**: User requested: "no the animation should be more interesting and realistic it's still doesn't looks good more like the page burn or torn when i click it and restore when i click again".
 
 ## D10: 2x2 Segment Layout for Curriculum Category Filters on Mobile
 - **Decision**: On mobile screens (`max-width: 640px`), `.curriculum-pill-tabs` transforms into a clean 2x2 grid (`grid-template-columns: 1fr 1fr; gap: 6px`) displaying `[All] [Foundations]` and `[Citizen Rights] [Everyday Law]` side-by-side with centered labels and active state styling.

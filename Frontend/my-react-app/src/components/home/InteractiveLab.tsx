@@ -63,13 +63,13 @@ export function InteractiveLab() {
             {/* UNDERLAY FACE (REVEALED ANSWER) */}
             <div className="page-tear-underlay">
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                <div className="tear-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                   <span className="page-tear-badge text-success">
-                    <CheckCircle2 size={14} aria-hidden="true" />
+                    <CheckCircle2 size={15} aria-hidden="true" />
                     Article 22(2) Safeguard
                   </span>
-                  <span className="page-tear-action-hint">
-                    <RotateCcw size={12} aria-hidden="true" /> Restore Page
+                  <span className="page-tear-action-hint restore-hint">
+                    <RotateCcw size={13} aria-hidden="true" /> Tap to Restore Page
                   </span>
                 </div>
                 <h3 className="page-tear-reveal-title">
@@ -80,7 +80,7 @@ export function InteractiveLab() {
                 </p>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginTop: '1rem' }}>
+              <div className="page-tear-footer-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginTop: '1rem' }}>
                 <Link
                   to="/constitution"
                   className="btn btn-outline btn-sm"
@@ -91,41 +91,57 @@ export function InteractiveLab() {
                   <ArrowRight size={13} aria-hidden="true" />
                 </Link>
                 <span style={{ fontSize: '0.74rem', color: 'var(--text-tertiary)' }}>
-                  Tap card to close
+                  Click anywhere to restore page
                 </span>
               </div>
             </div>
 
             {/* TOP OVERLAY FACE (PARCHMENT SHEET THAT TEARS / BURNS AWAY) */}
             <div className="page-tear-overlay">
+              <div className="page-char-tint" aria-hidden="true" />
+
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                <div className="tear-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
                   <span className="page-tear-badge text-gold">
-                    <ShieldAlert size={14} aria-hidden="true" />
+                    <ShieldAlert size={15} aria-hidden="true" />
                     Citizen Safeguard
                   </span>
-                  <span className="page-tear-action-hint text-amber">
-                    <Flame size={13} aria-hidden="true" /> Tap to Tear & Reveal
+                  <span className="page-tear-action-hint burn-action-btn">
+                    <Flame size={14} className="flame-flicker-icon" aria-hidden="true" />
+                    <span>Tap to Burn &amp; Tear</span>
                   </span>
                 </div>
                 <h3 className="page-tear-prompt-title">
                   Can the police keep an arrested citizen in custody for 3 days without a court order?
                 </h3>
                 <p className="page-tear-prompt-desc">
-                  Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this codex page to tear and uncover the strict constitutional deadline.
+                  Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this codex page to ignite the tear line and uncover the constitutional safeguard.
                 </p>
               </div>
 
               <div className="page-tear-bottom-row">
                 <span className="page-tear-cta-text" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span>Tear Page to Reveal 24h Law</span>
+                  <Flame size={14} className="text-amber" aria-hidden="true" />
+                  <span>Burn Page to Reveal 24h Law</span>
                   <ArrowRight size={14} aria-hidden="true" />
                 </span>
                 <span className="page-tear-tag">Constitutional Codex</span>
               </div>
 
-              {/* Glowing Ember Burn Edge along bottom */}
-              <div className="page-tear-ember-edge" aria-hidden="true" />
+              {/* Jagged Deckled Tear Edge with Burning Embers & Sparks */}
+              <div className="page-burn-tear-edge" aria-hidden="true">
+                <svg className="torn-edge-svg" viewBox="0 0 400 16" preserveAspectRatio="none">
+                  <path d="M0,0 L0,8 Q20,15 40,7 Q60,3 80,12 Q100,16 120,6 Q140,2 160,11 Q180,16 200,7 Q220,3 240,11 Q260,16 280,8 Q300,4 320,13 Q340,16 360,8 Q380,4 400,11 L400,0 Z" />
+                </svg>
+                <div className="ember-fire-glow-line" />
+                <div className="burn-sparks">
+                  <span className="spark spark-1" />
+                  <span className="spark spark-2" />
+                  <span className="spark spark-3" />
+                  <span className="spark spark-4" />
+                  <span className="spark spark-5" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
