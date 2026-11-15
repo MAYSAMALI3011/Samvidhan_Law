@@ -47,11 +47,14 @@
 - **Reason**: User requested: "only put those question on suggestion of chatbot that we can answer and people ask them frequently".
 
 ## D12: Realistic Interactive Canvas Fire-Burning Parchment Card with Tap-to-Restore
-- **Decision**: Built a dedicated `BurnCard` component featuring a real-time HTML5 2D canvas particle ignition system and dynamic circular burn mask. When a citizen clicks or touches anywhere on the codex parchment:
-  1. An ignition fire ring sparks right at the exact tap/click coordinates `(x, y)`.
-  2. A glowing fiery rim (`#ff4500` flame core and `#ffd700` golden incandescent glow) expands smoothly outward.
-  3. 35 glowing ember sparks fly outward with realistic decay and gravity.
-  4. The front parchment sheet dissolves along the fiery rim (`mask-image: radial-gradient`), directly revealing the underlying statutory mandate.
-  5. When tapped again or clicking "Tap to Restore", the fire smoothly rewinds, cooling from golden flame into dark charred carbon, and the intact codex page is restored.
-  6. Fixed container in-flow driving structure so height never collapses on mobile touch-target rules (`[role="button"] { min-height: 44px }`).
-- **Reason**: User uploaded a video demonstrating that the previous translation slide did not look like an authentic page burn or tear ("this is not what i am talking about"). The canvas fire-burn system delivers an authentic, physical paper burning effect across all devices in both light and dark themes.
+- **Decision**: Built a dedicated `BurnCard` component featuring a real-time HTML5 2D canvas particle ignition system and dynamic circular burn mask.
+- **Reason**: User uploaded a video demonstrating that the previous translation slide did not look like an authentic page burn or tear ("this is not what i am talking about").
+
+## D13: Organic Licking Flame Wave Paper Burn (Replaced Radial Circular Mask)
+- **Decision**: In response to user feedback ("it getting better but not best the page should burn not a circle moves on in orange colour"), eliminated the radial circular mask entirely. Implemented an authentic organic flame wave:
+  1. A multi-harmonic licking flame front (`Math.sin(x * 0.035 + now * 0.007) * 14 + Math.max(0, Math.sin(x * 0.12 + now * 0.02)) * 10`) sweeps upward across the parchment from bottom to top.
+  2. The flame boundary features a dark charred carbon scorch line (`rgba(15, 4, 1, 0.95)`), an active glowing fiery orange flame front (`rgba(255, 69, 0, 0.85)`), and an incandescent white-hot golden core (`rgba(255, 235, 120, 0.95)`).
+  3. The front parchment is physically consumed above the advancing flame wave via dynamic polygon clipping (`clip-path: polygon(...)`), revealing the statutory mandate underneath as the fire licks upward.
+  4. Real ember sparks burst along the active flame line and rise upward into the air with smoke drag.
+  5. Tapping again reverses the flame downward, cooling the paper back into an intact codex page.
+- **Reason**: User explicitly requested: "the page should burn not a circle moves on in orange colour". The organic flame wave physically burns the page without any geometric circles.

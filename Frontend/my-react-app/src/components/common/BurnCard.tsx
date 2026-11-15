@@ -33,7 +33,7 @@ export function BurnCard({
   const animRef = useRef<number | null>(null)
 
   const triggerBurn = useCallback(
-    (clientX?: number, clientY?: number) => {
+    () => {
       const container = containerRef.current
       const canvas = canvasRef.current
       const frontEl = frontRef.current
@@ -44,37 +44,15 @@ export function BurnCard({
       if (onBurnChange) onBurnChange(nextState)
 
       const rect = container.getBoundingClientRect()
-      const originX = clientX !== undefined ? clientX - rect.left : rect.width / 2
-      const originY = clientY !== undefined ? clientY - rect.top : rect.height / 2
-
-      const maxRadius = Math.hypot(
-        Math.max(originX, rect.width - originX),
-        Math.max(originY, rect.height - originY)
-      ) + 40
-
       canvas.width = rect.width
       canvas.height = rect.height
       const ctx = canvas.getContext('2d')
       if (!ctx) return
 
-      const duration = 750
+      const duration = 850
       const startTime = performance.now()
-
-      // Generate ember spark particles
       const sparks: Spark[] = []
       const sparkCount = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 35
-      for (let i = 0; i < sparkCount; i++) {
-        sparks.push({
-          x: originX,
-          y: originY,
-          vx: (Math.random() - 0.5) * 7,
-          vy: (Math.random() - 0.7) * 7,
-          life: 1,
-          size: Math.random() * 3 + 1.5,
-          decay: Math.random() * 0.025 + 0.015,
-          color: Math.random() > 0.4 ? '#ffd700' : '#ff4500',
-        })
-      }
 
       if (animRef.current) cancelAnimationFrame(animRef.current)
 
@@ -83,38 +61,84 @@ export function BurnCard({
         if (p > 1) p = 1
         const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p
 
-        const curRadius = nextState ? ease * maxRadius : (1 - ease) * maxRadius
+        // Organic flame wave moves from bottom (rect.height + 30) to top (-40) when burning
+        const curY = nextState
+          ? (rect.height + 30) - ease * (rect.height + 70)
+          : -40 + ease * (rect.height + 70)
+
         ctx.clearRect(0, 0, rect.width, rect.height)
 
-        if (curRadius > 0 && curRadius < maxRadius) {
-          const mask = `radial-gradient(circle at ${originX}px ${originY}px, transparent ${curRadius}px, black ${curRadius + 30}px)`
-          frontEl.style.maskImage = mask
-          frontEl.style.webkitMaskImage = mask
+        if (curY > -35 && curY < rect.height + 25) {
+          const numPts = 60
+          const pts: { x: number; y: number }[] = []
+          for (let i = 0; i <= numPts; i++) {
+            const x = (i / numPts) * rect.width
+            const baseWave = Math.sin(x * 0.035 + now * 0.007) * 14 + Math.cos(x * 0.075 - now * 0.011) * 7
+            const flameLick = Math.max(0, Math.sin(x * 0.12 + now * 0.02)) * 10
+            const y = curY + baseWave - flameLick
+            pts.push({ x, y })
+          }
 
-          // Draw fiery glowing ring
+          // Polygon masking: keeps only unburned portion above fire wave
+          let polyStr = 'polygon(0% 0%, 100% 0%'
+          for (let i = pts.length - 1; i >= 0; i--) {
+            polyStr += `, ${pts[i].x}px ${pts[i].y}px`
+          }
+          polyStr += ')'
+          frontEl.style.clipPath = polyStr
+          ;(frontEl.style as any).webkitClipPath = polyStr
+
+          // Spawn ember sparks along active fire front
+          if (sparkCount > 0 && Math.random() > 0.25) {
+            const sx = Math.random() * rect.width
+            const sy = curY + Math.sin(sx * 0.035) * 12
+            sparks.push({
+              x: sx,
+              y: sy,
+              vx: (Math.random() - 0.5) * 3.5,
+              vy: -Math.random() * 5.5 - 2,
+              life: 1,
+              size: Math.random() * 3 + 1.5,
+              decay: Math.random() * 0.025 + 0.018,
+              color: Math.random() > 0.4 ? (Math.random() > 0.5 ? '#ffd700' : '#ff7700') : '#ff2200',
+            })
+          }
+
+          // 1. Black Charred Paper Scorch Edge (above fire line)
           ctx.save()
           ctx.beginPath()
-          ctx.arc(originX, originY, curRadius, 0, Math.PI * 2)
-          ctx.lineWidth = 14
-          ctx.strokeStyle = 'rgba(255, 69, 0, 0.75)'
+          ctx.moveTo(pts[0].x, pts[0].y - 8)
+          for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y - 8)
+          ctx.lineWidth = 18
+          ctx.strokeStyle = 'rgba(15, 4, 1, 0.95)'
+          ctx.stroke()
+
+          // 2. Burning Ember Orange Flame Front
+          ctx.beginPath()
+          ctx.moveTo(pts[0].x, pts[0].y)
+          for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y)
+          ctx.lineWidth = 10
+          ctx.strokeStyle = 'rgba(255, 69, 0, 0.85)'
           ctx.shadowColor = '#ff4500'
           ctx.shadowBlur = 18
           ctx.stroke()
 
+          // 3. Incandescent White-Hot Flame Core
           ctx.beginPath()
-          ctx.arc(originX, originY, curRadius + 3, 0, Math.PI * 2)
-          ctx.lineWidth = 5
-          ctx.strokeStyle = 'rgba(255, 215, 0, 0.95)'
+          ctx.moveTo(pts[0].x, pts[0].y + 2)
+          for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y + 2)
+          ctx.lineWidth = 3.5
+          ctx.strokeStyle = 'rgba(255, 235, 120, 0.95)'
           ctx.shadowColor = '#ffd700'
           ctx.shadowBlur = 10
           ctx.stroke()
           ctx.restore()
-        } else if (curRadius >= maxRadius) {
-          frontEl.style.maskImage = 'radial-gradient(circle, transparent 100%, black 100%)'
-          frontEl.style.webkitMaskImage = 'radial-gradient(circle, transparent 100%, black 100%)'
+        } else if (nextState && curY <= -35) {
+          frontEl.style.clipPath = 'polygon(0 0, 0 0, 0 0)'
+          ;(frontEl.style as any).webkitClipPath = 'polygon(0 0, 0 0, 0 0)'
         } else {
-          frontEl.style.maskImage = 'none'
-          frontEl.style.webkitMaskImage = 'none'
+          frontEl.style.clipPath = 'none'
+          ;(frontEl.style as any).webkitClipPath = 'none'
         }
 
         // Render & update ember particles
@@ -151,15 +175,13 @@ export function BurnCard({
     // If target is an interactive anchor or button inside the revealed card, don't trigger burn restore
     const target = e.target as HTMLElement
     if (target.closest('a') || target.closest('button.btn')) return
-    triggerBurn(e.clientX, e.clientY)
+    triggerBurn()
   }
 
   const handleTouch = (e: TouchEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement
     if (target.closest('a') || target.closest('button.btn')) return
-    if (e.touches.length > 0) {
-      triggerBurn(e.touches[0].clientX, e.touches[0].clientY)
-    }
+    triggerBurn()
   }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
