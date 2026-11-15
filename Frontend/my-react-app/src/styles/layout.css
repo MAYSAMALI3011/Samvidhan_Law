@@ -212,6 +212,20 @@
     padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 36px);
   }
 
+  /* Minimum touch target rules on phone */
+  .btn-primary, .btn.gold, .hero-primary-btn {
+    min-height: 48px !important;
+  }
+
+  .btn, button, [role="button"], .mobile-tab-item {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .hero-cta-group {
+    gap: 12px !important;
+  }
+
   [id] {
     scroll-margin-top: calc(var(--header-h) + 16px);
   }
