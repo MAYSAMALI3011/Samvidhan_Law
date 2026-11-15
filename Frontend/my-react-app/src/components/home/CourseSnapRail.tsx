@@ -28,6 +28,8 @@ export function CourseSnapRail() {
   const lastX = useRef(0)
   const lastTime = useRef(0)
   const velocity = useRef(0)
+  const isHovered = useRef(false)
+  const pauseUntil = useRef(0)
 
   const { progress } = useAppState()
   const prefersReducedMotion = useReducedMotion()
@@ -129,6 +131,7 @@ export function CourseSnapRail() {
 
   // 7. Arrow buttons scroll by exactly one card width
   const scrollByCard = (direction: 'left' | 'right') => {
+    pauseUntil.current = Date.now() + 5500
     const container = scrollRef.current
     if (!container) return
 
@@ -140,8 +143,39 @@ export function CourseSnapRail() {
     container.scrollBy({ left: delta, behavior: 'smooth' })
   }
 
+  // Auto-advance carousel: advances every 4.0s, loops to start, pauses on interaction
+  const advanceCarousel = useCallback(() => {
+    const container = scrollRef.current
+    if (!container) return
+    const { scrollLeft, scrollWidth, clientWidth } = container
+    const maxScroll = scrollWidth - clientWidth
+    if (maxScroll <= 10) return
+
+    if (scrollLeft >= maxScroll - 16) {
+      container.scrollTo({ left: 0, behavior: 'smooth' })
+    } else {
+      const firstCard = container.querySelector<HTMLElement>('.rail-course-card')
+      const cardWidth = firstCard ? firstCard.offsetWidth : 350
+      const gap = 24
+      container.scrollBy({ left: cardWidth + gap, behavior: 'smooth' })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (prefersReducedMotion || !isSectionInView || !isSectionVisible) return
+
+    const interval = setInterval(() => {
+      if (document.hidden) return
+      if (isHovered.current || isDragging.current || Date.now() < pauseUntil.current) return
+      advanceCarousel()
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [prefersReducedMotion, isSectionInView, isSectionVisible, advanceCarousel])
+
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    pauseUntil.current = Date.now() + 5500
     if (e.key === 'ArrowLeft') {
       e.preventDefault()
       scrollByCard('left')
@@ -153,6 +187,7 @@ export function CourseSnapRail() {
 
   // 9. Desktop drag-to-scroll with inertia
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    pauseUntil.current = Date.now() + 5500
     if (e.pointerType === 'touch' || e.button !== 0 || !scrollRef.current) return
 
     isDragging.current = true
@@ -189,6 +224,7 @@ export function CourseSnapRail() {
   }
 
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    pauseUntil.current = Date.now() + 5500
     if (!isDragging.current || !scrollRef.current) return
     isDragging.current = false
 
@@ -369,6 +405,18 @@ export function CourseSnapRail() {
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
+          onPointerEnter={() => {
+            isHovered.current = true
+          }}
+          onPointerLeave={() => {
+            isHovered.current = false
+          }}
+          onTouchStart={() => {
+            pauseUntil.current = Date.now() + 5500
+          }}
+          onTouchEnd={() => {
+            pauseUntil.current = Date.now() + 5500
+          }}
         >
           {courses.map((course, idx) => {
             const allLessons = lessonsForCourse(course.id)
