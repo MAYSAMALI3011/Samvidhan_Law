@@ -80,8 +80,8 @@ async function run() {
           await homeCard.click({ position: { x: 150, y: 100 } })
         }
 
-        // Wait for revealed
-        await page.waitForSelector('.interactive-lab-card.state-revealed', { timeout: 4000 })
+        // Wait for revealed (burn animation 2300ms)
+        await page.waitForSelector('.interactive-lab-card.state-revealed', { timeout: 5000 })
 
         // Restore: alternate between clicking restore button and clicking card background
         if (i % 2 === 1) {
@@ -100,8 +100,8 @@ async function run() {
           }
         }
 
-        // Must return to idle cleanly
-        await page.waitForSelector('.interactive-lab-card.state-idle', { timeout: 3500 })
+        // Must return to idle cleanly (rewind animation 1400ms)
+        await page.waitForSelector('.interactive-lab-card.state-idle', { timeout: 4500 })
         homePasses++
       }
 
@@ -133,7 +133,7 @@ async function run() {
           } else {
             await lessonCard.first().click({ position: { x: 120, y: 90 } })
           }
-          await page.waitForSelector('.is-tear-variant.state-revealed', { timeout: 3500 })
+          await page.waitForSelector('.is-tear-variant.state-revealed', { timeout: 4500 })
 
           // Alternate restore method
           if (j % 2 === 1) {
@@ -150,7 +150,7 @@ async function run() {
               await lessonCard.first().click({ position: { x: 80, y: 60 } })
             }
           }
-          await page.waitForSelector('.is-tear-variant.state-idle', { timeout: 3000 })
+          await page.waitForSelector('.is-tear-variant.state-idle', { timeout: 4000 })
           lessonPasses++
         }
         reportContent += `- Lesson Tear Card: **${lessonPasses}/5 cycles PASSED**\n`
@@ -187,9 +187,9 @@ async function run() {
 
     let stressPasses = 0
     for (let c = 1; c <= 30; c++) {
-      await stressPage.waitForSelector('.interactive-lab-card.state-idle', { timeout: 3000 })
+      await stressPage.waitForSelector('.interactive-lab-card.state-idle', { timeout: 3500 })
       await card.click({ position: { x: 140, y: 100 } })
-      await stressPage.waitForSelector('.interactive-lab-card.state-revealed', { timeout: 4000 })
+      await stressPage.waitForSelector('.interactive-lab-card.state-revealed', { timeout: 5000 })
 
       // Varied restore actions: button click, empty card click, or Space key
       if (c % 3 === 1) {
@@ -201,7 +201,7 @@ async function run() {
         await stressPage.keyboard.press('Space')
       }
 
-      await stressPage.waitForSelector('.interactive-lab-card.state-idle', { timeout: 3500 })
+      await stressPage.waitForSelector('.interactive-lab-card.state-idle', { timeout: 4500 })
       stressPasses++
       if (c % 10 === 0) console.log(`Stress test progress: ${c}/30 cycles...`)
     }

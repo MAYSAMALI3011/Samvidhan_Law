@@ -108,3 +108,12 @@
 - **Decision**: The Home page "Try it" card uses `variant="burn"` while lesson cards retain `variant="tear"`.
 - **Reason**: Fulfills the task requirement: "The Home page 'Try it' card uses variant='burn'. Lesson cards keep the tear. Document this choice in qa/decisions.md in one line."
 
+## D18: Tactile Sensation & Deliberate Timing Calibration for Paper Burn & Tear
+- **Decision**: Calibrated effect timing and physical simulations:
+  - **Burn Effect**: 2300ms duration (380ms incandescent ignition and smolder with scorched paper halo, 1520ms organic flame front consumption, 400ms cooling smolder and burnout), rewind: 1400ms.
+  - **Combustion Layers**: 4 distinct layers (2.5px white-hot leading filament `#fff2a8`, 5px pulsating amber-orange ember rim `#ff5500` with multi-stop glow, 14px blackened carbon char `#160803`, and 24px radiating scorched heat gradient band `rgba(60, 25, 10, 0.52)`).
+  - **Convection Dynamics**: 20 glowing embers oscillating horizontally in sinewaves (`sway = Math.sin(burnProgress * Math.PI * 4 + speck.id * 1.4) * 8`) and 6 soft smoke puffs with thermal lift.
+  - **Tear Effect**: 1450ms duration (200ms paper tension and grip flex, 550ms zip rip with physical fibrous resistance, 700ms 3D separation with aerodynamic curl `rotateX` / `rotateZ` and deepening drop shadow), reassembly: 1050ms damped harmonic spring with 400ms glowing Kintsugi gold seam.
+- **Reason**: Fulfills user request: "make the animation a little slower and real to let people feel", providing authentic physical presence, warmth, and tactility without feeling rushed or artificial.
+
+

@@ -59,18 +59,18 @@ function createRng(seed: number) {
   }
 }
 
-// Physical spring simulation for reassembly: stiffness = 170, damping = 18, mass = 1
-// Settle of 2-3px before resting firmly at 0 with no bounce loop
+// Physical spring simulation for reassembly: stiffness = 150, damping = 16, mass = 1
+// Gentle paper settle before resting firmly at 0 with no bounce loop
 function springDampedFraction(t: number): number {
   if (t <= 0) return 1
   if (t >= 1) return 0
-  const timeSec = t * 0.7 // 700ms base duration
-  const gamma = 9.0 // damping / (2 * mass) = 18 / 2
-  const omegaD = 9.434 // sqrt(170 - 81)
+  const timeSec = t * 1.05 // 1050ms base duration
+  const gamma = 8.0 // damping / (2 * mass) = 16 / 2
+  const omegaD = 9.27 // sqrt(150 - 64)
   const decay = Math.exp(-gamma * timeSec)
   const osc = Math.cos(omegaD * timeSec) + (gamma / omegaD) * Math.sin(omegaD * timeSec)
   const val = decay * osc
-  return Math.max(0, Math.min(1.05, val))
+  return Math.max(0, Math.min(1.04, val))
 }
 
 export function FlipCard({
@@ -286,7 +286,7 @@ export function FlipCard({
     }
 
     if (cardState === 'tearing' || cardState === 'burning') {
-      const expectedDur = (activeVariant === 'burn' ? 1500 : 950) * slowMultiplier
+      const expectedDur = (activeVariant === 'burn' ? 2300 : 1450) * slowMultiplier
       safetyTimerRef.current = setTimeout(() => {
         clearAllAnimations()
         if (activeVariant === 'burn') {
@@ -304,7 +304,7 @@ export function FlipCard({
         onFlipChange?.(true)
       }, expectedDur + 1000)
     } else if (cardState === 'reassembling' || cardState === 'rewinding') {
-      const expectedDur = (activeVariant === 'burn' ? 950 : 700) * slowMultiplier
+      const expectedDur = (activeVariant === 'burn' ? 1400 : 1050) * slowMultiplier
       safetyTimerRef.current = setTimeout(() => {
         resetToCleanIdle()
       }, expectedDur + 1000)
@@ -426,7 +426,7 @@ export function FlipCard({
   }, [prompt, tapCoords])
 
   // --------------------------------------------------------------------------
-  // TEAR ANIMATION: 950MS (ANTICIPATION -> ZIP RIP -> SEPARATION)
+  // TEAR ANIMATION: 1450MS (ANTICIPATION -> ZIP RIP -> SEPARATION & FLUTTER)
   // --------------------------------------------------------------------------
   const startTearAnimation = useCallback(
     (initialProgress = 0) => {
@@ -445,10 +445,11 @@ export function FlipCard({
       clearAllAnimations()
 
       // Base timings multiplied by dev ?fxslow=
-      const totalDur = 950 * slowMultiplier
-      const anticipationDur = 120 * slowMultiplier
-      const ripDur = 350 * slowMultiplier
-      const sepDur = 480 * slowMultiplier
+      // Total duration 1450ms: deliberate paper tension, crisp fibrous rip, graceful glide
+      const totalDur = 1450 * slowMultiplier
+      const anticipationDur = 200 * slowMultiplier
+      const ripDur = 550 * slowMultiplier
+      const sepDur = 700 * slowMultiplier
 
       const startT = performance.now()
       const startP = initialProgress
@@ -457,30 +458,33 @@ export function FlipCard({
         const elapsed = (now - startT) + startP * totalDur
 
         if (elapsed < anticipationDur) {
-          // 1. Anticipation: 1px press, 2px horizontal jitter
+          // 1. Anticipation: Paper grip tension (1.5px flex, 2.5px micro-shear jitter)
           setTearPhase('anticipation')
           const jitterProgress = elapsed / anticipationDur
-          const jx = Math.sin(jitterProgress * Math.PI * 4) * 2
-          setJitterOffset({ x: jx, y: 1 })
+          const jx = Math.sin(jitterProgress * Math.PI * 4) * 2.2
+          const jy = Math.sin(jitterProgress * Math.PI * 2) * 1.2
+          setJitterOffset({ x: jx, y: jy })
           setTearProgress(0)
           setRipProgress(0)
           tearAnimRef.current = requestAnimationFrame(animate)
         } else if (elapsed < anticipationDur + ripDur) {
-          // 2. Rip: 120-470ms (350ms). Zip opens from tap side to far side
+          // 2. Rip: 200-750ms (550ms). Zip opens from tap side across fibres with organic resistance
           setTearPhase('rip')
           setJitterOffset({ x: 0, y: 0 })
           const ripElapsed = elapsed - anticipationDur
-          const ripP = Math.min(1, ripElapsed / ripDur)
+          const rawRip = Math.min(1, ripElapsed / ripDur)
+          // Fibre resistance: slight hesitation in the middle before ripping through
+          const ripP = rawRip < 0.5 ? 2 * rawRip * rawRip : 1 - Math.pow(-2 * rawRip + 2, 2) / 2
           setRipProgress(ripP)
-          setTearProgress(ripP * 0.2) // slight start
+          setTearProgress(ripP * 0.22) // slight outward yield
           tearAnimRef.current = requestAnimationFrame(animate)
         } else if (elapsed < totalDur) {
-          // 3. Separation: 470-950ms (480ms)
+          // 3. Separation & Aerodynamic Drift: 750-1450ms (700ms)
           setTearPhase('separation')
           setRipProgress(1)
           const sepElapsed = elapsed - anticipationDur - ripDur
           const raw = Math.min(1, sepElapsed / sepDur)
-          // Smooth ease-out cubic
+          // Smooth ease-out cubic for realistic paper float
           const ease = 1 - Math.pow(1 - raw, 3)
           setTearProgress(ease)
           tearAnimRef.current = requestAnimationFrame(animate)
@@ -501,7 +505,7 @@ export function FlipCard({
   )
 
   // --------------------------------------------------------------------------
-  // TEAR REASSEMBLE: 700MS SPRING SETTLE (STIFFNESS 170, DAMPING 18, 2-3PX SETTLE)
+  // TEAR REASSEMBLE: 1050MS SPRING SETTLE (KINTSUGI GOLD SEAM)
   // --------------------------------------------------------------------------
   const startReassembleAnimation = useCallback(() => {
     if (cardState !== 'revealed' && cardState !== 'tearing') return
@@ -522,7 +526,7 @@ export function FlipCard({
 
     setCardState('reassembling')
     const startProgress = tearProgressRef.current || 1
-    const duration = 700 * slowMultiplier
+    const duration = 1050 * slowMultiplier
     const startT = performance.now()
     let seamFired = false
 
@@ -530,19 +534,19 @@ export function FlipCard({
       const elapsed = now - startT
       const t = Math.min(1, elapsed / duration)
 
-      // Spring damped fraction with 2-3px settle
+      // Spring damped fraction with organic paper settle
       const fraction = springDampedFraction(t)
       const currentP = startProgress * fraction
       setTearProgress(currentP)
       setRipProgress(currentP)
 
-      // Thin gold seam lights along tear line as edges meet and fades over 300ms
+      // Thin gold seam lights along tear line as edges meet and fades over 400ms
       if (!seamFired && currentP <= 0.08) {
         seamFired = true
         setGoldSeamOpacity(1)
         goldSeamTimeoutRef.current = setTimeout(() => {
           setGoldSeamOpacity(0)
-        }, 300 * slowMultiplier)
+        }, 400 * slowMultiplier)
       }
 
       if (t < 1) {
@@ -565,7 +569,7 @@ export function FlipCard({
   }, [cardState, isReducedMotion, onFlipChange, clearAllAnimations, slowMultiplier])
 
   // --------------------------------------------------------------------------
-  // BURN ANIMATION: 1500MS (IGNITION -> ORGANIC EXPANSION -> BURNOUT)
+  // BURN ANIMATION: 2300MS (IGNITION & SMOLDER -> ORGANIC EXPANSION -> BURNOUT)
   // --------------------------------------------------------------------------
   const startBurnAnimation = useCallback(
     (clientX?: number, clientY?: number, initialProgress = 0) => {
@@ -592,31 +596,32 @@ export function FlipCard({
       setCardState('burning')
       clearAllAnimations()
 
-      // Spawn 16 rising embers and 4 soft smoke puffs
-      const newEmbers: EmberSpeck[] = Array.from({ length: 16 }, (_, i) => ({
+      // Spawn 20 rising embers with convective turbulence and 6 soft smoke puffs
+      const newEmbers: EmberSpeck[] = Array.from({ length: 20 }, (_, i) => ({
         id: i,
-        x: originX + (Math.random() - 0.5) * 30,
-        y: originY + (Math.random() - 0.5) * 20,
-        driftY: 40 + Math.random() * 70, // 40-110px rise
-        driftX: (Math.random() - 0.5) * 35, // sideways curl
-        size: 2 + Math.random() * 2.5,
-        opacity: 0.6 + Math.random() * 0.4,
+        x: originX + (Math.random() - 0.5) * 32,
+        y: originY + (Math.random() - 0.5) * 22,
+        driftY: 45 + Math.random() * 85, // 45-130px rise
+        driftX: (Math.random() - 0.5) * 40, // sideways draft
+        size: 2.2 + Math.random() * 2.8,
+        opacity: 0.7 + Math.random() * 0.3,
       }))
       setEmbers(newEmbers)
 
-      const newSmoke: SmokePuff[] = Array.from({ length: 4 }, (_, i) => ({
+      const newSmoke: SmokePuff[] = Array.from({ length: 6 }, (_, i) => ({
         id: i,
-        x: originX + (Math.random() - 0.5) * 25,
-        y: originY + (Math.random() - 0.5) * 15,
-        driftY: 30 + Math.random() * 45,
-        size: 14 + Math.random() * 12,
-        opacity: 0.15 + Math.random() * 0.1, // <= 0.25 opacity
+        x: originX + (Math.random() - 0.5) * 26,
+        y: originY + (Math.random() - 0.5) * 18,
+        driftY: 35 + Math.random() * 55,
+        size: 16 + Math.random() * 16,
+        opacity: 0.16 + Math.random() * 0.09, // <= 0.25 opacity
       }))
       setSmokePuffs(newSmoke)
 
-      const totalDur = 1500 * slowMultiplier
-      const ignitionDur = 200 * slowMultiplier
-      const spreadDur = 1100 * slowMultiplier
+      // Total duration 2300ms: allows user to tangibly feel the flame ignite, spread and consume
+      const totalDur = 2300 * slowMultiplier
+      const ignitionDur = 380 * slowMultiplier
+      const spreadDur = 1520 * slowMultiplier
 
       const startT = performance.now()
       const startP = initialProgress
@@ -625,22 +630,22 @@ export function FlipCard({
         const elapsed = (now - startT) + startP * totalDur
 
         if (elapsed < ignitionDur) {
-          // 0-200ms: Ignition. Tap point chars dark, tiny 6px ember glows
+          // 0-380ms: Ignition & Smolder. Tap point glows incandescent, parchment scorches
           setBurnPhase('ignition')
           const p = elapsed / ignitionDur
-          setBurnProgress(p * 0.04)
+          setBurnProgress(p * 0.05)
           burnAnimRef.current = requestAnimationFrame(animate)
         } else if (elapsed < ignitionDur + spreadDur) {
-          // 200-1300ms: Spread. Hole expands organically to corners
+          // 380-1900ms: Spread. Organic flame front consumes parchment with heat pulsation
           setBurnPhase('spread')
           const spreadElapsed = elapsed - ignitionDur
           const raw = spreadElapsed / spreadDur
-          // Accelerating then settling (ease-in-out cubic)
+          // Organic ease: steady physical combustion front
           const ease = raw < 0.5 ? 4 * raw * raw * raw : 1 - Math.pow(-2 * raw + 2, 3) / 2
-          setBurnProgress(0.04 + ease * 0.96)
+          setBurnProgress(0.05 + ease * 0.95)
           burnAnimRef.current = requestAnimationFrame(animate)
         } else if (elapsed < totalDur) {
-          // 1300-1500ms: Burn out. Embers cool to char, rim fades, answer clear
+          // 1900-2300ms: Burn out. Glowing edges cool to soft ash, answer underlay settles
           setBurnPhase('burnout')
           setBurnProgress(1)
           burnAnimRef.current = requestAnimationFrame(animate)
@@ -661,7 +666,7 @@ export function FlipCard({
   )
 
   // --------------------------------------------------------------------------
-  // BURN REWIND: 950MS (HOLE CLOSES, PARTICLES REVERSE, ENDS CLEAN)
+  // BURN REWIND: 1400MS (HOLE CLOSES, PARTICLES REVERSE, ENDS CLEAN)
   // --------------------------------------------------------------------------
   const startRewindAnimation = useCallback(() => {
     if (cardState !== 'revealed' && cardState !== 'burning') return
@@ -682,13 +687,13 @@ export function FlipCard({
 
     setCardState('rewinding')
     const startP = burnProgressRef.current || 1
-    const duration = 950 * slowMultiplier
+    const duration = 1400 * slowMultiplier
     const startT = performance.now()
 
     const animate = (now: number) => {
       const elapsed = now - startT
       const t = Math.min(1, elapsed / duration)
-      // Ease-in-out rewind
+      // Smooth ease-in-out rewind
       const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
       const currentP = Math.max(0, startP * (1 - ease))
       setBurnProgress(currentP)
@@ -919,25 +924,26 @@ export function FlipCard({
     }
 
     if (tearPhase === 'rip') {
-      const rot = -ripProgress * 2.2
+      const rot = -ripProgress * 2.5
       return {
-        transform: `rotate(${rot}deg)`,
+        transform: `perspective(1000px) rotateZ(${rot}deg)`,
         opacity: 1,
         transformOrigin: zipOrigin,
       }
     }
 
-    // Separation & Reassembly
+    // Separation & Reassembly with organic paper curl
     const p = tearProgress
-    const tx = -5 * p
-    const ty = -12 * p
-    const rot = -7 * p
+    const tx = -5.5 * p
+    const ty = -13 * p
+    const rotZ = -7.5 * p
+    const rotX = 3.5 * p
     const op = Math.max(0, 1 - p)
     return {
-      transform: `translate(${tx}%, ${ty}%) rotate(${rot}deg)`,
+      transform: `perspective(1000px) translate3d(${tx}%, ${ty}%, 0) rotateZ(${rotZ}deg) rotateX(${rotX}deg)`,
       opacity: op,
       filter: isTearActive
-        ? `drop-shadow(0 ${4 + p * 12}px ${8 + p * 16}px rgba(0, 0, 0, ${0.25 + p * 0.25}))`
+        ? `drop-shadow(0 ${4 + p * 14}px ${8 + p * 20}px rgba(0, 0, 0, ${0.26 + p * 0.24}))`
         : undefined,
       pointerEvents: p > 0.8 ? ('none' as const) : ('auto' as const),
       transformOrigin: zipOrigin,
@@ -945,8 +951,8 @@ export function FlipCard({
   }, [cardState, tearPhase, jitterOffset, zipOrigin, ripProgress, tearProgress, isTearActive])
 
   // Bottom half transform:
-  // Phase 2 (Rip): rotate +1.6deg with transform-origin at far edge
-  // Phase 3 (Separation): translate +4% x, +10% y, rotate +5deg, fade 1 to 0
+  // Phase 2 (Rip): rotate +1.8deg with transform-origin at far edge
+  // Phase 3 (Separation): translate +4.5% x, +11% y, rotate +5.5deg, curl -2.5deg, fade 1 to 0
   const bottomHalfStyle = useMemo(() => {
     if (cardState === 'idle') {
       return {
@@ -957,7 +963,7 @@ export function FlipCard({
     }
     if (cardState === 'revealed') {
       return {
-        transform: 'translate(4%, 10%) rotate(5deg)',
+        transform: 'translate(4.5%, 11%) rotate(5.5deg)',
         opacity: 0,
         pointerEvents: 'none' as const,
         transformOrigin: zipOrigin,
@@ -973,25 +979,26 @@ export function FlipCard({
     }
 
     if (tearPhase === 'rip') {
-      const rot = ripProgress * 1.6
+      const rot = ripProgress * 1.8
       return {
-        transform: `rotate(${rot}deg)`,
+        transform: `perspective(1000px) rotateZ(${rot}deg)`,
         opacity: 1,
         transformOrigin: zipOrigin,
       }
     }
 
-    // Separation & Reassembly
+    // Separation & Reassembly with organic paper curl
     const p = tearProgress
-    const tx = 4 * p
-    const ty = 10 * p
-    const rot = 5 * p
+    const tx = 4.5 * p
+    const ty = 11 * p
+    const rotZ = 5.5 * p
+    const rotX = -2.5 * p
     const op = Math.max(0, 1 - p)
     return {
-      transform: `translate(${tx}%, ${ty}%) rotate(${rot}deg)`,
+      transform: `perspective(1000px) translate3d(${tx}%, ${ty}%, 0) rotateZ(${rotZ}deg) rotateX(${rotX}deg)`,
       opacity: op,
       filter: isTearActive
-        ? `drop-shadow(0 ${4 + p * 12}px ${8 + p * 16}px rgba(0, 0, 0, ${0.25 + p * 0.25}))`
+        ? `drop-shadow(0 ${4 + p * 14}px ${8 + p * 20}px rgba(0, 0, 0, ${0.26 + p * 0.24}))`
         : undefined,
       pointerEvents: p > 0.8 ? ('none' as const) : ('auto' as const),
       transformOrigin: zipOrigin,
@@ -1274,7 +1281,7 @@ export function FlipCard({
             {/* Front Surface Content */}
             <div className="burn-front-inner">{renderFrontFace()}</div>
 
-            {/* 4 EDGE LAYERS OVER HOLE: SCORCHED BAND, CHAR RIM, EMBER RIM */}
+            {/* 4 REALISTIC EDGE LAYERS OVER HOLE: SCORCHED BAND, CHAR RIM, FIERY EMBER RIM, WHITE-HOT CORE */}
             {(cardState === 'burning' || cardState === 'rewinding') &&
               !isLowEndDevice &&
               !isReducedMotion &&
@@ -1285,37 +1292,37 @@ export function FlipCard({
                   aria-hidden="true"
                 >
                   <g filter={`url(#${filterId})`}>
-                    {/* Layer 4: Scorched Paper Gradient Band (30-40px) */}
+                    {/* Layer 4: Scorched Paper Gradient Band (30-45px heat halo) */}
                     {burnCircles.map((c, i) => (
                       <circle
                         key={`scorch-${i}`}
                         cx={`${c.cx}%`}
                         cy={`${c.cy}%`}
-                        r={`${Math.max(0, c.r * burnRadiusPct + 4)}%`}
+                        r={`${Math.max(0, c.r * burnRadiusPct + 5)}%`}
                         fill="none"
-                        stroke="rgba(58, 25, 10, 0.45)"
-                        strokeWidth="18"
+                        stroke="rgba(60, 25, 10, 0.52)"
+                        strokeWidth="24"
                         vectorEffect="non-scaling-stroke"
-                        opacity={Math.min(0.85, burnProgress * 1.5)}
+                        opacity={Math.min(0.88, burnProgress * 1.4)}
                       />
                     ))}
 
-                    {/* Layer 3: Near-Black Char Rim (10-16px) */}
+                    {/* Layer 3: Near-Black Carbon Char Rim (12-18px) */}
                     {burnCircles.map((c, i) => (
                       <circle
                         key={`char-${i}`}
                         cx={`${c.cx}%`}
                         cy={`${c.cy}%`}
-                        r={`${Math.max(0, c.r * burnRadiusPct + 1)}%`}
+                        r={`${Math.max(0, c.r * burnRadiusPct + 1.5)}%`}
                         fill="none"
-                        stroke="#1a0d05"
-                        strokeWidth="12"
+                        stroke="#160803"
+                        strokeWidth="14"
                         vectorEffect="non-scaling-stroke"
-                        opacity={Math.min(0.95, burnProgress * 1.8)}
+                        opacity={Math.min(0.96, burnProgress * 1.7)}
                       />
                     ))}
 
-                    {/* Layer 2: Glowing Ember Rim (3-5px, pulsating <= 15% at <= 2Hz) */}
+                    {/* Layer 2: Glowing Fiery Orange Ember Rim (5-8px, heat pulse) */}
                     {burnCircles.map((c, i) => (
                       <circle
                         key={`ember-${i}`}
@@ -1323,60 +1330,81 @@ export function FlipCard({
                         cy={`${c.cy}%`}
                         r={`${Math.max(0, c.r * burnRadiusPct - 0.5)}%`}
                         fill="none"
-                        stroke="#ff5a1f"
-                        strokeWidth="4"
+                        stroke="#ff5500"
+                        strokeWidth="5"
                         vectorEffect="non-scaling-stroke"
                         className="burn-pulsing-ember-rim"
                         opacity={Math.min(1, burnProgress * 2)}
+                      />
+                    ))}
+
+                    {/* Layer 1: White-Hot Core Filament (2-3px leading combustion line) */}
+                    {burnCircles.map((c, i) => (
+                      <circle
+                        key={`hotcore-${i}`}
+                        cx={`${c.cx}%`}
+                        cy={`${c.cy}%`}
+                        r={`${Math.max(0, c.r * burnRadiusPct - 1.2)}%`}
+                        fill="none"
+                        stroke="#fff2a8"
+                        strokeWidth="2.5"
+                        vectorEffect="non-scaling-stroke"
+                        opacity={Math.min(1, burnProgress * 2.4)}
                       />
                     ))}
                   </g>
                 </svg>
               )}
 
-            {/* 16 RISING / REWINDING EMBER PARTICLES */}
+            {/* 20 RISING / REWINDING EMBER PARTICLES WITH CONVECTIVE SWAY */}
             {(cardState === 'burning' || cardState === 'rewinding') &&
               !isLowEndDevice &&
               !isReducedMotion &&
-              embers.map((speck) => (
-                <span
-                  key={speck.id}
-                  className="burn-ember-speck"
-                  style={{
-                    left: `${speck.x}%`,
-                    top: `${speck.y}%`,
-                    width: `${speck.size}px`,
-                    height: `${speck.size}px`,
-                    transform: `translate(${speck.driftX * burnProgress}px, -${
-                      speck.driftY * burnProgress
-                    }px)`,
-                    opacity: speck.opacity * Math.max(0, 1 - burnProgress * 0.4),
-                  }}
-                  aria-hidden="true"
-                />
-              ))}
+              embers.map((speck) => {
+                const sway = Math.sin(burnProgress * Math.PI * 4 + speck.id * 1.4) * 8
+                return (
+                  <span
+                    key={speck.id}
+                    className="burn-ember-speck"
+                    style={{
+                      left: `${speck.x}%`,
+                      top: `${speck.y}%`,
+                      width: `${speck.size}px`,
+                      height: `${speck.size}px`,
+                      transform: `translate(${speck.driftX * burnProgress + sway}px, -${
+                        speck.driftY * burnProgress
+                      }px) scale(${Math.max(0.4, 1 - burnProgress * 0.25)})`,
+                      opacity: speck.opacity * Math.max(0, 1 - burnProgress * 0.35),
+                    }}
+                    aria-hidden="true"
+                  />
+                )
+              })}
 
-            {/* 4 SOFT SMOKE PUFFS (OPACITY <= 0.25) */}
+            {/* 6 SOFT SMOKE PUFFS (OPACITY <= 0.25) WITH THERMAL LIFT */}
             {(cardState === 'burning' || cardState === 'rewinding') &&
               !isLowEndDevice &&
               !isReducedMotion &&
-              smokePuffs.map((puff) => (
-                <span
-                  key={puff.id}
-                  className="burn-smoke-puff"
-                  style={{
-                    left: `${puff.x}%`,
-                    top: `${puff.y}%`,
-                    width: `${puff.size}px`,
-                    height: `${puff.size}px`,
-                    transform: `translateY(-${puff.driftY * burnProgress}px) scale(${
-                      1 + burnProgress * 0.8
-                    })`,
-                    opacity: puff.opacity * Math.max(0, 1 - burnProgress * 0.7),
-                  }}
-                  aria-hidden="true"
-                />
-              ))}
+              smokePuffs.map((puff) => {
+                const smokeSway = Math.sin(burnProgress * Math.PI * 2.5 + puff.id) * 12
+                return (
+                  <span
+                    key={puff.id}
+                    className="burn-smoke-puff"
+                    style={{
+                      left: `${puff.x}%`,
+                      top: `${puff.y}%`,
+                      width: `${puff.size}px`,
+                      height: `${puff.size}px`,
+                      transform: `translate(${smokeSway}px, -${puff.driftY * burnProgress}px) scale(${
+                        1 + burnProgress * 1.2
+                      })`,
+                      opacity: puff.opacity * Math.max(0, 1 - burnProgress * 0.65),
+                    }}
+                    aria-hidden="true"
+                  />
+                )
+              })}
           </div>
         )}
       </div>
