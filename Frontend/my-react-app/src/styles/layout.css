@@ -37,12 +37,30 @@
   margin-right: auto;
 }
 
-/* Vertical Rhythm: clamp(4rem, 8vw, 7.5rem) */
+/* Vertical Rhythm: clamp(4rem, 8vw, 6rem) */
 .section {
-  padding-top: clamp(4rem, 8vw, 7rem);
-  padding-bottom: clamp(4rem, 8vw, 7rem);
+  padding-top: clamp(4rem, 8vw, 6rem);
+  padding-bottom: clamp(4rem, 8vw, 6rem);
   position: relative;
   z-index: 1;
+}
+
+/* Desktop card refinement and focus rings */
+@media (min-width: 768px) {
+  .card, .samvidhan-glow-card, .rail-card, .deluxe-card {
+    border-radius: var(--radius-card, 16px);
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease;
+  }
+
+  .card:hover, .samvidhan-glow-card:hover, .rail-card:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Accessible visible focus ring on interactive elements */
+  button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--gold, #b08d57);
+    outline-offset: 2px;
+  }
 }
 
 .page-hero {

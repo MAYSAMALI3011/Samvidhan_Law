@@ -45,7 +45,7 @@ export function SiteNavbar({ onOpenSearch }: SiteNavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 15)
+      setScrolled(window.scrollY > 8)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
