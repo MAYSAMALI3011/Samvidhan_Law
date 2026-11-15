@@ -8,6 +8,7 @@ import {
   type PointerEvent,
 } from 'react'
 import { Sparkles, CheckCircle2, RotateCcw, Flame } from 'lucide-react'
+import './flip-card.css'
 
 export interface FlipCardProps {
   prompt: string
