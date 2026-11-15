@@ -68,3 +68,14 @@
   5. **Low-End & Reduced Motion Fallback**: Hardware concurrency/memory check (`<= 4` cores or `<= 2GB` RAM) falls back to 250ms opacity fade. `prefers-reduced-motion` provides a 150ms crossfade.
   6. **Interactive Restoration**: 44px min-height "Show question again" button restores intact front page smoothly (400ms tear slide-back or 600ms reverse burn).
 - **Reason**: User task: "TASK: REPLACE THE "TAP TO FLIP" CARD EFFECT WITH A "TEAR THE PAGE" EFFECT AND AN OPTIONAL "BURN THE PAGE" EFFECT. WORKS ON PHONE AND DESKTOP. DO NOT REBUILD ANYTHING ELSE. RUN ALL STEPS WITHOUT ASKING ME QUESTIONS."
+
+## D15: Reassemble and Rewind Page Restoration with Spring Physics and Gold Seam
+- **Decision**: Overhauled restoration behavior across `FlipCard.tsx` and `lesson.css`:
+  1. Renamed action buttons to `"Put the page back together"` (tear) and `"Restore the page"` (burn) with 44px min-height.
+  2. Implemented 700ms damped harmonic spring simulation (stiffness = 170, damping = 18, mass = 1) for tear reassembly, yielding an authentic single 2-3px settle right as the jagged edges rejoin without bounce loops.
+  3. Added an authentic thin gold fusing seam (`.tear-gold-seam-svg`) that illuminates along the tear boundary as the halves meet and fades over 300ms.
+  4. Added soft moving slide shadows removed cleanly upon landing in `state-idle`.
+  5. Implemented burn rewind closing the radial hole, shrinking char/ember rings, and drawing rising ember particles back along their paths over 600ms, leaving the DOM completely free of particles or leftover styles.
+  6. Implemented a robust 6-state machine (`idle`, `tearing`, `burning`, `revealed`, `reassembling`, `rewinding`) with mid-animation interruption safety and unmount/navigation cleanup.
+  7. Enhanced accessibility with programmatic focus restoration to the card container and polite live announcement (`"Question"`).
+- **Reason**: User task: "CHANGE: REASSEMBLE THE PAGE WHEN THE QUESTION IS SHOWN AGAIN. THIS OVERRIDES THE EARLIER "SHOW QUESTION AGAIN" BEHAVIOUR. KEEP EVERYTHING ELSE FROM THE EARLIER TEAR/BURN TASK."

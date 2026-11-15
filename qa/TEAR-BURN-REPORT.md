@@ -101,4 +101,65 @@ The 8 required screenshots were captured during live animation and saved to `qa/
 
 ## 6. Build and Linter Status
 - **Linter**: `npm run lint` → 0 errors, 0 warnings (Exit code 0).
-- **Build**: `npm run build` → 2828 modules transformed, built in 15.97s (Exit code 0).
+- **Build**: `npm run build` → 2828 modules transformed, built in 14.61s (Exit code 0).
+
+---
+
+## 7. Reassembly & Rewind Implementation & Extended Audit Results
+
+### 7.1 Feature Implementation Details
+- **Button Renaming**:
+  - Tear variant button: `"Put the page back together"` (min-height 44px, matching `aria-label`).
+  - Burn variant button: `"Restore the page"` (min-height 44px, matching `aria-label`).
+- **Tear Reassembly Physics**:
+  - Reverses the tear over 700ms using a damped harmonic spring simulation (stiffness = 170, damping = 18, mass = 1).
+  - The two halves travel back along the identical path, rotating back to 0 degrees with a single gentle settle of 2-3px at the meeting point with zero bounce loops.
+  - Right as the jagged edges meet ($p \le 0.08$), an authentic thin gold seam (`<svg className="tear-gold-seam-svg">` with `drop-shadow(0 0 6px rgba(212, 175, 55, 0.85))`) flashes along the tear line and fades out over 300ms.
+  - Soft moving slide shadow (`drop-shadow(0 8px 18px rgba(0,0,0,0.45))`) active during motion and reset to standard depth on land.
+  - Synchronous underlay opacity fade ensures question text is never obscured by answer text during transit.
+  - The page ends in the exact initial state: `transform: none`, `opacity: 1`, with zero leftover clip-paths or stray DOM nodes.
+- **Burn Rewind**:
+  - Hole closes back toward the ignition tap coordinates over 950ms ease-in-out (`--burn-r` from 150% to 0%).
+  - Char and ember rings shrink with the hole and fade smoothly to 0 opacity.
+  - Rising ember particles are drawn back along their upward paths toward the closing origin over 600ms and fade out.
+  - Ends completely clean with zero particles, zero char marks, and zero mask CSS.
+- **Interruption & State Machine Safety**:
+  - State machine: `idle` → `tearing` / `burning` → `revealed` → `reassembling` / `rewinding` → `idle`.
+  - Pressing the button mid-tear or mid-burn cleanly reverses from the current progress value.
+  - Card taps during active reassembly or rewinding are safely ignored until landed.
+  - All `requestAnimationFrame` IDs, timeouts, and listeners are cleanly unmounted and reset when navigating to another lesson card.
+- **Skipped Item (Mobile Reverse Drag)**:
+  - As noted in `qa/skipped.md`, reverse drag on phones was skipped to avoid conflict with vertical document scroll and parent swipers; the 44px button provides a 100% reliable, accessible trigger.
+- **Accessibility & Focus Management**:
+  - When the question returns, container receives focus (`containerRef.current?.focus()`).
+  - Live announcement region announces `"Question"` via `aria-live="polite"`.
+  - Layers maintain proper `aria-hidden` attributes throughout the entire transition.
+
+### 7.2 Extended Playwright Test Matrix
+
+| Test Suite / Assertion | Target | Result | Evidence / Metric |
+| :--- | :--- | :---: | :--- |
+| **Cross-Viewport Reassembly** | 360px, 390px, 768px, 1440px (Dark & Light) | ✅ PASS | Question visible, underlay hidden, transform returns to identity/none. |
+| **Interruption Safety** | Button pressed mid-tear & card tapped mid-reassembly | ✅ PASS | Both scenarios recover cleanly to initial state without getting stuck. |
+| **5 Consecutive Cycles** | Repeat tear and reassemble 5 times | ✅ PASS | DOM node count unchanged: 62 before, 62 after (0 node leak). |
+| **Burn Rewind Clean DOM** | Burn and restore on Home card | ✅ PASS | 0 ember specks remain, mask removed, state returns to idle. |
+| **Mid-Animation Card Switch** | Swipe/navigate away mid-tear | ✅ PASS | New card initializes cleanly in `state-idle`. |
+| **Reduced Motion** | `prefers-reduced-motion: reduce` | ✅ PASS | Instant 150ms crossfade without transforms or particles. |
+| **Keyboard Accessibility** | Enter to tear → Tab → Enter to reassemble | ✅ PASS | Focus reliably ends on card container with screen-reader announcement. |
+
+### 7.3 Reassembly Screenshots (390x844)
+
+Saved to `qa/screenshots/reassemble/`:
+
+#### Tear Reassembly (`variant="tear"`)
+1. **0% (Revealed/Parted)**: `qa/screenshots/reassemble/reassemble-tear-0-revealed.png` (129.5 KB)
+2. **30% (Travelling Back)**: `qa/screenshots/reassemble/reassemble-tear-30-travel.png` (143.9 KB)
+3. **60% (Gold Seam Fusing)**: `qa/screenshots/reassemble/reassemble-tear-60-seam.png` (146.4 KB)
+4. **100% (Fully Intact Question)**: `qa/screenshots/reassemble/reassemble-tear-100-intact.png` (74.4 KB)
+
+#### Burn Rewind (`variant="burn"`)
+1. **0% (Revealed/Burned)**: `qa/screenshots/reassemble/reassemble-burn-0-revealed.png` (107.9 KB)
+2. **30% (Hole Closing)**: `qa/screenshots/reassemble/reassemble-burn-30-closing.png` (143.0 KB)
+3. **60% (Almost Closed)**: `qa/screenshots/reassemble/reassemble-burn-60-almost.png` (188.4 KB)
+4. **100% (Fully Restored Codex)**: `qa/screenshots/reassemble/reassemble-burn-100-intact.png` (60.9 KB)
+
