@@ -190,6 +190,7 @@
   background-size: 10px 10px, 100% 100%;
   border: 1px solid rgba(212, 175, 55, 0.35);
   pointer-events: auto;
+  will-change: clip-path;
 }
 
 [data-theme='light'] .flip-card-burn-wrapper {
@@ -214,29 +215,44 @@
   }
 }
 
-.burn-edge-layers-svg {
+.burn-flame-edge-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 5;
+  z-index: 10;
+  will-change: opacity;
 }
 
-@keyframes pulse-ember {
+@keyframes burnEmberRise {
   0% {
-    filter: drop-shadow(0 0 3px #ff3700) drop-shadow(0 0 7px #ff8800) brightness(0.95);
+    transform: translate(0, 0) scale(1);
+    opacity: var(--ember-opacity, 0.9);
   }
   50% {
-    filter: drop-shadow(0 0 6px #ff4d00) drop-shadow(0 0 14px #ffaa00) brightness(1.15);
+    transform: translate(calc(var(--drift-x, 0px) * 0.5 + var(--sway, 6px)), calc(-0.5 * var(--drift-y, 60px))) scale(0.85);
+    opacity: calc(var(--ember-opacity, 0.9) * 0.85);
   }
   100% {
-    filter: drop-shadow(0 0 4px #ff3700) drop-shadow(0 0 9px #ff8800) brightness(0.98);
+    transform: translate(calc(var(--drift-x, 0px) - var(--sway, 6px)), calc(-1 * var(--drift-y, 60px))) scale(0.35);
+    opacity: 0;
   }
 }
 
-.burn-pulsing-ember-rim {
-  animation: pulse-ember 1.4s ease-in-out infinite alternate;
+@keyframes burnEmberRewind {
+  0% {
+    transform: translate(calc(var(--drift-x, 0px) - var(--sway, 6px)), calc(-1 * var(--drift-y, 60px))) scale(0.35);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(calc(var(--drift-x, 0px) * 0.5 + var(--sway, 6px)), calc(-0.5 * var(--drift-y, 60px))) scale(0.85);
+    opacity: calc(var(--ember-opacity, 0.9) * 0.85);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
 }
 
 .burn-ember-speck {
@@ -245,8 +261,35 @@
   background: radial-gradient(circle, #ffffff 15%, #fff2a8 40%, #ff7700 75%, #d93800 100%);
   box-shadow: 0 0 6px #ff5a1f, 0 0 12px #ffaa00, 0 0 18px rgba(255, 69, 0, 0.6);
   pointer-events: none;
-  z-index: 6;
+  z-index: 12;
   will-change: transform, opacity;
+  animation: burnEmberRise var(--anim-dur, 2.3s) ease-out forwards;
+}
+
+.burn-ember-speck.is-rewind {
+  animation: burnEmberRewind var(--anim-dur, 1.4s) ease-in forwards;
+}
+
+@keyframes burnSmokeRise {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: var(--smoke-opacity, 0.2);
+  }
+  100% {
+    transform: translate(6px, calc(-1 * var(--drift-y, 45px))) scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes burnSmokeRewind {
+  0% {
+    transform: translate(6px, calc(-1 * var(--drift-y, 45px))) scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
 }
 
 .burn-smoke-puff {
@@ -255,8 +298,13 @@
   background: radial-gradient(circle, rgba(180, 180, 180, 0.22) 0%, rgba(120, 120, 120, 0.08) 55%, transparent 100%);
   filter: blur(5px);
   pointer-events: none;
-  z-index: 6;
+  z-index: 11;
   will-change: transform, opacity;
+  animation: burnSmokeRise var(--anim-dur, 2.3s) ease-out forwards;
+}
+
+.burn-smoke-puff.is-rewind {
+  animation: burnSmokeRewind var(--anim-dur, 1.4s) ease-in forwards;
 }
 
 /* 4. CARD TYPOGRAPHY & INTERACTIVE CONTROLS */

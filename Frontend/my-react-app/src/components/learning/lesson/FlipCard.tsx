@@ -28,6 +28,7 @@ interface EmberSpeck {
   y: number
   driftY: number
   driftX: number
+  sway: number
   size: number
   opacity: number
 }
@@ -57,6 +58,45 @@ function createRng(seed: number) {
     s = (s * 9301 + 49297) % 233280
     return s / 233280
   }
+}
+
+// High-performance normalized organic burn hole and flame path generator
+// Returns normalized 0..1 bounding box path for clipPathUnits="objectBoundingBox"
+// and 0..100 viewBox path for single-perimeter flame edge SVG overlay
+function generateBurnPaths(cx: number, cy: number, baseR: number, seed: number) {
+  if (baseR <= 0) return { clipPathD: '', viewPathD: '', isVisible: false }
+  const rand = createRng(seed)
+  const phi1 = rand() * Math.PI * 2
+  const phi2 = rand() * Math.PI * 2
+  const phi3 = rand() * Math.PI * 2
+
+  const numPoints = 28
+  const points: { x: number; y: number }[] = []
+  for (let i = 0; i < numPoints; i++) {
+    const angle = (i / numPoints) * Math.PI * 2
+    const harm1 = Math.sin(angle * 3 + phi1) * (baseR * 0.14)
+    const harm2 = Math.cos(angle * 5 + phi2) * (baseR * 0.09)
+    const harm3 = Math.sin(angle * 8 + phi3) * (baseR * 0.05)
+    const r = baseR + harm1 + harm2 + harm3
+    const x = cx + Math.cos(angle) * r
+    const y = cy + Math.sin(angle) * (r * 0.92)
+    points.push({ x, y })
+  }
+
+  // Normalized 0..1 bounding box outer rect + reversed organic hole (evenodd rule)
+  const outerRect = 'M 0 0 L 1 0 L 1 1 L 0 1 Z '
+  const holeD = points
+    .slice()
+    .reverse()
+    .map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${p.x.toFixed(4)} ${p.y.toFixed(4)}`)
+    .join(' ') + ' Z'
+  const clipPathD = outerRect + holeD
+
+  // Percentage 0..100 viewBox for flame overlay
+  const viewPathD = points
+    .map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${(p.x * 100).toFixed(2)},${(p.y * 100).toFixed(2)}`)
+    .join(' ') + ' Z'
+  return { clipPathD, viewPathD, isVisible: true }
 }
 
 // Physical spring simulation for reassembly: stiffness = 150, damping = 16, mass = 1
@@ -148,15 +188,31 @@ export function FlipCard({
   // Accessibility screen-reader live announcement
   const [liveAnnouncement, setLiveAnnouncement] = useState('')
 
-  // Unique IDs for SVG filters & masks to prevent collisions
-  const filterId = useMemo(
-    () => `burn-turb-${hashString(prompt).toString(36)}`,
+  // Unique IDs for SVG clip path and flame glow filter to prevent collisions
+  const clipId = useMemo(
+    () => `burn-clip-${hashString(prompt).toString(36)}`,
     [prompt]
   )
-  const maskId = useMemo(
-    () => `burn-mask-${hashString(prompt).toString(36)}`,
+  const flameGlowId = useMemo(
+    () => `flame-glow-${hashString(prompt).toString(36)}`,
     [prompt]
   )
+
+  const promptSeed = useMemo(() => hashString(prompt) + 7919, [prompt])
+  const promptSeedRef = useRef(promptSeed)
+  useEffect(() => {
+    promptSeedRef.current = promptSeed
+  }, [promptSeed])
+
+  // DOM Refs for direct RAF morphing (eliminates React VDOM diffing overhead)
+  const burnClipPathRef = useRef<SVGPathElement>(null)
+  const flameScorchRef = useRef<SVGPathElement>(null)
+  const flameCharRef = useRef<SVGPathElement>(null)
+  const flameGlowRef = useRef<SVGPathElement>(null)
+  const flameCoreRef = useRef<SVGPathElement>(null)
+  const burnWrapperRef = useRef<HTMLDivElement>(null)
+  const burnEdgeSvgRef = useRef<SVGSVGElement>(null)
+  const underlayRef = useRef<HTMLDivElement>(null)
 
   // Hardware / Accessibility preferences
   const isReducedMotion = useMemo(() => {
@@ -257,6 +313,78 @@ export function FlipCard({
     return () => clearAllAnimations()
   }, [clearAllAnimations, prompt])
 
+  // Direct DOM path updater for smooth, GPU-accelerated burn aperture and flame edge
+  const updateBurnDOM = useCallback(
+    (progress: number, cx: number, cy: number) => {
+      const wrapper = burnWrapperRef.current
+      const underlay = underlayRef.current
+      const edgeSvg = burnEdgeSvgRef.current
+      const clipPathEl = burnClipPathRef.current
+      const scorchEl = flameScorchRef.current
+      const charEl = flameCharRef.current
+      const glowEl = flameGlowRef.current
+      const coreEl = flameCoreRef.current
+
+      if (!wrapper) return
+
+      if (progress <= 0) {
+        wrapper.style.removeProperty('clip-path')
+        wrapper.style.removeProperty('-webkit-clip-path')
+        wrapper.style.opacity = '1'
+        wrapper.style.pointerEvents = 'auto'
+        clipPathEl?.setAttribute('d', '')
+        scorchEl?.setAttribute('d', '')
+        charEl?.setAttribute('d', '')
+        glowEl?.setAttribute('d', '')
+        coreEl?.setAttribute('d', '')
+        if (edgeSvg) edgeSvg.style.opacity = '0'
+        if (underlay) underlay.style.opacity = '0'
+        return
+      }
+
+      if (progress >= 1) {
+        wrapper.style.opacity = '0'
+        wrapper.style.pointerEvents = 'none'
+        wrapper.style.removeProperty('clip-path')
+        wrapper.style.removeProperty('-webkit-clip-path')
+        clipPathEl?.setAttribute('d', '')
+        scorchEl?.setAttribute('d', '')
+        charEl?.setAttribute('d', '')
+        glowEl?.setAttribute('d', '')
+        coreEl?.setAttribute('d', '')
+        if (edgeSvg) edgeSvg.style.opacity = '0'
+        if (underlay) underlay.style.opacity = '1'
+        return
+      }
+
+      const maxR = 1.45
+      const baseR = progress * maxR
+      const seed = promptSeedRef.current
+      const { clipPathD, viewPathD, isVisible } = generateBurnPaths(cx, cy, baseR, seed)
+
+      clipPathEl?.setAttribute('d', clipPathD)
+      scorchEl?.setAttribute('d', viewPathD)
+      charEl?.setAttribute('d', viewPathD)
+      glowEl?.setAttribute('d', viewPathD)
+      coreEl?.setAttribute('d', viewPathD)
+
+      if (isVisible) {
+        wrapper.style.clipPath = `url(#${clipId})`
+        wrapper.style.setProperty('-webkit-clip-path', `url(#${clipId})`)
+        wrapper.style.opacity = '1'
+        wrapper.style.pointerEvents = 'auto'
+        if (edgeSvg) {
+          edgeSvg.style.opacity = String(Math.min(1, progress * 3))
+        }
+      }
+
+      if (underlay) {
+        underlay.style.opacity = String(Math.min(1, progress * 1.35))
+      }
+    },
+    [clipId]
+  )
+
   // FIX A: Immediate clean reset to idle state
   const resetToCleanIdle = useCallback(() => {
     clearAllAnimations()
@@ -272,11 +400,13 @@ export function FlipCard({
     setIsDragging(false)
     hasClaimedRef.current = false
     pointerStartRef.current = null
+    burnProgressRef.current = 0
+    updateBurnDOM(0, 0.5, 0.5)
     setCardState('idle')
     onFlipChange?.(false)
     containerRef.current?.focus()
     setLiveAnnouncement('Question')
-  }, [clearAllAnimations, onFlipChange])
+  }, [clearAllAnimations, onFlipChange, updateBurnDOM])
 
   // Hard guard safety timer: if running or restoring lasts duration + 1000ms, force recovery
   useEffect(() => {
@@ -402,27 +532,6 @@ export function FlipCard({
       points,
       angleDeg,
     }
-  }, [prompt, tapCoords])
-
-  // --------------------------------------------------------------------------
-  // BURN GEOMETRY: 22 SEEDED CIRCLES AROUND TAP POINT WITH ORGANIC JITTER
-  // --------------------------------------------------------------------------
-  const burnCircles = useMemo(() => {
-    const seed = hashString(prompt) + 7919
-    const rand = createRng(seed)
-    const circles: { cx: number; cy: number; r: number }[] = []
-    const count = 22 // 18-26 circles
-    for (let i = 0; i < count; i++) {
-      // Offset jitter up to 18% of radius around tap point
-      const angle = rand() * Math.PI * 2
-      const dist = rand() * 18
-      const cx = tapCoords.x + Math.cos(angle) * dist
-      const cy = tapCoords.y + Math.sin(angle) * dist
-      // Radius varies between 0.6 and 1.0
-      const r = 0.6 + rand() * 0.4
-      circles.push({ cx, cy, r })
-    }
-    return circles
   }, [prompt, tapCoords])
 
   // --------------------------------------------------------------------------
@@ -570,6 +679,7 @@ export function FlipCard({
 
   // --------------------------------------------------------------------------
   // BURN ANIMATION: 2300MS (IGNITION & SMOLDER -> ORGANIC EXPANSION -> BURNOUT)
+  // Direct RAF DOM path updates for 60-120 FPS zero-lag combustion
   // --------------------------------------------------------------------------
   const startBurnAnimation = useCallback(
     (clientX?: number, clientY?: number, initialProgress = 0) => {
@@ -596,61 +706,65 @@ export function FlipCard({
       setCardState('burning')
       clearAllAnimations()
 
-      // Spawn 20 rising embers with convective turbulence and 6 soft smoke puffs
+      // Spawn 20 rising embers with convective sway and 6 soft smoke puffs
       const newEmbers: EmberSpeck[] = Array.from({ length: 20 }, (_, i) => ({
         id: i,
-        x: originX + (Math.random() - 0.5) * 32,
-        y: originY + (Math.random() - 0.5) * 22,
-        driftY: 45 + Math.random() * 85, // 45-130px rise
-        driftX: (Math.random() - 0.5) * 40, // sideways draft
+        x: originX + (Math.random() - 0.5) * 28,
+        y: originY + (Math.random() - 0.5) * 20,
+        driftY: 50 + Math.random() * 85,
+        driftX: (Math.random() - 0.5) * 44,
+        sway: 4 + Math.random() * 8,
         size: 2.2 + Math.random() * 2.8,
-        opacity: 0.7 + Math.random() * 0.3,
+        opacity: 0.75 + Math.random() * 0.25,
       }))
       setEmbers(newEmbers)
 
       const newSmoke: SmokePuff[] = Array.from({ length: 6 }, (_, i) => ({
         id: i,
-        x: originX + (Math.random() - 0.5) * 26,
-        y: originY + (Math.random() - 0.5) * 18,
-        driftY: 35 + Math.random() * 55,
+        x: originX + (Math.random() - 0.5) * 24,
+        y: originY + (Math.random() - 0.5) * 16,
+        driftY: 40 + Math.random() * 50,
         size: 16 + Math.random() * 16,
-        opacity: 0.16 + Math.random() * 0.09, // <= 0.25 opacity
+        opacity: 0.16 + Math.random() * 0.08,
       }))
       setSmokePuffs(newSmoke)
 
-      // Total duration 2300ms: allows user to tangibly feel the flame ignite, spread and consume
       const totalDur = 2300 * slowMultiplier
       const ignitionDur = 380 * slowMultiplier
       const spreadDur = 1520 * slowMultiplier
 
       const startT = performance.now()
       const startP = initialProgress
+      const cx = originX / 100
+      const cy = originY / 100
 
       const animate = (now: number) => {
         const elapsed = (now - startT) + startP * totalDur
 
         if (elapsed < ignitionDur) {
-          // 0-380ms: Ignition & Smolder. Tap point glows incandescent, parchment scorches
-          setBurnPhase('ignition')
-          const p = elapsed / ignitionDur
-          setBurnProgress(p * 0.05)
+          // 0-380ms: Ignition & Smolder
+          const p = (elapsed / ignitionDur) * 0.05
+          burnProgressRef.current = p
+          updateBurnDOM(p, cx, cy)
           burnAnimRef.current = requestAnimationFrame(animate)
         } else if (elapsed < ignitionDur + spreadDur) {
-          // 380-1900ms: Spread. Organic flame front consumes parchment with heat pulsation
-          setBurnPhase('spread')
+          // 380-1900ms: Spread
           const spreadElapsed = elapsed - ignitionDur
           const raw = spreadElapsed / spreadDur
-          // Organic ease: steady physical combustion front
           const ease = raw < 0.5 ? 4 * raw * raw * raw : 1 - Math.pow(-2 * raw + 2, 3) / 2
-          setBurnProgress(0.05 + ease * 0.95)
+          const p = 0.05 + ease * 0.95
+          burnProgressRef.current = p
+          updateBurnDOM(p, cx, cy)
           burnAnimRef.current = requestAnimationFrame(animate)
         } else if (elapsed < totalDur) {
-          // 1900-2300ms: Burn out. Glowing edges cool to soft ash, answer underlay settles
-          setBurnPhase('burnout')
-          setBurnProgress(1)
+          // 1900-2300ms: Burn out
+          burnProgressRef.current = 1
+          updateBurnDOM(1, cx, cy)
           burnAnimRef.current = requestAnimationFrame(animate)
         } else {
           // Completed
+          burnProgressRef.current = 1
+          updateBurnDOM(1, cx, cy)
           setBurnProgress(1)
           setBurnPhase('burnout')
           setEmbers([])
@@ -662,11 +776,12 @@ export function FlipCard({
 
       burnAnimRef.current = requestAnimationFrame(animate)
     },
-    [cardState, isReducedMotion, isLowEndDevice, onFlipChange, clearAllAnimations, slowMultiplier]
+    [cardState, isReducedMotion, isLowEndDevice, onFlipChange, clearAllAnimations, slowMultiplier, updateBurnDOM]
   )
 
   // --------------------------------------------------------------------------
   // BURN REWIND: 1400MS (HOLE CLOSES, PARTICLES REVERSE, ENDS CLEAN)
+  // Direct RAF DOM path updates for smooth GPU-accelerated restoration
   // --------------------------------------------------------------------------
   const startRewindAnimation = useCallback(() => {
     if (cardState !== 'revealed' && cardState !== 'burning') return
@@ -689,6 +804,21 @@ export function FlipCard({
     const startP = burnProgressRef.current || 1
     const duration = 1400 * slowMultiplier
     const startT = performance.now()
+    const cx = tapCoords.x / 100
+    const cy = tapCoords.y / 100
+
+    // Spawn rewind embers
+    const newEmbers: EmberSpeck[] = Array.from({ length: 14 }, (_, i) => ({
+      id: i,
+      x: tapCoords.x + (Math.random() - 0.5) * 28,
+      y: tapCoords.y + (Math.random() - 0.5) * 20,
+      driftY: 40 + Math.random() * 60,
+      driftX: (Math.random() - 0.5) * 36,
+      sway: 3 + Math.random() * 6,
+      size: 2.0 + Math.random() * 2.5,
+      opacity: 0.65 + Math.random() * 0.25,
+    }))
+    setEmbers(newEmbers)
 
     const animate = (now: number) => {
       const elapsed = now - startT
@@ -696,12 +826,15 @@ export function FlipCard({
       // Smooth ease-in-out rewind
       const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
       const currentP = Math.max(0, startP * (1 - ease))
-      setBurnProgress(currentP)
+      burnProgressRef.current = currentP
+      updateBurnDOM(currentP, cx, cy)
 
       if (t < 1) {
         burnAnimRef.current = requestAnimationFrame(animate)
       } else {
-        // Ends clean: no char marks, no particles, no leftover mask
+        // Ends clean: no char marks, no particles, no leftover clip
+        updateBurnDOM(0, cx, cy)
+        burnProgressRef.current = 0
         setBurnProgress(0)
         setBurnPhase('idle')
         setEmbers([])
@@ -715,7 +848,7 @@ export function FlipCard({
     }
 
     burnAnimRef.current = requestAnimationFrame(animate)
-  }, [cardState, isReducedMotion, isLowEndDevice, onFlipChange, clearAllAnimations, slowMultiplier])
+  }, [cardState, isReducedMotion, isLowEndDevice, onFlipChange, clearAllAnimations, slowMultiplier, tapCoords, updateBurnDOM])
 
   // --------------------------------------------------------------------------
   // RESTORE BUTTON & UNDERLAY CLICK HANDLERS
@@ -1052,7 +1185,6 @@ export function FlipCard({
   )
 
   const buttonLabel = activeVariant === 'tear' ? 'Put the page back together' : 'Restore the page'
-  const burnRadiusPct = burnProgress * 140
 
   return (
     <div
@@ -1081,6 +1213,7 @@ export function FlipCard({
         {/* 1. UNDERLAY REVEALED ANSWER LAYER (NORMAL FLOW SETS CARD HEIGHT)   */}
         {/* ================================================================== */}
         <div
+          ref={underlayRef}
           className={`flip-card-layer flip-card-underlay ${
             cardState === 'revealed' ? 'is-active' : ''
           }`}
@@ -1213,199 +1346,154 @@ export function FlipCard({
         )}
 
         {/* ================================================================== */}
-        {/* 3. BURN VARIANT: ORGANIC HOLE WITH 4 EDGE LAYERS & PARTICLES       */}
+        {/* 3. BURN VARIANT: GPU-ACCELERATED ORGANIC APERTURE & FLAME EDGE     */}
         {/* ================================================================== */}
         {activeVariant === 'burn' && (
-          <div
-            className={`flip-card-layer flip-card-burn-wrapper ${
-              cardState === 'revealed' ? 'is-burned' : ''
-            }`}
-            aria-hidden={cardState === 'revealed'}
-            style={
-              isReducedMotion || isLowEndDevice
-                ? {
-                    opacity: cardState === 'revealed' ? 0 : 1,
-                    pointerEvents: cardState === 'revealed' ? 'none' : 'auto',
-                    transition: isReducedMotion ? 'opacity 150ms ease' : 'opacity 250ms ease',
-                  }
-                : {
-                    mask: burnProgress > 0 ? `url(#${maskId})` : 'none',
-                    WebkitMask: burnProgress > 0 ? `url(#${maskId})` : 'none',
-                    opacity: cardState === 'revealed' ? 0 : 1,
-                    pointerEvents: cardState === 'revealed' ? 'none' : 'auto',
-                  }
-            }
-          >
-            {/* SVG Defs for organic turbulence displacement filter and hole mask */}
+          <>
+            {/* SVG clipPath definition for GPU-accelerated organic hole */}
             <svg
-              className="burn-defs-svg"
               aria-hidden="true"
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+              style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}
             >
               <defs>
-                <filter id={filterId} x="-20%" y="-20%" width="140%" height="140%">
-                  <feTurbulence
-                    type="fractalNoise"
-                    baseFrequency="0.04"
-                    numOctaves="3"
-                    result="noise"
-                  />
-                  <feDisplacementMap
-                    in="SourceGraphic"
-                    in2="noise"
-                    scale="12"
-                    xChannelSelector="R"
-                    yChannelSelector="G"
-                  />
-                </filter>
-                <mask id={maskId}>
-                  {/* White background: front surface intact */}
-                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                  {/* Black filtered group: burns away organic hole */}
-                  {burnProgress > 0 && (
-                    <g filter={`url(#${filterId})`} fill="black">
-                      {burnCircles.map((c, i) => (
-                        <circle
-                          key={i}
-                          cx={`${c.cx}%`}
-                          cy={`${c.cy}%`}
-                          r={`${Math.max(0, c.r * burnRadiusPct)}%`}
-                        />
-                      ))}
-                    </g>
-                  )}
-                </mask>
+                <clipPath id={clipId} clipPathUnits="objectBoundingBox">
+                  <path ref={burnClipPathRef} fillRule="evenodd" />
+                </clipPath>
               </defs>
             </svg>
 
-            {/* Front Surface Content */}
-            <div className="burn-front-inner">{renderFrontFace()}</div>
+            <div
+              ref={burnWrapperRef}
+              className={`flip-card-layer flip-card-burn-wrapper ${
+                cardState === 'revealed' ? 'is-burned' : ''
+              }`}
+              aria-hidden={cardState === 'revealed'}
+              style={
+                isReducedMotion || isLowEndDevice
+                  ? {
+                      opacity: cardState === 'revealed' ? 0 : 1,
+                      pointerEvents: cardState === 'revealed' ? 'none' : 'auto',
+                      transition: isReducedMotion ? 'opacity 150ms ease' : 'opacity 250ms ease',
+                    }
+                  : {
+                      opacity: cardState === 'revealed' ? 0 : 1,
+                      pointerEvents: cardState === 'revealed' ? 'none' : 'auto',
+                    }
+              }
+            >
+              {/* Front Surface Content (clipped with zero ghosting) */}
+              <div className="burn-front-inner">{renderFrontFace()}</div>
 
-            {/* 4 REALISTIC EDGE LAYERS OVER HOLE: SCORCHED BAND, CHAR RIM, FIERY EMBER RIM, WHITE-HOT CORE */}
-            {(cardState === 'burning' || cardState === 'rewinding') &&
-              !isLowEndDevice &&
-              !isReducedMotion &&
-              burnProgress > 0 && (
-                <svg
-                  className="burn-edge-layers-svg"
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
-                  aria-hidden="true"
-                >
-                  <g filter={`url(#${filterId})`}>
-                    {/* Layer 4: Scorched Paper Gradient Band (30-45px heat halo) */}
-                    {burnCircles.map((c, i) => (
-                      <circle
-                        key={`scorch-${i}`}
-                        cx={`${c.cx}%`}
-                        cy={`${c.cy}%`}
-                        r={`${Math.max(0, c.r * burnRadiusPct + 5)}%`}
-                        fill="none"
-                        stroke="rgba(60, 25, 10, 0.52)"
-                        strokeWidth="24"
-                        vectorEffect="non-scaling-stroke"
-                        opacity={Math.min(0.88, burnProgress * 1.4)}
-                      />
-                    ))}
+              {/* Single-Perimeter Organic Flame Edge Overlay */}
+              <svg
+                ref={burnEdgeSvgRef}
+                className="burn-flame-edge-svg"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  pointerEvents: 'none',
+                  zIndex: 10,
+                  opacity: 0,
+                }}
+              >
+                <defs>
+                  <filter id={flameGlowId} x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#ff3b00" floodOpacity="1" />
+                    <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#ff8c00" floodOpacity="0.9" />
+                    <feDropShadow dx="0" dy="0" stdDeviation="9" floodColor="#ffbb00" floodOpacity="0.7" />
+                  </filter>
+                </defs>
+                <g>
+                  {/* Layer 4: Scorched Paper Heat Halo */}
+                  <path
+                    ref={flameScorchRef}
+                    fill="none"
+                    stroke="rgba(255, 90, 20, 0.28)"
+                    strokeWidth="4.5"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                  {/* Layer 3: Blackened Carbon Char Rim */}
+                  <path
+                    ref={flameCharRef}
+                    fill="none"
+                    stroke="#050201"
+                    strokeWidth="2.6"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                  {/* Layer 2: Glowing Fiery Orange Flame Line */}
+                  <path
+                    ref={flameGlowRef}
+                    fill="none"
+                    stroke="#ff5500"
+                    strokeWidth="1.8"
+                    filter={`url(#${flameGlowId})`}
+                    vectorEffect="non-scaling-stroke"
+                  />
+                  {/* Layer 1: Incandescent White-Hot Core Filament */}
+                  <path
+                    ref={flameCoreRef}
+                    fill="none"
+                    stroke="#fff8cc"
+                    strokeWidth="0.9"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                </g>
+              </svg>
 
-                    {/* Layer 3: Near-Black Carbon Char Rim (12-18px) */}
-                    {burnCircles.map((c, i) => (
-                      <circle
-                        key={`char-${i}`}
-                        cx={`${c.cx}%`}
-                        cy={`${c.cy}%`}
-                        r={`${Math.max(0, c.r * burnRadiusPct + 1.5)}%`}
-                        fill="none"
-                        stroke="#160803"
-                        strokeWidth="14"
-                        vectorEffect="non-scaling-stroke"
-                        opacity={Math.min(0.96, burnProgress * 1.7)}
-                      />
-                    ))}
-
-                    {/* Layer 2: Glowing Fiery Orange Ember Rim (5-8px, heat pulse) */}
-                    {burnCircles.map((c, i) => (
-                      <circle
-                        key={`ember-${i}`}
-                        cx={`${c.cx}%`}
-                        cy={`${c.cy}%`}
-                        r={`${Math.max(0, c.r * burnRadiusPct - 0.5)}%`}
-                        fill="none"
-                        stroke="#ff5500"
-                        strokeWidth="5"
-                        vectorEffect="non-scaling-stroke"
-                        className="burn-pulsing-ember-rim"
-                        opacity={Math.min(1, burnProgress * 2)}
-                      />
-                    ))}
-
-                    {/* Layer 1: White-Hot Core Filament (2-3px leading combustion line) */}
-                    {burnCircles.map((c, i) => (
-                      <circle
-                        key={`hotcore-${i}`}
-                        cx={`${c.cx}%`}
-                        cy={`${c.cy}%`}
-                        r={`${Math.max(0, c.r * burnRadiusPct - 1.2)}%`}
-                        fill="none"
-                        stroke="#fff2a8"
-                        strokeWidth="2.5"
-                        vectorEffect="non-scaling-stroke"
-                        opacity={Math.min(1, burnProgress * 2.4)}
-                      />
-                    ))}
-                  </g>
-                </svg>
-              )}
-
-            {/* 20 RISING / REWINDING EMBER PARTICLES WITH CONVECTIVE SWAY */}
-            {(cardState === 'burning' || cardState === 'rewinding') &&
-              !isLowEndDevice &&
-              !isReducedMotion &&
-              embers.map((speck) => {
-                const sway = Math.sin(burnProgress * Math.PI * 4 + speck.id * 1.4) * 8
-                return (
+              {/* 20 Rising Embers with CSS Compositor Animation */}
+              {(cardState === 'burning' || cardState === 'rewinding') &&
+                !isLowEndDevice &&
+                !isReducedMotion &&
+                embers.map((speck) => (
                   <span
                     key={speck.id}
-                    className="burn-ember-speck"
-                    style={{
-                      left: `${speck.x}%`,
-                      top: `${speck.y}%`,
-                      width: `${speck.size}px`,
-                      height: `${speck.size}px`,
-                      transform: `translate(${speck.driftX * burnProgress + sway}px, -${
-                        speck.driftY * burnProgress
-                      }px) scale(${Math.max(0.4, 1 - burnProgress * 0.25)})`,
-                      opacity: speck.opacity * Math.max(0, 1 - burnProgress * 0.35),
-                    }}
+                    className={`burn-ember-speck ${cardState === 'rewinding' ? 'is-rewind' : ''}`}
+                    style={
+                      {
+                        left: `${speck.x}%`,
+                        top: `${speck.y}%`,
+                        width: `${speck.size}px`,
+                        height: `${speck.size}px`,
+                        '--drift-x': `${speck.driftX}px`,
+                        '--drift-y': `${speck.driftY}px`,
+                        '--sway': `${speck.sway}px`,
+                        '--ember-opacity': `${speck.opacity}`,
+                        '--anim-dur': `${(cardState === 'rewinding' ? 1.4 : 2.3) * slowMultiplier}s`,
+                      } as React.CSSProperties
+                    }
                     aria-hidden="true"
                   />
-                )
-              })}
+                ))}
 
-            {/* 6 SOFT SMOKE PUFFS (OPACITY <= 0.25) WITH THERMAL LIFT */}
-            {(cardState === 'burning' || cardState === 'rewinding') &&
-              !isLowEndDevice &&
-              !isReducedMotion &&
-              smokePuffs.map((puff) => {
-                const smokeSway = Math.sin(burnProgress * Math.PI * 2.5 + puff.id) * 12
-                return (
+              {/* 6 Soft Smoke Puffs with CSS Compositor Animation */}
+              {(cardState === 'burning' || cardState === 'rewinding') &&
+                !isLowEndDevice &&
+                !isReducedMotion &&
+                smokePuffs.map((puff) => (
                   <span
                     key={puff.id}
-                    className="burn-smoke-puff"
-                    style={{
-                      left: `${puff.x}%`,
-                      top: `${puff.y}%`,
-                      width: `${puff.size}px`,
-                      height: `${puff.size}px`,
-                      transform: `translate(${smokeSway}px, -${puff.driftY * burnProgress}px) scale(${
-                        1 + burnProgress * 1.2
-                      })`,
-                      opacity: puff.opacity * Math.max(0, 1 - burnProgress * 0.65),
-                    }}
+                    className={`burn-smoke-puff ${cardState === 'rewinding' ? 'is-rewind' : ''}`}
+                    style={
+                      {
+                        left: `${puff.x}%`,
+                        top: `${puff.y}%`,
+                        width: `${puff.size}px`,
+                        height: `${puff.size}px`,
+                        '--drift-y': `${puff.driftY}px`,
+                        '--smoke-opacity': `${puff.opacity}`,
+                        '--anim-dur': `${(cardState === 'rewinding' ? 1.4 : 2.3) * slowMultiplier}s`,
+                      } as React.CSSProperties
+                    }
                     aria-hidden="true"
                   />
-                )
-              })}
-          </div>
+                ))}
+            </div>
+          </>
         )}
       </div>
     </div>

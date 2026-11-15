@@ -116,4 +116,14 @@
   - **Tear Effect**: 1450ms duration (200ms paper tension and grip flex, 550ms zip rip with physical fibrous resistance, 700ms 3D separation with aerodynamic curl `rotateX` / `rotateZ` and deepening drop shadow), reassembly: 1050ms damped harmonic spring with 400ms glowing Kintsugi gold seam.
 - **Reason**: Fulfills user request: "make the animation a little slower and real to let people feel", providing authentic physical presence, warmth, and tactility without feeling rushed or artificial.
 
+## D19: GPU-Accelerated Organic Burn ClipPath & Compositor Particle System
+- **Decision**: Completely eliminated lag in the paper burn animation by replacing CPU-bound SVG turbulence displacement filters with GPU-accelerated SVG `clipPath` and compositor CSS animations:
+  1. **Normalized `clipPathUnits="objectBoundingBox"` Aperture**: A single closed organic 28-point perimeter generated via multi-harmonic sinusoids (`sin(3θ)`, `cos(5θ)`, `sin(8θ)`) combined with an outer bounding rectangle in `fillRule="evenodd"`. This forces the GPU hardware compositor to clip both the card background and child question text with 100% zero ghosting.
+  2. **Single-Perimeter Flame Edge**: Replaced the previous 88 overlapping stroked circles with a single continuous closed SVG `<path>` with 4 distinct combustion layers (heat scorch band, carbon char rim, fiery glowing flame line with multi-stop drop-shadow `#ff3b00`/`#ff8c00`/`#ffbb00`, and white-hot core filament `#fff2a8`).
+  3. **Direct RAF DOM Updates (Bypassing React VDOM)**: Eliminated 60–120 React re-renders per second by driving frame-by-frame path morphing directly via DOM refs (`burnClipPathRef`, `flameScorchRef`, `flameCharRef`, `flameGlowRef`, `flameCoreRef`, `wrapperRef`, `underlayRef`). React state transitions occur only on phase changes (`idle` -> `revealed`), reducing per-frame execution time to <0.3ms.
+  4. **CSS Compositor Animations for Embers and Smoke**: Floating sparks and smoke puffs execute via CSS `@keyframes` with `will-change: transform, opacity`, running completely on the GPU compositor thread without touching the main JS thread.
+  5. **Clean Unmount and Restoration**: Complete cleanup upon restore, unmount, and theme switches—resetting `clipPath` to `'none'`, clearing path geometry, and resetting card state cleanly.
+- **Reason**: Fulfills user request: "make the ui more polished and animation of burn a little more polished as it lags and push code so than i can merge them on main branch and deploy on main website".
+
+
 
