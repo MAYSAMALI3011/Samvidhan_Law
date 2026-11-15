@@ -58,3 +58,13 @@
   4. Real ember sparks burst along the active flame line and rise upward into the air with smoke drag.
   5. Tapping again reverses the flame downward, cooling the paper back into an intact codex page.
 - **Reason**: User explicitly requested: "the page should burn not a circle moves on in orange colour". The organic flame wave physically burns the page without any geometric circles.
+
+## D14: Unified Dual-Variant Tear & Burn FlipCard Architecture
+- **Decision**: Implemented a comprehensive `FlipCard` component in `src/components/learning/lesson/FlipCard.tsx` supporting:
+  1. **Strict Component API**: `FlipCard({ prompt, reveal, source, isFlipped, onFlipChange, className, variant?: 'tear' | 'burn' })` with `variant="tear"` as default.
+  2. **Layout Fix (Zero-Clipping CSS Grid Stacking)**: Both underlay and front layers share `grid-area: 1 / 1` in `.flip-card-grid-container`. The card automatically expands to `max(frontHeight, backHeight)`, guaranteeing zero text clipping even with the longest 298-character answer at 360px viewport.
+  3. **Tear Variant**: Front surface constructed from two jagged halves using static `clip-path: polygon(...)` generated deterministically from prompt string hashing (12 vertices). Features 2.5px lighter torn-paper edge strip and soft drop shadow. Supports both tap/click (with 80ms 6px rip jitter, -6deg / +4deg slide) and pointer drag-to-tear (8px horizontal threshold, 40% completion threshold).
+  4. **Burn Variant**: Activated with `variant="burn"` (used on Home citizen safeguard). Generates expanding radial mask from exact tap coordinates, charcoal charred ring, glowing ember ring with constant brightness, and 10 rising ember specks.
+  5. **Low-End & Reduced Motion Fallback**: Hardware concurrency/memory check (`<= 4` cores or `<= 2GB` RAM) falls back to 250ms opacity fade. `prefers-reduced-motion` provides a 150ms crossfade.
+  6. **Interactive Restoration**: 44px min-height "Show question again" button restores intact front page smoothly (400ms tear slide-back or 600ms reverse burn).
+- **Reason**: User task: "TASK: REPLACE THE "TAP TO FLIP" CARD EFFECT WITH A "TEAR THE PAGE" EFFECT AND AN OPTIONAL "BURN THE PAGE" EFFECT. WORKS ON PHONE AND DESKTOP. DO NOT REBUILD ANYTHING ELSE. RUN ALL STEPS WITHOUT ASKING ME QUESTIONS."

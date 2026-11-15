@@ -86,7 +86,7 @@ export function BurnCard({
           }
           polyStr += ')'
           frontEl.style.clipPath = polyStr
-          ;(frontEl.style as any).webkitClipPath = polyStr
+          frontEl.style.setProperty('-webkit-clip-path', polyStr)
 
           // Spawn ember sparks along active fire front
           if (sparkCount > 0 && Math.random() > 0.25) {
@@ -135,10 +135,10 @@ export function BurnCard({
           ctx.restore()
         } else if (nextState && curY <= -35) {
           frontEl.style.clipPath = 'polygon(0 0, 0 0, 0 0)'
-          ;(frontEl.style as any).webkitClipPath = 'polygon(0 0, 0 0, 0 0)'
+          frontEl.style.setProperty('-webkit-clip-path', 'polygon(0 0, 0 0, 0 0)')
         } else {
           frontEl.style.clipPath = 'none'
-          ;(frontEl.style as any).webkitClipPath = 'none'
+          frontEl.style.setProperty('-webkit-clip-path', 'none')
         }
 
         // Render & update ember particles

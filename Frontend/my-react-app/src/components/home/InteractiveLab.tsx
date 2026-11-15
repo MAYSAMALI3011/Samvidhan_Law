@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CheckCircle2, XCircle, ArrowRight, Sparkles, ShieldAlert, Award, Flame, RotateCcw } from 'lucide-react'
+import { CheckCircle2, XCircle, ArrowRight, Sparkles, Award } from 'lucide-react'
 import { Mor } from '../mascot/Mor'
-import { BurnCard } from '../common/BurnCard'
+import { FlipCard } from '../learning/lesson/FlipCard'
 
 export function InteractiveLab() {
   // Mini-Quiz State
@@ -43,75 +43,13 @@ export function InteractiveLab() {
       </header>
 
       <div className="interactive-lab-grid">
-        {/* TOUCHPOINT 1: REALISTIC CANVAS BURNING PARCHMENT CODEX CARD */}
-        <BurnCard
-          ariaLabel="Citizen safeguard question. Tap to burn parchment and reveal Article 22 mandate."
-          front={
-            <>
-              <div>
-                <div className="tear-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                  <span className="page-tear-badge text-gold">
-                    <ShieldAlert size={15} aria-hidden="true" />
-                    Citizen Safeguard
-                  </span>
-                  <span className="page-tear-action-hint burn-action-btn">
-                    <Flame size={14} className="flame-flicker-icon" aria-hidden="true" />
-                    <span>Tap to Burn &amp; Reveal</span>
-                  </span>
-                </div>
-                <h3 className="page-tear-prompt-title">
-                  Can the police keep an arrested citizen in custody for 3 days without a court order?
-                </h3>
-                <p className="page-tear-prompt-desc">
-                  Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this codex page to ignite and reveal the constitutional safeguard.
-                </p>
-              </div>
-
-              <div className="page-tear-bottom-row">
-                <span className="page-tear-cta-text" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Flame size={14} className="text-amber" aria-hidden="true" />
-                  <span>Burn Page to Reveal 24h Law</span>
-                  <ArrowRight size={14} aria-hidden="true" />
-                </span>
-                <span className="page-tear-tag">Constitutional Codex</span>
-              </div>
-            </>
-          }
-          back={
-            <>
-              <div>
-                <div className="tear-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                  <span className="page-tear-badge text-success">
-                    <CheckCircle2 size={15} aria-hidden="true" />
-                    Article 22(2) Safeguard
-                  </span>
-                  <span className="page-tear-action-hint restore-hint">
-                    <RotateCcw size={13} aria-hidden="true" /> Tap to Restore Page
-                  </span>
-                </div>
-                <h3 className="page-tear-reveal-title">
-                  Maximum 24 Hours Mandate
-                </h3>
-                <p className="page-tear-reveal-desc">
-                  Under <strong>Article 22(2)</strong> of the Constitution of India and Section 57 CrPC / BNSS, every arrested person must be produced before the nearest Magistrate within <strong>24 hours</strong> of arrest (excluding travel time). Detention beyond 24 hours without judicial sanction is unconstitutional.
-                </p>
-              </div>
-
-              <div className="page-tear-footer-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginTop: '1rem' }}>
-                <Link
-                  to="/constitution"
-                  className="btn btn-outline btn-sm"
-                  style={{ width: 'fit-content' }}
-                >
-                  <span>Read Article 22</span>
-                  <ArrowRight size={13} aria-hidden="true" />
-                </Link>
-                <span style={{ fontSize: '0.74rem', color: 'var(--text-tertiary)' }}>
-                  Click card to restore page
-                </span>
-              </div>
-            </>
-          }
+        {/* TOUCHPOINT 1: REALISTIC BURNING CITIZEN SAFEGUARD CARD */}
+        <FlipCard
+          variant="burn"
+          className="interactive-lab-burn-card"
+          prompt="Can the police keep an arrested citizen in custody for 3 days without a court order? Many citizens believe custody can extend indefinitely during questioning."
+          reveal="Under Article 22(2) of the Constitution of India and Section 57 CrPC / BNSS, every arrested person must be produced before the nearest Magistrate within 24 hours of arrest (excluding travel time). Detention beyond 24 hours without judicial sanction is unconstitutional."
+          source="Article 22(2) & Section 57 CrPC / BNSS"
         />
 
         {/* TOUCHPOINT 2: 1-QUESTION INTERACTIVE MINI-QUIZ */}
