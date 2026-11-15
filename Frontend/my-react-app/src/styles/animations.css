@@ -230,16 +230,18 @@
 }
 
 .toggle-switch-track {
-  width: 52px;
-  height: 30px;
+  width: 54px;
+  height: 32px;
   border-radius: 999px;
   background: var(--border);
   border: 2px solid transparent;
-  padding: 2px;
+  padding: 0;
   cursor: pointer;
   position: relative;
   flex-shrink: 0;
   transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
 }
 
 .toggle-switch-track.is-checked {
@@ -248,12 +250,13 @@
 
 .toggle-switch-thumb {
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: #ffffff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  transition: transform var(--transition-spring);
+  transition: transform var(--transition-spring, 0.2s cubic-bezier(0.16, 1, 0.3, 1));
+  margin-left: 2px;
 }
 
 .toggle-switch-track.is-checked .toggle-switch-thumb {
