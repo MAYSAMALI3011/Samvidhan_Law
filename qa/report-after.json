@@ -1,0 +1,137 @@
+{
+  "timestamp": "2026-11-15T14:12:49.829Z",
+  "isAfter": true,
+  "viewportsAudited": [
+    "360x740",
+    "390x844",
+    "412x915",
+    "768x1024",
+    "1024x768",
+    "1280x800",
+    "1440x900",
+    "1920x1080"
+  ],
+  "routesAudited": [
+    "Home",
+    "Learn",
+    "Lesson",
+    "Constitution",
+    "Library",
+    "Ask",
+    "Login",
+    "Settings"
+  ],
+  "summary": {
+    "totalOverflows": 0,
+    "totalOccluded": 0,
+    "totalTouchTargetDefects": 0,
+    "totalContrastViolations": 23
+  },
+  "overflows": [],
+  "occludedElements": [],
+  "touchTargetDefects": [],
+  "contrastViolations": [
+    {
+      "viewport": "390x844",
+      "theme": "light",
+      "route": "Settings",
+      "count": 9,
+      "samples": [
+        {
+          "html": "<p class=\"auth-form-subtitle\">Log in to continue learning.</p>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"auth-divider-text\">or continue with email</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<label class=\"tf__label\" for=\"ghost\">Email address</label>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span>Password</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"auth-checkbox-text\">Remember me</span>",
+          "failureSummary": "Fix any of the following:"
+        }
+      ]
+    },
+    {
+      "viewport": "390x844",
+      "theme": "dark",
+      "route": "Settings",
+      "count": 6,
+      "samples": [
+        {
+          "html": "<p class=\"auth-form-subtitle\">Log in to continue learning.</p>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"auth-divider-text\">or continue with email</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<a class=\"auth-forgot-link\" href=\"/forgot-password\" data-discover=\"true\">Forgot ",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span>Your progress is saved on this device for now.</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span>Don't have an account?</span>",
+          "failureSummary": "Fix any of the following:"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "theme": "light",
+      "route": "Home",
+      "count": 7,
+      "samples": [
+        {
+          "html": "<span>Curriculum</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span>Constitution</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span>Legal Library</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"nav-search-collapsed-label\">Search lessons, articles, acts...</span",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<kbd class=\"kbd-key\">Ctrl</kbd>",
+          "failureSummary": "Fix any of the following:"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "theme": "light",
+      "route": "Settings",
+      "count": 1,
+      "samples": [
+        {
+          "html": "<span class=\"launcher-attached-label\">Ask Samvidhan</span>",
+          "failureSummary": "Fix any of the following:"
+        }
+      ]
+    }
+  ],
+  "modalStates": [
+    {
+      "name": "Menu Open",
+      "overflow": false
+    }
+  ]
+}

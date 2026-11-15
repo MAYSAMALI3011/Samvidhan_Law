@@ -1,0 +1,667 @@
+{
+  "timestamp": "2026-11-15T12:30:06.585Z",
+  "isAfter": false,
+  "viewportsAudited": [
+    "360x740",
+    "390x844",
+    "412x915",
+    "768x1024",
+    "1024x768",
+    "1280x800",
+    "1440x900",
+    "1920x1080"
+  ],
+  "routesAudited": [
+    "Home",
+    "Learn",
+    "Lesson",
+    "Constitution",
+    "Library",
+    "Ask",
+    "Login",
+    "Settings"
+  ],
+  "summary": {
+    "totalOverflows": 0,
+    "totalOccluded": 46,
+    "totalTouchTargetDefects": 25,
+    "totalContrastViolations": 28
+  },
+  "overflows": [],
+  "occludedElements": [
+    {
+      "viewport": "390x844",
+      "theme": "light",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "input.auth-checkbox-hidden",
+          "text": "",
+          "coveredBy": "path.[object"
+        }
+      ]
+    },
+    {
+      "viewport": "390x844",
+      "theme": "dark",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "input.auth-checkbox-hidden",
+          "text": "",
+          "coveredBy": "path.[object"
+        }
+      ]
+    },
+    {
+      "viewport": "412x915",
+      "theme": "light",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "input.auth-checkbox-hidden",
+          "text": "",
+          "coveredBy": "path.[object"
+        }
+      ]
+    },
+    {
+      "viewport": "412x915",
+      "theme": "dark",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "input.auth-checkbox-hidden",
+          "text": "",
+          "coveredBy": "path.[object"
+        }
+      ]
+    },
+    {
+      "viewport": "768x1024",
+      "theme": "light",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "input.auth-checkbox-hidden",
+          "text": "",
+          "coveredBy": "path.[object"
+        }
+      ]
+    },
+    {
+      "viewport": "768x1024",
+      "theme": "dark",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "input.auth-checkbox-hidden",
+          "text": "",
+          "coveredBy": "path.[object"
+        }
+      ]
+    },
+    {
+      "viewport": "1024x768",
+      "theme": "light",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "button.auth-social-btn",
+          "text": "Sign up with Google",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "input.auth-input-control",
+          "text": "",
+          "coveredBy": "p.auth-card-subtitle"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-card-benefits-list"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "button.tf__hint",
+          "text": "Show password",
+          "coveredBy": "p.auth-card-quote-text"
+        }
+      ]
+    },
+    {
+      "viewport": "1024x768",
+      "theme": "dark",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "button.auth-social-btn",
+          "text": "Sign up with Google",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "input.auth-input-control",
+          "text": "",
+          "coveredBy": "strong"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-card-benefits-list"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "button.tf__hint",
+          "text": "Show password",
+          "coveredBy": "p.auth-card-quote-text"
+        }
+      ]
+    },
+    {
+      "viewport": "1280x800",
+      "theme": "light",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "button.auth-social-btn",
+          "text": "Sign up with Google",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "input.auth-input-control",
+          "text": "",
+          "coveredBy": "p.auth-card-subtitle"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "span"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "button.tf__hint",
+          "text": "Show password",
+          "coveredBy": "div.auth-card-quote-box"
+        }
+      ]
+    },
+    {
+      "viewport": "1280x800",
+      "theme": "dark",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "button.auth-social-btn",
+          "text": "Sign up with Google",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "input.auth-input-control",
+          "text": "",
+          "coveredBy": "p.auth-card-subtitle"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "span"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "button.tf__hint",
+          "text": "Show password",
+          "coveredBy": "div.auth-card-quote-box"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "theme": "light",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "button.auth-social-btn",
+          "text": "Sign up with Google",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "input.auth-input-control",
+          "text": "",
+          "coveredBy": "h2.auth-card-title"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-card-benefits-list"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "button.tf__hint",
+          "text": "Show password",
+          "coveredBy": "div.auth-visual-card"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "theme": "dark",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "button.auth-social-btn",
+          "text": "Sign up with Google",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "input.auth-input-control",
+          "text": "",
+          "coveredBy": "h2.auth-card-title"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-card-benefits-list"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "button.tf__hint",
+          "text": "Show password",
+          "coveredBy": "div.auth-visual-card"
+        }
+      ]
+    },
+    {
+      "viewport": "1920x1080",
+      "theme": "light",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "button.auth-social-btn",
+          "text": "Sign up with Google",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "input.auth-input-control",
+          "text": "",
+          "coveredBy": "h2.auth-card-title"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "span"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "button.tf__hint",
+          "text": "Show password",
+          "coveredBy": "div.auth-visual-card"
+        }
+      ]
+    },
+    {
+      "viewport": "1920x1080",
+      "theme": "dark",
+      "route": "Settings",
+      "occluded": [
+        {
+          "element": "button.auth-social-btn",
+          "text": "Sign up with Google",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "input.auth-input-control",
+          "text": "",
+          "coveredBy": "h2.auth-card-title"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "span"
+        },
+        {
+          "element": "input.tf__box",
+          "text": "",
+          "coveredBy": "div.auth-visual-card"
+        },
+        {
+          "element": "button.tf__hint",
+          "text": "Show password",
+          "coveredBy": "div.auth-visual-card"
+        }
+      ]
+    }
+  ],
+  "touchTargetDefects": [
+    {
+      "viewport": "360x740",
+      "theme": "light",
+      "route": "Settings",
+      "smallTargets": [
+        {
+          "tag": "a.auth-brand-link",
+          "text": "",
+          "width": 130,
+          "height": 36
+        },
+        {
+          "tag": "a.auth-back-home-link",
+          "text": "Back to home",
+          "width": 148,
+          "height": 40
+        },
+        {
+          "tag": "button.auth-password-toggle",
+          "text": "",
+          "width": 29,
+          "height": 44
+        },
+        {
+          "tag": "a.auth-forgot-link",
+          "text": "Forgot password?",
+          "width": 112,
+          "height": 22
+        }
+      ]
+    },
+    {
+      "viewport": "360x740",
+      "theme": "dark",
+      "route": "Settings",
+      "smallTargets": [
+        {
+          "tag": "a.auth-brand-link",
+          "text": "",
+          "width": 130,
+          "height": 36
+        },
+        {
+          "tag": "a.auth-back-home-link",
+          "text": "Back to home",
+          "width": 148,
+          "height": 40
+        },
+        {
+          "tag": "button.auth-password-toggle",
+          "text": "",
+          "width": 29,
+          "height": 44
+        },
+        {
+          "tag": "a.auth-forgot-link",
+          "text": "Forgot password?",
+          "width": 112,
+          "height": 22
+        }
+      ]
+    },
+    {
+      "viewport": "390x844",
+      "theme": "light",
+      "route": "Settings",
+      "smallTargets": [
+        {
+          "tag": "a.auth-brand-link",
+          "text": "",
+          "width": 130,
+          "height": 36
+        },
+        {
+          "tag": "a.auth-back-home-link",
+          "text": "Back to home",
+          "width": 148,
+          "height": 40
+        },
+        {
+          "tag": "button.auth-password-toggle",
+          "text": "",
+          "width": 29,
+          "height": 44
+        },
+        {
+          "tag": "a.auth-forgot-link",
+          "text": "Forgot password?",
+          "width": 112,
+          "height": 22
+        }
+      ]
+    },
+    {
+      "viewport": "390x844",
+      "theme": "dark",
+      "route": "Settings",
+      "smallTargets": [
+        {
+          "tag": "a.auth-brand-link",
+          "text": "",
+          "width": 130,
+          "height": 36
+        },
+        {
+          "tag": "a.auth-back-home-link",
+          "text": "Back to home",
+          "width": 148,
+          "height": 40
+        },
+        {
+          "tag": "button.auth-password-toggle",
+          "text": "",
+          "width": 29,
+          "height": 44
+        },
+        {
+          "tag": "a.auth-forgot-link",
+          "text": "Forgot password?",
+          "width": 112,
+          "height": 22
+        }
+      ]
+    },
+    {
+      "viewport": "412x915",
+      "theme": "light",
+      "route": "Settings",
+      "smallTargets": [
+        {
+          "tag": "a.auth-brand-link",
+          "text": "",
+          "width": 130,
+          "height": 36
+        },
+        {
+          "tag": "a.auth-back-home-link",
+          "text": "Back to home",
+          "width": 148,
+          "height": 40
+        },
+        {
+          "tag": "button.auth-password-toggle",
+          "text": "",
+          "width": 29,
+          "height": 44
+        },
+        {
+          "tag": "a.auth-forgot-link",
+          "text": "Forgot password?",
+          "width": 112,
+          "height": 22
+        }
+      ]
+    },
+    {
+      "viewport": "412x915",
+      "theme": "dark",
+      "route": "Settings",
+      "smallTargets": [
+        {
+          "tag": "a.auth-brand-link",
+          "text": "",
+          "width": 130,
+          "height": 36
+        },
+        {
+          "tag": "a.auth-back-home-link",
+          "text": "Back to home",
+          "width": 148,
+          "height": 40
+        },
+        {
+          "tag": "button.auth-password-toggle",
+          "text": "",
+          "width": 29,
+          "height": 44
+        },
+        {
+          "tag": "a.auth-forgot-link",
+          "text": "Forgot password?",
+          "width": 112,
+          "height": 22
+        },
+        {
+          "tag": "button.auth-switch-action-btn",
+          "text": "Sign up",
+          "width": 50,
+          "height": 44
+        }
+      ]
+    }
+  ],
+  "contrastViolations": [
+    {
+      "viewport": "390x844",
+      "theme": "light",
+      "route": "Home",
+      "count": 9,
+      "samples": [
+        {
+          "html": "<span class=\"section-eyebrow\" style=\"display: inline-flex; align-items: center; ",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"flip-hint-badge\">",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"section-eyebrow\" style=\"display: inline-flex; align-items: center; ",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span style=\"font-size: 0.8rem; color: rgb(148, 163, 184);\">5-Day Streak Active ",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"section-eyebrow\">",
+          "failureSummary": "Fix any of the following:"
+        }
+      ]
+    },
+    {
+      "viewport": "390x844",
+      "theme": "light",
+      "route": "Settings",
+      "count": 9,
+      "samples": [
+        {
+          "html": "<span>Back to home</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<p class=\"auth-form-subtitle\">Log in to continue learning.</p>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"auth-divider-text\">or continue with email</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<label class=\"tf__label\" for=\"ghost\">Email address</label>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"auth-checkbox-text\">Remember me</span>",
+          "failureSummary": "Fix any of the following:"
+        }
+      ]
+    },
+    {
+      "viewport": "390x844",
+      "theme": "dark",
+      "route": "Settings",
+      "count": 7,
+      "samples": [
+        {
+          "html": "<p class=\"auth-form-subtitle\">Log in to continue learning.</p>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"auth-divider-text\">or continue with email</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"auth-checkbox-text\">Remember me</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<a class=\"auth-forgot-link\" href=\"/forgot-password\" data-discover=\"true\">Forgot ",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span>Your progress is saved on this device for now.</span>",
+          "failureSummary": "Fix any of the following:"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "theme": "light",
+      "route": "Settings",
+      "count": 3,
+      "samples": [
+        {
+          "html": "<span>Back to home</span>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<label class=\"tf__label\" for=\"ghost\">Email address</label>",
+          "failureSummary": "Fix any of the following:"
+        },
+        {
+          "html": "<span class=\"launcher-attached-label\">Ask Samvidhan</span>",
+          "failureSummary": "Fix any of the following:"
+        }
+      ]
+    }
+  ],
+  "modalStates": [
+    {
+      "name": "Menu Open",
+      "overflow": false
+    }
+  ]
+}
