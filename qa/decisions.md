@@ -79,3 +79,27 @@
   6. Implemented a robust 6-state machine (`idle`, `tearing`, `burning`, `revealed`, `reassembling`, `rewinding`) with mid-animation interruption safety and unmount/navigation cleanup.
   7. Enhanced accessibility with programmatic focus restoration to the card container and polite live announcement (`"Question"`).
 - **Reason**: User task: "CHANGE: REASSEMBLE THE PAGE WHEN THE QUESTION IS SHOWN AGAIN. THIS OVERRIDES THE EARLIER "SHOW QUESTION AGAIN" BEHAVIOUR. KEEP EVERYTHING ELSE FROM THE EARLIER TEAR/BURN TASK."
+
+## D16: Tear & Burn Card Overhaul — Organic Paper Burn, Dual-Copy Tear & Reassembly Physics
+- **Decision**: Comprehensive fix for `FlipCard.tsx` and `flip-card.css` per user prompt instructions:
+  1. **Default Variant**: Set `variant="tear"` as default across all components (`InteractiveLab.tsx` Try It card and lesson cards). `'burn'` is only active when `variant="burn"` is explicitly passed.
+  2. **Organic Burn Hole**: Eliminated single radial circle mask. Created organic burning aperture formed by union of 22 seeded circles with varying radii and positions, distorted via SVG `<filter id="burn-displace">` with `feTurbulence` (baseFrequency 0.04) and `feDisplacementMap` (scale 12). Expressed circle coordinates and radii in percentage units (`%`) mapped to absolute SVG overlay to ensure uniform scaling across phone and desktop viewports.
+  3. **Four Edge Layers for Burn**:
+     - Layer 1: Fully revealed opaque answer layer in normal layout flow.
+     - Layer 2: 3–5px glowing ember rim with $\le 15\%$ pulsation at 2 Hz (`rgba(255, 100, 20, 0.95)` to `rgba(255, 230, 110, 1)`).
+     - Layer 3: 10–16px near-black char rim (`#1a0d05` to `#2d1810`).
+     - Layer 4: 30–40px scorched paper gradient band fading outward into intact parchment.
+  4. **Rising Embers & Smoke**: 16 rising ember particles drifting 40–110px with gentle sideways curl, plus 4 soft smoke puffs ($\le 0.25$ opacity). Completely unmounted/cleaned from DOM when idle or revealed.
+  5. **Dual Identical Copies for Tear**: Front face rendered twice, both with identical content and dimensions stacked atop one another. Top copy clipped to upper polygon and bottom copy clipped to lower polygon along a 14-point deterministic jagged rip line. Each jagged boundary features pale fibrous deckle edge paths.
+  6. **Three-Phase Tear Choreography (~950ms)**:
+     - 0–120ms: Anticipation (1px card press, 2px rip jitter).
+     - 120–470ms: Zip rip opening outward from tap side to far side (`transform-origin` dynamically anchored to far edge).
+     - 470–950ms: Clean separation (top translates $-5\%\text{ x}, -12\%\text{ y}$, rotates $-7^\circ$; bottom translates $+4\%\text{ x}, +10\%\text{ y}$, rotates $+5^\circ$, fading to 0 with soft drop-shadow).
+  7. **Spring Reassembly & Thin Gold Seam**:
+     - 700ms reassembly using harmonic spring ($k=170, d=18$) settling halves into place with a subtle 2–3px settle.
+     - 300ms thin gold seam (`#D4AF37`) illuminates along the exact meeting tear line as edges join.
+     - Buttons renamed to `"Put the page back together"` (tear) and `"Restore the page"` (burn) with 44px minimum height. Mid-animation press smoothly reverses from current progress.
+  8. **Zero Text Ghosting & Balanced Layout**: Underlay in normal flow sets card height (`min-height: 200px` phone, `240px` desktop). Opaque backgrounds (`#0b111e` dark, `#FAF7F0` light) prevent bleed-through. Question text (1.35rem phone, 1.6rem desktop) and answer text (1.0625rem phone, 1.1875rem desktop, line-height 1.55) vertically centered in free space.
+  9. **Single Centered Bottom Hint**: EXACTLY ONE hint at bottom center: `"Click to tear the page"` (mouse) / `"Tap to tear the page"` (touch), or "burn" for burn variant. Deleted duplicate top-right hints.
+  10. **Dev Tooling & Automated Verification**: Implemented `?fxslow=4` dev query parameter. Captured 8-progress frame contact sheets (0%, 10%, 25%, 40%, 55%, 70%, 85%, 100%) for all variants on phone/desktop dark/light in `qa/screenshots/card-fx/` and recorded 1x speed videos in `qa/videos/`. Functional test suite passed 7/7 automated checks.
+- **Reason**: Fixes all defects from initial version (plain circular mask, text ghosting, duplicate hints, unbalanced spacing, abrupt timing) fulfilling all requirements of the tear/burn task.

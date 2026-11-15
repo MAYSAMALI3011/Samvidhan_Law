@@ -3,6 +3,14 @@
    Universal styles bundled wherever FlipCard is imported
    ========================================================================== */
 
+:root {
+  --tear-fibre-color: rgba(255, 255, 255, 0.75);
+}
+
+[data-theme='light'] {
+  --tear-fibre-color: rgba(255, 255, 255, 0.95);
+}
+
 .flip-card-perspective-container {
   position: relative;
   width: 100%;
@@ -14,22 +22,9 @@
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.interactive-lab-burn-card {
-  margin-bottom: 0 !important;
-  height: 100%;
-}
-
-.interactive-lab-burn-card .flip-card-grid-container {
-  height: 100%;
-  min-height: 290px;
-}
-
 @media (hover: hover) and (pointer: fine) {
   .flip-card-perspective-container:hover {
     transform: translateY(-2px);
-  }
-  .flip-card-perspective-container:hover .tear-hover-guide-svg {
-    opacity: 0.65;
   }
 }
 
@@ -37,16 +32,24 @@
   box-shadow: 0 0 0 2px var(--brand-gold, #D4AF37);
 }
 
+/* Base Card Grid Container: min-height 240px desktop, 200px mobile */
 .flip-card-grid-container {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   position: relative;
   width: 100%;
+  min-height: 240px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   background: #0b111e;
+}
+
+@media (max-width: 767px) {
+  .flip-card-grid-container {
+    min-height: 200px;
+  }
 }
 
 [data-theme='light'] .flip-card-grid-container {
@@ -68,12 +71,20 @@
   background: linear-gradient(135deg, rgba(20, 30, 50, 0.98), rgba(10, 18, 30, 0.99));
   border: 1px solid rgba(212, 175, 55, 0.45);
   box-shadow: 0 6px 20px rgba(212, 175, 55, 0.12);
-  padding: 24px 26px;
+  padding: 24px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-wrap: break-word;
   word-break: break-word;
+  min-height: 240px;
+}
+
+@media (max-width: 767px) {
+  .flip-card-underlay {
+    min-height: 200px;
+    padding: 20px 20px;
+  }
 }
 
 [data-theme='light'] .flip-card-underlay {
@@ -87,11 +98,12 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  min-height: 175px;
-  gap: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 16px;
 }
 
-/* 2. TEAR VARIANT FRONT SURFACE & HALVES */
+/* 2. TEAR VARIANT: FRONT SURFACE & DUAL COPIES */
 .flip-card-tear-wrapper {
   position: absolute;
   inset: 0;
@@ -114,7 +126,6 @@
     linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.99));
   background-size: 10px 10px, 100% 100%;
   border: 1px solid rgba(212, 175, 55, 0.35);
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
   will-change: transform, opacity;
   pointer-events: auto;
 }
@@ -126,34 +137,29 @@
     linear-gradient(135deg, #FAF7F0, #F3ECE0);
   background-size: 10px 10px, 100% 100%;
   border-color: rgba(176, 141, 87, 0.35);
-  filter: drop-shadow(0 3px 6px rgba(10, 22, 40, 0.12));
 }
 
 .tear-half-inner {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 24px 26px;
+  padding: 24px 28px;
 }
 
-.tear-edge-svg {
+@media (max-width: 767px) {
+  .tear-half-inner {
+    padding: 20px 20px;
+  }
+}
+
+.tear-fibre-edge-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
   z-index: 3;
-}
-
-.tear-hover-guide-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 4;
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8));
 }
 
 .tear-gold-seam-svg {
@@ -163,22 +169,10 @@
   height: 100%;
   pointer-events: none;
   z-index: 10;
-  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.85));
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.9));
 }
 
-@keyframes rip-jitter {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-3px, 2px); }
-  50% { transform: translate(3px, -2px); }
-  75% { transform: translate(-2px, -1px); }
-  100% { transform: translate(0, 0); }
-}
-
-.tear-half.is-ripping {
-  animation: rip-jitter 80ms ease infinite;
-}
-
-/* 3. BURN VARIANT FRONT SURFACE */
+/* 3. BURN VARIANT: FRONT SURFACE & 4 EDGE LAYERS */
 .flip-card-burn-wrapper {
   position: absolute;
   inset: 0;
@@ -191,7 +185,6 @@
     linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.99));
   background-size: 10px 10px, 100% 100%;
   border: 1px solid rgba(212, 175, 55, 0.35);
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
   pointer-events: auto;
 }
 
@@ -202,17 +195,22 @@
     linear-gradient(135deg, #FAF7F0, #F3ECE0);
   background-size: 10px 10px, 100% 100%;
   border-color: rgba(176, 141, 87, 0.35);
-  filter: drop-shadow(0 3px 6px rgba(10, 22, 40, 0.12));
 }
 
 .burn-front-inner {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 24px 26px;
+  padding: 24px 28px;
 }
 
-.burn-overlay-svg {
+@media (max-width: 767px) {
+  .burn-front-inner {
+    padding: 20px 20px;
+  }
+}
+
+.burn-edge-layers-svg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -221,11 +219,34 @@
   z-index: 5;
 }
 
+@keyframes pulse-ember {
+  0% {
+    filter: drop-shadow(0 0 4px #ff5a1f) drop-shadow(0 0 8px #ffaa00) brightness(0.92);
+  }
+  100% {
+    filter: drop-shadow(0 0 7px #ff5a1f) drop-shadow(0 0 14px #ffaa00) brightness(1.08);
+  }
+}
+
+.burn-pulsing-ember-rim {
+  animation: pulse-ember 1.2s ease-in-out infinite alternate;
+}
+
 .burn-ember-speck {
   position: absolute;
   border-radius: 50%;
-  background: #ff7700;
-  box-shadow: 0 0 6px #ff4500, 0 0 10px #ffd700;
+  background: radial-gradient(circle, #fff2a8 20%, #ffaa00 60%, #ff5a1f 100%);
+  box-shadow: 0 0 6px #ff5a1f, 0 0 10px #ffaa00;
+  pointer-events: none;
+  z-index: 6;
+  will-change: transform, opacity;
+}
+
+.burn-smoke-puff {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(160, 160, 160, 0.25) 0%, rgba(100, 100, 100, 0.08) 60%, transparent 100%);
+  filter: blur(4px);
   pointer-events: none;
   z-index: 6;
   will-change: transform, opacity;
@@ -235,7 +256,7 @@
 .flip-card-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 10px;
 }
 
@@ -257,84 +278,99 @@
   color: var(--brand-gold, #D4AF37);
 }
 
-.flip-action-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.75rem;
-  color: var(--text-muted, #94A3B8);
-}
-
-[data-theme='light'] .flip-action-hint {
-  color: #64748B;
-}
-
-.burn-icon-amber {
-  color: #F59E0B;
-}
-
+/* Question Prompt: vertically centered in free space, 1.35rem mobile, 1.6rem desktop, line-height 1.55 */
 .flip-prompt-text {
-  font-size: 1.05rem;
+  font-size: 1.6rem;
   font-weight: 600;
   line-height: 1.55;
   color: var(--text-primary, #F8FAFC);
-  margin: 10px 0;
+  margin: auto 0;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .flip-prompt-text {
+    font-size: 1.35rem;
+  }
 }
 
 [data-theme='light'] .flip-prompt-text {
   color: #0F172A;
 }
 
+/* Answer Reveal: vertically centered in free space, 1.0625rem mobile, 1.1875rem desktop, line-height 1.55 */
 .flip-reveal-text {
-  font-size: 0.98rem;
-  line-height: 1.6;
+  font-size: 1.1875rem;
+  line-height: 1.55;
   color: var(--text-primary, #F8FAFC);
-  margin: 10px 0;
+  margin: auto 0;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .flip-reveal-text {
+    font-size: 1.0625rem;
+  }
 }
 
 [data-theme='light'] .flip-reveal-text {
   color: #0F172A;
 }
 
+/* EXACTLY ONE HINT AT BOTTOM CENTER */
 .flip-footer-hint {
-  font-size: 0.74rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.82rem;
   color: var(--text-muted, #94A3B8);
   font-style: italic;
   margin-top: auto;
+  width: 100%;
 }
 
 [data-theme='light'] .flip-footer-hint {
   color: #64748B;
 }
 
+/* Answer Footer: Source line + 44px min restore button */
+.flip-card-answer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
 .flip-source-line {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #10B981;
-  margin-top: auto;
 }
 
 [data-theme='light'] .flip-source-line {
   color: #0F766E;
 }
 
-/* 44px min touch target button */
+/* 44px minimum height touch target button */
 .flip-restore-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   min-height: 44px;
   min-width: 44px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 9999px;
   background: rgba(212, 175, 55, 0.12);
   border: 1px solid rgba(212, 175, 55, 0.35);
   color: var(--brand-gold, #D4AF37);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
