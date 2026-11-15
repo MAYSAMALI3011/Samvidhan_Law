@@ -44,7 +44,7 @@
   align-items: center;
   gap: 0.5rem;
   min-height: 44px;
-  color: var(--muted, #94a3b8);
+  color: var(--text);
   font-size: 0.88rem;
   font-weight: 500;
   text-decoration: none;
@@ -435,13 +435,13 @@
   font-family: var(--font-heading, 'DM Serif Display', Georgia, serif);
   font-size: clamp(1.75rem, 2.2vw, 2.15rem);
   font-weight: 400;
-  color: var(--text, #ffffff) !important;
+  color: #ffffff !important;
   margin: 0 0 0.35rem 0;
   line-height: 1.2;
 }
 
 .auth-form-subtitle {
-  color: var(--text-muted, #94a3b8);
+  color: rgba(255, 255, 255, 0.76) !important;
   font-size: 0.9rem;
   margin: 0;
 }
@@ -633,18 +633,18 @@
 
 .auth-checkbox-text {
   font-size: 0.82rem;
-  color: var(--text-muted, #94a3b8);
+  color: rgba(255, 255, 255, 0.88);
   line-height: 1.4;
 }
 
 .auth-inline-link {
-  color: var(--gold, #B08D57);
+  color: #dfba73;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .auth-inline-link:hover {
-  color: #dfba73;
+  color: #f2d499;
 }
 
 /* Aux row for Login */
@@ -657,7 +657,7 @@
 
 .auth-forgot-link {
   font-size: 0.82rem;
-  color: var(--gold, #B08D57);
+  color: #dfba73;
   text-decoration: none;
   font-weight: 500;
   display: inline-flex;
@@ -668,7 +668,7 @@
 }
 
 .auth-forgot-link:hover {
-  color: #dfba73;
+  color: #f2d499;
   text-decoration: underline;
 }
 
@@ -737,7 +737,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  color: var(--muted, #94a3b8);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 0.78rem;
   padding: 0.4rem;
 }
@@ -746,13 +746,13 @@
 .auth-switch-prompt {
   text-align: center;
   font-size: 0.85rem;
-  color: var(--muted, #94a3b8);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .auth-switch-action-btn {
   background: none;
   border: none;
-  color: var(--gold, #B08D57);
+  color: #dfba73;
   font-weight: 700;
   cursor: pointer;
   text-decoration: underline;
@@ -767,7 +767,7 @@
 }
 
 .auth-switch-action-btn:hover {
-  color: #dfba73;
+  color: #f2d499;
 }
 
 /* ==========================================================================
@@ -870,6 +870,7 @@
 
 .auth-slot-panel.is-slot-inactive {
   pointer-events: none;
+  visibility: hidden;
 }
 
 
@@ -892,7 +893,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  height: 44px;
+  min-height: 48px;
+  height: 48px;
   padding: 0 1rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
@@ -946,8 +948,16 @@
   font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--text-muted, #94a3b8);
+  color: rgba(255, 255, 255, 0.75);
   font-weight: 600;
+}
+
+.auth-split-container .tf__label {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.auth-split-container .auth-switch-prompt {
+  color: rgba(255, 255, 255, 0.76) !important;
 }
 
 @media (max-width: 480px) {
