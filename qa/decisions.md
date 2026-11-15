@@ -45,3 +45,13 @@
 ## D11: High-Frequency Grounded Citizen Queries for Chatbot
 - **Decision**: Configured the 6 most frequently asked practical legal queries in India (Police Detention Rights, FIR Refusal & Section 154/Zero FIR, RTI Filing & Section 6(1), Immediate Golden Hour Online/OTP Fraud & 1930 Helpline, Article 21 Scope, and Unlawful Tenant Eviction Safeguards) into `suggestedQuestions` and authored comprehensive, citation-backed statutory explanations in `mockStreamer.ts`.
 - **Reason**: User requested: "only put those question on suggestion of chatbot that we can answer and people ask them frequently".
+
+## D12: Realistic Interactive Canvas Fire-Burning Parchment Card with Tap-to-Restore
+- **Decision**: Built a dedicated `BurnCard` component featuring a real-time HTML5 2D canvas particle ignition system and dynamic circular burn mask. When a citizen clicks or touches anywhere on the codex parchment:
+  1. An ignition fire ring sparks right at the exact tap/click coordinates `(x, y)`.
+  2. A glowing fiery rim (`#ff4500` flame core and `#ffd700` golden incandescent glow) expands smoothly outward.
+  3. 35 glowing ember sparks fly outward with realistic decay and gravity.
+  4. The front parchment sheet dissolves along the fiery rim (`mask-image: radial-gradient`), directly revealing the underlying statutory mandate.
+  5. When tapped again or clicking "Tap to Restore", the fire smoothly rewinds, cooling from golden flame into dark charred carbon, and the intact codex page is restored.
+  6. Fixed container in-flow driving structure so height never collapses on mobile touch-target rules (`[role="button"] { min-height: 44px }`).
+- **Reason**: User uploaded a video demonstrating that the previous translation slide did not look like an authentic page burn or tear ("this is not what i am talking about"). The canvas fire-burn system delivers an authentic, physical paper burning effect across all devices in both light and dark themes.

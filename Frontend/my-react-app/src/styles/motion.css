@@ -134,187 +134,81 @@
 }
 
 /* ==========================================================================
-   TORN & BURNT PARCHMENT CODEX REVEAL (MOBILE & DESKTOP)
-   Replaces rigid 3D flip card with authentic page-tear/burn reveal
+   REALISTIC CANVAS FIRE BURN PARCHMENT CARD (MOBILE & DESKTOP)
+   Burns open with real fiery glowing ember rim, sparks, and tap-to-restore
    ========================================================================== */
-.page-tear-card-wrap,
-.did-you-know-flip-wrap {
+.burn-card-container {
   position: relative;
   width: 100%;
-  min-height: 290px;
-  cursor: pointer;
-  outline: none;
-}
-
-.page-tear-card,
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  min-height: 290px;
+  min-height: 290px !important;
   border-radius: 20px;
   overflow: hidden;
+  cursor: pointer;
+  outline: none;
   border: 1px solid rgba(176, 141, 87, 0.35);
   background: var(--surface, #0b1526);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.08);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.page-tear-card:hover,
-.flip-card-inner:hover {
+.burn-card-container:hover {
   border-color: rgba(245, 158, 11, 0.6);
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.18);
 }
 
-/* Underlay: The revealed constitutional answer */
-.page-tear-underlay,
-.flip-card-face.flip-card-back {
+.burn-card-face {
   width: 100%;
-  min-height: 290px;
-  padding: clamp(1.25rem, 3vw, 1.75rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: linear-gradient(135deg, rgba(20, 30, 48, 0.98), rgba(11, 21, 38, 0.98));
-  color: var(--text, #ffffff);
   border-radius: 20px;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
-[data-theme='light'] .page-tear-underlay,
-[data-theme='light'] .flip-card-face.flip-card-back {
+.burn-card-underlay {
+  position: relative;
+  min-height: 290px;
+  padding: clamp(1.25rem, 3.5vw, 1.75rem);
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(20, 30, 48, 0.98), rgba(11, 21, 38, 0.98));
+  color: var(--text, #ffffff);
+}
+
+[data-theme='light'] .burn-card-underlay {
   background: linear-gradient(135deg, #fffdf8, #f7f2ea);
   color: #0f172a;
 }
 
-/* Overlay: The top parchment sheet that tears and burns away */
-.page-tear-overlay,
-.flip-card-face.flip-card-front {
+.burn-card-front {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  inset: 0;
   height: 100%;
-  padding: clamp(1.25rem, 3vw, 1.75rem);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: linear-gradient(145deg, #16243b 0%, #0c1524 100%);
-  border-radius: 20px;
+  padding: clamp(1.25rem, 3.5vw, 1.75rem);
   z-index: 2;
-  transform-origin: top left;
-  transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
-              opacity 0.6s ease,
-              filter 0.6s ease;
-  will-change: transform, opacity, filter;
-  overflow: hidden;
+  background: linear-gradient(145deg, #16243b 0%, #0c1524 100%);
+  color: var(--text, #ffffff);
+  border: 1px solid rgba(176, 141, 87, 0.25);
+  transition: opacity 0.4s ease;
 }
 
-[data-theme='light'] .page-tear-overlay,
-[data-theme='light'] .flip-card-face.flip-card-front {
+[data-theme='light'] .burn-card-front {
   background: linear-gradient(145deg, #ffffff 0%, #f7f2e6 100%);
   border: 1px solid rgba(176, 141, 87, 0.35);
   color: #0f172a;
 }
 
-/* Burnt Char & Scorch Tint along edge */
-.page-char-tint {
+.burn-card-canvas {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(to top, rgba(35, 15, 2, 0.6) 0%, rgba(245, 158, 11, 0.08) 50%, transparent 100%);
-  pointer-events: none;
-}
-
-/* Jagged Deckled Tear Edge with Burning Embers */
-.page-burn-tear-edge,
-.page-tear-ember-edge {
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 20px;
-  pointer-events: none;
-  overflow: visible;
-}
-
-.torn-edge-svg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: 16px;
-  fill: #080e18;
-  filter: drop-shadow(0 -3px 4px rgba(245, 158, 11, 0.5));
-}
-
-[data-theme='light'] .torn-edge-svg {
-  fill: #f6f0e2;
-  filter: drop-shadow(0 -3px 4px rgba(245, 158, 11, 0.4));
-}
-
-/* Glowing Fire & Ember Seam */
-.ember-fire-glow-line {
-  position: absolute;
-  bottom: 4px;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    #ff4500 15%, 
-    #ffd700 35%, 
-    #ff3700 50%, 
-    #ffd700 70%, 
-    #ff4500 85%, 
-    transparent 100%);
-  box-shadow: 0 0 12px #ff4500, 0 0 24px #f59e0b, 0 -2px 8px #ffd700;
-  animation: fireFlicker 1.8s infinite ease-in-out alternate;
-}
-
-@keyframes fireFlicker {
-  0% { opacity: 0.8; filter: blur(0.5px); transform: scaleY(0.9); }
-  50% { opacity: 1; filter: blur(1px); transform: scaleY(1.3); }
-  100% { opacity: 0.85; filter: blur(0.8px); transform: scaleY(1); }
-}
-
-/* Floating Ember Sparks */
-.burn-sparks {
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  right: 0;
-  height: 0;
+  height: 100%;
+  z-index: 4;
   pointer-events: none;
 }
 
-.spark {
-  position: absolute;
-  bottom: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #ffd700;
-  box-shadow: 0 0 8px #ff4500, 0 0 14px #ffd700;
-  opacity: 0;
-}
-
-.spark-1 { left: 20%; animation: sparkFly 2.2s infinite ease-out 0.2s; }
-.spark-2 { left: 45%; animation: sparkFly 1.8s infinite ease-out 0.6s; }
-.spark-3 { left: 70%; animation: sparkFly 2.4s infinite ease-out 0.1s; }
-.spark-4 { left: 85%; animation: sparkFly 2.0s infinite ease-out 0.9s; }
-.spark-5 { left: 35%; animation: sparkFly 2.1s infinite ease-out 1.2s; }
-.page-tear-card.is-torn .page-tear-overlay,
-.flip-card-inner.is-flipped .flip-card-face.flip-card-front,
-.flip-card-inner.is-torn .flip-card-face.flip-card-front {
-  transform: perspective(1000px) rotateX(24deg) rotateZ(-12deg) translateY(-115%) scale(0.9);
-  opacity: 0; filter: brightness(1.3) contrast(1.2); pointer-events: none;
-}
-.page-tear-card:not(.is-torn) .page-tear-overlay { transform: perspective(1000px) rotateX(0deg) rotateZ(0deg) translateY(0) scale(1); opacity: 1; }
+/* Button & Hint styling */
 .burn-action-btn { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); padding: 0.25rem 0.6rem; border-radius: 999px; color: #fbbf24 !important; transition: all 0.2s ease; }
 .burn-action-btn:hover { background: rgba(245, 158, 11, 0.28); border-color: #f59e0b; transform: scale(1.04); }
 .restore-hint { background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.35); padding: 0.25rem 0.6rem; border-radius: 999px; color: #4ade80 !important; transition: all 0.2s ease; }
@@ -328,11 +222,11 @@
 
 .page-tear-badge { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
 .page-tear-action-hint { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.76rem; font-weight: 600; cursor: pointer; }
-.page-tear-prompt-title { font-family: var(--font-serif); font-size: clamp(1.15rem, 2.5vw, 1.3rem); line-height: 1.35; margin: 0 0 0.75rem; overflow-wrap: break-word; }
-.page-tear-prompt-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0; overflow-wrap: break-word; }
+.page-tear-prompt-title { font-family: var(--font-serif); font-size: clamp(1.1rem, 2.2vw, 1.25rem); line-height: 1.35; margin: 0 0 0.5rem; overflow-wrap: break-word; }
+.page-tear-prompt-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.45; margin: 0; overflow-wrap: break-word; }
 .page-tear-reveal-title { font-size: clamp(1.1rem, 2.2vw, 1.25rem); color: var(--gold, #dfba73); margin: 0 0 0.5rem; overflow-wrap: break-word; }
 .page-tear-reveal-desc { font-size: 0.88rem; line-height: 1.5; margin: 0 0 1rem; overflow-wrap: break-word; }
-.page-tear-bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--gold, #dfba73); margin-top: 1rem; }
+.page-tear-bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--gold, #dfba73); margin-top: auto; }
 .page-tear-tag { font-size: 0.72rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
 
 .flip-hint-badge {

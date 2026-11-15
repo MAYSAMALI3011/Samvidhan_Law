@@ -2,11 +2,9 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CheckCircle2, XCircle, ArrowRight, Sparkles, ShieldAlert, Award, Flame, RotateCcw } from 'lucide-react'
 import { Mor } from '../mascot/Mor'
+import { BurnCard } from '../common/BurnCard'
 
 export function InteractiveLab() {
-  // Torn Page Codex State
-  const [isTorn, setIsTorn] = useState(false)
-
   // Mini-Quiz State
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
   const [quizSubmitted, setQuizSubmitted] = useState(false)
@@ -45,23 +43,42 @@ export function InteractiveLab() {
       </header>
 
       <div className="interactive-lab-grid">
-        {/* TOUCHPOINT 1: TORN PARCHMENT REVEAL CARD */}
-        <div className="page-tear-card-wrap">
-          <div
-            className={`page-tear-card ${isTorn ? 'is-torn' : ''}`}
-            onClick={() => setIsTorn(!isTorn)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                setIsTorn(!isTorn)
-              }
-            }}
-            aria-label={`Did you know card. ${isTorn ? 'Showing statutory answer. Tap to restore page.' : 'Showing question. Tap to tear page and unveil safeguard.'}`}
-          >
-            {/* UNDERLAY FACE (REVEALED ANSWER) */}
-            <div className="page-tear-underlay">
+        {/* TOUCHPOINT 1: REALISTIC CANVAS BURNING PARCHMENT CODEX CARD */}
+        <BurnCard
+          ariaLabel="Citizen safeguard question. Tap to burn parchment and reveal Article 22 mandate."
+          front={
+            <>
+              <div>
+                <div className="tear-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                  <span className="page-tear-badge text-gold">
+                    <ShieldAlert size={15} aria-hidden="true" />
+                    Citizen Safeguard
+                  </span>
+                  <span className="page-tear-action-hint burn-action-btn">
+                    <Flame size={14} className="flame-flicker-icon" aria-hidden="true" />
+                    <span>Tap to Burn &amp; Reveal</span>
+                  </span>
+                </div>
+                <h3 className="page-tear-prompt-title">
+                  Can the police keep an arrested citizen in custody for 3 days without a court order?
+                </h3>
+                <p className="page-tear-prompt-desc">
+                  Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this codex page to ignite and reveal the constitutional safeguard.
+                </p>
+              </div>
+
+              <div className="page-tear-bottom-row">
+                <span className="page-tear-cta-text" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Flame size={14} className="text-amber" aria-hidden="true" />
+                  <span>Burn Page to Reveal 24h Law</span>
+                  <ArrowRight size={14} aria-hidden="true" />
+                </span>
+                <span className="page-tear-tag">Constitutional Codex</span>
+              </div>
+            </>
+          }
+          back={
+            <>
               <div>
                 <div className="tear-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                   <span className="page-tear-badge text-success">
@@ -85,66 +102,17 @@ export function InteractiveLab() {
                   to="/constitution"
                   className="btn btn-outline btn-sm"
                   style={{ width: 'fit-content' }}
-                  onClick={(e) => e.stopPropagation()}
                 >
                   <span>Read Article 22</span>
                   <ArrowRight size={13} aria-hidden="true" />
                 </Link>
                 <span style={{ fontSize: '0.74rem', color: 'var(--text-tertiary)' }}>
-                  Click anywhere to restore page
+                  Click card to restore page
                 </span>
               </div>
-            </div>
-
-            {/* TOP OVERLAY FACE (PARCHMENT SHEET THAT TEARS / BURNS AWAY) */}
-            <div className="page-tear-overlay">
-              <div className="page-char-tint" aria-hidden="true" />
-
-              <div>
-                <div className="tear-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                  <span className="page-tear-badge text-gold">
-                    <ShieldAlert size={15} aria-hidden="true" />
-                    Citizen Safeguard
-                  </span>
-                  <span className="page-tear-action-hint burn-action-btn">
-                    <Flame size={14} className="flame-flicker-icon" aria-hidden="true" />
-                    <span>Tap to Burn &amp; Tear</span>
-                  </span>
-                </div>
-                <h3 className="page-tear-prompt-title">
-                  Can the police keep an arrested citizen in custody for 3 days without a court order?
-                </h3>
-                <p className="page-tear-prompt-desc">
-                  Many citizens believe custody can extend indefinitely during preliminary questioning. Tap this codex page to ignite the tear line and uncover the constitutional safeguard.
-                </p>
-              </div>
-
-              <div className="page-tear-bottom-row">
-                <span className="page-tear-cta-text" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Flame size={14} className="text-amber" aria-hidden="true" />
-                  <span>Burn Page to Reveal 24h Law</span>
-                  <ArrowRight size={14} aria-hidden="true" />
-                </span>
-                <span className="page-tear-tag">Constitutional Codex</span>
-              </div>
-
-              {/* Jagged Deckled Tear Edge with Burning Embers & Sparks */}
-              <div className="page-burn-tear-edge" aria-hidden="true">
-                <svg className="torn-edge-svg" viewBox="0 0 400 16" preserveAspectRatio="none">
-                  <path d="M0,0 L0,8 Q20,15 40,7 Q60,3 80,12 Q100,16 120,6 Q140,2 160,11 Q180,16 200,7 Q220,3 240,11 Q260,16 280,8 Q300,4 320,13 Q340,16 360,8 Q380,4 400,11 L400,0 Z" />
-                </svg>
-                <div className="ember-fire-glow-line" />
-                <div className="burn-sparks">
-                  <span className="spark spark-1" />
-                  <span className="spark spark-2" />
-                  <span className="spark spark-3" />
-                  <span className="spark spark-4" />
-                  <span className="spark spark-5" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            </>
+          }
+        />
 
         {/* TOUCHPOINT 2: 1-QUESTION INTERACTIVE MINI-QUIZ */}
         <div className="mini-quiz-card" role="region" aria-label="Interactive mini-quiz">
