@@ -82,6 +82,15 @@ export function FlipCard({
   className = '',
   variant = 'tear',
 }: FlipCardProps) {
+  // FIX B: Support dev-only ?fx=burn | ?fx=tear query parameter to force variant across cards
+  const activeVariant = useMemo(() => {
+    if (typeof window !== 'undefined' && import.meta.env.DEV) {
+      const p = new URLSearchParams(window.location.search).get('fx')
+      if (p === 'burn' || p === 'tear') return p
+    }
+    return variant
+  }, [variant])
+
   // DEV SLOW MOTION MULTIPLIER (?fxslow=4)
   const slowMultiplier = useMemo(() => {
     if (typeof window === 'undefined') return 1
@@ -113,13 +122,13 @@ export function FlipCard({
   // Phase 2 (120-470ms): rip (opens like a zip)
   // Phase 3 (470-950ms): separation (top -5%/-12%/-7deg, bottom +4%/+10%/+5deg)
   const [tearPhase, setTearPhase] = useState<'idle' | 'anticipation' | 'rip' | 'separation'>(() =>
-    isFlipped && variant === 'tear' ? 'separation' : 'idle'
+    isFlipped && activeVariant === 'tear' ? 'separation' : 'idle'
   )
   const [tearProgress, setTearProgress] = useState<number>(() =>
-    isFlipped && variant === 'tear' ? 1 : 0
+    isFlipped && activeVariant === 'tear' ? 1 : 0
   )
   const [ripProgress, setRipProgress] = useState<number>(() =>
-    isFlipped && variant === 'tear' ? 1 : 0
+    isFlipped && activeVariant === 'tear' ? 1 : 0
   )
   const [jitterOffset, setJitterOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
@@ -128,10 +137,10 @@ export function FlipCard({
   // Burn animation metrics:
   // 0-200ms: ignition, 200-1300ms: spread, 1300-1500ms: burnout
   const [burnProgress, setBurnProgress] = useState<number>(() =>
-    isFlipped && variant === 'burn' ? 1 : 0
+    isFlipped && activeVariant === 'burn' ? 1 : 0
   )
   const [burnPhase, setBurnPhase] = useState<'idle' | 'ignition' | 'spread' | 'burnout'>(() =>
-    isFlipped && variant === 'burn' ? 'burnout' : 'idle'
+    isFlipped && activeVariant === 'burn' ? 'burnout' : 'idle'
   )
   const [embers, setEmbers] = useState<EmberSpeck[]>([])
   const [smokePuffs, setSmokePuffs] = useState<SmokePuff[]>([])
@@ -155,13 +164,12 @@ export function FlipCard({
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches
   }, [])
 
+  // FIX B: Fall back to 250ms fade only when navigator.deviceMemory <= 2 (when available) or reduced motion.
+  // Removed hardwareConcurrency condition.
   const isLowEndDevice = useMemo(() => {
     if (typeof navigator === 'undefined') return false
-    const nav = navigator as unknown as { hardwareConcurrency?: number; deviceMemory?: number }
-    return (
-      (nav.hardwareConcurrency !== undefined && nav.hardwareConcurrency <= 4) ||
-      (nav.deviceMemory !== undefined && nav.deviceMemory <= 2)
-    )
+    const nav = navigator as unknown as { deviceMemory?: number }
+    return nav.deviceMemory !== undefined && nav.deviceMemory <= 2
   }, [])
 
   // Detect fine pointer / hover capability for exact hint text
@@ -202,7 +210,7 @@ export function FlipCard({
     setPrevFlipped(isFlipped)
     if (isFlipped && cardState === 'idle') {
       setCardState('revealed')
-      if (variant === 'burn') {
+      if (activeVariant === 'burn') {
         setBurnProgress(1)
         setBurnPhase('burnout')
       } else {
@@ -223,6 +231,8 @@ export function FlipCard({
     }
   }
 
+  const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   // Cleanup all timers and animation frames
   const clearAllAnimations = useCallback(() => {
     if (tearAnimRef.current !== null) {
@@ -237,11 +247,93 @@ export function FlipCard({
       clearTimeout(goldSeamTimeoutRef.current)
       goldSeamTimeoutRef.current = null
     }
+    if (safetyTimerRef.current !== null) {
+      clearTimeout(safetyTimerRef.current)
+      safetyTimerRef.current = null
+    }
   }, [])
 
   useEffect(() => {
     return () => clearAllAnimations()
   }, [clearAllAnimations, prompt])
+
+  // FIX A: Immediate clean reset to idle state
+  const resetToCleanIdle = useCallback(() => {
+    clearAllAnimations()
+    setTearProgress(0)
+    setRipProgress(0)
+    setTearPhase('idle')
+    setJitterOffset({ x: 0, y: 0 })
+    setBurnProgress(0)
+    setBurnPhase('idle')
+    setEmbers([])
+    setSmokePuffs([])
+    setGoldSeamOpacity(0)
+    setIsDragging(false)
+    hasClaimedRef.current = false
+    pointerStartRef.current = null
+    setCardState('idle')
+    onFlipChange?.(false)
+    containerRef.current?.focus()
+    setLiveAnnouncement('Question')
+  }, [clearAllAnimations, onFlipChange])
+
+  // Hard guard safety timer: if running or restoring lasts duration + 1000ms, force recovery
+  useEffect(() => {
+    if (safetyTimerRef.current !== null) {
+      clearTimeout(safetyTimerRef.current)
+      safetyTimerRef.current = null
+    }
+
+    if (cardState === 'tearing' || cardState === 'burning') {
+      const expectedDur = (activeVariant === 'burn' ? 1500 : 950) * slowMultiplier
+      safetyTimerRef.current = setTimeout(() => {
+        clearAllAnimations()
+        if (activeVariant === 'burn') {
+          setBurnProgress(1)
+          setBurnPhase('burnout')
+          setEmbers([])
+          setSmokePuffs([])
+        } else {
+          setTearProgress(1)
+          setRipProgress(1)
+          setTearPhase('separation')
+          setJitterOffset({ x: 0, y: 0 })
+        }
+        setCardState('revealed')
+        onFlipChange?.(true)
+      }, expectedDur + 1000)
+    } else if (cardState === 'reassembling' || cardState === 'rewinding') {
+      const expectedDur = (activeVariant === 'burn' ? 950 : 700) * slowMultiplier
+      safetyTimerRef.current = setTimeout(() => {
+        resetToCleanIdle()
+      }, expectedDur + 1000)
+    }
+
+    return () => {
+      if (safetyTimerRef.current !== null) {
+        clearTimeout(safetyTimerRef.current)
+        safetyTimerRef.current = null
+      }
+    }
+  }, [cardState, activeVariant, slowMultiplier, clearAllAnimations, onFlipChange, resetToCleanIdle])
+
+  // Watch for theme switches to safely land any in-flight animations in clean idle
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    const observer = new MutationObserver(() => {
+      if (
+        cardState === 'tearing' ||
+        cardState === 'burning' ||
+        cardState === 'reassembling' ||
+        cardState === 'rewinding'
+      ) {
+        resetToCleanIdle()
+      }
+    })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] })
+    return () => observer.disconnect()
+  }, [cardState, resetToCleanIdle])
 
   // --------------------------------------------------------------------------
   // TEAR GEOMETRY: DETERMINISTIC JAGGED TEAR LINE PASSING THROUGH TAP POINT
@@ -621,25 +713,61 @@ export function FlipCard({
   }, [cardState, isReducedMotion, isLowEndDevice, onFlipChange, clearAllAnimations, slowMultiplier])
 
   // --------------------------------------------------------------------------
-  // RESTORE BUTTON HANDLER
+  // RESTORE BUTTON & UNDERLAY CLICK HANDLERS
   // --------------------------------------------------------------------------
   const handleRestoreClick = useCallback(
-    (e?: React.MouseEvent | React.KeyboardEvent) => {
+    (e?: React.MouseEvent | React.KeyboardEvent | React.PointerEvent) => {
       e?.stopPropagation()
-      if (variant === 'burn') {
+      if (cardState === 'tearing' || cardState === 'burning') {
+        resetToCleanIdle()
+        return
+      }
+      if (activeVariant === 'burn') {
         startRewindAnimation()
       } else {
         startReassembleAnimation()
       }
     },
-    [variant, startRewindAnimation, startReassembleAnimation]
+    [cardState, activeVariant, resetToCleanIdle, startRewindAnimation, startReassembleAnimation]
+  )
+
+  const handleUnderlayClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      // FIX A: Allow tapping/clicking anywhere on the revealed answer card to restore
+      const target = e.target as HTMLElement
+      if (target.closest('button') || target.closest('a')) return
+      if (cardState === 'revealed') {
+        handleRestoreClick(e)
+      }
+    },
+    [cardState, handleRestoreClick]
   )
 
   // --------------------------------------------------------------------------
   // POINTER DRAG & TAP HANDLING
   // --------------------------------------------------------------------------
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
-    if (cardState !== 'idle' && cardState !== 'tearing') return
+    // FIX A: Allow tapping or clicking the revealed answer card to restore
+    if (cardState === 'revealed') {
+      const target = e.target as HTMLElement
+      if (target.closest('button') || target.closest('a')) return
+      handleRestoreClick(e)
+      return
+    }
+
+    // FIX A: Interruption safety - tapping again mid-animation (tearing, burning, reassembling, rewinding)
+    // cleanly settles in idle immediately
+    if (
+      cardState === 'tearing' ||
+      cardState === 'burning' ||
+      cardState === 'reassembling' ||
+      cardState === 'rewinding'
+    ) {
+      resetToCleanIdle()
+      return
+    }
+
+    if (cardState !== 'idle') return
     if (e.button !== 0) return
 
     const container = containerRef.current
@@ -677,7 +805,7 @@ export function FlipCard({
       }
     }
 
-    if (hasClaimedRef.current && containerRef.current && variant === 'tear') {
+    if (hasClaimedRef.current && containerRef.current && activeVariant === 'tear') {
       const width = containerRef.current.clientWidth || 300
       const progress = Math.min(1, Math.max(0, Math.abs(dx) / (width * 0.45)))
       setTearProgress(progress)
@@ -689,7 +817,7 @@ export function FlipCard({
     if (!isDragging) return
     setIsDragging(false)
 
-    if (hasClaimedRef.current && variant === 'tear') {
+    if (hasClaimedRef.current && activeVariant === 'tear') {
       if (tearProgress >= 0.35) {
         startTearAnimation(tearProgress)
       } else {
@@ -697,7 +825,7 @@ export function FlipCard({
       }
     } else {
       // Direct tap or click without dragging
-      if (variant === 'burn') {
+      if (activeVariant === 'burn') {
         startBurnAnimation(e.clientX, e.clientY)
       } else {
         startTearAnimation(0)
@@ -709,10 +837,14 @@ export function FlipCard({
   }
 
   const handlePointerCancel = () => {
+    if (cardState === 'tearing' || cardState === 'burning') {
+      resetToCleanIdle()
+      return
+    }
     setIsDragging(false)
     hasClaimedRef.current = false
     pointerStartRef.current = null
-    if (cardState === 'idle' || cardState === 'tearing') {
+    if (cardState === 'idle') {
       setTearProgress(0)
       setRipProgress(0)
     }
@@ -720,7 +852,8 @@ export function FlipCard({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      if ((e.target as HTMLElement).closest('.flip-restore-btn')) return
+      const target = e.target as HTMLElement
+      if (target.closest('.flip-restore-btn')) return
       e.preventDefault()
 
       // Center coordinates for keyboard triggers
@@ -729,11 +862,19 @@ export function FlipCard({
       if (cardState === 'revealed') {
         handleRestoreClick(e)
       } else if (cardState === 'idle') {
-        if (variant === 'burn') {
+        if (activeVariant === 'burn') {
           startBurnAnimation()
         } else {
           startTearAnimation(0)
         }
+      } else if (
+        cardState === 'tearing' ||
+        cardState === 'burning' ||
+        cardState === 'reassembling' ||
+        cardState === 'rewinding'
+      ) {
+        // Interruption: immediate clean idle
+        resetToCleanIdle()
       }
     }
   }
@@ -861,17 +1002,17 @@ export function FlipCard({
   const underlayOpacity = useMemo(() => {
     if (cardState === 'idle') return 0
     if (cardState === 'revealed') return 1
-    if (variant === 'burn') return Math.min(1, burnProgress * 1.2)
+    if (activeVariant === 'burn') return Math.min(1, burnProgress * 1.2)
     return tearProgress
-  }, [cardState, variant, burnProgress, tearProgress])
+  }, [cardState, activeVariant, burnProgress, tearProgress])
 
   // SINGLE HINT TEXT AT BOTTOM CENTER
   const singleHintText = useMemo(() => {
-    if (variant === 'burn') {
+    if (activeVariant === 'burn') {
       return canHover ? 'Click to burn the page' : 'Tap to burn the page'
     }
     return canHover ? 'Click to tear the page' : 'Tap to tear the page'
-  }, [variant, canHover])
+  }, [activeVariant, canHover])
 
   // Front card content renderer (shared identical front)
   const renderFrontFace = () => (
@@ -879,7 +1020,7 @@ export function FlipCard({
       {/* Top Header Badge */}
       <div className="flip-card-header">
         <div className="flip-badge">
-          {variant === 'burn' ? (
+          {activeVariant === 'burn' ? (
             <>
               <Flame size={14} className="text-gold" aria-hidden="true" />
               <span>DID YOU KNOW?</span>
@@ -903,16 +1044,16 @@ export function FlipCard({
     </div>
   )
 
-  const buttonLabel = variant === 'tear' ? 'Put the page back together' : 'Restore the page'
+  const buttonLabel = activeVariant === 'tear' ? 'Put the page back together' : 'Restore the page'
   const burnRadiusPct = burnProgress * 140
 
   return (
     <div
       ref={containerRef}
       className={`flip-card-perspective-container ${className} ${
-        variant === 'burn' ? 'is-burn-variant' : 'is-tear-variant'
+        activeVariant === 'burn' ? 'is-burn-variant' : 'is-tear-variant'
       } state-${cardState}`}
-      data-burn-phase={variant === 'burn' ? burnPhase : undefined}
+      data-burn-phase={activeVariant === 'burn' ? burnPhase : undefined}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -920,7 +1061,7 @@ export function FlipCard({
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="region"
-      aria-label={`Interactive ${variant} card: ${prompt}`}
+      aria-label={`Interactive ${activeVariant} card: ${prompt}`}
       aria-expanded={cardState === 'revealed'}
     >
       {/* Screen-reader live announcement for accessibility */}
@@ -940,6 +1081,7 @@ export function FlipCard({
             opacity: underlayOpacity,
             pointerEvents: cardState === 'revealed' ? 'auto' : 'none',
           }}
+          onClick={handleUnderlayClick}
           aria-hidden={cardState === 'idle'}
         >
           <div className="flip-card-face-content">
@@ -974,7 +1116,7 @@ export function FlipCard({
         {/* ================================================================== */}
         {/* 2. TEAR VARIANT: DUAL IDENTICAL FRONT COPIES CLIPPED TO TEAR LINE  */}
         {/* ================================================================== */}
-        {variant === 'tear' && (
+        {activeVariant === 'tear' && (
           <div
             className={`flip-card-layer flip-card-tear-wrapper ${
               cardState === 'revealed' ? 'is-torn' : ''
@@ -1066,7 +1208,7 @@ export function FlipCard({
         {/* ================================================================== */}
         {/* 3. BURN VARIANT: ORGANIC HOLE WITH 4 EDGE LAYERS & PARTICLES       */}
         {/* ================================================================== */}
-        {variant === 'burn' && (
+        {activeVariant === 'burn' && (
           <div
             className={`flip-card-layer flip-card-burn-wrapper ${
               cardState === 'revealed' ? 'is-burned' : ''

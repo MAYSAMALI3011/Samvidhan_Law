@@ -93,6 +93,10 @@
   box-shadow: 0 4px 14px rgba(176, 141, 87, 0.08);
 }
 
+.flip-card-underlay.is-active {
+  cursor: pointer;
+}
+
 .flip-card-face-content {
   display: flex;
   flex-direction: column;

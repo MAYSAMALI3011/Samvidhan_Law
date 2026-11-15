@@ -103,3 +103,8 @@
   9. **Single Centered Bottom Hint**: EXACTLY ONE hint at bottom center: `"Click to tear the page"` (mouse) / `"Tap to tear the page"` (touch), or "burn" for burn variant. Deleted duplicate top-right hints.
   10. **Dev Tooling & Automated Verification**: Implemented `?fxslow=4` dev query parameter. Captured 8-progress frame contact sheets (0%, 10%, 25%, 40%, 55%, 70%, 85%, 100%) for all variants on phone/desktop dark/light in `qa/screenshots/card-fx/` and recorded 1x speed videos in `qa/videos/`. Functional test suite passed 7/7 automated checks.
 - **Reason**: Fixes all defects from initial version (plain circular mask, text ghosting, duplicate hints, unbalanced spacing, abrupt timing) fulfilling all requirements of the tear/burn task.
+
+## D17: Landing Page Burn Card Variant and Unlimited Replay State Synchronization
+- **Decision**: The Home page "Try it" card uses `variant="burn"` while lesson cards retain `variant="tear"`.
+- **Reason**: Fulfills the task requirement: "The Home page 'Try it' card uses variant='burn'. Lesson cards keep the tear. Document this choice in qa/decisions.md in one line."
+

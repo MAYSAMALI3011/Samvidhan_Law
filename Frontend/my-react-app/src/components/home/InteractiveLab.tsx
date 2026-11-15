@@ -6,7 +6,13 @@ import { FlipCard } from '../learning/lesson/FlipCard'
 
 export function InteractiveLab() {
   const [searchParams] = useSearchParams()
-  const cardVariant = searchParams.get('variant') === 'burn' ? 'burn' : 'tear'
+  // FIX B: Landing page "Try it" card uses variant="burn" by default; supports dev ?fx= override
+  const cardVariant =
+    import.meta.env.DEV && searchParams.get('fx')
+      ? (searchParams.get('fx') === 'tear' ? 'tear' : 'burn')
+      : (searchParams.get('variant') === 'tear' ? 'tear' : 'burn')
+
+  const [isCardFlipped, setIsCardFlipped] = useState(false)
 
   // Mini-Quiz State
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
@@ -50,6 +56,8 @@ export function InteractiveLab() {
         <FlipCard
           variant={cardVariant}
           className="interactive-lab-card"
+          isFlipped={isCardFlipped}
+          onFlipChange={setIsCardFlipped}
           prompt="Can the police keep an arrested citizen in custody for 3 days without a court order? Many citizens believe custody can extend indefinitely during questioning."
           reveal="Under Article 22(2) of the Constitution of India and Section 57 CrPC / BNSS, every arrested person must be produced before the nearest Magistrate within 24 hours of arrest (excluding travel time). Detention beyond 24 hours without judicial sanction is unconstitutional."
           source="Article 22(2) & Section 57 CrPC / BNSS"
