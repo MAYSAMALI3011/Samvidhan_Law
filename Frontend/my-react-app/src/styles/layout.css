@@ -209,7 +209,7 @@
   /* Safe area and clearance on phone */
   .site-main {
     padding-top: calc(var(--header-h) + var(--safe-top));
-    padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 24px);
+    padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 36px);
   }
 
   [id] {

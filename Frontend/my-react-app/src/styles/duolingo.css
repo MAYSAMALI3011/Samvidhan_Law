@@ -13,9 +13,14 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 1000;
+  z-index: var(--z-header, 30);
   padding: 12px 1.5rem 0;
   pointer-events: none;
+}
+
+.floating-navbar-container.drawer-is-open {
+  z-index: 1000 !important;
+  pointer-events: auto !important;
 }
 
 .floating-pill-navbar {

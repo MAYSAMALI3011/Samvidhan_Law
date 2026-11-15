@@ -32,6 +32,18 @@ export function SiteNavbar({ onOpenSearch }: SiteNavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Lock body scroll when mobile menu drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
+
   const handleSearchClick = () => {
     if (onOpenSearch) {
       onOpenSearch()
@@ -41,7 +53,7 @@ export function SiteNavbar({ onOpenSearch }: SiteNavbarProps) {
   }
 
   return (
-    <div className="floating-navbar-container">
+    <div className={`floating-navbar-container ${mobileMenuOpen ? 'drawer-is-open' : ''}`}>
       <header className={`floating-pill-navbar ${scrolled ? 'is-scrolled' : ''}`}>
         {/* Left: Brand Emblem & Wordmark */}
         <Link className="brand-pill-link" to="/" aria-label="Samvidhan Home">
