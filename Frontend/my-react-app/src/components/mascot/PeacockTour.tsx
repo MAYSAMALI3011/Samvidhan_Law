@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Mor, type MorMood } from './Mor'
 import { ArrowRight, ArrowLeft, X, Sparkles, CheckCircle2, Compass } from 'lucide-react'
+import { useAppState } from '../../context/useAppState'
 import './peacock-tour.css'
 
 export interface TourStep {
@@ -69,44 +70,51 @@ const TOUR_STEPS: TourStep[] = [
 ]
 
 export function PeacockTour() {
+  const { user } = useAppState()
   const [isOpen, setIsOpen] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
-  const [showAutoInvite, setShowAutoInvite] = useState(false)
   const navigate = useNavigate()
 
-  // Listen for custom start event
+  // Storage key is scoped to user email if logged in, or guest if not
+  const userEmail = user?.email
+  const storageKey = userEmail ? `samvidhan_tour_seen_${userEmail}` : 'samvidhan_tour_seen_guest'
+
+  // Listen for custom start event (e.g. from buttons)
   useEffect(() => {
     const handleStart = () => {
       setCurrentStep(0)
       setIsOpen(true)
-      setShowAutoInvite(false)
     }
 
     window.addEventListener('start-peacock-tour', handleStart)
     return () => window.removeEventListener('start-peacock-tour', handleStart)
   }, [])
 
-  // Check if first-time visitor; if so, show a polite invite after 2.2s
+  // Auto-show ONLY if user is logging in or using for the first time
   useEffect(() => {
     try {
-      const hasSeen = localStorage.getItem('samvidhan_seen_peacock_tour')
-      if (!hasSeen) {
+      const hasSeenSpecific = localStorage.getItem(storageKey)
+      const hasSeenGlobal = localStorage.getItem('samvidhan_tour_completed')
+
+      // If user has never seen it before, open automatically once
+      if (!hasSeenSpecific && !hasSeenGlobal) {
         const timer = setTimeout(() => {
-          setShowAutoInvite(true)
-        }, 2200)
+          setCurrentStep(0)
+          setIsOpen(true)
+        }, 800)
         return () => clearTimeout(timer)
       }
     } catch {
       // Ignore localStorage errors
     }
-  }, [])
+  }, [storageKey])
 
-  // Close tour
+  // Close tour and mark as seen so it never auto-shows again
   const handleClose = useCallback(() => {
     setIsOpen(false)
-    setShowAutoInvite(false)
     try {
-      localStorage.setItem('samvidhan_seen_peacock_tour', 'true')
+      localStorage.setItem(storageKey, 'true')
+      localStorage.setItem('samvidhan_tour_completed', 'true')
     } catch {
       // Ignore
     }
@@ -114,7 +122,7 @@ export function PeacockTour() {
     document.querySelectorAll('.peacock-tour-target-active').forEach((el) => {
       el.classList.remove('peacock-tour-target-active')
     })
-  }, [])
+  }, [storageKey])
 
   const handleFinish = useCallback(() => {
     const step = TOUR_STEPS[currentStep]
@@ -186,75 +194,8 @@ export function PeacockTour() {
 
   return (
     <>
-      {/* 1. First-Time Gentle Floating Invite Bubble (Bottom-Left) */}
-      {showAutoInvite && !isOpen && (
-        <aside
-          className="peacock-auto-invite-bubble"
-          role="region"
-          aria-label="Guided tour invitation"
-        >
-          <div className="peacock-invite-avatar">
-            <Mor mood="wave" size={56} animate decorative />
-          </div>
-          <div className="peacock-invite-body">
-            <div className="peacock-invite-header">
-              <span className="peacock-invite-tag">
-                <Sparkles size={11} aria-hidden="true" />
-                Meet Your Guide
-              </span>
-              <button
-                type="button"
-                className="peacock-invite-close"
-                onClick={() => {
-                  setShowAutoInvite(false)
-                  try {
-                    localStorage.setItem('samvidhan_seen_peacock_tour', 'true')
-                  } catch {
-                    // Ignore
-                  }
-                }}
-                aria-label="Dismiss tour invite"
-              >
-                <X size={13} aria-hidden="true" />
-              </button>
-            </div>
-            <p className="peacock-invite-text">
-              &ldquo;New here? Want me to show you where to start in 1 minute?&rdquo;
-            </p>
-            <div className="peacock-invite-btn-row">
-              <button
-                type="button"
-                className="btn btn-primary btn-sm peacock-invite-start-btn"
-                onClick={() => {
-                  setCurrentStep(0)
-                  setIsOpen(true)
-                  setShowAutoInvite(false)
-                }}
-              >
-                <span>Yes, show me!</span>
-                <ArrowRight size={13} aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className="btn btn-outline btn-sm"
-                onClick={() => {
-                  setShowAutoInvite(false)
-                  try {
-                    localStorage.setItem('samvidhan_seen_peacock_tour', 'true')
-                  } catch {
-                    // Ignore
-                  }
-                }}
-              >
-                <span>I&apos;ll explore</span>
-              </button>
-            </div>
-          </div>
-        </aside>
-      )}
-
-      {/* 2. Persistent Floating Pill (Bottom-Left) */}
-      {!isOpen && !showAutoInvite && (
+      {/* 1. Persistent Floating Pill (Bottom-Left) for users who want to replay anytime */}
+      {!isOpen && (
         <button
           type="button"
           className="peacock-tour-trigger-pill"
@@ -276,33 +217,45 @@ export function PeacockTour() {
         </button>
       )}
 
-      {/* 3. The Interactive Tour Overlay & Modal */}
+      {/* 2. The Interactive Tour Overlay & Modal */}
       {isOpen && activeStep && (
-        <div className="peacock-tour-backdrop-layer" role="dialog" aria-modal="true" aria-labelledby="peacock-step-title">
-          <div className="peacock-tour-backdrop" onClick={handleClose} />
+        <div
+          className="peacock-tour-backdrop-layer"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="peacock-step-title"
+        >
+          <div
+            className="peacock-tour-backdrop"
+            onClick={handleClose}
+            title="Click to skip tour"
+          />
 
           <div className="peacock-tour-modal-card samvidhan-glow-card">
-            {/* Mascot Avatar Column */}
+            {/* Desktop Mascot Column */}
             <div className="peacock-modal-mascot-col">
               <div className="peacock-mascot-pulse-ring">
-                <Mor mood={activeStep.mood} size={84} animate decorative />
+                <Mor mood={activeStep.mood} size={76} animate decorative />
               </div>
             </div>
 
-            {/* Dialog Content Column */}
+            {/* Content Column */}
             <div className="peacock-modal-content-col">
               <div className="peacock-modal-top-row">
                 <span className="peacock-step-pill">
                   <Sparkles size={11} aria-hidden="true" />
                   Step {currentStep + 1} of {TOUR_STEPS.length}
                 </span>
+
+                {/* Prominent Skip Button */}
                 <button
                   type="button"
                   className="peacock-modal-skip-btn"
                   onClick={handleClose}
-                  aria-label="Close tour"
+                  aria-label="Skip tour"
+                  title="Skip tour anytime"
                 >
-                  <X size={15} aria-hidden="true" />
+                  <X size={16} aria-hidden="true" />
                   <span>Skip tour</span>
                 </button>
               </div>
@@ -315,15 +268,26 @@ export function PeacockTour() {
                 {activeStep.text}
               </p>
 
-              {/* Progress Dots & Navigation Buttons */}
+              {/* Footer with Skip, Progress Dots, and Next/Back */}
               <div className="peacock-modal-footer">
-                <div className="peacock-dots-row" aria-hidden="true">
-                  {TOUR_STEPS.map((_, idx) => (
-                    <span
-                      key={idx}
-                      className={`peacock-dot ${idx === currentStep ? 'is-active' : ''} ${idx < currentStep ? 'is-completed' : ''}`}
-                    />
-                  ))}
+                <div className="peacock-footer-mobile-meta">
+                  <button
+                    type="button"
+                    className="peacock-footer-skip-btn"
+                    onClick={handleClose}
+                    aria-label="Skip tour"
+                  >
+                    Skip tour
+                  </button>
+
+                  <div className="peacock-dots-row" aria-hidden="true">
+                    {TOUR_STEPS.map((_, idx) => (
+                      <span
+                        key={idx}
+                        className={`peacock-dot ${idx === currentStep ? 'is-active' : ''} ${idx < currentStep ? 'is-completed' : ''}`}
+                      />
+                    ))}
+                  </div>
                 </div>
 
                 <div className="peacock-actions-row">

@@ -29,25 +29,25 @@ export function GuidedPathBar() {
           gap: '1.25rem',
           padding: '1.25rem 1.75rem',
           borderRadius: '18px',
-          background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(28, 41, 65, 0.95))',
-          border: '1.5px solid var(--gold-border, rgba(176, 141, 87, 0.4))',
+          border: '1.5px solid var(--gold-border)',
           marginBottom: '2rem',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', minWidth: '260px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', minWidth: '240px', flex: '1 1 300px' }}>
           <div style={{ flexShrink: 0 }}>
             <Mor mood="wave" size={54} animate decorative />
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
               <span className="pill pill-gold" style={{ fontSize: '0.68rem', padding: '2px 8px', letterSpacing: '0.06em' }}>
                 <Sparkles size={11} aria-hidden="true" />
                 PEACOCK GUIDE
               </span>
-              <strong style={{ fontSize: '0.95rem', color: '#ffffff' }}>Feeling lost or new here?</strong>
+              <strong style={{ fontSize: '0.95rem', color: 'var(--text)' }}>
+                Feeling lost or new here?
+              </strong>
             </div>
-            <p style={{ margin: 0, fontSize: '0.86rem', color: '#cbd5e1', lineHeight: 1.4 }}>
+            <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--text-muted)', lineHeight: 1.45 }}>
               Let Mor the Peacock show you where to click and how the website works in just 1 minute.
             </p>
           </div>
@@ -57,14 +57,14 @@ export function GuidedPathBar() {
           type="button"
           className="btn btn-primary btn-sm"
           onClick={startPeacockTour}
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.55rem 1.25rem' }}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.6rem 1.25rem', minHeight: '42px' }}
         >
           <Compass size={16} aria-hidden="true" />
           <span>Take 1-Minute Tour with Mor</span>
         </button>
       </div>
 
-      {/* 2. Clear 3-Step Fixed Journey */}
+      {/* 2. Clear 3-Step Fixed Journey Header */}
       <header className="section-head" style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
         <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           <Sparkles size={13} className="text-gold" aria-hidden="true" />
@@ -78,11 +78,12 @@ export function GuidedPathBar() {
         </p>
       </header>
 
+      {/* 3. Three Responsive Step Cards */}
       <div
         className="guided-path-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
           gap: '1.25rem',
         }}
       >
@@ -106,21 +107,21 @@ export function GuidedPathBar() {
               </span>
               <div
                 style={{
-                  width: '36px',
-                  height: '36px',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '50%',
                   background: 'rgba(176, 141, 87, 0.15)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: 'var(--gold, #dfba73)',
+                  color: 'var(--gold, #b08d57)',
                 }}
               >
                 <BookOpen size={18} aria-hidden="true" />
               </div>
             </div>
 
-            <h3 style={{ fontSize: '1.18rem', margin: '0 0 0.5rem', fontWeight: 600 }}>
+            <h3 style={{ fontSize: '1.18rem', margin: '0 0 0.5rem', fontWeight: 600, color: 'var(--text)' }}>
               Read a 3-Minute Lesson
             </h3>
             <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: '0 0 1.25rem' }}>
@@ -131,7 +132,7 @@ export function GuidedPathBar() {
           <Link
             to="/learn/foundations-of-the-republic/preamble-we-the-people"
             className="btn btn-primary btn-sm"
-            style={{ width: '100%', justifyContent: 'center' }}
+            style={{ width: '100%', justifyContent: 'center', minHeight: '44px' }}
           >
             <span>Start Free Lesson</span>
             <ArrowRight size={14} aria-hidden="true" />
@@ -153,26 +154,26 @@ export function GuidedPathBar() {
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-              <span className="pill" style={{ fontSize: '0.72rem', fontWeight: 700, background: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0' }}>
+              <span className="pill" style={{ fontSize: '0.72rem', fontWeight: 700, background: 'var(--surface-2)', color: 'var(--text)' }}>
                 STEP 02 &bull; PRACTICE
               </span>
               <div
                 style={{
-                  width: '36px',
-                  height: '36px',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '50%',
                   background: 'rgba(239, 68, 68, 0.15)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#f87171',
+                  color: '#ef4444',
                 }}
               >
                 <Flame size={18} aria-hidden="true" />
               </div>
             </div>
 
-            <h3 style={{ fontSize: '1.18rem', margin: '0 0 0.5rem', fontWeight: 600 }}>
+            <h3 style={{ fontSize: '1.18rem', margin: '0 0 0.5rem', fontWeight: 600, color: 'var(--text)' }}>
               Try the Practice Card
             </h3>
             <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: '0 0 1.25rem' }}>
@@ -184,7 +185,7 @@ export function GuidedPathBar() {
             type="button"
             className="btn btn-secondary btn-sm"
             onClick={() => scrollTo('interactive-lab-section')}
-            style={{ width: '100%', justifyContent: 'center' }}
+            style={{ width: '100%', justifyContent: 'center', minHeight: '44px' }}
           >
             <span>Try the Card Below</span>
             <ArrowRight size={14} aria-hidden="true" />
@@ -206,26 +207,26 @@ export function GuidedPathBar() {
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-              <span className="pill" style={{ fontSize: '0.72rem', fontWeight: 700, background: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0' }}>
+              <span className="pill" style={{ fontSize: '0.72rem', fontWeight: 700, background: 'var(--surface-2)', color: 'var(--text)' }}>
                 STEP 03 &bull; REAL HELP
               </span>
               <div
                 style={{
-                  width: '36px',
-                  height: '36px',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '50%',
                   background: 'rgba(56, 189, 248, 0.15)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#38bdf8',
+                  color: '#0284c7',
                 }}
               >
                 <ShieldAlert size={18} aria-hidden="true" />
               </div>
             </div>
 
-            <h3 style={{ fontSize: '1.18rem', margin: '0 0 0.5rem', fontWeight: 600 }}>
+            <h3 style={{ fontSize: '1.18rem', margin: '0 0 0.5rem', fontWeight: 600, color: 'var(--text)' }}>
               Solve a Real Situation
             </h3>
             <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: '0 0 1.25rem' }}>
@@ -237,7 +238,7 @@ export function GuidedPathBar() {
             type="button"
             className="btn btn-secondary btn-sm"
             onClick={() => scrollTo('situations-section')}
-            style={{ width: '100%', justifyContent: 'center' }}
+            style={{ width: '100%', justifyContent: 'center', minHeight: '44px' }}
           >
             <span>See Daily Situations</span>
             <ArrowRight size={14} aria-hidden="true" />
