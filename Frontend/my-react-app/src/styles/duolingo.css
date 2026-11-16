@@ -352,6 +352,11 @@
   pointer-events: auto;
 }
 
+/* Hide mobile bottom tab bar when drawer menu is open so it never covers drawer links */
+body:has(.mobile-drawer-overlay) .mobile-tab-bar {
+  display: none !important;
+}
+
 .mobile-drawer-content {
   width: min(340px, 88vw);
   height: 100dvh;

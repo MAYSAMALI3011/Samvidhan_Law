@@ -29,6 +29,8 @@ export function SiteLayout() {
     (location.pathname.startsWith('/learn/') && location.pathname.split('/').filter(Boolean).length >= 3) ||
     location.pathname.startsWith('/quiz/')
   const hideChrome = isAuthRoute || isFocusModeRoute
+  const hideFloatingAssistant =
+    isFocusModeRoute || location.pathname === '/ask' || location.pathname.startsWith('/constitution')
 
   // Scroll restoration: reset window scroll to top whenever route changes
   useEffect(() => {
@@ -93,8 +95,8 @@ export function SiteLayout() {
       {/* Mobile Bottom Tab Bar (Hidden on auth & focus mode) */}
       {!hideChrome && <MobileTabBar />}
 
-      {/* Ask Samvidhan Floating Assistant (Hidden in focus mode) */}
-      {!isFocusModeRoute && <AskSamvidhanLauncher />}
+      {/* Ask Samvidhan Floating Assistant (Hidden in focus mode, /ask, and /constitution reader) */}
+      {!hideFloatingAssistant && <AskSamvidhanLauncher />}
 
       {/* Command Palette Search Modal */}
       <SearchPalette

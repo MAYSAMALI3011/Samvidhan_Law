@@ -18,7 +18,7 @@ export interface TourStep {
 const TOUR_STEPS: TourStep[] = [
   {
     id: 'welcome',
-    targetId: 'hero-mascot-companion',
+    targetId: 'hero-cta-buttons',
     title: 'Hi! I am Mor, your peacock friend.',
     text: 'Welcome to Samvidhan! You never have to guess what to do. I will show you around in 1 minute so you always know where to click.',
     mood: 'wave',

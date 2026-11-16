@@ -483,19 +483,24 @@ html[data-theme='dark'] .codex-avatar-seal {
 }
 
 .codex-dot {
-  width: 7px;
-  height: 7px;
+  min-width: unset !important;
+  min-height: unset !important;
+  width: 7px !important;
+  height: 7px !important;
   border-radius: 50%;
   background: var(--border);
   border: 0;
-  padding: 0;
+  padding: 0 !important;
+  margin: 0 !important;
   cursor: pointer;
   transition: all var(--dur-fast) ease;
 }
 
 .codex-dot.is-active {
-  width: 18px;
-  border-radius: 4px;
+  min-width: unset !important;
+  min-height: unset !important;
+  width: 18px !important;
+  border-radius: 4px !important;
   background: var(--gold);
 }
 

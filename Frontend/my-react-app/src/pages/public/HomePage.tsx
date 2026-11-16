@@ -127,6 +127,26 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* SECTION 4.5: CONSTITUTIONAL WISDOM (Dedicated section on mobile; desktop shows it in hero) */}
+      <section className="mobile-wisdom-section container" aria-label="Constitutional Wisdom" style={{ margin: '3.5rem auto' }}>
+        <header className="section-head" style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
+          <span className="section-eyebrow">
+            <Scale size={14} className="eyebrow-icon text-gold" aria-hidden="true" />
+            Constitutional Wisdom
+          </span>
+          <h2 className="section-title">
+            Words from the Chief Architect
+          </h2>
+          <p className="section-desc" style={{ maxWidth: '36rem', margin: '0 auto' }}>
+            Timeless constitutional principles from Dr. B.R. Ambedkar and the Constituent Assembly.
+          </p>
+        </header>
+
+        <div style={{ maxWidth: '580px', margin: '0 auto' }}>
+          <HeroCodexCard />
+        </div>
+      </section>
+
       {/* SECTION 5: SMART LEGAL HELPER (ASK SAMVIDHAN PREVIEW) */}
       <AskPreviewCard />
 
