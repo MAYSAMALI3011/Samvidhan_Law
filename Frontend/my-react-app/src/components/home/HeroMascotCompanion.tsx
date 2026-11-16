@@ -2,7 +2,8 @@ import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Mor, type MorMood } from '../mascot/Mor'
 import { useAppState } from '../../context/useAppState'
-import { Sparkles, BookOpen, Scale, MessageSquare, X } from 'lucide-react'
+import { Sparkles, BookOpen, Scale, MessageSquare, X, Compass } from 'lucide-react'
+import { startPeacockTour } from '../mascot/peacockTourEvents'
 
 export function HeroMascotCompanion() {
   const { progress } = useAppState()
@@ -39,6 +40,7 @@ export function HeroMascotCompanion() {
 
   return (
     <div
+      id="hero-mascot-companion"
       ref={containerRef}
       className="hero-mascot-companion-wrap"
       onMouseMove={handleMouseMove}
@@ -95,6 +97,16 @@ export function HeroMascotCompanion() {
 
           {/* Direct Quick-Choice Action Chips */}
           <div className="hero-mascot-chips-row" role="group" aria-label="Quick constitutional navigation">
+            <button
+              type="button"
+              className="hero-mascot-chip"
+              onClick={startPeacockTour}
+              style={{ background: 'rgba(176, 141, 87, 0.22)', border: '1px solid var(--gold, #dfba73)', color: '#ffffff' }}
+              title="Let Mor show you where to click"
+            >
+              <Compass size={14} className="text-gold" aria-hidden="true" />
+              <span style={{ fontWeight: 600 }}>1-Min Tour with Mor</span>
+            </button>
             <Link
               to="/learn"
               className="hero-mascot-chip"

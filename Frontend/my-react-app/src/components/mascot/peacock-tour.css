@@ -1,0 +1,388 @@
+/* ==========================================================================
+   PEACOCK GUIDED TOUR (MOR MASCOT WALKTHROUGH)
+   Deluxe Navy & Imperial Gold theme with smooth spotlighting & dialog bubbles
+   ========================================================================== */
+
+/* 1. TARGET ELEMENT SPOTLIGHT HIGHLIGHT */
+.peacock-tour-target-active {
+  position: relative !important;
+  z-index: 99995 !important;
+  outline: 3px solid var(--gold, #dfba73) !important;
+  outline-offset: 6px !important;
+  box-shadow: 0 0 35px rgba(223, 186, 115, 0.4), 0 12px 36px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 16px !important;
+  transition: outline 0.3s ease, box-shadow 0.3s ease !important;
+  background-color: var(--navy-surface, rgba(15, 23, 42, 0.95)) !important;
+}
+
+/* 2. TOUR BACKDROP OVERLAY */
+.peacock-tour-backdrop-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.peacock-tour-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.68);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: auto;
+  animation: peacockFadeIn 0.25s ease-out forwards;
+}
+
+/* 3. MODAL DIALOG CARD */
+.peacock-tour-modal-card {
+  position: relative;
+  z-index: 99999;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 640px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(20, 30, 48, 0.98));
+  border: 1px solid var(--gold-border, rgba(176, 141, 87, 0.45));
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(176, 141, 87, 0.25);
+  animation: peacockSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.peacock-modal-mascot-col {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.peacock-mascot-pulse-ring {
+  position: relative;
+  border-radius: 50%;
+  padding: 6px;
+  background: radial-gradient(circle, rgba(176, 141, 87, 0.2) 0%, transparent 70%);
+}
+
+.peacock-modal-content-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.peacock-modal-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.peacock-step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold, #dfba73);
+  background: rgba(176, 141, 87, 0.15);
+  border: 1px solid rgba(176, 141, 87, 0.35);
+  padding: 3px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.peacock-modal-skip-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+
+.peacock-modal-skip-btn:hover {
+  color: #f1f5f9;
+}
+
+.peacock-step-heading {
+  font-family: var(--font-serif, 'Cinzel', serif);
+  font-size: 1.25rem;
+  line-height: 1.35;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+}
+
+.peacock-step-body {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  margin: 0 0 1.25rem;
+}
+
+.peacock-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid rgba(176, 141, 87, 0.2);
+  padding-top: 1rem;
+}
+
+.peacock-dots-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.peacock-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.25s ease;
+}
+
+.peacock-dot.is-active {
+  width: 20px;
+  border-radius: 999px;
+  background: var(--gold, #dfba73);
+  box-shadow: 0 0 8px rgba(223, 186, 115, 0.6);
+}
+
+.peacock-dot.is-completed {
+  background: rgba(223, 186, 115, 0.45);
+}
+
+.peacock-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.peacock-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  padding: 0.45rem 1rem;
+}
+
+/* 4. PERSISTENT FLOATING TRIGGER PILL (Bottom-Left) */
+.peacock-tour-trigger-pill {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 9990;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 8px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid var(--gold-border, rgba(176, 141, 87, 0.4));
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px rgba(176, 141, 87, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.peacock-tour-trigger-pill:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: var(--gold, #dfba73);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(176, 141, 87, 0.35);
+}
+
+.trigger-avatar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(176, 141, 87, 0.15);
+  border: 1px solid rgba(176, 141, 87, 0.35);
+}
+
+.trigger-text-wrap {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.trigger-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.trigger-sub {
+  font-size: 0.68rem;
+  color: var(--gold, #dfba73);
+  font-weight: 600;
+}
+
+/* 5. GENTLE AUTO-INVITE BUBBLE */
+.peacock-auto-invite-bubble {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 9992;
+  display: flex;
+  gap: 12px;
+  max-width: 360px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(20, 30, 48, 0.98));
+  border: 1.5px solid var(--gold, #dfba73);
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(176, 141, 87, 0.3);
+  animation: peacockBounceIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.peacock-invite-avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+.peacock-invite-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.peacock-invite-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.peacock-invite-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--gold, #dfba73);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.peacock-invite-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.peacock-invite-close:hover {
+  color: #ffffff;
+}
+
+.peacock-invite-text {
+  font-size: 0.88rem;
+  color: #f1f5f9;
+  line-height: 1.4;
+  margin: 0 0 0.85rem;
+}
+
+.peacock-invite-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+.peacock-invite-start-btn {
+  font-size: 0.78rem;
+  padding: 0.35rem 0.75rem;
+}
+
+/* ANIMATIONS */
+@keyframes peacockFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes peacockSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes peacockBounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  60% {
+    transform: translateY(-4px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* MOBILE ADAPTATION */
+@media (max-width: 640px) {
+  .peacock-tour-backdrop-layer {
+    padding: 1rem;
+  }
+
+  .peacock-tour-modal-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .peacock-modal-top-row {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .peacock-modal-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .peacock-actions-row {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .peacock-nav-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .peacock-tour-trigger-pill {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 5px 12px 5px 6px;
+  }
+
+  .peacock-auto-invite-bubble {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
+  }
+}

@@ -3,7 +3,12 @@ import { MessageSquare, ArrowRight, ShieldCheck, Sparkles, BookOpen } from 'luci
 
 export function AskPreviewCard() {
   return (
-    <section className="ask-preview-section container" aria-labelledby="ask-preview-title" style={{ margin: '3.5rem auto' }}>
+    <section
+      id="ask-preview-section"
+      className="ask-preview-section container"
+      aria-labelledby="ask-preview-title"
+      style={{ margin: '3.5rem auto' }}
+    >
       <div
         className="ask-preview-grid-container"
         style={{

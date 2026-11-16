@@ -37,7 +37,12 @@ export function InteractiveLab() {
   }
 
   return (
-    <section className="interactive-lab-section container" aria-labelledby="interactive-lab-title" style={{ margin: '3.5rem auto' }}>
+    <section
+      id="interactive-lab-section"
+      className="interactive-lab-section container"
+      aria-labelledby="interactive-lab-title"
+      style={{ margin: '3.5rem auto' }}
+    >
       <header className="section-head" style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
         <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           <Sparkles size={13} className="text-gold" aria-hidden="true" />

@@ -2,6 +2,7 @@ import {
   ArrowRight,
   CheckCircle,
   Scale,
+  Compass,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { HeroReveal } from '../../components/animations/HeroReveal'
@@ -11,11 +12,14 @@ import { Accordion } from '../../components/common/Disclosure'
 import { Reveal } from '../../components/animations/Reveal'
 import { SituationsCarousel } from '../../components/cards/SituationsCarousel'
 import { HeroMascotCompanion } from '../../components/home/HeroMascotCompanion'
+import { GuidedPathBar } from '../../components/home/GuidedPathBar'
 import { InteractiveLab } from '../../components/home/InteractiveLab'
 import { CourseSnapRail } from '../../components/home/CourseSnapRail'
 import { ConstitutionTeaser } from '../../components/home/ConstitutionTeaser'
 import { AskPreviewCard } from '../../components/home/AskPreviewCard'
 import { HowItWorksSteps } from '../../components/home/HowItWorksSteps'
+import { PeacockTour } from '../../components/mascot/PeacockTour'
+import { startPeacockTour } from '../../components/mascot/peacockTourEvents'
 import { faqs } from '../../data/mock/faqs'
 import { usePageMeta } from '../../hooks/usePageMeta'
 
@@ -53,11 +57,20 @@ export function HomePage() {
               An easy, step-by-step way to learn the Constitution of India, your everyday citizen rights, and what to do when you need the law.
             </p>
 
-            <div className="hero-cta-group">
+            <div className="hero-cta-group" id="hero-cta-buttons">
               <Link to="/learn/foundations-of-the-republic/preamble-we-the-people" className="btn btn-primary hero-primary-btn">
                 <span>Start a free lesson</span>
                 <ArrowRight size={17} aria-hidden="true" />
               </Link>
+              <button
+                type="button"
+                className="btn btn-secondary hero-secondary-btn"
+                onClick={startPeacockTour}
+                title="Take a 1-minute guided tour with Mor"
+              >
+                <Compass size={16} className="text-gold" aria-hidden="true" />
+                <span>Take 1-Min Tour</span>
+              </button>
               <Link to="/constitution" className="btn btn-secondary hero-secondary-btn">
                 <span>Browse Constitution</span>
               </Link>
@@ -91,6 +104,9 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* SECTION 1.5: GUIDED 3-STEP JOURNEY (NO MORE GUESSING) */}
+      <GuidedPathBar />
+
       {/* SECTION 2: TAP-TO-TRY INTERACTIVE CITIZEN LAB (Flip Card & Mini-Quiz) */}
       <InteractiveLab />
 
@@ -101,7 +117,12 @@ export function HomePage() {
       <CourseSnapRail />
 
       {/* SECTION 5: SITUATION PLAYBOOKS (Everyday Encounters) */}
-      <section className="situations-section" aria-labelledby="situations-heading" style={{ margin: '3.5rem auto' }}>
+      <section
+        id="situations-section"
+        className="situations-section"
+        aria-labelledby="situations-heading"
+        style={{ margin: '3.5rem auto' }}
+      >
         <div className="container">
           <header className="section-head" style={{ marginBottom: '1.75rem' }}>
             <span className="section-eyebrow">
@@ -175,6 +196,9 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* PEACOCK GUIDED TOUR WALKTHROUGH */}
+      <PeacockTour />
     </div>
   )
 }
