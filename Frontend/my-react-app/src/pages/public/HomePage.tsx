@@ -11,13 +11,11 @@ import { Marquee } from '../../components/common/Marquee'
 import { Accordion } from '../../components/common/Disclosure'
 import { Reveal } from '../../components/animations/Reveal'
 import { SituationsCarousel } from '../../components/cards/SituationsCarousel'
-import { HeroMascotCompanion } from '../../components/home/HeroMascotCompanion'
 import { GuidedPathBar } from '../../components/home/GuidedPathBar'
 import { InteractiveLab } from '../../components/home/InteractiveLab'
 import { CourseSnapRail } from '../../components/home/CourseSnapRail'
 import { ConstitutionTeaser } from '../../components/home/ConstitutionTeaser'
 import { AskPreviewCard } from '../../components/home/AskPreviewCard'
-import { HowItWorksSteps } from '../../components/home/HowItWorksSteps'
 import { PeacockTour } from '../../components/mascot/PeacockTour'
 import { startPeacockTour } from '../../components/mascot/peacockTourEvents'
 import { faqs } from '../../data/mock/faqs'
@@ -35,7 +33,7 @@ export function HomePage() {
 
   return (
     <div className="home-page-container">
-      {/* SECTION 1: HERO WITH MOR COMPANION & CODEX QUOTE CARD */}
+      {/* SECTION 1: HERO (UNCLUTTERED HEADLINE, 2 CLEAR CTAs & AMBEDKAR QUOTE CARD) */}
       <section className="home-hero">
         <div className="container hero-grid">
           <HeroReveal delay={0.1} className="hero-content">
@@ -66,15 +64,9 @@ export function HomePage() {
                 title="Take a 1-minute guided tour with Mor"
               >
                 <Compass size={16} className="text-gold" aria-hidden="true" />
-                <span>Take 1-Min Tour</span>
+                <span>Take 1-Min Tour with Mor</span>
               </button>
-              <Link to="/constitution" className="btn btn-secondary hero-secondary-btn">
-                <span>Browse Constitution</span>
-              </Link>
             </div>
-
-            {/* Interactive Mascot Companion with Live Speech Bubble & Direct Action Chips */}
-            <HeroMascotCompanion />
 
             <div className="hero-trust-row" aria-label="Key platform assurances">
               <div className="hero-trust-item">
@@ -104,19 +96,13 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 1.5: GUIDED 3-STEP JOURNEY (NO MORE GUESSING) */}
+      {/* SECTION 2: GUIDED 3-STEP JOURNEY (CLEAR, FIXED PROGRESSION) */}
       <GuidedPathBar />
 
-      {/* SECTION 2: TAP-TO-TRY INTERACTIVE CITIZEN LAB (Flip Card & Mini-Quiz) */}
+      {/* SECTION 3: TAP-TO-TRY INTERACTIVE CITIZEN LAB (Step 2 Practice) */}
       <InteractiveLab />
 
-      {/* SECTION 3: HOW IT WORKS (4 Animated Steps + XP Counter Demo) */}
-      <HowItWorksSteps />
-
-      {/* SECTION 4: HORIZONTAL COURSE RAIL (Coursera / Varsity Style Snap Scroll) */}
-      <CourseSnapRail />
-
-      {/* SECTION 5: SITUATION PLAYBOOKS (Everyday Encounters) */}
+      {/* SECTION 4: SITUATION PLAYBOOKS (Step 3 Real-Life Encounters) */}
       <section
         id="situations-section"
         className="situations-section"
@@ -141,11 +127,14 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* SECTION 5: SMART LEGAL HELPER (ASK SAMVIDHAN PREVIEW) */}
+      <AskPreviewCard />
+
       {/* SECTION 6: CONSTITUTION EXPLORER TEASER */}
       <ConstitutionTeaser />
 
-      {/* SECTION 7: ASK SAMVIDHAN PREVIEW */}
-      <AskPreviewCard />
+      {/* SECTION 7: FULL COURSE CURRICULUM RAIL */}
+      <CourseSnapRail />
 
       {/* SECTION 8: FREQUENTLY ASKED QUESTIONS */}
       <section className="faq-section" aria-labelledby="faq-heading" style={{ margin: '3.5rem auto' }}>

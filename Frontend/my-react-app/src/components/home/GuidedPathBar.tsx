@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BookOpen, Flame, ShieldAlert, ArrowRight, Sparkles, Compass } from 'lucide-react'
-import { startPeacockTour } from '../mascot/peacockTourEvents'
+import { BookOpen, Flame, ShieldAlert, ArrowRight } from 'lucide-react'
 import { Mor } from '../mascot/Mor'
 
 export function GuidedPathBar() {
@@ -18,67 +17,35 @@ export function GuidedPathBar() {
       aria-labelledby="guided-path-title"
       style={{ margin: '2.5rem auto 3.5rem' }}
     >
-      {/* 1. Peacock Guide Callout Banner */}
-      <div
-        className="guided-path-tour-banner samvidhan-glow-card"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '1.25rem',
-          padding: '1.25rem 1.75rem',
-          borderRadius: '18px',
-          border: '1.5px solid var(--gold-border)',
-          marginBottom: '2rem',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', minWidth: '240px', flex: '1 1 300px' }}>
-          <div style={{ flexShrink: 0 }}>
-            <Mor mood="wave" size={54} animate decorative />
-          </div>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-              <span className="pill pill-gold" style={{ fontSize: '0.68rem', padding: '2px 8px', letterSpacing: '0.06em' }}>
-                <Sparkles size={11} aria-hidden="true" />
-                PEACOCK GUIDE
-              </span>
-              <strong style={{ fontSize: '0.95rem', color: 'var(--text)' }}>
-                Feeling lost or new here?
-              </strong>
-            </div>
-            <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--text-muted)', lineHeight: 1.45 }}>
-              Let Mor the Peacock show you where to click and how the website works in just 1 minute.
-            </p>
-          </div>
+      {/* 1. Clear 3-Step Fixed Journey Header with Mor Mascot Badge */}
+      <header className="section-head" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '4px 14px 4px 10px',
+            borderRadius: '999px',
+            background: 'var(--surface-2)',
+            border: '1px solid var(--gold-border)',
+            marginBottom: '0.75rem',
+          }}
+        >
+          <Mor mood="wave" size={24} animate decorative />
+          <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text)', letterSpacing: '0.02em' }}>
+            Mor&apos;s Guided Citizen Path
+          </span>
         </div>
 
-        <button
-          type="button"
-          className="btn btn-primary btn-sm"
-          onClick={startPeacockTour}
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.6rem 1.25rem', minHeight: '42px' }}
-        >
-          <Compass size={16} aria-hidden="true" />
-          <span>Take 1-Minute Tour with Mor</span>
-        </button>
-      </div>
-
-      {/* 2. Clear 3-Step Fixed Journey Header */}
-      <header className="section-head" style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
-        <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-          <Sparkles size={13} className="text-gold" aria-hidden="true" />
-          Your Simple 3-Step Path
-        </span>
         <h2 id="guided-path-title" className="section-title">
-          Follow these 3 steps — no guessing needed
+          Follow these 3 steps &mdash; no guessing needed
         </h2>
         <p className="section-desc" style={{ maxWidth: '38rem', margin: '0 auto' }}>
-          Start with Step 1, test what you learned in Step 2, and find help for real situations in Step 3.
+          Start with Step 1 to learn a basic right, practice what you learned in Step 2, and get practical help for real situations in Step 3.
         </p>
       </header>
 
-      {/* 3. Three Responsive Step Cards */}
+      {/* 2. Three Responsive Step Cards */}
       <div
         className="guided-path-grid"
         style={{
