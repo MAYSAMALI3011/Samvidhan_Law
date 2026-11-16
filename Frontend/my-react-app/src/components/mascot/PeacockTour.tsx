@@ -31,30 +31,23 @@ const TOUR_STEPS: TourStep[] = [
     mood: 'encourage',
   },
   {
-    id: 'hero-lesson',
-    targetId: 'hero-cta-buttons',
-    title: '2. Start a Free Lesson (No Sign-Up)',
-    text: 'Touch this golden button anytime to begin. Lessons take only 3 minutes, use simple English words, and are 100% free for all citizens.',
-    mood: 'reading',
-  },
-  {
     id: 'burn-card',
     targetId: 'interactive-lab-section',
-    title: '3. Test Your Rights (Burn the Card!)',
+    title: '2. Test Your Rights (Burn the Card!)',
     text: 'Touch or tap this card! It burns away to reveal a surprising real law about police and arrest rights. You can also take the quick quiz right next to it.',
     mood: 'thinking',
   },
   {
     id: 'situations',
     targetId: 'situations-section',
-    title: '4. Help for Daily Life Problems',
+    title: '3. Help for Daily Life Problems',
     text: 'Have a question about police, landlord rent, or defective products? Touch any situation card for clear steps you can follow.',
     mood: 'encourage',
   },
   {
     id: 'ask-assistant',
     targetId: 'ask-preview-section',
-    title: '5. Ask Me Any Legal Question',
+    title: '4. Ask Me Any Legal Question',
     text: 'Have a question on your mind? Touch "Ask a Legal Question" and ask anything in simple words. I will explain what Indian law says!',
     mood: 'thinking',
   },
@@ -147,7 +140,12 @@ export function PeacockTour() {
     const targetEl = document.getElementById(step.targetId)
     if (targetEl) {
       targetEl.classList.add('peacock-tour-target-active')
-      targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      // Smoothly scroll target so it is nicely framed in the top/middle of the viewport,
+      // completely clear of Mor's bottom dialog card
+      const rect = targetEl.getBoundingClientRect()
+      const navOffset = window.innerWidth <= 768 ? 68 : 84
+      const targetY = window.pageYOffset + rect.top - navOffset
+      window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' })
     }
 
     // Handle Keyboard events

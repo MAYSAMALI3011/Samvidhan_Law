@@ -6,19 +6,19 @@
 /* 1. TARGET ELEMENT SPOTLIGHT HIGHLIGHT */
 .peacock-tour-target-active {
   position: relative !important;
-  z-index: 99995 !important;
+  z-index: 9995 !important;
   outline: 3px solid var(--gold, #b08d57) !important;
   outline-offset: 6px !important;
-  box-shadow: 0 0 35px rgba(176, 141, 87, 0.45), 0 12px 36px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 0 40px rgba(176, 141, 87, 0.5), 0 12px 36px rgba(0, 0, 0, 0.4) !important;
   border-radius: 16px !important;
   transition: outline 0.3s ease, box-shadow 0.3s ease !important;
 }
 
-/* 2. TOUR BACKDROP OVERLAY */
+/* 2. TOUR BACKDROP OVERLAY & MODAL LAYER (ALWAYS ABOVE SPOTLIGHT) */
 .peacock-tour-backdrop-layer {
   position: fixed;
   inset: 0;
-  z-index: 99990;
+  z-index: 100000;
   pointer-events: none;
   display: flex;
   align-items: flex-end;
@@ -29,21 +29,22 @@
 .peacock-tour-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(10, 15, 26, 0.65);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  z-index: 9990;
+  background: rgba(10, 15, 26, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   pointer-events: auto;
   animation: peacockFadeIn 0.25s ease-out forwards;
 }
 
 html[data-theme='light'] .peacock-tour-backdrop {
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(15, 23, 42, 0.65);
 }
 
-/* 3. MODAL DIALOG CARD - BASE */
+/* 3. MODAL DIALOG CARD - BASE (ALWAYS IN FRONT, NEVER HIDDEN BEHIND SECTIONS) */
 .peacock-tour-modal-card {
   position: relative;
-  z-index: 99999;
+  z-index: 100001;
   pointer-events: auto;
   display: flex;
   align-items: center;
