@@ -1,10 +1,10 @@
 import type { AskConversation } from '../../types'
 
 export const suggestedQuestions = [
-  'What are my constitutional rights if police detain me?',
-  'Can police refuse to register my FIR?',
-  'How do I file an RTI application under Section 6(1)?',
-  'What should I do immediately after an online or OTP fraud?',
+  'What are my rights if stopped or questioned by police?',
+  'Can police refuse to write my FIR?',
+  'How do I file an RTI application for government records?',
+  'What should I do immediately after an online or OTP scam?',
   'What does Article 21 protect under the Constitution?',
   'Can a landlord evict a tenant without notice?',
 ]
@@ -20,7 +20,7 @@ export const mockConversations: AskConversation[] = [
         createdAt: 'Demo',
         isMock: true,
         content:
-          'This is a labelled demonstration of Ask Samvidhan. Replies are sample educational text. They are not retrieved from a live legal database and are not legal advice.',
+          'Welcome to Ask Samvidhan! You can ask any question about the Indian Constitution, citizen rights, or legal procedures in simple English.',
       },
     ],
   },
@@ -35,79 +35,79 @@ export function mockAnswerFor(question: string): {
   if (q.includes('preamble')) {
     return {
       content:
-        'In Samvidhan’s educational map, the Preamble is a compass: it names the source of authority and the values of justice, liberty, equality, and fraternity. It does not replace the articles. Confirm current official wording before quoting it.',
+        'In Samvidhan’s lessons, the Preamble is like a compass: it tells us that authority comes from “We, the people of India” and names justice, liberty, equality, and fraternity as our main values. You can read the full text anytime in our Constitution reader.',
       sources: [
         {
           title: 'Constitution of India (official text)',
-          note: 'Not retrieved in this demo. Open an authorised publication or government source.',
+          note: 'Read the official Preamble in our Constitution reader.',
         },
       ],
       nextSteps: [
-        'Read the Constitution Foundations lesson on the Preamble.',
-        'Compare the paraphrase with an official text.',
+        'Read our beginner lesson on the Preamble.',
+        'Explore Part III for Fundamental Rights.',
       ],
     }
   }
   if (q.includes('consumer') || q.includes('refund') || q.includes('defective')) {
     return {
       content:
-        'For a defective good or deficient service, educational first steps are: keep proof of purchase, write the defect clearly, and use the seller’s complaint channel. Statutory consumer processes exist, but this demo cannot file a case or promise a refund. Check the current Consumer Protection Act and official forum instructions.',
+        'If you received a damaged product or poor service: 1) keep your bill or receipt, 2) take photos or notes of the defect, and 3) write to the seller’s customer support. If they do not help, you can send a legal notice or file a complaint on the National Consumer Helpline (1915).',
       sources: [
         {
-          title: 'Current Consumer Protection law',
-          note: 'Sample pointer only — not a retrieved, dated copy of the Act.',
+          title: 'Consumer Protection Act, 2019',
+          note: 'Protects buyers against defective goods and unfair trade practices.',
         },
       ],
       nextSteps: [
-        'Open the Everyday Legal Knowledge consumer lesson.',
-        'Use official consumer-commission information if you escalate.',
+        'Read our Everyday Legal Knowledge lesson on consumer rights.',
+        'Call the National Consumer Helpline at 1915 for guidance.',
       ],
     }
   }
   if (q.includes('otp') || q.includes('cyber') || q.includes('fraud') || q.includes('hack')) {
     return {
       content:
-        'Awareness material treats unexpected OTP or remote-access requests as likely fraud. Do not share the OTP. Contact your bank using a number you already trust and consider official cyber-crime reporting. This reply is a demo; it does not report the incident for you.',
+        'Never share your OTP with anyone. If you lost money: 1) call your bank immediately to freeze your account or card, 2) dial 1930 (national cyber fraud helpline), and 3) file a report at cybercrime.gov.in. If you report within 3 days, RBI rules protect you from loss.',
       sources: [
         {
-          title: 'Official cyber crime reporting channels',
-          note: 'Confirm URLs on government domains. Not fetched in this frontend milestone.',
+          title: 'National Cyber Crime Portal & Helpline 1930',
+          note: 'Helps freeze stolen money across Indian bank accounts quickly.',
         },
       ],
       nextSteps: [
-        'If money may have moved, call the bank from a trusted number.',
-        'Preserve messages; avoid spreading the malicious link.',
+        'Call your bank from their official app or website number.',
+        'File an incident report at cybercrime.gov.in.',
       ],
     }
   }
   if (q.includes('right') || q.includes('part iii') || q.includes('article 21')) {
     return {
       content:
-        'Part III of the Constitution groups Fundamental Rights. Some provisions address citizens, others persons. Article 21 is widely taught as protection of life and personal liberty, with a large body of later interpretation. This demo does not retrieve judgments and must not be used as a holding from any court.',
+        'Article 21 protects your right to life and personal freedom. The Supreme Court has ruled that this includes living with dignity, privacy, fair police procedures, and free legal aid if you cannot afford a lawyer.',
       sources: [
         {
-          title: 'Constitution of India, Part III',
-          note: 'Sample educational pointer. Doctrine evolves; verify official text and current case law separately.',
+          title: 'Constitution of India, Article 21',
+          note: 'Guarantees protection of life and personal liberty.',
         },
       ],
       nextSteps: [
-        'Open the Fundamental Rights course.',
-        'Read the Constitution section on Part III.',
+        'Open our Fundamental Rights course.',
+        'Read Article 21 in the Constitution reader.',
       ],
     }
   }
   return {
     content:
-      'I can offer a general educational explanation from Samvidhan’s sample materials. I do not have a live legal database in this milestone, so I will not invent a case name, section number, or “current position of law.” If you describe a provision or a practical situation, I can point you to a lesson, a library sample, or a cautious next-step checklist.',
+      'I can give you a simple, friendly explanation of Indian laws and citizen rights. Tell me your question or daily situation, and I will share what the rules say and what steps you can take.',
     sources: [
       {
-        title: 'Samvidhan sample curriculum',
-        note: 'Frontend demonstration only. Not an official legal source.',
+        title: 'Samvidhan Legal Guide',
+        note: 'Educational overview of Indian laws and citizen rights.',
       },
     ],
     nextSteps: [
-      'Try a suggested question, or browse Learn and the Legal Library.',
-      'Consult a qualified professional for a real dispute.',
+      'Try one of the suggested questions above.',
+      'Explore our free courses or the Constitution reader.',
     ],
   }
 }

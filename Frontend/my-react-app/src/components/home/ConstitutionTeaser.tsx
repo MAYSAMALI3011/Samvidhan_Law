@@ -15,9 +15,9 @@ export function ConstitutionTeaser() {
   const landmarkPills = [
     { label: 'The Preamble', path: '/learn/foundations-of-the-republic/preamble-we-the-people' },
     { label: 'Article 14: Equality Before Law', path: '/constitution' },
-    { label: 'Article 19: Six Basic Freedoms', path: '/constitution' },
-    { label: 'Article 21: Protection of Life & Liberty', path: '/constitution' },
-    { label: 'Article 32: Constitutional Remedies', path: '/constitution' },
+    { label: 'Article 19: Basic Freedoms', path: '/constitution' },
+    { label: 'Article 21: Right to Life & Liberty', path: '/constitution' },
+    { label: 'Article 32: Right to Go to Court', path: '/constitution' },
   ]
 
   return (
@@ -26,13 +26,13 @@ export function ConstitutionTeaser() {
         <div style={{ maxWidth: '42rem' }}>
           <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
             <Compass size={13} className="text-gold" aria-hidden="true" />
-            Direct Primary Source Access
+            Read the Source
           </span>
           <h2 id="constitution-teaser-title" className="section-title" style={{ margin: '0.35rem 0 0.5rem' }}>
             Explore the Constitution of India
           </h2>
           <p className="section-desc" style={{ margin: 0 }}>
-            Read the founding charter with annotated explanations, legislative history, and Supreme Court landmark citations.
+            Read India&apos;s Constitution with simple explanations, historical notes, and key court cases.
           </p>
 
           {/* Quick Search Box */}
@@ -41,7 +41,7 @@ export function ConstitutionTeaser() {
               <Search size={16} className="text-gold" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
               <input
                 type="text"
-                placeholder="Search articles, clauses, fundamental duties..."
+                placeholder="Search any article, right, or topic..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 aria-label="Search the Constitution"
@@ -55,7 +55,7 @@ export function ConstitutionTeaser() {
           {/* Landmark Quick Pills */}
           <div>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: '0.65rem' }}>
-              Landmark Provisions
+              Popular Articles
             </span>
             <div className="constitution-pills-row">
               {landmarkPills.map((pill) => (
@@ -73,7 +73,7 @@ export function ConstitutionTeaser() {
             All 395 Articles &amp; 12 Schedules organized by Part and Subject
           </span>
           <Link to="/constitution" className="btn btn-outline btn-sm">
-            <span>Browse Full Constitution Reader</span>
+            <span>Browse the full Constitution</span>
             <ArrowRight size={13} aria-hidden="true" />
           </Link>
         </div>

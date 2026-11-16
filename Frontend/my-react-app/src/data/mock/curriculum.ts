@@ -6,7 +6,7 @@ export const courses: Course[] = [
     title: 'Constitution Foundations',
     tagline: 'How India’s Constitution is organised',
     description:
-      'A structured introduction to the Constitution of India: its purpose, structure, and the institutions that give it effect. Sample educational content for the Samvidhan frontend milestone.',
+      'Learn the basics of India’s Constitution: why it was written, how it is organized, and how Parliament and the courts work together.',
     level: 'Foundation',
     category: 'Constitution',
     estimatedHours: 3,
@@ -19,9 +19,9 @@ export const courses: Course[] = [
   {
     id: 'fundamental-rights',
     title: 'Fundamental Rights',
-    tagline: 'Rights, limits, and constitutional remedies',
+    tagline: 'Rights, limits, and how courts protect you',
     description:
-      'Learn the architecture of Part III, how rights are balanced with reasonable restrictions, and why remedies matter. Sample educational content — not legal advice.',
+      'Learn about your core rights: equality before the law, freedom of speech, personal liberty, and how courts protect you when rights are broken.',
     level: 'Core',
     category: 'Constitution',
     estimatedHours: 3,
@@ -35,7 +35,7 @@ export const courses: Course[] = [
     title: 'Everyday Legal Knowledge',
     tagline: 'Practical situations, explained simply',
     description:
-      'Consumer protection, workplace basics, and student-relevant situations in one curriculum. Recommendations may follow your progress — they do not create a separate path.',
+      'Learn practical laws for daily life: consumer rights against fake products, tenant rights, workplace rules, and how to file a complaint.',
     level: 'Applied',
     category: 'Practical law',
     estimatedHours: 4,
@@ -50,7 +50,7 @@ export const courses: Course[] = [
     title: 'Cybercrime and Digital Privacy',
     tagline: 'Safer digital citizenship',
     description:
-      'Educational overview of online offences, reporting channels, and privacy hygiene. Sample content for demonstration only.',
+      'Learn how to stay safe on the internet: online scams, harassment laws, reporting cybercrime, and protecting your personal privacy.',
     level: 'Applied',
     category: 'Digital law',
     estimatedHours: 2,

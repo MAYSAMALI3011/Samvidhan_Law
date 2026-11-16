@@ -27,10 +27,10 @@ import { usePageMeta } from '../../hooks/usePageMeta'
 import '../../components/chatbot/chatbot.tokens.css'
 
 const suggestedQuestions = [
-  'What are my constitutional rights if police detain me?',
-  'Can police refuse to register my FIR?',
-  'How do I file an RTI application under Section 6(1)?',
-  'What should I do immediately after an online or OTP fraud?',
+  'What are my rights if stopped or questioned by police?',
+  'Can police refuse to write my FIR?',
+  'How do I file an RTI application for government records?',
+  'What should I do immediately after an online or OTP scam?',
   'What does Article 21 protect under the Constitution?',
   'Can a landlord evict a tenant without notice?',
 ]
@@ -92,7 +92,7 @@ export function AskPage() {
 
         <div className="ask-page-brand-badge">
           <FeatherAvatar size={20} mode="dark" />
-          <span>Sovereign Civic AI</span>
+          <span>Smart Legal Helper</span>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ export function AskPage() {
             <div>
               <h1 className="ask-page-title">Ask Samvidhan</h1>
               <p className="ask-page-subtitle">
-                AI Constitutional Companion &bull; Powered by Statutory Law
+                Your Friendly Legal Helper &bull; Based on Real Indian Law
               </p>
             </div>
           </div>
@@ -136,7 +136,7 @@ export function AskPage() {
         <div className="ask-disclaimer-banner">
           <ShieldAlert size={18} className="text-gold" aria-hidden="true" />
           <span>
-            <strong>Educational Information:</strong> Answers explain statutory principles and constitutional articles in simple words. They do not constitute formal legal advice.
+            <strong>Educational Information:</strong> Answers explain Indian laws in simple words. This is for learning your rights and is not personal legal advice.
           </span>
         </div>
 
@@ -149,7 +149,7 @@ export function AskPage() {
               </div>
               <h3 className="ask-empty-greeting">How can I help you understand the law?</h3>
               <p className="ask-empty-desc">
-                Our guide is inspired by the peacock, India's national bird. Ask questions about your constitutional safeguards, police questioning, RTI procedures, or consumer rights in simple language.
+                Ask any question about your rights, police questions, RTI requests, or consumer rules in simple everyday English.
               </p>
 
               <div className="ask-suggested-section">

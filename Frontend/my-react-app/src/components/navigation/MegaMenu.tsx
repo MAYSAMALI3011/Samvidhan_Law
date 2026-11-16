@@ -67,48 +67,48 @@ export function MegaMenu() {
         {openMenu === 'learn' && (
           <div className="megamenu-dropdown-panel megamenu-cols-3" role="region" aria-label="Curriculum Navigation">
             <div className="megamenu-column">
-              <span className="megamenu-col-eyebrow">Foundation</span>
+              <span className="megamenu-col-eyebrow">Basics</span>
               <Link to="/learn/constitutional-foundations" className="megamenu-link-card" onClick={() => setOpenMenu(null)}>
                 <Landmark size={18} className="megamenu-link-icon" aria-hidden="true" />
                 <div>
                   <strong className="megamenu-link-title">Constitutional Foundations</strong>
-                  <p className="megamenu-link-desc">Preamble philosophy, basic structure, separation of powers.</p>
+                  <p className="megamenu-link-desc">The Preamble, how government branches balance each other, and basic rules.</p>
                 </div>
               </Link>
               <Link to="/learn/citizenship-and-state" className="megamenu-link-card" onClick={() => setOpenMenu(null)}>
                 <Scale size={18} className="megamenu-link-icon" aria-hidden="true" />
                 <div>
                   <strong className="megamenu-link-title">Citizenship & The State</strong>
-                  <p className="megamenu-link-desc">Part II nationality, domiciliary laws, and naturalization.</p>
+                  <p className="megamenu-link-desc">Who is an Indian citizen, passport rules, and citizenship rights.</p>
                 </div>
               </Link>
             </div>
 
             <div className="megamenu-column">
-              <span className="megamenu-col-eyebrow">Citizen Action</span>
+              <span className="megamenu-col-eyebrow">Your Rights</span>
               <Link to="/learn/fundamental-rights-in-practice" className="megamenu-link-card" onClick={() => setOpenMenu(null)}>
                 <ShieldAlert size={18} className="megamenu-link-icon" aria-hidden="true" />
                 <div>
                   <strong className="megamenu-link-title">Fundamental Rights</strong>
-                  <p className="megamenu-link-desc">Articles 14, 19, 21, and Supreme Court writ petitions.</p>
+                  <p className="megamenu-link-desc">Equality, freedom of speech, personal freedom, and going to court for help.</p>
                 </div>
               </Link>
               <Link to="/learn/daily-life-protections" className="megamenu-link-card" onClick={() => setOpenMenu(null)}>
                 <BookOpen size={18} className="megamenu-link-icon" aria-hidden="true" />
                 <div>
                   <strong className="megamenu-link-title">Everyday Legal Protections</strong>
-                  <p className="megamenu-link-desc">Consumer fraud, tenancy rights, workplace law & FIRs.</p>
+                  <p className="megamenu-link-desc">Consumer rights, tenant rules, workplace laws, and police complaints (FIR).</p>
                 </div>
               </Link>
             </div>
 
             <div className="megamenu-column megamenu-featured-col">
               <div className="megamenu-featured-card">
-                <span className="megamenu-featured-badge">Featured Syllabus</span>
-                <h4 className="megamenu-featured-title">Applied Civic Procedures</h4>
-                <p className="megamenu-featured-desc">Step-by-step statutory playbooks for RTI queries, legal notices, and consumer grievances.</p>
+                <span className="megamenu-featured-badge">Popular Course</span>
+                <h4 className="megamenu-featured-title">Practical Citizen Guides</h4>
+                <p className="megamenu-featured-desc">Step-by-step guides for filing RTI requests, sending legal notices, and consumer complaints.</p>
                 <Link to="/learn/applied-civic-procedures" className="megamenu-featured-cta" onClick={() => setOpenMenu(null)}>
-                  <span>Start Curriculum</span>
+                  <span>Start Course</span>
                   <ArrowRight size={14} aria-hidden="true" />
                 </Link>
               </div>
@@ -145,30 +145,30 @@ export function MegaMenu() {
         {openMenu === 'library' && (
           <div className="megamenu-dropdown-panel megamenu-cols-2" role="region" aria-label="Legal Library Navigation">
             <div className="megamenu-column">
-              <span className="megamenu-col-eyebrow">Statutory Guides</span>
+              <span className="megamenu-col-eyebrow">Step-by-Step Guides</span>
               <Link to="/library/sample-rti-application" className="megamenu-link-card" onClick={() => setOpenMenu(null)}>
                 <FileText size={18} className="megamenu-link-icon" aria-hidden="true" />
                 <div>
-                  <strong className="megamenu-link-title">RTI Application Drafts</strong>
-                  <p className="megamenu-link-desc">Format, statutory fees, and first appeal mechanisms.</p>
+                  <strong className="megamenu-link-title">RTI Application Formats</strong>
+                  <p className="megamenu-link-desc">Sample forms, small application fees, and how to appeal if you get no reply.</p>
                 </div>
               </Link>
               <Link to="/library/fir-checklist" className="megamenu-link-card" onClick={() => setOpenMenu(null)}>
                 <ShieldAlert size={18} className="megamenu-link-icon" aria-hidden="true" />
                 <div>
-                  <strong className="megamenu-link-title">FIR & Arrest Checklist</strong>
-                  <p className="megamenu-link-desc">D.K. Basu guidelines and detention memos.</p>
+                  <strong className="megamenu-link-title">Police & Arrest Checklist</strong>
+                  <p className="megamenu-link-desc">Rules police must follow when arresting someone and your rights in custody.</p>
                 </div>
               </Link>
             </div>
 
             <div className="megamenu-column">
-              <span className="megamenu-col-eyebrow">Repository</span>
+              <span className="megamenu-col-eyebrow">Library</span>
               <Link to="/library" className="megamenu-link-card" onClick={() => setOpenMenu(null)}>
                 <Library size={18} className="megamenu-link-icon" aria-hidden="true" />
                 <div>
-                  <strong className="megamenu-link-title">Full Document Catalogue</strong>
-                  <p className="megamenu-link-desc">Verified central statutes, sample notices, and procedures.</p>
+                  <strong className="megamenu-link-title">All Legal Documents</strong>
+                  <p className="megamenu-link-desc">Official Indian laws, ready-to-use sample letters, and court guides.</p>
                 </div>
               </Link>
             </div>

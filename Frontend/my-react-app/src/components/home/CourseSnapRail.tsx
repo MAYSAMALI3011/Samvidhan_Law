@@ -15,7 +15,7 @@ import { lessonsForCourse } from '../../services/catalog'
 import { percent } from '../../utils/format'
 import { CountUp } from '../animations/CountUp'
 
-const HEADING_WORDS = ['Official', 'learning', 'tracks']
+const HEADING_WORDS = ['Explore', 'our', 'courses']
 
 export function CourseSnapRail() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -317,7 +317,7 @@ export function CourseSnapRail() {
           transition={{ duration: 0.45, ease: 'easeOut' }}
         >
           <GraduationCap size={15} className="text-gold" aria-hidden="true" />
-          <span>Structured Syllabus</span>
+          <span>Free Courses</span>
         </motion.div>
 
         {/* 1. Word-by-Word Blur-in Title */}
@@ -347,7 +347,7 @@ export function CourseSnapRail() {
             ease: 'easeOut',
           }}
         >
-          Swipe across comprehensive civic tracks. Track your score and unlock citizen badges.
+          Swipe to explore our courses. Track your score and unlock badges as you learn.
         </motion.p>
 
         {/* Step 0: Centered "View all curriculum" Button */}
@@ -362,7 +362,7 @@ export function CourseSnapRail() {
           }}
         >
           <Link to="/learn" className="btn btn-secondary rail-view-all-btn">
-            <span>View all curriculum</span>
+            <span>View all courses</span>
             <ArrowRight size={15} aria-hidden="true" />
           </Link>
         </motion.div>
@@ -523,7 +523,7 @@ export function CourseSnapRail() {
                     <span className="rail-track-btn-icon" aria-hidden="true">
                       <BookOpen size={16} />
                     </span>
-                    <span>{progPercent > 0 ? 'Continue Track' : 'Start Track'}</span>
+                    <span>{progPercent > 0 ? 'Continue Course' : 'Start Course'}</span>
                   </Link>
                 </div>
               </motion.article>

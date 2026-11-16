@@ -19,14 +19,14 @@ export function InteractiveLab() {
   const [quizSubmitted, setQuizSubmitted] = useState(false)
 
   const quizQuestion = {
-    prompt: 'Can an Indian citizen be compelled to be a witness against themselves during police interrogation?',
+    prompt: 'Can the police force an accused person to speak against themselves during questioning?',
     options: [
-      { text: 'Yes, if ordered by an investigating officer', isCorrect: false },
-      { text: 'No, Article 20(3) guarantees immunity against self-incrimination', isCorrect: true },
-      { text: 'Yes, but only in non-cognizable offenses', isCorrect: false },
+      { text: 'Yes, if the police officer orders it', isCorrect: false },
+      { text: 'No, Article 20(3) protects you from speaking against yourself', isCorrect: true },
+      { text: 'Yes, but only for minor crimes', isCorrect: false },
     ],
     explanation:
-      'Article 20(3) of the Constitution guarantees: "No person accused of any offence shall be compelled to be a witness against himself." This safeguards personal dignity and prevents custodial coercion.',
+      'Article 20(3) of the Constitution says that no accused person can be forced to give evidence or speak against themselves. This rule protects everyone from police pressure.',
     lessonUrl: '/learn/fundamental-rights-in-practice/freedom-and-personal-liberty',
   }
 
@@ -41,13 +41,13 @@ export function InteractiveLab() {
       <header className="section-head" style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
         <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           <Sparkles size={13} className="text-gold" aria-hidden="true" />
-          Interactive Citizen Lab
+          Interactive Practice
         </span>
         <h2 id="interactive-lab-title" className="section-title">
-          Test your civic intuition in 10 seconds
+          Test what you know in 10 seconds
         </h2>
         <p className="section-desc" style={{ maxWidth: '38rem', margin: '0 auto' }}>
-          Touch, flip, and test real everyday constitutional rights before opening a full lesson.
+          Tap, flip, and test your everyday rights before starting a full lesson.
         </p>
       </header>
 
@@ -58,8 +58,8 @@ export function InteractiveLab() {
           className="interactive-lab-card"
           isFlipped={isCardFlipped}
           onFlipChange={setIsCardFlipped}
-          prompt="Can the police keep an arrested citizen in custody for 3 days without a court order? Many citizens believe custody can extend indefinitely during questioning."
-          reveal="Under Article 22(2) of the Constitution of India and Section 57 CrPC / BNSS, every arrested person must be produced before the nearest Magistrate within 24 hours of arrest (excluding travel time). Detention beyond 24 hours without judicial sanction is unconstitutional."
+          prompt="Can the police keep an arrested person in jail for 3 days without a court order? Many people think police can hold someone as long as they want."
+          reveal="No. Under Article 22(2) and Section 57 CrPC / BNSS, police must bring any arrested person before a judge (Magistrate) within 24 hours. Keeping someone longer without a judge's order is against the law."
           source="Article 22(2) & Section 57 CrPC / BNSS"
         />
 
@@ -69,11 +69,11 @@ export function InteractiveLab() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
               <span className="flip-hint-badge">
                 <Award size={14} aria-hidden="true" />
-                Live Civic Knowledge Check
+                Quick Rights Quiz
               </span>
               {quizSubmitted && (
                 <span style={{ fontSize: '0.75rem', fontWeight: 600, color: selectedOption === 1 ? '#22c55e' : '#ef4444' }}>
-                  {selectedOption === 1 ? 'Correct! +15 XP' : 'Keep Learning'}
+                  {selectedOption === 1 ? 'Correct! +15 XP' : 'Nice try! Keep learning'}
                 </span>
               )}
             </div>

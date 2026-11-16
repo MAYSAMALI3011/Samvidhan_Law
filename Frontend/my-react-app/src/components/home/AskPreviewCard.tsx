@@ -20,29 +20,29 @@ export function AskPreviewCard() {
         <div>
           <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
             <Sparkles size={13} className="text-gold" aria-hidden="true" />
-            AI Civic Research Assistant
+            Smart Legal Helper
           </span>
           <h2 id="ask-preview-title" className="section-title" style={{ margin: '0.35rem 0 0.65rem' }}>
             Ask Samvidhan
           </h2>
           <p className="section-desc" style={{ margin: '0 0 1.5rem', lineHeight: 1.5 }}>
-            Ask any legal question in plain everyday English. Samvidhan searches through verified statutory provisions, landmark Supreme Court rulings, and procedural guides to provide citation-backed breakdowns.
+            Ask any legal question in simple English. Samvidhan checks real laws, key court cases, and official guides to give you clear answers you can trust.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginBottom: '1.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.86rem', color: '#cbd5e1' }}>
               <ShieldCheck size={16} className="text-gold" aria-hidden="true" />
-              <span>Grounded directly in Indian statutes &amp; Constitutional articles</span>
+              <span>Based on real Indian laws and Constitutional articles</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.86rem', color: '#cbd5e1' }}>
               <ShieldCheck size={16} className="text-gold" aria-hidden="true" />
-              <span>Zero legalese — clear, practical citizen explanations</span>
+              <span>No confusing words — clear explanations for everyone</span>
             </div>
           </div>
 
           <Link to="/ask" className="btn btn-primary" style={{ display: 'inline-flex', gap: '8px' }}>
             <MessageSquare size={16} aria-hidden="true" />
-            <span>Open Ask Samvidhan Assistant</span>
+            <span>Ask a Legal Question</span>
             <ArrowRight size={15} aria-hidden="true" />
           </Link>
         </div>
@@ -107,12 +107,12 @@ export function AskPreviewCard() {
               }}
             >
               <p style={{ margin: '0 0 0.65rem' }}>
-                Under Indian law, citizens possess statutory safeguards against unlawful restraint during police encounters:
+                Under Indian law, you have clear rights when stopped or questioned by police:
               </p>
               <ul style={{ margin: '0 0 0.85rem', paddingLeft: '1.2rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <li>Right to know grounds of detention immediately.</li>
-                <li>Right to consult an advocate of your choice during interrogation.</li>
-                <li>Women cannot be arrested after sunset or before sunrise without special judicial sanction.</li>
+                <li>You have the right to know the reason for your arrest right away.</li>
+                <li>You have the right to talk to a lawyer of your choice during questioning.</li>
+                <li>Women cannot be arrested after sunset and before sunrise without special permission from a judge.</li>
               </ul>
 
               {/* Citations Row */}

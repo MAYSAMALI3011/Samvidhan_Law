@@ -50,10 +50,10 @@ export function LearnIndexPage() {
       <LearningSidebar />
       <div>
         <div style={{ marginBottom: '2rem' }}>
-          <p className="kicker">Catalogue</p>
-          <h1>Curriculum & Courses</h1>
+          <p className="kicker">Courses</p>
+          <h1>Explore All Courses</h1>
           <p className="muted" style={{ maxWidth: '42rem' }}>
-            A structured path for constitutional literacy and practical citizen rights. From foundational governance to everyday civil situations.
+            Learn the Constitution of India and your everyday rights through simple, step-by-step lessons and real-life examples.
           </p>
 
           <div

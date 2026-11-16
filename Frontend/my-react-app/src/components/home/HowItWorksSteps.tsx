@@ -48,25 +48,25 @@ export function HowItWorksSteps() {
       num: '01',
       icon: BookOpen,
       title: 'Learn',
-      desc: 'Digest bite-sized statutory lessons in plain English, paired with citizen case studies and clear key takeaways.',
+      desc: 'Read short, simple lessons in plain English, with real stories and key points.',
     },
     {
       num: '02',
       icon: CheckSquare,
       title: 'Practice',
-      desc: 'Verify your comprehension with scenario quizzes testing real procedures (RTI, FIR, arrest rights, consumer court).',
+      desc: 'Check what you learned with quick quizzes on real situations like police questions or filing a complaint.',
     },
     {
       num: '03',
       icon: MessageSquare,
       title: 'Ask',
-      desc: 'Query Ask Samvidhan anytime for citation-backed explanations referencing official Acts and Court rulings.',
+      desc: 'Ask our legal guide any question anytime to get clear, friendly answers based on real law.',
     },
     {
       num: '04',
       icon: Flame,
       title: 'Track Progress',
-      desc: 'Build a durable civic habit: earn XP, maintain streaks, and celebrate constitutional literacy milestones.',
+      desc: 'Build a great daily habit: earn points, keep your daily streak alive, and unlock badges.',
     },
   ]
 
@@ -80,13 +80,13 @@ export function HowItWorksSteps() {
       <header className="section-head" style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
         <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           <Sparkles size={13} className="text-gold" aria-hidden="true" />
-          Pedagogical Framework
+          How It Works
         </span>
         <h2 id="how-it-works-title" className="section-title">
           How learning on Samvidhan works
         </h2>
         <p className="section-desc" style={{ maxWidth: '38rem', margin: '0 auto' }}>
-          We deconstruct dense legal codes into structured, easy-to-digest modules designed for everyday citizens.
+          We turn long, complicated laws into simple, friendly lessons for everyday citizens.
         </p>
       </header>
 

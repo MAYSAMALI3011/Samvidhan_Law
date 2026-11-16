@@ -17,186 +17,186 @@ interface MockTopic {
 const mockKnowledgeBase: MockTopic[] = [
   {
     keywords: ['police', 'detain', 'arrest', 'custody', 'lockup', 'handcuff', 'fir'],
-    title: 'Your Safeguards During Police Detention',
-    content: `Under Indian law, every citizen has fundamental rights that protect them during any police questioning or detention.
+    title: 'Your Rights if Stopped or Questioned by Police',
+    content: `Under Indian law, you have clear rights that protect you if you are questioned or detained by police.
 
-### 1. Fundamental Rights Upon Detention
-Under **Article 22(1)** of the Constitution of India:
-* **Right to know the grounds:** Police must inform you immediately why you are being detained.
-* **Right to consult a lawyer:** You have the absolute right to consult and be defended by a legal practitioner of your choice.
-* **Right to inform family:** Under the *D.K. Basu Guidelines*, the police must notify a family member or friend within 8-12 hours of arrest.
+### 1. Your Main Rights
+Under **Article 22(1)** of the Constitution:
+* **Right to know why:** The police must tell you right away why they are detaining you.
+* **Right to a lawyer:** You have the full right to talk to a lawyer of your choice.
+* **Right to tell your family:** Under the *D.K. Basu Rules*, the police must inform a family member or friend within 8 to 12 hours of arrest.
 
-### 2. Time Limits for Custody
-| Safeguard | Statutory Rule | Governing Law |
+### 2. Time Limits Police Must Follow
+| Rule | What the Law Says | Official Section |
 | :--- | :--- | :--- |
-| **Magistrate Production** | Must be produced within 24 hours | Article 22(2) & Section 57 CrPC |
-| **Medical Examination** | Right to physical checkup upon arrest | Section 54 CrPC |
-| **Memo of Arrest** | Signed by at least one witness | D.K. Basu Landmark Mandate |
+| **Go Before a Judge** | Police must bring you to a judge within 24 hours | Article 22(2) & Section 57 CrPC |
+| **Health Checkup** | You have the right to a medical checkup after arrest | Section 54 CrPC |
+| **Arrest Paper (Memo)** | Must be signed by at least one witness | D.K. Basu Court Rules |
 
-### 3. Immediate Citizen Checklist
-1. **Ask calmly:** *"Am I under arrest or free to go?"*
-2. **Inspect the memo:** Ensure date, time, and location are accurately written before signing.
-3. **Women detainees:** Under Section 46(4) CrPC, women cannot be arrested after sunset and before sunrise except under exceptional magistrate orders, and only by a female officer.
+### 3. What to Do Right Away
+1. **Ask politely:** *"Am I under arrest or free to go?"*
+2. **Check the arrest paper:** Make sure the date, time, and location are correct before signing.
+3. **Rules for women:** Under Section 46(4) CrPC, women cannot be arrested after sunset or before sunrise without special permission from a judge, and only a female police officer can arrest them.
 
-*Educational information, not legal advice.*`,
+*Educational information, not personal legal advice.*`,
     citations: [
-      { label: 'Article 22(1)', url: '/constitution/part-iii', summary: 'Protection against arrest and detention in certain cases.' },
-      { label: 'Section 57 CrPC', url: '/library/fir-checklist', summary: 'Person arrested not to be detained more than twenty-four hours.' },
-      { label: 'D.K. Basu v. State of WB', url: '/constitution/part-iii', summary: 'Mandatory guidelines for arrest memos, family intimation, and medical checks.' },
+      { label: 'Article 22(1)', url: '/constitution/part-iii', summary: 'Right to know reasons for arrest and right to consult a lawyer.' },
+      { label: 'Section 57 CrPC', url: '/library/fir-checklist', summary: 'Arrested person must be taken to a judge within 24 hours.' },
+      { label: 'D.K. Basu v. State of WB', url: '/constitution/part-iii', summary: 'Supreme Court rules for arrest memos, informing family, and medical checks.' },
     ],
     followUps: [
-      'Can police seize my phone during detention?',
+      'Can police seize my phone during questioning?',
       'What is a Zero FIR?',
       'How does bail work under Section 436 CrPC?',
     ],
   },
   {
     keywords: ['rti', 'information', 'transparency', 'officer', 'fees', 'application'],
-    title: 'Filing an RTI (Right to Information) Query',
-    content: `The **Right to Information Act, 2005** enables any Indian citizen to inspect government records, seek certified copies of documents, and demand transparency from public authorities.
+    title: 'How to Ask for Government Information (RTI)',
+    content: `The **Right to Information (RTI) Act, 2005** lets any Indian citizen ask government offices for official records, check public work, and get copies of papers.
 
-### Key Steps to File an RTI
-1. **Identify the Public Authority:** Find the Central or State Department holding the records.
-2. **Address the PIO:** Send your application to the *Public Information Officer (PIO)*.
-3. **Statutory Fee:** Pay the nominal application fee (₹10 for Central authorities, free for BPL cardholders).
+### 3 Simple Steps to File an RTI
+1. **Find the right office:** Find the central or state department that holds the records you need.
+2. **Write to the officer:** Address your application to the *Public Information Officer (PIO)*.
+3. **Pay the small fee:** Pay the small fee (₹10 for central government offices; free for people with a BPL card).
 
-### Statutory Timelines Under Section 7(1)
-* **Standard Queries:** Must be answered within **30 days**.
-* **Life and Liberty:** If your query concerns life or personal liberty, reply is mandatory within **48 hours**.
-* **Third Party Notice:** Additional 10 days if private third-party information is requested.
+### Time Limits to Get Your Reply
+* **Regular questions:** Must be answered within **30 days**.
+* **Life and liberty questions:** If your question is about someone's life or safety, they must reply within **48 hours**.
+* **Third-party information:** If your question involves another person's private details, the office gets 10 more days.
 
-*Educational information, not legal advice.*`,
+*Educational information, not personal legal advice.*`,
     citations: [
-      { label: 'Section 6(1) RTI Act', url: '/library/sample-rti-application', summary: 'Format and procedure for requesting information from public authorities.' },
-      { label: 'Section 7(1) RTI Act', url: '/library/sample-rti-application', summary: 'Statutory 30-day and 48-hour response windows for PIOs.' },
-      { label: 'Section 19(1) RTI Act', url: '/library/sample-rti-application', summary: 'First Appeal process if no reply is received within 30 days.' },
+      { label: 'Section 6(1) RTI Act', url: '/library/sample-rti-application', summary: 'How to write and submit a request to a public officer.' },
+      { label: 'Section 7(1) RTI Act', url: '/library/sample-rti-application', summary: '30-day and 48-hour time limits for officers to reply.' },
+      { label: 'Section 19(1) RTI Act', url: '/library/sample-rti-application', summary: 'How to appeal if you receive no reply within 30 days.' },
     ],
     followUps: [
-      'What can I do if the PIO rejects my RTI query?',
+      'What can I do if the officer rejects my RTI request?',
       'Can private companies be questioned under RTI?',
-      'How to draft an effective Section 6(1) letter?',
+      'How do I write a simple RTI letter?',
     ],
   },
   {
     keywords: ['article 21', 'life', 'liberty', 'privacy', 'fundamental', 'rights'],
-    title: 'Article 21: Protection of Life and Personal Liberty',
-    content: `**Article 21** is the golden heart of Part III of the Indian Constitution. It states:
+    title: 'Article 21: Right to Life and Personal Liberty',
+    content: `**Article 21** is one of the most important parts of the Indian Constitution. It states:
 
 > *"No person shall be deprived of his life or personal liberty except according to procedure established by law."*
 
-### Expanded Dimensions of Article 21
-The Supreme Court has interpreted Article 21 not merely as biological existence, but as a dignified life with meaning:
-* **Right to Privacy:** Recognized as a fundamental right in *K.S. Puttaswamy (2017)*.
-* **Fair Legal Procedure:** In *Maneka Gandhi (1978)*, the Court held the procedure must be just, fair, and reasonable.
-* **Right to Legal Aid:** The State must provide free counsel to indigent accused under Article 39A & Article 21.
-* **Right to Clean Environment:** Right to pollution-free water and air.
+### What Article 21 Means for You
+The Supreme Court has ruled that "life" means living with dignity and safety, not just staying alive:
+* **Right to Privacy:** The Supreme Court decided in 2017 (*Puttaswamy case*) that your privacy is a basic right.
+* **Fair Legal Process:** In the *Maneka Gandhi case (1978)*, the Court ruled that any government process taking away personal freedom must be fair, just, and reasonable.
+* **Free Legal Help:** If an accused person cannot afford a lawyer, the government must provide one for free under Article 39A.
+* **Clean Environment:** You have the right to clean air and safe drinking water.
 
-*Educational information, not legal advice.*`,
+*Educational information, not personal legal advice.*`,
     citations: [
-      { label: 'Article 21', url: '/constitution/part-iii', summary: 'Fundamental right to life, dignity, and personal liberty.' },
-      { label: 'Maneka Gandhi (1978)', url: '/constitution/part-iii', summary: 'Due process doctrine: procedures depriving liberty must be fair, just, and reasonable.' },
-      { label: 'Puttaswamy (2017)', url: '/constitution/part-iii', summary: 'Unanimous 9-judge bench holding privacy as an intrinsic part of Article 21.' },
+      { label: 'Article 21', url: '/constitution/part-iii', summary: 'Right to life, personal dignity, and personal liberty.' },
+      { label: 'Maneka Gandhi (1978)', url: '/constitution/part-iii', summary: 'Court ruling that any law taking away freedom must be fair, just, and reasonable.' },
+      { label: 'Puttaswamy (2017)', url: '/constitution/part-iii', summary: 'Supreme Court ruling confirming privacy as part of Article 21.' },
     ],
     followUps: [
       'What is the difference between Article 19 and Article 21?',
-      'How does Article 32 help enforce Article 21?',
-      'Can Article 21 be suspended during an Emergency?',
+      'How does Article 32 help protect Article 21?',
+      'Can Article 21 be taken away during an Emergency?',
     ],
   },
   {
     keywords: ['fir', 'refuse', 'police station', 'complaint', 'cognizable', 'zero fir', '154'],
-    title: 'Remedies When Police Refuse to Register an FIR',
-    content: `Under Indian criminal jurisprudence, police officers are legally obligated to register an FIR whenever a cognizable offense is disclosed.
+    title: 'What to Do if Police Refuse to Write an FIR',
+    content: `Under Indian law, the police cannot turn you away if you report a serious crime (a "cognizable" offense like theft, violence, or fraud).
     
-### 1. Mandatory FIR Registration
-In the Constitution Bench judgment *Lalita Kumari v. Govt of UP (2014)*, the Supreme Court ruled:
-* Registration of an FIR is **mandatory** under **Section 154 CrPC** (Section 173 BNSS) if the complaint discloses the commission of a cognizable offence.
-* No preliminary inquiry is permissible in such cases; police cannot refuse on grounds of territorial jurisdiction.
+### 1. Police Must Write the FIR
+In the famous *Lalita Kumari (2014)* court case, the Supreme Court ruled:
+* Writing an FIR is **mandatory** under **Section 154 CrPC** whenever a serious crime is reported.
+* The police cannot refuse just because the crime happened in another area.
 
 ### 2. What is a Zero FIR?
-* You can lodge an FIR at **any police station**, irrespective of where the crime took place.
-* The station must register it as a "Zero FIR" and transfer it to the jurisdictional police station for investigation.
+* You can report a crime at **any police station**, even if the crime took place somewhere else.
+* The police station must register it as a "Zero FIR" and then send the file to the correct station.
 
-### 3. Step-by-Step Escalation if Police Refuse
-1. **Approach the Superintendent of Police (SP):** Under **Section 154(3) CrPC**, send your written complaint by registered post to the SP/DCP. If satisfied, they will investigate or direct an investigation.
-2. **File a Magistrate Complaint:** Under **Section 156(3) CrPC**, you can file an application before the Judicial Magistrate, who can order the police to register the FIR and investigate.
-3. **Private Complaint:** File a direct complaint before the Magistrate under **Section 200 CrPC**.
+### 3. Steps to Take if Police Say No
+1. **Write to the Police Superintendent (SP/DCP):** Under **Section 154(3) CrPC**, send your written complaint by registered post to the head of the district police.
+2. **Go to a Local Judge (Magistrate):** Under **Section 156(3) CrPC**, you can ask a local judge to order the police to register your FIR and investigate.
+3. **File a Private Complaint:** You can also file a direct complaint in front of the judge under **Section 200 CrPC**.
 
-*Educational information, not legal advice.*`,
+*Educational information, not personal legal advice.*`,
     citations: [
-      { label: 'Section 154 CrPC', url: '/library/fir-checklist', summary: 'Information in cognizable cases and mandatory FIR registration.' },
-      { label: 'Lalita Kumari (2014)', url: '/library/fir-checklist', summary: 'Supreme Court mandate making FIR registration compulsory for cognizable crimes.' },
-      { label: 'Section 156(3) CrPC', url: '/library/fir-checklist', summary: 'Magistrate power to direct investigation and FIR registration.' },
+      { label: 'Section 154 CrPC', url: '/library/fir-checklist', summary: 'Mandatory registration of an FIR for serious crimes.' },
+      { label: 'Lalita Kumari (2014)', url: '/library/fir-checklist', summary: 'Supreme Court rule making FIR registration compulsory.' },
+      { label: 'Section 156(3) CrPC', url: '/library/fir-checklist', summary: 'Judge’s power to order police to register an FIR and investigate.' },
     ],
     followUps: [
       'What is the difference between an FIR and an NCR?',
       'Can police demand money or fees to register an FIR?',
-      'What is the penalty for an officer who refuses to register an FIR?',
+      'What happens to an officer who refuses to register an FIR?',
     ],
   },
   {
     keywords: ['cyber', 'otp', 'fraud', 'scam', 'bank', 'freeze', '1930', 'phishing', 'money'],
-    title: 'Emergency Golden Hour Steps for Online & OTP Financial Fraud',
-    content: `If you have lost money to an unauthorized online transaction, UPI scam, or OTP fraud, immediate action within the first 2-3 hours ("Golden Hour") is critical to recover funds.
+    title: 'What to Do Right Away After Online or OTP Scams',
+    content: `If you lost money through a fake online payment, UPI scam, or stolen OTP, acting in the first 2 to 3 hours gives you the best chance to get your money back.
 
-### 1. Call National Cyber Helpline 1930 Immediately
-* **Dial 1930** (National Cyber Crime Reporting Portal helpline, operating 24x7).
-* Provide transaction ID, bank account numbers, debit/credit card details, and suspect numbers.
-* The **CFCFRMS** system immediately triggers an inter-bank alert to freeze the money in the fraudster's mule account before it is withdrawn at an ATM.
+### 1. Call Cyber Helpline 1930 Right Away
+* **Call 1930** (the national government helpline for cybercrime, open 24/7).
+* Share the transaction details, your bank account number, and the fraudster's phone or UPI details.
+* The system sends an immediate alert to banks to freeze the money before the scammer can withdraw it.
 
-### 2. Contact Your Bank Within 3 Days (Zero Liability)
-* Under the **RBI Customer Protection Circular (2017)**:
-  * If an unauthorized transaction occurs through third-party breach or phishing and you report it within **3 working days**, you have **ZERO liability** and the bank must credit the amount back.
-  * If reported within 4-7 working days, your liability is capped at ₹5,000 to ₹10,000.
-* Immediately request the bank to freeze the account/card and issue an **Acknowledgement Reference Number (ARN)**.
+### 2. Tell Your Bank Within 3 Days (Zero Loss Rule)
+* Under Reserve Bank of India (RBI) rules:
+  * If money is stolen without your fault and you report it within **3 working days**, you have **ZERO liability** and the bank must return your money.
+  * If you report between 4 and 7 days, you may have to pay a small fixed part (up to ₹5,000 or ₹10,000).
+* Ask your bank to block your card or account immediately and ask for a complaint reference number.
 
-### 3. File Formal Cyber Complaint
-* Register an official cyber incident at **cybercrime.gov.in**.
-* Preserve all SMS messages, call logs, WhatsApp chats, and payment screenshots as statutory digital evidence under Section 65B of the Indian Evidence Act.
+### 3. File a Report Online
+* Report the incident at **cybercrime.gov.in**.
+* Save all SMS alerts, bank messages, and screenshots as evidence.
 
-*Educational information, not legal advice.*`,
+*Educational information, not personal legal advice.*`,
     citations: [
-      { label: 'Helpline 1930', url: '/library/cyber-fraud-guide', summary: 'National Cyber Crime Reporting Portal for instantaneous fund freezing.' },
-      { label: 'RBI Circular 2017', url: '/library/cyber-fraud-guide', summary: 'Customer protection - Limiting liability of customers in unauthorized electronic transactions.' },
-      { label: 'Section 66D IT Act', url: '/library/cyber-fraud-guide', summary: 'Punishment for cheating by personation by using computer resources.' },
+      { label: 'Helpline 1930', url: '/library/cyber-fraud-guide', summary: 'National helpline to freeze stolen money quickly.' },
+      { label: 'RBI Circular 2017', url: '/library/cyber-fraud-guide', summary: 'Zero liability rule for customers when fraud is reported quickly.' },
+      { label: 'Section 66D IT Act', url: '/library/cyber-fraud-guide', summary: 'Punishment for online cheating and impersonation.' },
     ],
     followUps: [
-      'How to request a bank chargeback for unauthorized UPI transactions?',
-      'Can police retrieve money frozen under Helpline 1930 without a court order?',
-      'What evidence is required to prove I did not authorize an OTP?',
+      'How do I ask my bank for a chargeback on an unauthorized UPI payment?',
+      'Can police return money frozen under 1930 without a court order?',
+      'What proof do I need to show I did not share my OTP?',
     ],
   },
   {
     keywords: ['tenant', 'rent', 'landlord', 'evict', 'deposit', 'notice', 'lease', 'agreement'],
-    title: 'Tenant Safeguards Against Arbitrary or Forcible Eviction',
-    content: `Under Indian tenancy law, including State Rent Control Acts and the **Model Tenancy Act**, landlords cannot arbitrarily evict tenants or take the law into their own hands.
+    title: 'Tenant Rights Against Unfair Eviction',
+    content: `Under Indian rent laws and the **Model Tenancy Act**, landlords cannot force you out or take the law into their own hands.
 
-### 1. Prohibition on Forcible Eviction
-* A landlord **cannot** use muscle power, lock the premises, throw belongings out, or intimidate a tenant.
-* As reaffirmed by the Supreme Court in *Ramesh Gobindram (2010)*, even a tenant whose lease has expired cannot be evicted without **due process of law** through a competent civil court or Rent Authority.
+### 1. Landlords Cannot Use Force
+* A landlord **cannot** change the locks, throw your bags outside, or use threats to make you leave.
+* Even if your rent agreement has ended, a landlord must follow the law and go through a court or rent authority to evict you.
 
-### 2. Disconnection of Utilities is an Offense
-* Landlords **cannot cut off essential services** such as electricity, water supply, or elevator access to force an eviction.
-* Doing so violates the Rent Control Act and constitutes criminal intimidation / wrongful restraint under Section 341 of the Indian Penal Code / BNS.
+### 2. Cutting Off Power or Water is Against the Law
+* Landlords **cannot cut off basic services** like electricity or water to force you to leave.
+* Doing this is illegal and is a criminal offense under Section 341 of the law.
 
-### 3. Mandatory Notice Period
-* Before initiating any eviction proceeding, the landlord must serve a formal written legal notice specifying:
-  * The statutory ground for eviction (e.g., non-payment of rent for >2 months, bona fide personal necessity, subletting without consent).
-  * A statutory notice window (typically **15 to 30 days** under Section 106 of the Transfer of Property Act 1882).
+### 3. Written Notice is Required
+* Before asking you to leave through court, the landlord must send you a formal written notice:
+  * The notice must give a valid reason (such as unpaid rent for over 2 months).
+  * The notice must give you enough time (usually **15 to 30 days**).
 
-### 4. Security Deposit Refund
-* The security deposit must be refunded upon handover of vacant possession after deducting genuine, documented utility arrears or agreed damage repairs.
+### 4. Getting Your Security Deposit Back
+* When you move out and hand over the keys, the landlord must return your security deposit. They can only deduct real unpaid bills or agreed repair costs.
 
-*Educational information, not legal advice.*`,
+*Educational information, not personal legal advice.*`,
     citations: [
-      { label: 'Section 106 TP Act', url: '/library/tenant-rights-guide', summary: 'Duration of leases and mandatory 15-day / 6-month written notice requirements.' },
-      { label: 'Model Tenancy Act', url: '/library/tenant-rights-guide', summary: 'Prohibition on utility cutoffs and establishment of Rent Courts for lawful disputes.' },
-      { label: 'Ramesh Gobindram (2010)', url: '/library/tenant-rights-guide', summary: 'Supreme Court ruling holding eviction without due process of law illegal.' },
+      { label: 'Section 106 TP Act', url: '/library/tenant-rights-guide', summary: 'Rules requiring 15-day or 6-month written notice before eviction.' },
+      { label: 'Model Tenancy Act', url: '/library/tenant-rights-guide', summary: 'Ban on cutting off electricity or water, and rules for rent courts.' },
+      { label: 'Ramesh Gobindram (2010)', url: '/library/tenant-rights-guide', summary: 'Supreme Court ruling that landlords cannot evict tenants without court process.' },
     ],
     followUps: [
-      'What can a tenant do if a landlord disconnects electricity or water?',
-      'What happens if a rental agreement is not registered?',
-      'How much security deposit can a landlord legally demand?',
+      'What can a tenant do if a landlord cuts off electricity or water?',
+      'What happens if a rent agreement is not registered?',
+      'How much security deposit can a landlord ask for?',
     ],
   },
 ]
@@ -211,20 +211,20 @@ export async function* streamMockChat(
   const matched = mockKnowledgeBase.find((item) =>
     item.keywords.some((kw) => queryLower.includes(kw))
   ) || {
-    title: 'Constitutional Understanding & Civic Literacy',
-    content: `Thank you for your question on Indian Constitutional Law.
+    title: 'Understanding Your Rights and the Constitution',
+    content: `Thank you for your question on the Constitution of India.
 
-### Core Principles of the Constitution
-1. **Rule of Law (Article 14):** Every person, official, and institution is equal before the law and entitled to equal protection.
-2. **Citizen Remedies (Article 32 & 226):** If your fundamental rights are violated, you can petition the High Court under Article 226 or the Supreme Court under Article 32 for constitutional writs (Habeas Corpus, Mandamus, Certiorari).
-3. **Preamble Bedrock:** Sovereign authority resides unconditionally with *"We, The People of India"*.
+### 3 Core Rules Every Citizen Should Know
+1. **Equality Before Law (Article 14):** Every person is equal before the law and entitled to equal protection.
+2. **Going to Court for Your Rights (Article 32 & 226):** If someone breaks your constitutional rights, you have the right to ask the High Court or Supreme Court to protect you.
+3. **Power Comes From the People:** The Preamble states clearly that all power belongs to *"We, The People of India"*.
 
-Please consult the **Constitution Map** or **Legal Library** in your dashboard to cross-reference official statutory texts.
+Explore our **Constitution Reader** or **Legal Library** to read the full laws.
 
-*Educational information, not legal advice.*`,
+*Educational information, not personal legal advice.*`,
     citations: [
-      { label: 'Article 14', url: '/constitution/part-iii', summary: 'Equality before the law and equal protection of the laws across India.' },
-      { label: 'Article 32', url: '/constitution/part-iii', summary: 'Right to move Supreme Court by appropriate proceedings for enforcement of Part III rights.' },
+      { label: 'Article 14', url: '/constitution/part-iii', summary: 'Equality before the law and equal protection across India.' },
+      { label: 'Article 32', url: '/constitution/part-iii', summary: 'Right to go to the Supreme Court to protect fundamental rights.' },
     ],
     followUps: [
       'What are my rights if police detain me?',

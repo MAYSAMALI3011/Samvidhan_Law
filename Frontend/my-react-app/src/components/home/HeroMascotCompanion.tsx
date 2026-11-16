@@ -76,7 +76,7 @@ export function HeroMascotCompanion() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
                 <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--gold, #dfba73)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <Sparkles size={11} aria-hidden="true" />
-                  Guide Companion
+                  Your Guide Mor
                 </span>
                 <button
                   type="button"
@@ -88,7 +88,7 @@ export function HeroMascotCompanion() {
                 </button>
               </div>
               <p className="hero-mascot-speech-text">
-                &ldquo;Namaste! Choose where you&apos;d like to start your constitutional journey today:&rdquo;
+                &ldquo;Hello! Where would you like to start today? Pick a topic below:&rdquo;
               </p>
             </div>
           )}

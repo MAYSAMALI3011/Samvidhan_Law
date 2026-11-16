@@ -22,17 +22,17 @@ import { submitContact } from '../../api/services/contactService'
 export function HowItWorksPage() {
   usePageMeta({
     title: 'How It Works',
-    description: "How Samvidhan's unified legal literacy journey is organized.",
+    description: "How learning on Samvidhan is organized.",
     path: '/how-it-works',
   })
 
   return (
     <div className="container page-hero reading-layout">
       <div className="simple-page-header">
-        <p className="kicker">Learning Architecture</p>
+        <p className="kicker">How It Works</p>
         <h1>How Samvidhan Works</h1>
         <p className="simple-page-subtitle">
-          One unified catalogue. Short structured lessons. Practical scenarios. A constitutional reading map. A library of verified guides. And an AI legal assistant clearly labelled for safety.
+          Short lessons. Real-life examples. An easy Constitution reader. Step-by-step citizen guides. And a friendly legal helper to answer your questions.
         </p>
       </div>
 
@@ -40,23 +40,23 @@ export function HowItWorksPage() {
         {[
           {
             step: '01',
-            title: 'Explore the Unified Curriculum',
-            desc: 'Start with foundational governance or jump straight into citizen rights and everyday practical law. No forced role gates or paywalls.',
+            title: 'Pick Any Course',
+            desc: 'Start with basic citizen rights or choose topics from daily life. Everything is free for everyone.',
           },
           {
             step: '02',
-            title: 'Digest Plain-English Lessons',
-            desc: 'Every lesson pairs the statutory provisions with real-world scenarios and structured key takeaways for active recall.',
+            title: 'Read Simple Lessons',
+            desc: 'Every lesson explains the law in plain English, with real stories and key points to remember.',
           },
           {
             step: '03',
-            title: 'Verify with Interactive Quizzes',
-            desc: 'Check your comprehension immediately. Review answer rationales grounded in the official Indian Constitution and statutes.',
+            title: 'Test What You Learned',
+            desc: 'Check your knowledge with quick quizzes and see clear explanations for every answer.',
           },
           {
             step: '04',
-            title: 'Return to Primary Sources',
-            desc: 'Always cross-reference with the Constitution reader and Legal Library. Understand the actual text that powers your rights.',
+            title: 'Check the Official Law',
+            desc: 'You can always read the official articles in our Constitution reader and Legal Library.',
           },
         ].map((item) => (
           <article className="card simple-step-item" key={item.step}>
@@ -73,7 +73,7 @@ export function HowItWorksPage() {
 
       <div className="simple-page-cta">
         <ButtonLink to="/learn" variant="gold">
-          <span>Explore the curriculum now</span>
+          <span>Explore courses now</span>
           <ArrowRight size={17} aria-hidden="true" />
         </ButtonLink>
       </div>
@@ -84,7 +84,7 @@ export function HowItWorksPage() {
 export function AboutPage() {
   usePageMeta({
     title: 'About Samvidhan',
-    description: 'The mission, design ethos, and brand identity of Samvidhan.',
+    description: 'The mission and principles of Samvidhan.',
     path: '/about',
   })
 
@@ -92,18 +92,18 @@ export function AboutPage() {
     <div className="container page-hero reading-layout">
       <div className="simple-page-header">
         <p className="kicker">About the Project</p>
-        <h1>A Serious Civic Education Platform</h1>
+        <h1>Our Mission</h1>
         <p className="simple-page-subtitle">
-          Democratizing understanding of Indian constitutional law and practical rights through clarity, typography, and verifiable sources.
+          Helping everyone understand the Constitution of India and their everyday rights in simple, clear English.
         </p>
       </div>
 
       <div className="reading">
         <p>
-          Law in India is frequently perceived as an impenetrable maze of archaic language, complex gazettes, and intimidating court procedures. As a consequence, ordinary citizens often do not know their basic rights when interacting with authorities, signing agreements, or resolving civil disputes.
+          Indian law can often feel complicated and hard to read, with long words and confusing court procedures. Because of this, many people do not know their basic rights when talking to police, signing rent agreements, or solving daily problems.
         </p>
         <p>
-          <strong>Samvidhan</strong> exists to bridge this divide. It provides students, educators, and everyday citizens with clear, structured explanations of the Constitution, Fundamental Rights, Directive Principles, and common statutory frameworks — always maintaining direct sight of official authoritative sources.
+          <strong>Samvidhan</strong> was built to change that. We give students, workers, and everyday citizens clear, friendly explanations of the Constitution and Indian laws, with references to the official legal texts.
         </p>
 
         <h2>Brand & Identity System</h2>
@@ -112,16 +112,16 @@ export function AboutPage() {
           <div className="brand-panel-text">
             <h3 className="brand-panel-title">Concept A: The Scales & The Book</h3>
             <p className="brand-panel-desc">
-              The primary visual identity pairs the classic scales of justice with the open volume of the Indian Constitution, executed in Imperial Gold and Sovereign Navy.
+              Our visual identity pairs the classic scales of justice with the open volume of the Indian Constitution, executed in Imperial Gold and Sovereign Navy.
             </p>
           </div>
         </div>
 
         <h2>Core Guiding Principles</h2>
         <ul>
-          <li><strong>Clarity Over Jargon:</strong> Plain language explanations without compromising statutory precision.</li>
-          <li><strong>Source Provenance:</strong> Grounding every legal concept in specific Articles, Acts, or landmark judgments.</li>
-          <li><strong>Responsible Demonstrations:</strong> Clearly labelling AI features as educational simulations — never fabricating case citations or pretending to offer formal legal advice.</li>
+          <li><strong>Simple Words:</strong> Clear explanations without confusing legal jargon.</li>
+          <li><strong>Based on Real Law:</strong> Every lesson connects to real Articles, Acts, and court rulings.</li>
+          <li><strong>Safe & Helpful:</strong> Friendly learning tools designed to teach you your rights, not to replace a lawyer.</li>
         </ul>
       </div>
     </div>
@@ -324,27 +324,27 @@ export function DisclaimerPage() {
 
   return (
     <div className="container page-hero reading-layout">
-      <p className="kicker">Essential Notice</p>
+      <p className="kicker">Important Notice</p>
       <h1>Educational Disclaimer</h1>
 
       <div className="banner warn disclaimer-banner-wrap">
         <ShieldAlert size={24} aria-hidden="true" />
         <div>
           <strong className="disclaimer-heading-badge">
-            Not Legal Advice • Educational Literacy Only
+            Educational Platform • Not Legal Advice
           </strong>
           <span>
-            Samvidhan is an educational platform and not a law firm. Nothing on this website constitutes legal counsel, legal representation, or the creation of an attorney-client relationship.
+            Samvidhan is a free learning website and not a law firm. The information here is to help you learn your rights, not to give formal legal advice or represent you in court.
           </span>
         </div>
       </div>
 
       <div className="reading">
         <p>
-          Indian law is dynamic and subject to ongoing judicial interpretation, legislative amendments, and jurisdictional rules. The lessons, checklists, summaries, and responses from Ask Samvidhan are simplified explanations intended solely for civic literacy.
+          Laws can change over time through new court decisions and government amendments. The lessons, checklists, and guides on Samvidhan are simplified explanations to help citizens learn about the law.
         </p>
         <p>
-          If you are facing an active legal dispute, criminal investigation, consumer grievance, or property transaction, you must consult a qualified advocate licensed to practice law in your jurisdiction and verify the current provisions in the Official Gazette of India.
+          If you are facing an urgent legal problem, police investigation, or court case, please consult a licensed lawyer (advocate) for personal advice.
         </p>
 
         <h2>Frequently Asked Questions</h2>
@@ -382,10 +382,10 @@ export function NotFoundPage() {
       </div>
       <p className="kicker">Error 404</p>
       <h1 className="not-found-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '2.4rem', margin: '0.25rem 0 0.75rem' }}>
-        This Article or Page Has Wandered Off
+        We Couldn&apos;t Find That Page
       </h1>
       <p className="not-found-text" style={{ fontSize: '1.05rem', color: '#94A3B8', margin: '0 0 1.75rem' }}>
-        We couldn&apos;t locate the statutory provision or page you were looking for. Search the catalogue below or explore one of our popular constitutional modules.
+        We could not find the page or article you were looking for. Search below or pick a popular topic.
       </p>
 
       {/* Inline Search Box */}
@@ -445,10 +445,10 @@ export function ServerErrorPage({ error, onReload }: { error?: string; onReload?
       </div>
       <p className="kicker">Status 500</p>
       <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.3rem', margin: '0.25rem 0 0.75rem' }}>
-        Temporary Server Interruption
+        Something Went Wrong
       </h1>
       <p className="muted" style={{ fontSize: '1.05rem', margin: '0 0 1.5rem' }}>
-        Our systems encountered an unexpected condition while verifying this statutory data. Your local learner progress is preserved safely.
+        We ran into a small problem loading this page. Please try reloading. Your learning progress is saved safely.
       </p>
 
       {error && (
