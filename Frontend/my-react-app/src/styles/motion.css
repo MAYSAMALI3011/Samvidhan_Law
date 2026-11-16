@@ -799,6 +799,11 @@
 [data-theme='light'] .constitution-quick-input-wrap input {
   background: #f8fafc;
   border-color: rgba(176, 141, 87, 0.4);
+  color: #0f172a;
+}
+
+[data-theme='light'] .constitution-quick-input-wrap input::placeholder {
+  color: #64748b;
 }
 
 .constitution-pills-row {
@@ -825,6 +830,7 @@
 [data-theme='light'] .constitution-article-pill {
   background: #f1f5f9;
   border-color: #e2e8f0;
+  color: #1e293b;
 }
 
 .constitution-article-pill:hover {

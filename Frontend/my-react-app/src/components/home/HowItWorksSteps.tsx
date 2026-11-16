@@ -176,7 +176,7 @@ export function HowItWorksSteps() {
                 cx="28"
                 cy="28"
                 r="22"
-                stroke="rgba(255, 255, 255, 0.1)"
+                stroke="var(--border-subtle, rgba(176, 141, 87, 0.2))"
                 strokeWidth="5"
                 fill="none"
               />

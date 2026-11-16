@@ -1046,6 +1046,25 @@
   color: #f8fafc;
 }
 
+[data-theme='light'] .profile-menu-trigger {
+  background: rgba(10, 22, 40, 0.05) !important;
+  border-color: rgba(176, 141, 87, 0.35) !important;
+  color: #0f172a !important;
+}
+
+[data-theme='light'] .profile-menu-trigger:hover {
+  background: rgba(10, 22, 40, 0.08) !important;
+  border-color: #825e24 !important;
+}
+
+[data-theme='light'] .profile-name-preview {
+  color: #0f172a !important;
+}
+
+[data-theme='light'] .profile-chevron {
+  color: #475569 !important;
+}
+
 .profile-chevron {
   color: #cbd5e1;
   transition: transform var(--transition-fast);
@@ -2583,16 +2602,107 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Trust Marquee in Light Mode */
-[data-theme='light'] .trust-marquee-name {
-  color: #0f172a !important;
+/* Home Hero Dark Navy Consistency in Light Mode */
+.home-hero .hero-codex-card,
+[data-theme='light'] .home-hero .hero-codex-card,
+.home-hero .hero-quotes-only-card,
+[data-theme='light'] .home-hero .hero-quotes-only-card {
+  background: linear-gradient(155deg, rgba(15, 29, 51, 0.96) 0%, rgba(10, 22, 40, 0.98) 100%) !important;
+  border: 1px solid rgba(176, 141, 87, 0.38) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(176, 141, 87, 0.12) !important;
+  color: #f8fafc !important;
 }
 
-[data-theme='light'] .trust-marquee-detail {
-  color: #475569 !important;
+.home-hero .hero-quotes-only-card .codex-quote-text,
+[data-theme='light'] .home-hero .hero-quotes-only-card .codex-quote-text {
+  color: #f8fafc !important;
 }
 
-[data-theme='light'] .trust-marquee-dot {
+.home-hero .hero-quotes-only-card .codex-author-name,
+[data-theme='light'] .home-hero .hero-quotes-only-card .codex-author-name {
+  color: #f8fafc !important;
+}
+
+.home-hero .hero-quotes-only-card .codex-author-date,
+[data-theme='light'] .home-hero .hero-quotes-only-card .codex-author-date {
+  color: #cbd5e1 !important;
+}
+
+.home-hero .hero-quotes-only-card .codex-author-role,
+[data-theme='light'] .home-hero .hero-quotes-only-card .codex-author-role {
+  color: #dfba73 !important;
+}
+
+.home-hero .hero-quotes-only-card .codex-cad-badge,
+[data-theme='light'] .home-hero .hero-quotes-only-card .codex-cad-badge {
+  background: rgba(176, 141, 87, 0.15) !important;
+  border-color: rgba(176, 141, 87, 0.4) !important;
+  color: #dfba73 !important;
+}
+
+.home-hero .hero-quotes-only-card .codex-arrow-btn,
+[data-theme='light'] .home-hero .hero-quotes-only-card .codex-arrow-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(176, 141, 87, 0.35) !important;
+  color: #dfba73 !important;
+}
+
+.home-hero .hero-quotes-only-card .codex-dot,
+[data-theme='light'] .home-hero .hero-quotes-only-card .codex-dot {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+
+.home-hero .hero-quotes-only-card .codex-dot.is-active,
+[data-theme='light'] .home-hero .hero-quotes-only-card .codex-dot.is-active {
+  background: #dfba73 !important;
+}
+
+/* Hero Mascot Companion Box on Dark Hero */
+.home-hero .hero-mascot-interactive-box,
+[data-theme='light'] .home-hero .hero-mascot-interactive-box {
+  background: rgba(15, 29, 51, 0.9) !important;
+  border: 1px solid rgba(176, 141, 87, 0.4) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+  color: #f8fafc !important;
+}
+
+.home-hero .hero-mascot-speech-text,
+[data-theme='light'] .home-hero .hero-mascot-speech-text {
+  color: #f8fafc !important;
+}
+
+.home-hero .hero-mascot-quick-btn,
+[data-theme='light'] .home-hero .hero-mascot-quick-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(176, 141, 87, 0.35) !important;
+  color: #f8fafc !important;
+}
+
+.home-hero .hero-mascot-quick-btn:hover,
+[data-theme='light'] .home-hero .hero-mascot-quick-btn:hover {
+  background: rgba(176, 141, 87, 0.22) !important;
+  border-color: #dfba73 !important;
+  color: #ffffff !important;
+}
+
+/* Trust Marquee in Dark Hero (Bright text for dark background in all themes) */
+.home-hero .trust-marquee-name,
+[data-theme='light'] .home-hero .trust-marquee-name {
+  color: #f8fafc !important;
+}
+
+.home-hero .trust-marquee-detail,
+[data-theme='light'] .home-hero .trust-marquee-detail {
+  color: #cbd5e1 !important;
+}
+
+.home-hero .trust-marquee-icon,
+[data-theme='light'] .home-hero .trust-marquee-icon {
+  color: #dfba73 !important;
+}
+
+.home-hero .trust-marquee-dot,
+[data-theme='light'] .home-hero .trust-marquee-dot {
   color: rgba(176, 141, 87, 0.6) !important;
 }
 
@@ -2610,4 +2720,183 @@
 
 [data-theme='dark'] .section-eyebrow {
   color: #f2d499 !important;
+}
+
+/* ==========================================================================
+   ASK SAMVIDHAN PREVIEW CARD (LIGHT & DARK DUAL THEME)
+   ========================================================================== */
+.ask-preview-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 2rem;
+  align-items: center;
+  border-radius: 20px;
+  padding: 2.25rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(20, 30, 48, 0.94));
+  border: 1px solid rgba(176, 141, 87, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(176, 141, 87, 0.08);
+  transition: all var(--dur-normal, 0.25s) ease;
+}
+
+[data-theme='light'] .ask-preview-grid-container {
+  background: #ffffff !important;
+  border: 1.5px solid rgba(176, 141, 87, 0.38) !important;
+  box-shadow: 0 12px 36px rgba(10, 22, 40, 0.08) !important;
+}
+
+.ask-preview-section .section-title {
+  color: #ffffff;
+}
+
+[data-theme='light'] .ask-preview-section .section-title {
+  color: #0f172a !important;
+}
+
+.ask-preview-section .section-desc {
+  color: #cbd5e1;
+}
+
+[data-theme='light'] .ask-preview-section .section-desc {
+  color: #334155 !important;
+}
+
+.ask-preview-trust-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.75rem;
+}
+
+.ask-preview-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+}
+
+[data-theme='light'] .ask-preview-trust-item {
+  color: #334155 !important;
+}
+
+.ask-preview-chat-card {
+  border-radius: 16px;
+  padding: 1.5rem;
+  background: rgba(10, 15, 26, 0.78);
+  border: 1px solid rgba(176, 141, 87, 0.28);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: all var(--dur-normal, 0.25s) ease;
+}
+
+[data-theme='light'] .ask-preview-chat-card {
+  background: #f8fafc !important;
+  border: 1.5px solid rgba(176, 141, 87, 0.3) !important;
+  box-shadow: 0 4px 18px rgba(10, 22, 40, 0.06) !important;
+}
+
+.ask-preview-user-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.25rem;
+}
+
+.ask-preview-user-bubble {
+  border-radius: 12px 12px 2px 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  max-width: 85%;
+  background: rgba(176, 141, 87, 0.2);
+  border: 1px solid rgba(176, 141, 87, 0.4);
+  color: #ffffff;
+}
+
+[data-theme='light'] .ask-preview-user-bubble {
+  background: #faf5eb !important;
+  border: 1.5px solid rgba(176, 141, 87, 0.45) !important;
+  color: #0f172a !important;
+  font-weight: 500;
+}
+
+.ask-preview-assistant-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.ask-preview-bot-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gold, #dfba73);
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.ask-preview-assistant-bubble {
+  border-radius: 2px 12px 12px 12px;
+  padding: 0.85rem 1rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+[data-theme='light'] .ask-preview-assistant-bubble {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(10, 22, 40, 0.04) !important;
+}
+
+.ask-preview-assistant-lead {
+  margin: 0 0 0.65rem;
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+[data-theme='light'] .ask-preview-assistant-lead {
+  color: #0f172a !important;
+}
+
+.ask-preview-bullets {
+  margin: 0 0 0.85rem;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #cbd5e1;
+}
+
+[data-theme='light'] .ask-preview-bullets {
+  color: #334155 !important;
+}
+
+.ask-preview-citations-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ask-preview-citation-pill {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='light'] .ask-preview-citation-pill {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
 }

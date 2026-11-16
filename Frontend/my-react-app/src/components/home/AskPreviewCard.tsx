@@ -9,20 +9,8 @@ export function AskPreviewCard() {
       aria-labelledby="ask-preview-title"
       style={{ margin: '3.5rem auto' }}
     >
-      <div
-        className="ask-preview-grid-container"
-        style={{
-          background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(20, 30, 48, 0.85))',
-          border: '1px solid rgba(176, 141, 87, 0.35)',
-          borderRadius: '20px',
-          backdropFilter: 'blur(10px)',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-          gap: '2rem',
-          alignItems: 'center',
-        }}
-      >
-        <div>
+      <div className="ask-preview-grid-container samvidhan-glow-card">
+        <div className="ask-preview-content-col">
           <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
             <Sparkles size={13} className="text-gold" aria-hidden="true" />
             Smart Legal Helper
@@ -34,12 +22,12 @@ export function AskPreviewCard() {
             Ask any legal question in simple English. Samvidhan checks real laws, key court cases, and official guides to give you clear answers you can trust.
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginBottom: '1.75rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.86rem', color: '#cbd5e1' }}>
+          <div className="ask-preview-trust-list">
+            <div className="ask-preview-trust-item">
               <ShieldCheck size={16} className="text-gold" aria-hidden="true" />
               <span>Based on real Indian laws and Constitutional articles</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.86rem', color: '#cbd5e1' }}>
+            <div className="ask-preview-trust-item">
               <ShieldCheck size={16} className="text-gold" aria-hidden="true" />
               <span>No confusing words — clear explanations for everyone</span>
             </div>
@@ -53,79 +41,35 @@ export function AskPreviewCard() {
         </div>
 
         {/* Interactive Chat Simulation Card */}
-        <div
-          style={{
-            background: 'rgba(10, 15, 26, 0.75)',
-            border: '1px solid rgba(176, 141, 87, 0.25)',
-            borderRadius: '16px',
-            padding: '1.5rem',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
-          }}
-          aria-label="Sample interactive query preview"
-        >
+        <div className="ask-preview-chat-card" aria-label="Sample interactive query preview">
           {/* User Prompt */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.25rem' }}>
-            <div
-              style={{
-                background: 'rgba(176, 141, 87, 0.2)',
-                border: '1px solid rgba(176, 141, 87, 0.4)',
-                borderRadius: '12px 12px 2px 12px',
-                padding: '0.75rem 1rem',
-                fontSize: '0.88rem',
-                color: '#ffffff',
-                maxWidth: '85%',
-              }}
-            >
+          <div className="ask-preview-user-row">
+            <div className="ask-preview-user-bubble">
               &ldquo;What are my rights if stopped for questioning by police?&rdquo;
             </div>
           </div>
 
           {/* Assistant Grounded Answer */}
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-            <div
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                background: 'var(--gold, #dfba73)',
-                color: '#0f172a',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 700,
-                fontSize: '0.85rem',
-                flexShrink: 0,
-              }}
-            >
+          <div className="ask-preview-assistant-row">
+            <div className="ask-preview-bot-avatar" aria-hidden="true">
               S
             </div>
-            <div
-              style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '2px 12px 12px 12px',
-                padding: '0.85rem 1rem',
-                fontSize: '0.86rem',
-                lineHeight: 1.45,
-                color: '#cbd5e1',
-                flex: 1,
-              }}
-            >
-              <p style={{ margin: '0 0 0.65rem' }}>
+            <div className="ask-preview-assistant-bubble">
+              <p className="ask-preview-assistant-lead">
                 Under Indian law, you have clear rights when stopped or questioned by police:
               </p>
-              <ul style={{ margin: '0 0 0.85rem', paddingLeft: '1.2rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <ul className="ask-preview-bullets">
                 <li>You have the right to know the reason for your arrest right away.</li>
                 <li>You have the right to talk to a lawyer of your choice during questioning.</li>
                 <li>Women cannot be arrested after sunset and before sunrise without special permission from a judge.</li>
               </ul>
 
               {/* Citations Row */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              <div className="ask-preview-citations-row">
                 <span className="pill pill-gold" style={{ fontSize: '0.72rem', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                   <BookOpen size={11} aria-hidden="true" /> Art. 22(1) Constitution
                 </span>
-                <span className="pill" style={{ fontSize: '0.72rem', background: 'rgba(255, 255, 255, 0.1)', color: '#94a3b8' }}>
+                <span className="ask-preview-citation-pill">
                   Section 41D CrPC / BNSS
                 </span>
               </div>
