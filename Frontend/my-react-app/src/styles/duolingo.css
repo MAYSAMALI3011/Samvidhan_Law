@@ -329,6 +329,15 @@
     max-width: 140px;
     height: auto;
   }
+  [data-theme='light'] .floating-navbar-container {
+    background: rgba(255, 255, 255, 0.97) !important;
+    border-bottom: 1px solid rgba(176, 141, 87, 0.35) !important;
+  }
+  [data-theme='light'] .mobile-hamburger-btn {
+    background: rgba(10, 22, 40, 0.05) !important;
+    border: 1px solid rgba(176, 141, 87, 0.35) !important;
+    color: #0f172a !important;
+  }
 }
 
 /* Mobile Drawer Overlay */

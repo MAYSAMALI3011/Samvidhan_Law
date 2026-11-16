@@ -59,6 +59,12 @@ html[data-theme='light'] .ask-page-card {
   gap: 10px;
 }
 
+@media (max-width: 900px) {
+  .ask-samvidhan-launcher-root {
+    display: none !important;
+  }
+}
+
 .ask-unified-launcher-pill {
   display: inline-flex;
   align-items: center;

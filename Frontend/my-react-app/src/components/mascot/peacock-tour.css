@@ -372,10 +372,26 @@ html[data-theme='dark'] .trigger-badge,
   }
 }
 
+@media (max-width: 900px) {
+  .peacock-tour-backdrop-layer {
+    padding-bottom: calc(var(--tabbar-h, 60px) + var(--safe-bottom, 0px) + 16px) !important;
+  }
+  .peacock-tour-trigger-pill {
+    bottom: calc(var(--tabbar-h, 60px) + var(--safe-bottom, 0px) + 12px) !important;
+    left: 12px !important;
+  }
+}
+
+/* Dim mobile bottom nav when tour is active so it never collides or intercepts touches */
+body:has(.peacock-tour-backdrop-layer) .mobile-tab-bar {
+  opacity: 0.15;
+  pointer-events: none !important;
+}
+
 /* MOBILE ADAPTATION (No text flowing or overlapping) */
 @media (max-width: 640px) {
   .peacock-tour-backdrop-layer {
-    padding: 0.75rem;
+    padding: 0.75rem 0.75rem calc(var(--tabbar-h, 60px) + var(--safe-bottom, 0px) + 14px) 0.75rem !important;
   }
 
   .peacock-tour-modal-card {
@@ -383,7 +399,7 @@ html[data-theme='dark'] .trigger-badge,
     text-align: left;
     gap: 0.85rem;
     padding: 1rem 1rem 0.85rem;
-    max-height: 86vh;
+    max-height: calc(85vh - var(--tabbar-h, 60px));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     border-radius: 16px;
@@ -450,8 +466,8 @@ html[data-theme='dark'] .trigger-badge,
   }
 
   .peacock-tour-trigger-pill {
-    bottom: 1rem;
-    left: 1rem;
+    bottom: calc(var(--tabbar-h, 60px) + var(--safe-bottom, 0px) + 14px) !important;
+    left: 14px !important;
     padding: 5px 12px 5px 6px;
   }
 }

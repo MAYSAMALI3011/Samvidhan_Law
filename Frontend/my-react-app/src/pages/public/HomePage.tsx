@@ -50,9 +50,6 @@ export function HomePage() {
               Know your rights. <span className="hero-title-italic">Understand the law.</span>
             </h1>
 
-            {/* Interactive Mascot Companion with Live Speech Bubble & Direct Action Chips */}
-            <HeroMascotCompanion />
-
             <p className="hero-subtitle">
               An easy, step-by-step way to learn the Constitution of India, your everyday citizen rights, and what to do when you need the law.
             </p>
@@ -75,6 +72,9 @@ export function HomePage() {
                 <span>Browse Constitution</span>
               </Link>
             </div>
+
+            {/* Interactive Mascot Companion with Live Speech Bubble & Direct Action Chips */}
+            <HeroMascotCompanion />
 
             <div className="hero-trust-row" aria-label="Key platform assurances">
               <div className="hero-trust-item">
