@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Mor, type MorMood } from './Mor'
-import { ArrowRight, ArrowLeft, X, Sparkles, CheckCircle2, Compass } from 'lucide-react'
+import { ArrowRight, ArrowLeft, X, Sparkles, CheckCircle2 } from 'lucide-react'
 import { useAppState } from '../../context/useAppState'
 import './peacock-tour.css'
 
@@ -194,30 +194,7 @@ export function PeacockTour() {
 
   return (
     <>
-      {/* 1. Persistent Floating Pill (Bottom-Left) for users who want to replay anytime */}
-      {!isOpen && (
-        <button
-          type="button"
-          className="peacock-tour-trigger-pill"
-          onClick={() => {
-            setCurrentStep(0)
-            setIsOpen(true)
-          }}
-          title="Take a 1-minute guided tour with Mor the Peacock"
-          aria-label="Take a 1-minute guided tour with Mor the Peacock"
-        >
-          <div className="trigger-avatar-wrap">
-            <Mor mood="wave" size={32} animate decorative />
-          </div>
-          <div className="trigger-text-wrap">
-            <span className="trigger-badge">Peacock Guide</span>
-            <span className="trigger-sub">1-Min Tour</span>
-          </div>
-          <Compass size={14} className="trigger-compass-icon text-gold" aria-hidden="true" />
-        </button>
-      )}
-
-      {/* 2. The Interactive Tour Overlay & Modal */}
+      {/* The Interactive Tour Overlay & Modal */}
       {isOpen && activeStep && (
         <div
           className="peacock-tour-backdrop-layer"
